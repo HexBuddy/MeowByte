@@ -19,3 +19,5 @@
   * [Using the Metasploit Framework](cpts-prep/official-modules/using-the-metasploit-framework.md)
   * [Password attacks](cpts-prep/official-modules/password-attacks.md)
   * [Attacking Common Services](cpts-prep/official-modules/attacking-common-services.md)
+  * [Pivoting, Tunneling, and Port Forwarding](cpts-prep/official-modules/pivoting-tunneling-and-port-forwarding.md)
+  * [Active Directory Enumeration & Attacks](cpts-prep/official-modules/active-directory-enumeration-and-attacks.md)
