@@ -26,3 +26,4 @@
   * [Login Brute Forcing](cpts-prep/official-modules/login-brute-forcing.md)
   * [SQL Injection Fundamentals](cpts-prep/official-modules/sql-injection-fundamentals.md)
   * [SQLMap Essentials](cpts-prep/official-modules/sqlmap-essentials.md)
+  * [Page](cpts-prep/official-modules/page.md)
