@@ -30,3 +30,6 @@
   * [File inclusion](cpts-prep/official-modules/file-inclusion.md)
   * [File Upload Attacks](cpts-prep/official-modules/file-upload-attacks.md)
   * [Command Injections](cpts-prep/official-modules/command-injections.md)
+  * [Web Attacks](cpts-prep/official-modules/web-attacks.md)
+  * [Attacking Common Applications](cpts-prep/official-modules/attacking-common-applications.md)
+  * [Page](cpts-prep/official-modules/page.md)
