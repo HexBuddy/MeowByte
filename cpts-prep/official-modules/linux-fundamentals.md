@@ -134,23 +134,17 @@ The bash prompt is easy to understand and, by default, includes information such
 
 It can be customized to provide useful information to the user. The format can look something like this:
 
-Prompt Description
-
 ```shell-session
 <username>@<hostname><current working directory>$
 ```
 
 The home directory for a user is marked with a tilde <`~`> and is the default folder when we log in.
 
-Prompt Description
-
 ```shell-session
 <username>@<hostname>[~]$
 ```
 
 The dollar sign, in this case, stands for a user. As soon as we log in as `root`, the character changes to a `hash` <`#`> and looks like this:
-
-Prompt Description
 
 ```shell-session
 root@htb[/htb]#
@@ -184,20 +178,16 @@ We will always stumble across tools whose optional parameters we do not know fro
 
 **Syntax:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man <tool>
+root@htb[/htb]$ man <tool>
 ```
 
 Let us have a look at an example:
 
 **Example:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man curl
+root@htb[/htb]$ man curl
 ```
 
 &#x20; Getting Help
@@ -227,18 +217,14 @@ After looking at some examples, we can also quickly look at the optional paramet
 
 **Syntax:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ <tool> --help
+root@htb[/htb]$ <tool> --help
 ```
 
 **Example:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl --help
+root@htb[/htb]$ curl --help
 
 Usage: curl [options...] <url>
      --abstract-unix-socket <path> Connect via abstract Unix domain socket
@@ -255,18 +241,14 @@ We can also use the short version of it:
 
 **Syntax:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ <tool> -h
+root@htb[/htb]$ <tool> -h
 ```
 
 **Example:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -h
+root@htb[/htb]$ curl -h
 
 Usage: curl [options...] <url>
      --abstract-unix-socket <path> Connect via abstract Unix domain socket
@@ -283,18 +265,14 @@ As we can see, the results from each other do not differ in this example. Anothe
 
 **Syntax:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apropos <keyword>
+root@htb[/htb]$ apropos <keyword>
 ```
 
 **Example:**
 
-&#x20; Getting Help
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apropos sudo
+root@htb[/htb]$ apropos sudo
 
 sudo (8)             - execute a command as another user
 sudo.conf (5)        - configuration for sudo front end
@@ -323,10 +301,8 @@ Let us look at a few examples.
 
 The `hostname` command is pretty self-explanatory and will just print the name of the computer that we are logged into
 
-System Information
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hostname
+root@htb[/htb]$ hostname
 
 nixfund
 ```
@@ -334,8 +310,6 @@ nixfund
 **Whoami**
 
 This quick and easy command can be used on both Windows and Linux systems to get our current username. During a security assessment, we obtain reverse shell access on a host, and one of the first bits of situational awareness we should do is figuring out what user we are running as. From there, we can figure out if the user has any special privileges/access.
-
-System Information
 
 ```shell-session
 cry0l1t3@htb[/htb]$ whoami
@@ -347,8 +321,6 @@ cry0l1t3
 
 The `id` command expands on the `whoami` command and prints out our effective group membership and IDs. This can be of interest to penetration testers looking to see what access a user may have and sysadmins looking to audit account permissions and group membership. In this output, the `hackthebox` group is of interest because it is non-standard, the `adm` group means that the user can read log files in `/var/log` and could potentially gain access to sensitive information, membership in the `sudo` group is of particular interest as this means our user can run some or all commands as the all-powerful `root` user. Sudo rights could help us escalate privileges or could be a sign to a sysadmin that they may need to audit permissions and group memberships to remove any access that is not required for a given user to carry out their day-to-day tasks.
 
-System Information
-
 ```shell-session
 cry0l1t3@htb[/htb]$ id
 
@@ -357,9 +329,7 @@ uid=1000(cry0l1t3) gid=1000(cry0l1t3) groups=1000(cry0l1t3),1337(hackthebox),4(a
 
 **Uname**
 
-Let's dig into the `uname` command a bit more. If we type `man uname` in our terminal, we will bring up the man page for the command, which will show the possible options we can run with the command and the results.
-
-System Information
+Let's dig into the `uname` command a bit more. If we type `man uname` in our terminal, we will bring up the man page for the command, which will show the possible options we can run with the command and the results
 
 ```shell-session
 
@@ -403,8 +373,6 @@ DESCRIPTION
 
 Running `uname -a` will print all information about the machine in a specific order: kernel name, hostname, the kernel release, kernel version, machine hardware name, and operating system. The `-a` flag will omit `-p` (processor type) and `-i` (hardware platform) if they are unknown.
 
-System Information
-
 ```shell-session
 cry0l1t3@htb[/htb]$ uname -a
 
@@ -416,8 +384,6 @@ From the above command, we can see that the kernel name is `Linux`, the hostname
 **Uname to Obtain Kernel Release**
 
 Suppose we want to print out the kernel release to search for potential kernel exploits quickly. We can type `uname -r` to obtain this information.
-
-System Information
 
 ```shell-session
 cry0l1t3@htb[/htb]$ uname -r
@@ -437,10 +403,8 @@ It is highly recommended to study the commands and understand what they are for 
 
 **SSH Login**
 
-System Information
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh [username]@[IP address]
+root@htb[/htb]$ ssh [username]@[IP address]
 ```
 
 
@@ -632,34 +596,26 @@ In this example, we name the file `info.txt` and the directory `Storage`. To cre
 
 **Create an Empty File**
 
-Working with Files and Directories
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ touch info.txt
+root@htb[/htb]$ touch info.txt
 ```
 
 **Create a Directory**
 
-Working with Files and Directories
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir Storage
+root@htb[/htb]$ mkdir Storage
 ```
 
 We may want to have specific directories in the directory, and it would be very time-consuming to create this command for every single directory. The command `mkdir` has an option marked `-p` to add parent directories.
 
-Working with Files and Directories
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir -p Storage/local/user/documents
+root@htb[/htb]$ mkdir -p Storage/local/user/documents
 ```
 
 We can look at the whole structure after creating the parent directories with the tool `tree`.
 
-Working with Files and Directories
-
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ tree .
 
 .
 ├── info.txt
