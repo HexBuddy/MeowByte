@@ -8,7 +8,7 @@
 
 ## 📚 CPTS Prep
 
-* [Official Modules ](cpts-prep/official-modules/README.md)
+* [Official Modules](cpts-prep/official-modules/README.md)
   * [Linux Fundamentals](cpts-prep/official-modules/linux-fundamentals.md)
   * [Network Enumeration with Nmap](cpts-prep/official-modules/network-enumeration-with-nmap.md)
   * [Footprinting](cpts-prep/official-modules/footprinting.md)
@@ -18,3 +18,4 @@
   * [Shells & Payloads](cpts-prep/official-modules/shells-and-payloads.md)
   * [Using the Metasploit Framework](cpts-prep/official-modules/using-the-metasploit-framework.md)
   * [Password attacks](cpts-prep/official-modules/password-attacks.md)
+  * [Attacking Common Services](cpts-prep/official-modules/attacking-common-services.md)
