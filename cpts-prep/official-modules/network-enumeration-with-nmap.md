@@ -132,7 +132,7 @@ The syntax for Nmap is fairly simple and looks like this:
 &#x20; Introduction to Nmap
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap <scan types> <options> <target>
+root@htb[/htb]$ nmap <scan types> <options> <target>
 ```
 
 ***
@@ -144,7 +144,7 @@ Nmap offers many different scanning techniques, making different types of connec
 &#x20; Introduction to Nmap
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap --help
+root@htb[/htb]$ nmap --help
 
 <SNIP>
 SCAN TECHNIQUES:
@@ -170,7 +170,7 @@ Let us take an example of such a scan.
 &#x20; Introduction to Nmap
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sS localhost
+root@htb[/htb]$ sudo nmap -sS localhost
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-11 22:50 UTC
 Nmap scan report for localhost (127.0.0.1)
@@ -402,7 +402,7 @@ By default, `Nmap` scans the top 1000 TCP ports with the SYN scan (`-sS`). This 
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 --top-ports=10 
+root@htb[/htb]$ sudo nmap 10.129.2.28 --top-ports=10 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:36 CEST
 Nmap scan report for 10.129.2.28
@@ -438,7 +438,7 @@ We see that we only scanned the top 10 TCP ports of our target, and `Nmap` displ
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:39 CEST
 SENT (0.0429s) TCP 10.10.14.2:63090 > 10.129.2.28:21 S ttl=56 id=57322 iplen=44  seq=1699105818 win=1024 <mss 1460>
@@ -500,7 +500,7 @@ It is also useful when the target host has a personal firewall that drops incomi
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:26 CET
 CONN (0.0385s) TCP localhost > 10.129.2.28:443 => Operation now in progress
@@ -525,7 +525,7 @@ Let us look at an example where the firewall `drops` the TCP packets we send for
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:45 CEST
 SENT (0.0381s) TCP 10.10.14.2:60277 > 10.129.2.28:139 S ttl=47 id=14523 iplen=44  seq=4175236769 win=1024 <mss 1460>
@@ -556,7 +556,7 @@ We see in the last scan that `Nmap` sent two TCP packets with the SYN flag. By t
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 445 --packet-trace -n --disable-arp-ping -Pn
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 445 --packet-trace -n --disable-arp-ping -Pn
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:55 CEST
 SENT (0.0388s) TCP 10.129.2.28:52472 > 10.129.2.28:445 S ttl=49 id=21763 iplen=44  seq=1418633433 win=1024 <mss 1460>
@@ -595,7 +595,7 @@ Let's look at an example of what a UDP scan (`-sU`) can look like and what resul
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -F -sU
+root@htb[/htb]$ sudo nmap 10.129.2.28 -F -sU
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:01 CEST
 Nmap scan report for 10.129.2.28
@@ -625,7 +625,7 @@ Another disadvantage of this is that we often do not get a response back because
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:15 CEST
 SENT (0.0367s) UDP 10.10.14.2:55478 > 10.129.2.28:137 ttl=57 id=9122 iplen=78
@@ -658,7 +658,7 @@ If we get an ICMP response with `error code 3` (port unreachable), we know that 
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 100 --reason 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 100 --reason 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:25 CEST
 SENT (0.0445s) UDP 10.10.14.2:63825 > 10.129.2.28:100 ttl=57 id=29925 iplen=28
@@ -691,7 +691,7 @@ For all other ICMP responses, the scanned ports are marked as (`open|filtered`).
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 138 --reason 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 138 --reason 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:32 CEST
 SENT (0.0380s) UDP 10.10.14.2:52341 > 10.129.2.28:138 ttl=50 id=65159 iplen=28
@@ -724,7 +724,7 @@ Another handy method for scanning ports is the `-sV` option which is used to get
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
+root@htb[/htb]$ sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2022-11-04 11:10 GMT
 SENT (0.3426s) TCP 10.10.14.2:44641 > 10.129.2.28:445 S ttl=55 id=43401 iplen=44  seq=3589068008 win=1024 <mss 1460>
@@ -781,7 +781,7 @@ It is always recommended to store every single scan. This can later be used for 
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
 
 10.129.2.4
 10.129.2.10
@@ -811,7 +811,7 @@ Such a list could look something like this:
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat hosts.lst
+root@htb[/htb]$ cat hosts.lst
 
 10.129.2.4
 10.129.2.10
@@ -827,7 +827,7 @@ If we use the same scanning technique on the predefined list, the command will l
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d" " -f5
+root@htb[/htb]$ sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d" " -f5
 
 10.129.2.18
 10.129.2.19
@@ -851,7 +851,7 @@ It can also happen that we only need to scan a small part of a network. An alter
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18 10.129.2.19 10.129.2.20| grep for | cut -d" " -f5
+root@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18 10.129.2.19 10.129.2.20| grep for | cut -d" " -f5
 
 10.129.2.18
 10.129.2.19
@@ -863,7 +863,7 @@ If these IP addresses are next to each other, we can also define the range in th
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18-20| grep for | cut -d" " -f5
+root@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18-20| grep for | cut -d" " -f5
 
 10.129.2.18
 10.129.2.19
@@ -879,7 +879,7 @@ Before we scan a single host for open ports and its services, we first have to d
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host 
+root@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-14 23:59 CEST
 Nmap scan report for 10.129.2.18
@@ -899,7 +899,7 @@ If we disable port scan (`-sn`), Nmap automatically ping scan with `ICMP Echo Re
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace 
+root@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:08 CEST
 SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
@@ -925,7 +925,7 @@ Another way to determine why Nmap has our target marked as "alive" is with the "
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --reason 
+root@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --reason 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:10 CEST
 SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
@@ -951,7 +951,7 @@ We see here that `Nmap` does indeed detect whether the host is alive or not thro
 &#x20; Host Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping 
+root@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:12 CEST
 SENT (0.0107s) ICMP [10.10.14.2 > 10.129.2.18 Echo request (type=8/code=0) id=13607 seq=0] IP [ttl=255 id=23541 iplen=28 ]
@@ -1001,7 +1001,7 @@ By default, `Nmap` scans the top 1000 TCP ports with the SYN scan (`-sS`). This 
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 --top-ports=10 
+root@htb[/htb]$ sudo nmap 10.129.2.28 --top-ports=10 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:36 CEST
 Nmap scan report for 10.129.2.28
@@ -1037,7 +1037,7 @@ We see that we only scanned the top 10 TCP ports of our target, and `Nmap` displ
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:39 CEST
 SENT (0.0429s) TCP 10.10.14.2:63090 > 10.129.2.28:21 S ttl=56 id=57322 iplen=44  seq=1699105818 win=1024 <mss 1460>
@@ -1099,7 +1099,7 @@ It is also useful when the target host has a personal firewall that drops incomi
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:26 CET
 CONN (0.0385s) TCP localhost > 10.129.2.28:443 => Operation now in progress
@@ -1124,7 +1124,7 @@ Let us look at an example where the firewall `drops` the TCP packets we send for
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:45 CEST
 SENT (0.0381s) TCP 10.10.14.2:60277 > 10.129.2.28:139 S ttl=47 id=14523 iplen=44  seq=4175236769 win=1024 <mss 1460>
@@ -1155,7 +1155,7 @@ We see in the last scan that `Nmap` sent two TCP packets with the SYN flag. By t
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 445 --packet-trace -n --disable-arp-ping -Pn
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 445 --packet-trace -n --disable-arp-ping -Pn
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:55 CEST
 SENT (0.0388s) TCP 10.129.2.28:52472 > 10.129.2.28:445 S ttl=49 id=21763 iplen=44  seq=1418633433 win=1024 <mss 1460>
@@ -1194,7 +1194,7 @@ Let's look at an example of what a UDP scan (`-sU`) can look like and what resul
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -F -sU
+root@htb[/htb]$ sudo nmap 10.129.2.28 -F -sU
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:01 CEST
 Nmap scan report for 10.129.2.28
@@ -1224,7 +1224,7 @@ Another disadvantage of this is that we often do not get a response back because
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:15 CEST
 SENT (0.0367s) UDP 10.10.14.2:55478 > 10.129.2.28:137 ttl=57 id=9122 iplen=78
@@ -1257,7 +1257,7 @@ If we get an ICMP response with `error code 3` (port unreachable), we know that 
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 100 --reason 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 100 --reason 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:25 CEST
 SENT (0.0445s) UDP 10.10.14.2:63825 > 10.129.2.28:100 ttl=57 id=29925 iplen=28
@@ -1290,7 +1290,7 @@ For all other ICMP responses, the scanned ports are marked as (`open|filtered`).
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 138 --reason 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 138 --reason 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:32 CEST
 SENT (0.0380s) UDP 10.10.14.2:52341 > 10.129.2.28:138 ttl=50 id=65159 iplen=28
@@ -1323,7 +1323,7 @@ Another handy method for scanning ports is the `-sV` option which is used to get
 &#x20; Host and Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
+root@htb[/htb]$ sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2022-11-04 11:10 GMT
 SENT (0.3426s) TCP 10.10.14.2:44641 > 10.129.2.28:445 S ttl=55 id=43401 iplen=44  seq=3589068008 win=1024 <mss 1460>
@@ -1384,7 +1384,7 @@ We can also specify the option (`-oA`) to save the results in all formats. The c
 &#x20; Saving the Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p- -oA target
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p- -oA target
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 12:14 CEST
 Nmap scan report for 10.129.2.28
@@ -1406,7 +1406,7 @@ If no full path is given, the results will be stored in the directory we are cur
 &#x20; Saving the Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 target.gnmap target.xml  target.nmap
 ```
@@ -1416,7 +1416,7 @@ target.gnmap target.xml  target.nmap
 &#x20; Saving the Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat target.nmap
+root@htb[/htb]$ cat target.nmap
 
 # Nmap 7.80 scan initiated Tue Jun 16 12:14:53 2020 as: nmap -p- -oA target 10.129.2.28
 Nmap scan report for 10.129.2.28
@@ -1436,7 +1436,7 @@ MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
 &#x20; Saving the Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat target.gnmap
+root@htb[/htb]$ cat target.gnmap
 
 # Nmap 7.80 scan initiated Tue Jun 16 12:14:53 2020 as: nmap -p- -oA target 10.129.2.28
 Host: 10.129.2.28 ()	Status: Up
@@ -1449,7 +1449,7 @@ Host: 10.129.2.28 ()	Ports: 22/open/tcp//ssh///, 25/open/tcp//smtp///, 80/open/t
 &#x20; Saving the Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat target.xml
+root@htb[/htb]$ cat target.xml
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
@@ -1487,7 +1487,7 @@ With the XML output, we can easily create HTML reports that are easy to read, ev
 &#x20; Saving the Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xsltproc target.xml -o target.html
+root@htb[/htb]$ xsltproc target.xml -o target.html
 ```
 
 If we now open the HTML file in our browser, we see a clear and structured presentation of our results.
@@ -1517,7 +1517,7 @@ A full port scan takes quite a long time. To view the scan status, we can press 
 &#x20; Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 19:44 CEST
 [Space Bar]
@@ -1534,7 +1534,7 @@ Another option (`--stats-every=5s`) that we can use is defining how periods of t
 &#x20; Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV --stats-every=5s
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV --stats-every=5s
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 19:46 CEST
 Stats: 0:00:05 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
@@ -1552,7 +1552,7 @@ We can also increase the `verbosity level` (`-v` / `-vv`), which will show us th
 &#x20; Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV -v 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV -v 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 20:03 CEST
 NSE: Loaded 45 scripts for scanning.
@@ -1584,7 +1584,7 @@ Once the scan is complete, we will see all TCP ports with the corresponding serv
 &#x20; Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 20:00 CEST
 Nmap scan report for 10.129.2.28
@@ -1616,7 +1616,7 @@ Primarily, `Nmap` looks at the banners of the scanned ports and prints them out.
 &#x20; Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV -Pn -n --disable-arp-ping --packet-trace
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV -Pn -n --disable-arp-ping --packet-trace
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 20:10 CEST
 <SNIP>
@@ -1650,7 +1650,7 @@ Then we see that the SMTP server on our target gave us more information than `Nm
 &#x20; Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28
+root@htb[/htb]$ sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28
 
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
@@ -1661,7 +1661,7 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 &#x20; Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$  nc -nv 10.129.2.28 25
+root@htb[/htb]$  nc -nv 10.129.2.28 25
 
 Connection to 10.129.2.28 port 25 [tcp/*] succeeded!
 220 inlane ESMTP Postfix (Ubuntu)
@@ -1708,7 +1708,7 @@ We have several ways to define the desired scripts in `Nmap`.
 &#x20; Nmap Scripting Engine
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap <target> -sC
+root@htb[/htb]$ sudo nmap <target> -sC
 ```
 
 **Specific Scripts Category**
@@ -1716,7 +1716,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo nmap <target> -sC
 &#x20; Nmap Scripting Engine
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap <target> --script <category>
+root@htb[/htb]$ sudo nmap <target> --script <category>
 ```
 
 **Defined Scripts**
@@ -1724,7 +1724,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo nmap <target> --script <category>
 &#x20; Nmap Scripting Engine
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap <target> --script <script-name>,<script-name>,...
+root@htb[/htb]$ sudo nmap <target> --script <script-name>,<script-name>,...
 ```
 
 For example, let us keep working with the target SMTP port and see the results we get with two defined scripts.
@@ -1734,7 +1734,7 @@ For example, let us keep working with the target SMTP port and see the results w
 &#x20; Nmap Scripting Engine
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 25 --script banner,smtp-commands
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 25 --script banner,smtp-commands
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 23:21 CEST
 Nmap scan report for 10.129.2.28
@@ -1756,7 +1756,7 @@ We see that we can recognize the **Ubuntu** distribution of Linux by using the' 
 &#x20; Nmap Scripting Engine
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -A
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -A
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-17 01:38 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.012s latency).
@@ -1797,7 +1797,7 @@ Now let us move on to HTTP port 80 and see what information and vulnerabilities 
 &#x20; Nmap Scripting Engine
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -sV --script vuln 
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -sV --script vuln 
 
 Nmap scan report for 10.129.2.28
 Host is up (0.036s latency).
@@ -1851,7 +1851,7 @@ When Nmap sends a packet, it takes some time (`Round-Trip-Time` - `RTT`) to rece
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F
 
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 39.44 seconds
@@ -1862,7 +1862,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 39.44 seconds
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F --initial-rtt-timeout 50ms --max-rtt-timeout 100ms
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F --initial-rtt-timeout 50ms --max-rtt-timeout 100ms
 
 <SNIP>
 Nmap done: 256 IP addresses (8 hosts up) scanned in 12.29 seconds
@@ -1888,7 +1888,7 @@ Another way to increase the scans' speed is to specify the retry rate of the sen
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F | grep "/tcp" | wc -l
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F | grep "/tcp" | wc -l
 
 23
 ```
@@ -1898,7 +1898,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F | grep "/tcp" | wc -l
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F --max-retries 0 | grep "/tcp" | wc -l
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F --max-retries 0 | grep "/tcp" | wc -l
 
 21
 ```
@@ -1922,7 +1922,7 @@ During a white-box penetration test, we may get whitelisted for the security sys
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.default
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.default
 
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 29.83 seconds
@@ -1933,7 +1933,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 29.83 seconds
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.minrate300 --min-rate 300
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.minrate300 --min-rate 300
 
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 8.67 seconds
@@ -1953,7 +1953,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 8.67 seconds
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat tnet.default | grep "/tcp" | wc -l
+root@htb[/htb]$ cat tnet.default | grep "/tcp" | wc -l
 
 23
 ```
@@ -1963,7 +1963,7 @@ AbdulrahmanTamim@htb[/htb]$ cat tnet.default | grep "/tcp" | wc -l
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat tnet.minrate300 | grep "/tcp" | wc -l
+root@htb[/htb]$ cat tnet.minrate300 | grep "/tcp" | wc -l
 
 23
 ```
@@ -1988,7 +1988,7 @@ These templates contain options that we can also set manually, and have seen som
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.default 
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.default 
 
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 32.44 seconds
@@ -1999,7 +1999,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 32.44 seconds
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.T5 -T 5
+root@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.T5 -T 5
 
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 18.07 seconds
@@ -2019,7 +2019,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 18.07 seconds
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat tnet.default | grep "/tcp" | wc -l
+root@htb[/htb]$ cat tnet.default | grep "/tcp" | wc -l
 
 23
 ```
@@ -2029,7 +2029,7 @@ AbdulrahmanTamim@htb[/htb]$ cat tnet.default | grep "/tcp" | wc -l
 &#x20; Performance
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat tnet.T5 | grep "/tcp" | wc -l
+root@htb[/htb]$ cat tnet.T5 | grep "/tcp" | wc -l
 
 23
 ```
@@ -2088,7 +2088,7 @@ If we look at these scans, we will see how the results differ.
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 21,22,25 -sS -Pn -n --disable-arp-ping --packet-trace
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 21,22,25 -sS -Pn -n --disable-arp-ping --packet-trace
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 14:56 CEST
 SENT (0.0278s) TCP 10.10.14.2:57347 > 10.129.2.28:22 S ttl=53 id=22412 iplen=44  seq=4092255222 win=1024 <mss 1460>
@@ -2115,7 +2115,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 21,22,25 -sA -Pn -n --disable-arp-ping --packet-trace
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 21,22,25 -sA -Pn -n --disable-arp-ping --packet-trace
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 14:57 CEST
 SENT (0.0422s) TCP 10.10.14.2:49343 > 10.129.2.28:21 A ttl=49 id=12381 iplen=40  seq=0 win=1024
@@ -2166,7 +2166,7 @@ There are cases in which administrators block specific subnets from different re
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 16:14 CEST
 SENT (0.0378s) TCP 102.52.161.59:59289 > 10.129.2.28:80 S ttl=42 id=29822 iplen=44  seq=3687542010 win=1024 <mss 1460>
@@ -2197,7 +2197,7 @@ Another scenario would be that only individual subnets would not have access to 
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -n -Pn -p445 -O
+root@htb[/htb]$ sudo nmap 10.129.2.28 -n -Pn -p445 -O
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-22 01:23 CEST
 Nmap scan report for 10.129.2.28
@@ -2218,7 +2218,7 @@ Nmap done: 1 IP address (1 host up) scanned in 3.14 seconds
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
+root@htb[/htb]$ sudo nmap 10.129.2.28 -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-22 01:16 CEST
 Nmap scan report for 10.129.2.28
@@ -2251,7 +2251,7 @@ However, `Nmap` still gives us a way to specify DNS servers ourselves (`--dns-se
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 22:50 CEST
 SENT (0.0417s) TCP 10.10.14.2:33436 > 10.129.2.28:50000 S ttl=41 id=21939 iplen=44  seq=736533153 win=1024 <mss 1460>
@@ -2270,7 +2270,7 @@ Nmap done: 1 IP address (1 host up) scanned in 2.06 seconds
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
+root@htb[/htb]$ sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
 
 SENT (0.0482s) TCP 10.10.14.2:53 > 10.129.2.28:50000 S ttl=58 id=27470 iplen=44  seq=4003923435 win=1024 <mss 1460>
 RCVD (0.0608s) TCP 10.129.2.28:50000 > 10.10.14.2:53 SA ttl=64 id=0 iplen=44  seq=540635485 win=64240 <mss 1460>
@@ -2295,7 +2295,7 @@ Now that we have found out that the firewall accepts `TCP port 53`, it is very l
 &#x20; Firewall and IDS/IPS Evasion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ncat -nv --source-port 53 10.129.2.28 50000
+root@htb[/htb]$ ncat -nv --source-port 53 10.129.2.28 50000
 
 Ncat: Version 7.80 ( https://nmap.org/ncat )
 Ncat: Connected to 10.129.2.28:50000.
