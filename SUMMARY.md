@@ -21,3 +21,8 @@
   * [Attacking Common Services](cpts-prep/official-modules/attacking-common-services.md)
   * [Pivoting, Tunneling, and Port Forwarding](cpts-prep/official-modules/pivoting-tunneling-and-port-forwarding.md)
   * [Active Directory Enumeration & Attacks](cpts-prep/official-modules/active-directory-enumeration-and-attacks.md)
+  * [Using Web Proxies](cpts-prep/official-modules/using-web-proxies.md)
+  * [Attacking Web Applications with Ffuf](cpts-prep/official-modules/attacking-web-applications-with-ffuf.md)
+  * [Login Brute Forcing](cpts-prep/official-modules/login-brute-forcing.md)
+  * [SQL Injection Fundamentals](cpts-prep/official-modules/sql-injection-fundamentals.md)
+  * [SQLMap Essentials](cpts-prep/official-modules/sqlmap-essentials.md)
