@@ -254,7 +254,7 @@ The `mysql` utility is used to authenticate to and interact with a MySQL/MariaDB
 &#x20; Intro to MySQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u root -p
+root@htb[/htb]$ mysql -u root -p
 
 Enter password: <password>
 ...SNIP...
@@ -267,7 +267,7 @@ Again, it is also possible to use the password directly in the command, though t
 &#x20; Intro to MySQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u root -p<password>
+root@htb[/htb]$ mysql -u root -p<password>
 
 ...SNIP...
 
@@ -283,7 +283,7 @@ When we do not specify a host, it will default to the `localhost` server. We can
 &#x20; Intro to MySQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u root -h docker.hackthebox.eu -P 3306 -p 
+root@htb[/htb]$ mysql -u root -h docker.hackthebox.eu -P 3306 -p 
 
 Enter password: 
 ...SNIP...
@@ -2098,7 +2098,7 @@ If we go to the back-end server and `cat` the file, we see that table's content:
 &#x20; Writing Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /tmp/credentials 
+root@htb[/htb]$ cat /tmp/credentials 
 
 1       admin   392037dbba51f692776d6cefb6dd546d
 2       newuser 9da2c9bcdf39d8610954e0e11ea8f45f
@@ -2117,7 +2117,7 @@ When we `cat` the file, we see that text:
 &#x20; Writing Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /tmp/test.txt 
+root@htb[/htb]$ cat /tmp/test.txt 
 
 this is a test
 ```
@@ -2125,7 +2125,7 @@ this is a test
 &#x20; Writing Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -la /tmp/test.txt 
+root@htb[/htb]$ ls -la /tmp/test.txt 
 
 -rw-rw-rw- 1 mysql mysql 15 Jul  8 06:20 /tmp/test.txt
 ```
@@ -2329,7 +2329,7 @@ The commands above add a new MariaDB user named `reader` who is granted only `SE
 &#x20; Mitigating SQL Injection
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u reader -p
+root@htb[/htb]$ mysql -u reader -p
 
 MariaDB [(none)]> use ilfreight;
 MariaDB [ilfreight]> SHOW TABLES;
