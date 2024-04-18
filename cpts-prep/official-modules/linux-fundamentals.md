@@ -581,7 +581,7 @@ The syntax for this is the following:
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ touch <name>
+root@htb[/htb]$ touch <name>
 ```
 
 **Syntax - mkdir**
@@ -589,7 +589,7 @@ AbdulrahmanTamim@htb[/htb]$ touch <name>
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir <name>
+root@htb[/htb]$ mkdir <name>
 ```
 
 In this example, we name the file `info.txt` and the directory `Storage`. To create these, we follow the commands and their syntax shown above.
@@ -634,13 +634,13 @@ We can also create files directly in the directories by specifying the path wher
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ touch ./Storage/local/user/userinfo.txt
+root@htb[/htb]$ touch ./Storage/local/user/userinfo.txt
 ```
 
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ tree .
 
 .
 ├── info.txt
@@ -660,7 +660,7 @@ With the command `mv`, we can move and also rename files and directories. The sy
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mv <file/directory> <renamed file/directory>
+root@htb[/htb]$ mv <file/directory> <renamed file/directory>
 ```
 
 First, let us rename the file `info.txt` to `information.txt` and then move it to the directory `Storage`.
@@ -670,7 +670,7 @@ First, let us rename the file `info.txt` to `information.txt` and then move it t
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mv info.txt information.txt
+root@htb[/htb]$ mv info.txt information.txt
 ```
 
 Now let us create a file named `readme.txt` in the current directory and then copy the files `information.txt` and `readme.txt` into the `Storage/` directory.
@@ -680,7 +680,7 @@ Now let us create a file named `readme.txt` in the current directory and then co
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ touch readme.txt
+root@htb[/htb]$ touch readme.txt
 ```
 
 **Move Files to Specific Directory**
@@ -688,13 +688,13 @@ AbdulrahmanTamim@htb[/htb]$ touch readme.txt
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mv information.txt readme.txt Storage/
+root@htb[/htb]$ mv information.txt readme.txt Storage/
 ```
 
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ tree .
 
 .
 └── Storage
@@ -715,7 +715,7 @@ Let us assume we want to have the `readme.txt` in the `local/` directory. Then w
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cp Storage/readme.txt Storage/local/
+root@htb[/htb]$ cp Storage/readme.txt Storage/local/
 ```
 
 Now we can check if the file is thereby using the tool `tree` again.
@@ -723,7 +723,7 @@ Now we can check if the file is thereby using the tool `tree` again.
 Working with Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ tree .
 
 .
 └── Storage
@@ -748,7 +748,7 @@ AbdulrahmanTamim@htb[/htb]$ tree .
 There are several ways to edit a file. One of the most common text editors for this is `Vi` and `Vim`. More rarely, there is the `Nano` editor. We will first deal with the Nano editor here, as it is a bit easier to understand. We can create a new file directly with the Nano editor by specifying the file's name directly as the first parameter. In this case, we create a new file named `notes.txt`.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nano notes.txt
+root@htb[/htb]$ nano notes.txt
 ```
 
 Now we should see a so-called "`pager`" open, and we can freely enter or insert any text. Our shell should then look something like this.
@@ -808,7 +808,7 @@ After we have saved the file, we can leave the editor with `[CTRL + X]`.
 To view the contents of the file, we can use the command `cat`.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat notes.txt
+root@htb[/htb]$ cat notes.txt
 
 Here we can type everything we want and make our notes.
 ```
@@ -826,7 +826,7 @@ Vim follows the Unix principle here: many small specialized programs that are we
 **Vim**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vim
+root@htb[/htb]$ vim
 ```
 
 ```shell-session
@@ -881,7 +881,7 @@ Vim offers an excellent opportunity called `vimtutor` to practice and get famili
 **VimTutor**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vimtutor
+root@htb[/htb]$ vimtutor
 ```
 
 ```shell-session
@@ -930,7 +930,7 @@ One of the common tools is `which`. This tool returns the path to the file or li
 &#x20; Find Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ which python
+root@htb[/htb]$ which python
 
 /usr/bin/python
 ```
@@ -948,7 +948,7 @@ Another handy tool is `find`. Besides the function to find files and folders, th
 &#x20; Find Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find <location> <options>
+root@htb[/htb]$ find <location> <options>
 ```
 
 Let us look at an example of what such a command with multiple options would look like.
@@ -956,7 +956,7 @@ Let us look at an example of what such a command with multiple options would loo
 &#x20; Find Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -type f -name *.conf -user root -size +20k -newermt 2020-03-03 -exec ls -al {} \; 2>/dev/null
+root@htb[/htb]$ find / -type f -name *.conf -user root -size +20k -newermt 2020-03-03 -exec ls -al {} \; 2>/dev/null
 
 -rw-r--r-- 1 root root 136392 Apr 25 20:29 /usr/src/linux-headers-5.5.0-1parrot1-amd64/include/config/auto.conf
 -rw-r--r-- 1 root root 82290 Apr 25 20:29 /usr/src/linux-headers-5.5.0-1parrot1-amd64/include/config/tristate.conf
@@ -985,7 +985,7 @@ It will take much time to search through the whole system for our files and dire
 &#x20; Find Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo updatedb
+root@htb[/htb]$ sudo updatedb
 ```
 
 If we now search for all files with the "`.conf`" extension, you will find that this search produces results much faster than using `find`.
@@ -993,7 +993,7 @@ If we now search for all files with the "`.conf`" extension, you will find that 
 &#x20; Find Files and Directories
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate *.conf
+root@htb[/htb]$ locate *.conf
 
 /etc/GeoIP.conf
 /etc/NetworkManager/NetworkManager.conf
@@ -1034,7 +1034,7 @@ In the next example, by using the `find` command, we will see the standard outpu
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /etc/ -name shadow
+root@htb[/htb]$ find /etc/ -name shadow
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find1.png)
@@ -1044,7 +1044,7 @@ In this case, the error is marked and displayed with "`Permission denied`". We c
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /etc/ -name shadow 2>/dev/null
+root@htb[/htb]$ find /etc/ -name shadow 2>/dev/null
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find2.png)
@@ -1058,7 +1058,7 @@ Now we can see that all errors (`STDERR`) previously presented with "`Permission
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /etc/ -name shadow 2>/dev/null > results.txt
+root@htb[/htb]$ find /etc/ -name shadow 2>/dev/null > results.txt
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find3.png)
@@ -1072,7 +1072,7 @@ We should have noticed that we did not use a number before the greater-than sign
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /etc/ -name shadow 2> stderr.txt 1> stdout.txt
+root@htb[/htb]$ find /etc/ -name shadow 2> stderr.txt 1> stdout.txt
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find4.png)
@@ -1086,7 +1086,7 @@ As we have already seen, in combination with the file descriptors, we can redire
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat < stdout.txt
+root@htb[/htb]$ cat < stdout.txt
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find5.png)
@@ -1100,7 +1100,7 @@ When we use the greater-than sign (`>`) to redirect our `STDOUT`, a new file is 
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /etc/ -name passwd >> stdout.txt 2>/dev/null
+root@htb[/htb]$ find /etc/ -name passwd >> stdout.txt 2>/dev/null
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find9.png)
@@ -1114,7 +1114,7 @@ We can also use the double lower-than characters (`<<`) to add our standard inpu
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat << EOF > stream.txt
+root@htb[/htb]$ cat << EOF > stream.txt
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find6.png)
@@ -1128,7 +1128,7 @@ Another way to redirect `STDOUT` is to use pipes (`|`). These are useful when we
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /etc/ -name *.conf 2>/dev/null | grep systemd
+root@htb[/htb]$ find /etc/ -name *.conf 2>/dev/null | grep systemd
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find7.png)
@@ -1138,7 +1138,7 @@ The redirections work, not only once. We can use the obtained results to redirec
 &#x20; File Descriptors and Redirections
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /etc/ -name *.conf 2>/dev/null | grep systemd | wc -l
+root@htb[/htb]$ find /etc/ -name *.conf 2>/dev/null | grep systemd | wc -l
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/18/find8.png)
@@ -1158,7 +1158,7 @@ In the last section, we learned about the redirections we can use to redirect re
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ more /etc/passwd
+root@htb[/htb]$ more /etc/passwd
 ```
 
 After we read the content using `cat` and redirected it to `more`, the already mentioned `pager` opens, and we will automatically start at the beginning of the file.
@@ -1186,7 +1186,7 @@ If we now take a look at the tool `less`, we will notice on the man page that it
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ less /etc/passwd
+root@htb[/htb]$ less /etc/passwd
 ```
 
 The presentation is almost the same as with `more`.
@@ -1214,7 +1214,7 @@ Sometimes we will only be interested in specific issues either at the beginning 
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ head /etc/passwd
+root@htb[/htb]$ head /etc/passwd
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -1237,7 +1237,7 @@ If we only want to see the last parts of a file or results, we can use the count
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tail /etc/passwd
+root@htb[/htb]$ tail /etc/passwd
 
 miredo:x:115:65534::/var/run/miredo:/usr/sbin/nologin
 usbmux:x:116:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
@@ -1260,7 +1260,7 @@ Depending on which results and files are dealt with, they are rarely sorted. Oft
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | sort
+root@htb[/htb]$ cat /etc/passwd | sort
 
 _apt:x:104:65534::/nonexistent:/usr/sbin/nologin
 backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
@@ -1288,7 +1288,7 @@ More often, we will only search for specific results that contain patterns we ha
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep "/bin/bash"
+root@htb[/htb]$ cat /etc/passwd | grep "/bin/bash"
 
 root:x:0:0:root:/root:/bin/bash
 mrb3n:x:1000:1000:mrb3n:/home/mrb3n:/bin/bash
@@ -1301,7 +1301,7 @@ Another possibility is to exclude specific results. For this, the option "`-v`" 
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin"
+root@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin"
 
 root:x:0:0:root:/root:/bin/bash
 sync:x:4:65534:sync:/bin:/bin/sync
@@ -1318,7 +1318,7 @@ Specific results with different characters may be separated as delimiters. Here 
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | cut -d":" -f1
+root@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | cut -d":" -f1
 
 root
 sync
@@ -1336,7 +1336,7 @@ Another possibility to replace certain characters from a line with characters de
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " "
+root@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " "
 
 root x 0 0 root /root /bin/bash
 sync x 4 65534 sync /bin /bin/sync
@@ -1354,7 +1354,7 @@ Since search results can often have an unclear representation, the tool `column`
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | column -t
+root@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | column -t
 
 root         x  0     0      root               /root        /bin/bash
 sync         x  4     65534  sync               /bin         /bin/sync
@@ -1372,7 +1372,7 @@ As we may have noticed, the user "`postgres`" has one row too many. To keep it a
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}'
+root@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}'
 
 root /bin/bash
 sync /bin/sync
@@ -1392,7 +1392,7 @@ The "`s`" flag at the beginning stands for the substitute command. Then we speci
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | sed 's/bin/HTB/g'
+root@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | sed 's/bin/HTB/g'
 
 root /HTB/bash
 sync /HTB/sync
@@ -1410,7 +1410,7 @@ Last but not least, it will often be useful to know how many successful matches 
 &#x20; Filter Contents
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | wc -l
+root@htb[/htb]$ cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | wc -l
 
 5
 ```
@@ -1668,7 +1668,7 @@ User management is an essential part of Linux administration. Sometimes we need 
 &#x20; User Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/shadow
+root@htb[/htb]$ cat /etc/shadow
 
 cat: /etc/shadow: Permission denied
 ```
@@ -1678,7 +1678,7 @@ cat: /etc/shadow: Permission denied
 &#x20; User Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo cat /etc/shadow
+root@htb[/htb]$ sudo cat /etc/shadow
 
 root:<SNIP>:18395:0:99999:7:::
 daemon:*:17737:0:99999:7:::
@@ -1726,7 +1726,7 @@ Each Linux distribution uses software repositories that are updated often. When 
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/apt/sources.list.d/parrot.list
+root@htb[/htb]$ cat /etc/apt/sources.list.d/parrot.list
 
 # parrot repository
 # this file was automatically generated by parrot-mirror-selector
@@ -1741,7 +1741,7 @@ APT uses a database called the APT cache. This is used to provide information ab
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apt-cache search impacket
+root@htb[/htb]$ apt-cache search impacket
 
 impacket-scripts - Links to useful impacket scripts examples
 polenum - Extracts the password policy from a Windows system
@@ -1755,7 +1755,7 @@ We can then view additional information about a package.
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apt-cache show impacket-scripts
+root@htb[/htb]$ apt-cache show impacket-scripts
 
 Package: impacket-scripts
 Version: 1.4
@@ -1777,7 +1777,7 @@ We can also list all installed packages.
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apt list --installed
+root@htb[/htb]$ apt list --installed
 
 Listing... Done
 accountsservice/rolling,now 0.6.55-2 amd64 [installed,automatic]
@@ -1793,7 +1793,7 @@ If we are missing some packages, we can search for it and install it using the f
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install impacket-scripts -y
+root@htb[/htb]$ sudo apt install impacket-scripts -y
 
 Reading package lists... Done
 Building dependency tree       
@@ -1828,7 +1828,7 @@ Nevertheless, before we download the project and its scripts and lists, we shoul
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir ~/nishang/ && git clone https://github.com/samratashok/nishang.git ~/nishang
+root@htb[/htb]$ mkdir ~/nishang/ && git clone https://github.com/samratashok/nishang.git ~/nishang
 
 Cloning into '/opt/nishang/'...
 remote: Enumerating objects: 15, done.
@@ -1848,7 +1848,7 @@ We can also download the programs and tools from the repositories separately. In
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget http://archive.ubuntu.com/ubuntu/pool/main/s/strace/strace_4.21-1ubuntu1_amd64.deb
+root@htb[/htb]$ wget http://archive.ubuntu.com/ubuntu/pool/main/s/strace/strace_4.21-1ubuntu1_amd64.deb
 
 --2020-05-15 03:27:17--  http://archive.ubuntu.com/ubuntu/pool/main/s/strace/strace_4.21-1ubuntu1_amd64.deb
 Resolving archive.ubuntu.com (archive.ubuntu.com)... 91.189.88.142, 91.189.88.152, 2001:67c:1562::18, ...
@@ -1867,7 +1867,7 @@ Furthermore, now we can use both `apt` and `dpkg` to install the package. Since 
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo dpkg -i strace_4.21-1ubuntu1_amd64.deb 
+root@htb[/htb]$ sudo dpkg -i strace_4.21-1ubuntu1_amd64.deb 
 
 (Reading database ... 154680 files and directories currently installed.)
 Preparing to unpack strace_4.21-1ubuntu1_amd64.deb ...
@@ -1881,7 +1881,7 @@ With this, we have already installed the tool and can test if it works properly.
 &#x20; Package Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strace -h
+root@htb[/htb]$ strace -h
 
 usage: strace [-CdffhiqrtttTvVwxxy] [-I n] [-e expr]...
               [-a column] [-o file] [-s strsize] [-P path]...
@@ -1915,7 +1915,7 @@ After installing `OpenSSH` on our VM, we can start the service with the followin
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ systemctl start ssh
+root@htb[/htb]$ systemctl start ssh
 ```
 
 After we have started the service, we can now check if it runs without errors.
@@ -1923,7 +1923,7 @@ After we have started the service, we can now check if it runs without errors.
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ systemctl status ssh
+root@htb[/htb]$ systemctl status ssh
 
 ● ssh.service - OpenBSD Secure Shell server
    Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
@@ -1948,7 +1948,7 @@ To add OpenSSH to the SysV script to tell the system to run this service after s
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ systemctl enable ssh
+root@htb[/htb]$ systemctl enable ssh
 
 Synchronizing state of ssh.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable ssh
@@ -1959,7 +1959,7 @@ Once we reboot the system, the OpenSSH server will automatically run. We can che
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ps -aux | grep ssh
+root@htb[/htb]$ ps -aux | grep ssh
 
 root       846  0.0  0.1  72300  5660 ?        Ss   Mai14   0:00 /usr/sbin/sshd -D
 ```
@@ -1969,7 +1969,7 @@ We can also use `systemctl` to list all services.
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ systemctl list-units --type=service
+root@htb[/htb]$ systemctl list-units --type=service
 
 UNIT                                                       LOAD   ACTIVE SUB     DESCRIPTION              
 accounts-daemon.service                                    loaded active running Accounts Service         
@@ -1986,7 +1986,7 @@ It is quite possible that the services do not start due to an error. To see the 
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ journalctl -u ssh.service --no-pager
+root@htb[/htb]$ journalctl -u ssh.service --no-pager
 
 -- Logs begin at Wed 2020-05-13 17:30:52 CEST, end at Fri 2020-05-15 16:00:14 CEST. --
 Mai 13 20:38:44 inlane systemd[1]: Starting OpenBSD Secure Shell server...
@@ -2019,7 +2019,7 @@ Processes can be controlled using `kill`, `pkill`, `pgrep`, and `killall`. To in
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ kill -l
+root@htb[/htb]$ kill -l
 
  1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
  6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
@@ -2045,7 +2045,7 @@ For example, if a program were to freeze, we could force to kill it with the fol
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ kill 9 <PID> 
+root@htb[/htb]$ kill 9 <PID> 
 ```
 
 ***
@@ -2057,9 +2057,9 @@ Sometimes it will be necessary to put the scan or process we just started in the
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ping -c 10 www.hackthebox.eu
+root@htb[/htb]$ ping -c 10 www.hackthebox.eu
 
-AbdulrahmanTamim@htb[/htb]$ vim tmpfile
+root@htb[/htb]$ vim tmpfile
 [Ctrl + Z]
 [2]+  Stopped                 vim tmpfile
 ```
@@ -2069,7 +2069,7 @@ Now all background processes can be displayed with the following command.
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ jobs
+root@htb[/htb]$ jobs
 
 [1]+  Stopped                 ping -c 10 www.hackthebox.eu
 [2]+  Stopped                 vim tmpfile
@@ -2080,9 +2080,9 @@ The `[Ctrl] + Z` shortcut suspends the processes, and they will not be executed 
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bg
+root@htb[/htb]$ bg
 
-AbdulrahmanTamim@htb[/htb]$ 
+root@htb[/htb]$ 
 --- www.hackthebox.eu ping statistics ---
 10 packets transmitted, 0 received, 100% packet loss, time 113482ms
 
@@ -2095,7 +2095,7 @@ Another option is to automatically set the process with an AND sign (`&`) at the
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ping -c 10 www.hackthebox.eu &
+root@htb[/htb]$ ping -c 10 www.hackthebox.eu &
 
 [1] 10825
 PING www.hackthebox.eu (172.67.1.1) 56(84) bytes of data.
@@ -2106,7 +2106,7 @@ Once the process finishes, we will see the results.
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ 
+root@htb[/htb]$ 
 
 --- www.hackthebox.eu ping statistics ---
 10 packets transmitted, 0 received, 100% packet loss, time 9210ms
@@ -2124,7 +2124,7 @@ After that, we can use the `jobs` command to list all background processes. Back
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ jobs
+root@htb[/htb]$ jobs
 
 [1]+  Running                 ping -c 10 www.hackthebox.eu &
 ```
@@ -2134,7 +2134,7 @@ If we want to get the background process into the foreground and interact with i
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ fg 1
+root@htb[/htb]$ fg 1
 ping -c 10 www.hackthebox.eu
 
 --- www.hackthebox.eu ping statistics ---
@@ -2156,7 +2156,7 @@ The difference between them lies in the previous processes' treatment and depend
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '1'; echo '2'; echo '3'
+root@htb[/htb]$ echo '1'; echo '2'; echo '3'
 
 1
 2
@@ -2168,7 +2168,7 @@ For example, if we execute the same command but replace it in second place, the 
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '1'; ls MISSING_FILE; echo '3'
+root@htb[/htb]$ echo '1'; ls MISSING_FILE; echo '3'
 
 1
 ls: cannot access 'MISSING_FILE': No such file or directory
@@ -2180,7 +2180,7 @@ However, it looks different if we use the double AND characters (`&&`) to run th
 &#x20; Service and Process Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '1' && ls MISSING_FILE && echo '3'
+root@htb[/htb]$ echo '1' && ls MISSING_FILE && echo '3'
 
 1
 ls: cannot access 'MISSING_FILE': No such file or directory
@@ -2213,8 +2213,8 @@ To create a timer for systemd, we need to create a directory where the timer scr
 &#x20; Task Scheduling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo mkdir /etc/systemd/system/mytimer.timer.d
-AbdulrahmanTamim@htb[/htb]$ sudo vim /etc/systemd/system/mytimer.timer
+root@htb[/htb]$ sudo mkdir /etc/systemd/system/mytimer.timer.d
+root@htb[/htb]$ sudo vim /etc/systemd/system/mytimer.timer
 ```
 
 Next, we need to create a script that configures the timer. The script must contain the following options: "Unit", "Timer" and "Install". The "Unit" option specifies a description for the timer. The "Timer" option specifies when to start the timer and when to activate it. Finally, the "Install" option specifies where to install the timer.
@@ -2242,7 +2242,7 @@ Here it depends on how we want to use our script. For example, if we want to run
 &#x20; Task Scheduling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo vim /etc/systemd/system/mytimer.service
+root@htb[/htb]$ sudo vim /etc/systemd/system/mytimer.service
 ```
 
 Here we set a description and specify the full path to the script we want to run. The "multi-user.target" is the unit system that is activated when starting a normal multi-user mode. It defines the services that should be started on a normal system startup.
@@ -2267,7 +2267,7 @@ After that, we have to let `systemd` read the folders again to include the chang
 &#x20; Task Scheduling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl daemon-reload
+root@htb[/htb]$ sudo systemctl daemon-reload
 ```
 
 After that, we can use `systemctl` to `start` the service manually and `enable` the autostart.
@@ -2277,8 +2277,8 @@ After that, we can use `systemctl` to `start` the service manually and `enable` 
 &#x20; Task Scheduling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl start mytimer.service
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl enable mytimer.service
+root@htb[/htb]$ sudo systemctl start mytimer.service
+root@htb[/htb]$ sudo systemctl enable mytimer.service
 ```
 
 ***
@@ -2352,7 +2352,7 @@ Administrators use OpenSSH to securely manage remote systems by establishing an 
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install openssh-server -y
+root@htb[/htb]$ sudo apt install openssh-server -y
 ```
 
 To check if the server is running, we can use the following command:
@@ -2362,7 +2362,7 @@ To check if the server is running, we can use the following command:
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ systemctl status ssh
+root@htb[/htb]$ systemctl status ssh
 
 ● ssh.service - OpenBSD Secure Shell server
      Loaded: loaded (/lib/system/system/ssh.service; enabled; vendor preset: enabled)
@@ -2384,7 +2384,7 @@ As penetration testers, we use OpenSSH to securely access remote systems when pe
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh cry0l1t3@10.129.17.122
+root@htb[/htb]$ ssh cry0l1t3@10.129.17.122
 
 The authenticity of host '10.129.17.122 (10.129.17.122)' can't be established.
 ECDSA key fingerprint is SHA256:bKzhv+n2pYqr2r...Egf8LfqaHNxk.
@@ -2415,7 +2415,7 @@ We can install NFS on Linux with the following command:
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install nfs-kernel-server -y
+root@htb[/htb]$ sudo apt install nfs-kernel-server -y
 ```
 
 To check if the server is running, we can use the following command:
@@ -2425,7 +2425,7 @@ To check if the server is running, we can use the following command:
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ systemctl status nfs-kernel-server
+root@htb[/htb]$ systemctl status nfs-kernel-server
 
 ● nfs-server.service - NFS server and services
      Loaded: loaded (/lib/system/system/nfs-server.service; enabled; vendor preset: enabled)
@@ -2492,7 +2492,7 @@ Apache web server has a variety of features that allow us to host a secure and e
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install apache2 -y
+root@htb[/htb]$ sudo apt install apache2 -y
 ```
 
 For Apache2, to specify which folders can be accessed, we can edit the file `/etc/apache2/apache2.conf` with a text editor. This file contains the global settings. We can change the settings to specify which directories can be accessed and what actions can be performed on those directories.
@@ -2520,8 +2520,8 @@ Python Web Server is a simple, fast alternative to Apache and can be used to hos
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install python3 -y
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server
+root@htb[/htb]$ sudo apt install python3 -y
+root@htb[/htb]$ python3 -m http.server
 ```
 
 When we run this command, our Python Web Server will be started on the `TCP/8000` port, and we can access the folder we are currently in. We can also host another folder with the following command:
@@ -2529,7 +2529,7 @@ When we run this command, our Python Web Server will be started on the `TCP/8000
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server --directory /home/cry0l1t3/target_files
+root@htb[/htb]$ python3 -m http.server --directory /home/cry0l1t3/target_files
 ```
 
 This will start a Python web server on the `TCP/8000` port, and we can access the `/home/cry0l1t3/target_files` folder from the browser, for example. When we access our Python web server, we can transfer files to the other system by typing the link in our browser and downloading the files. We can also host our Python web server on a port other than the default port by using the `-p` option:
@@ -2537,7 +2537,7 @@ This will start a Python web server on the `TCP/8000` port, and we can access th
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server 443
+root@htb[/htb]$ python3 -m http.server 443
 ```
 
 This will host our Python web server on port 443 instead of the default `TCP/8000` port. We can access this web server by typing the link in our browser.
@@ -2559,7 +2559,7 @@ OpenVPN can also be used by us as a penetration tester to connect to internal ne
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install openvpn -y
+root@htb[/htb]$ sudo apt install openvpn -y
 ```
 
 OpenVPN can be customized and configured by editing the configuration file `/etc/openvpn/server.conf`. This file contains the settings for the OpenVPN server. We can change the settings to configure certain features such as encryption, tunneling, traffic shaping, etc.
@@ -2571,7 +2571,7 @@ If we want to connect to an OpenVPN server, we can use the `.ovpn` file we recei
 &#x20; Network Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo openvpn --config internal.ovpn
+root@htb[/htb]$ sudo openvpn --config internal.ovpn
 ```
 
 After the connection is established, we can communicate with the internal hosts on the internal network.
@@ -2589,7 +2589,7 @@ Apache offers the possibility to create web pages dynamically using server-side 
 &#x20; Working with Web Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apt install apache2 -y
+root@htb[/htb]$ apt install apache2 -y
 
 Reading package lists... Done
 Building dependency tree       
@@ -2621,7 +2621,7 @@ This is the default page after installation and serves to confirm that the webse
 &#x20; Working with Web Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://localhost
+root@htb[/htb]$ curl http://localhost
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -2648,7 +2648,7 @@ An alternative to curl is the tool `wget`. With this tool, we can download files
 &#x20; Working with Web Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget http://localhost
+root@htb[/htb]$ wget http://localhost
 
 --2020-05-15 17:43:52--  http://localhost/
 Resolving localhost (localhost)... 127.0.0.1
@@ -2671,7 +2671,7 @@ Another option that is often used when it comes to data transfer is the use of P
 &#x20; Working with Web Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server
+root@htb[/htb]$ python3 -m http.server
 
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
@@ -2683,7 +2683,7 @@ We can see what requests were made if we now look at our Python 3 web server's e
 &#x20; Working with Web Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server
+root@htb[/htb]$ python3 -m http.server
 
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 127.0.0.1 - - [15/May/2020 17:56:29] "GET /readme.html HTTP/1.1" 200 -
@@ -2723,7 +2723,7 @@ In order to install Rsync on Ubuntu, we can use the `apt` package manager:
 &#x20; Backup and Restore
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install rsync -y
+root@htb[/htb]$ sudo apt install rsync -y
 ```
 
 This will install the latest version of Rsync on the system. Once the installation is complete, we can begin using the tool to back up and restore data. To backup an entire directory using `rsync`, we can use the following command:
@@ -2733,7 +2733,7 @@ This will install the latest version of Rsync on the system. Once the installati
 &#x20; Backup and Restore
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rsync -av /path/to/mydirectory user@backup_server:/path/to/backup/directory
+root@htb[/htb]$ rsync -av /path/to/mydirectory user@backup_server:/path/to/backup/directory
 ```
 
 This command will copy the entire directory (`/path/to/mydirectory`) to a remote host (`backup_server`), to the directory `/path/to/backup/directory`. The option `archive` (`-a`) is used to preserve the original file attributes, such as permissions, timestamps, etc., and using the `verbose` (`-v`) option provides a detailed output of the progress of the `rsync` operation.
@@ -2743,7 +2743,7 @@ We can also add additional options to customize the backup process, such as usin
 &#x20; Backup and Restore
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rsync -avz --backup --backup-dir=/path/to/backup/folder --delete /path/to/mydirectory user@backup_server:/path/to/backup/directory
+root@htb[/htb]$ rsync -avz --backup --backup-dir=/path/to/backup/folder --delete /path/to/mydirectory user@backup_server:/path/to/backup/directory
 ```
 
 With this, we back up the `mydirectory` to the remote `backup_server`, preserving the original file attributes, timestamps, and permissions, and enabled compression (`-z`) for faster transfers. The `--backup` option creates incremental backups in the directory `/path/to/backup/folder`, and the `--delete` option removes files from the remote host that is no longer present in the source directory.
@@ -2755,7 +2755,7 @@ If we want to restore our directory from our backup server to our local director
 &#x20; Backup and Restore
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rsync -av user@remote_host:/path/to/backup/directory /path/to/mydirectory
+root@htb[/htb]$ rsync -av user@remote_host:/path/to/backup/directory /path/to/mydirectory
 ```
 
 ***
@@ -2769,7 +2769,7 @@ To ensure the security of our `rsync` file transfer between our local host and o
 &#x20; Backup and Restore
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rsync -avz -e ssh /path/to/mydirectory user@backup_server:/path/to/backup/directory
+root@htb[/htb]$ rsync -avz -e ssh /path/to/mydirectory user@backup_server:/path/to/backup/directory
 ```
 
 The data transfer between our local host and the backup server occurs over the encrypted SSH connection, which provides confidentiality and integrity protection for the data being transferred. This encryption process ensures that the data is protected from any potential malicious actors who would otherwise be able to access and modify the data without authorization. The encryption key itself is also safeguarded by a comprehensive set of security protocols, making it even more difficult for any unauthorized person to gain access to the data. In addition, the encrypted connection is designed to be highly resistant to any attempts to breach security, allowing us to have confidence in the protection of the data being transferred.
@@ -2797,7 +2797,7 @@ Then, in order to ensure that the script is able to execute properly, we must pr
 &#x20; Backup and Restore
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chmod +x RSYNC_Backup.sh
+root@htb[/htb]$ chmod +x RSYNC_Backup.sh
 ```
 
 After that, we can create a crontab that tells `cron` to run the script every hour at the 0th minute. We can adjust the timing to suit our needs. To do so, the crontab needs the following content:
@@ -2830,7 +2830,7 @@ Regular files are the most common type of file, and they are stored in the root 
 &#x20; File System Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -il
+root@htb[/htb]$ ls -il
 
 total 0
 10678872 -rw-r--r--  1 cry0l1t3  htb  234123 Feb 14 19:30 myscript.py
@@ -2848,7 +2848,7 @@ Disk management on Linux involves managing physical storage devices, including h
 &#x20; File System Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo fdisk -l
+root@htb[/htb]$ sudo fdisk -l
 
 Disk /dev/vda: 160 GiB, 171798691840 bytes, 335544320 sectors
 Units: sectors of 1 * 512 = 512 bytes
@@ -2878,7 +2878,7 @@ Each logical partition or drive needs to be assigned to a specific directory on 
 &#x20; File System Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/fstab
+root@htb[/htb]$ cat /etc/fstab
 
 # /etc/fstab: static file system information.
 #
@@ -2900,7 +2900,7 @@ To view the currently mounted file systems, we can use the "mount" command witho
 &#x20; File System Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mount
+root@htb[/htb]$ mount
 
 sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
 proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
@@ -2917,8 +2917,8 @@ To mount a file system, we can use the `mount` command followed by the device na
 &#x20; File System Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo mount /dev/sdb1 /mnt/usb
-AbdulrahmanTamim@htb[/htb]$ cd /mnt/usb && ls -l
+root@htb[/htb]$ sudo mount /dev/sdb1 /mnt/usb
+root@htb[/htb]$ cd /mnt/usb && ls -l
 
 total 32
 drwxr-xr-x 1 root root   18 Oct 14  2021 'Account Takeover'
@@ -2940,7 +2940,7 @@ To unmount a file system in Linux, we can use the `umount` command followed by t
 &#x20; File System Management
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo umount /mnt/usb
+root@htb[/htb]$ sudo umount /mnt/usb
 ```
 
 It is important to note that we must have sufficient permissions to unmount a file system. We also cannot unmount a file system that is in use by a running process. To ensure that there are no running processes that are using the file system, we can use the `lsof` command to list the open files on the file system.
@@ -3075,7 +3075,7 @@ After we have defined our Dockerfile, we need to convert it into an image. With 
 &#x20; Containerization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ docker build -t FS_docker .
+root@htb[/htb]$ docker build -t FS_docker .
 ```
 
 Once the Docker image has been created, it can be executed through the Docker engine, making it a very efficient and easy way to run a container. It is similar to the virtual machine concept, based on images. Still, these images are read-only templates and provide the file system necessary for runtime and all parameters. A container can be considered a running process of an image. When a container is to be started on a system, a package with the respective image is first loaded if unavailable locally. We can start the container by the following command [docker run](https://docs.docker.com/engine/reference/commandline/run/):
@@ -3085,7 +3085,7 @@ Once the Docker image has been created, it can be executed through the Docker en
 &#x20; Containerization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ docker run -p <host port>:<docker port> -d <docker container name>
+root@htb[/htb]$ docker run -p <host port>:<docker port> -d <docker container name>
 ```
 
 **Docker Run**
@@ -3093,7 +3093,7 @@ AbdulrahmanTamim@htb[/htb]$ docker run -p <host port>:<docker port> -d <docker c
 &#x20; Containerization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ docker run -p 8022:22 -p 8080:80 -d FS_docker
+root@htb[/htb]$ docker run -p 8022:22 -p 8080:80 -d FS_docker
 ```
 
 In this case, we start a new container from the image `FS_docker` and map the host ports 8022 and 8080 to container ports 22 and 80, respectively. The container runs in the background, allowing us to access the SSH and HTTP services inside the container using the specified host ports.
@@ -3143,7 +3143,7 @@ To install LXC on a Linux distribution, we can use the distribution's package ma
 &#x20; Containerization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install lxc lxc-utils -y
+root@htb[/htb]$ sudo apt-get install lxc lxc-utils -y
 ```
 
 Once LXC is installed, we can start creating and managing containers on the Linux host. It is worth noting that LXC requires the Linux kernel to support the necessary features for containerization. Most modern Linux kernels have built-in support for containerization, but some older kernels may require additional configuration or patching to enable support for LXC.
@@ -3155,7 +3155,7 @@ To create a new LXC container, we can use the `lxc-create` command followed by t
 &#x20; Containerization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo lxc-create -n linuxcontainer -t ubuntu
+root@htb[/htb]$ sudo lxc-create -n linuxcontainer -t ubuntu
 ```
 
 **Managing LXC Containers**
@@ -3195,7 +3195,7 @@ Let us limit the resources to the container. In order to configure `cgroups` for
 &#x20; Containerization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo vim /usr/share/lxc/config/linuxcontainer.conf
+root@htb[/htb]$ sudo vim /usr/share/lxc/config/linuxcontainer.conf
 ```
 
 In this configuration file, we can add the following lines to limit the CPU and memory the container can use.
@@ -3220,7 +3220,7 @@ To apply these changes, we must restart the LXC service.
 &#x20; Containerization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl restart lxc.service
+root@htb[/htb]$ sudo systemctl restart lxc.service
 ```
 
 LXC use `namespaces` to provide an isolated environment for processes, networks, and file systems from the host system. Namespaces are a feature of the Linux kernel that allows for creating isolated environments by providing an abstraction of system resources.
@@ -3331,8 +3331,8 @@ When it comes to activating network interfaces, `ifconfig` and `ip` commands are
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ifconfig eth0 up     # OR
-AbdulrahmanTamim@htb[/htb]$ sudo ip link set eth0 up
+root@htb[/htb]$ sudo ifconfig eth0 up     # OR
+root@htb[/htb]$ sudo ip link set eth0 up
 ```
 
 One way to allocate an IP address to a network interface is by utilizing the `ifconfig` command. We must specify the interface's name and IP address as arguments to do this. This is a crucial step in setting up a network connection. The IP address serves as a unique identifier for the interface and enables the communication between devices on the network.
@@ -3342,7 +3342,7 @@ One way to allocate an IP address to a network interface is by utilizing the `if
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ifconfig eth0 192.168.1.2
+root@htb[/htb]$ sudo ifconfig eth0 192.168.1.2
 ```
 
 To set the netmask for a network interface, we can run the following command with the name of the interface and the netmask:
@@ -3352,7 +3352,7 @@ To set the netmask for a network interface, we can run the following command wit
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ifconfig eth0 netmask 255.255.255.0
+root@htb[/htb]$ sudo ifconfig eth0 netmask 255.255.255.0
 ```
 
 When we want to set the default gateway for a network interface, we can use the `route` command with the `add` option. This allows us to specify the gateway's IP address and the network interface to which it should be applied. By setting the default gateway, we are designating the IP address of the router that will be used to send traffic to destinations outside the local network. Ensuring that the default gateway is set correctly is important, as incorrect configuration can lead to connectivity issues.
@@ -3362,7 +3362,7 @@ When we want to set the default gateway for a network interface, we can use the 
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo route add default gw 192.168.1.1 eth0
+root@htb[/htb]$ sudo route add default gw 192.168.1.1 eth0
 ```
 
 When configuring a network interface, it is often necessary to set Domain Name System (`DNS`) servers to ensure proper network functionality. DNS servers translate domain names into IP addresses, allowing devices to connect with each other on the internet. By setting those, we can ensure that their devices can communicate with other devices and access websites and other online resources. Without proper DNS server configuration, devices may experience network connectivity issues and be unable to access certain online resources. This can be achieved by updating the `/etc/resolv.conf` file with the appropriate DNS server information. The `/etc/resolv.conf` file is a plain text file containing the system's DNS information. The system can properly resolve domain names to IP addresses by adding the required DNS servers to this file. It is important to note that any changes made to this file will only apply to the current session and must be updated if the system is restarted or the network configuration is changed.
@@ -3372,7 +3372,7 @@ When configuring a network interface, it is often necessary to set Domain Name S
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo vim /etc/resolv.conf
+root@htb[/htb]$ sudo vim /etc/resolv.conf
 ```
 
 **/etc/resolv.conf**
@@ -3391,7 +3391,7 @@ After completing the necessary modifications to the network configuration, it is
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo vim /etc/network/interfaces
+root@htb[/htb]$ sudo vim /etc/network/interfaces
 ```
 
 This will open the `interfaces` file in the vim editor. We can add the network configuration settings to the file like this:
@@ -3416,7 +3416,7 @@ By setting the `eth0` network interface to use a static IP address of `192.168.1
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl restart networking
+root@htb[/htb]$ sudo systemctl restart networking
 ```
 
 ***
@@ -3469,7 +3469,7 @@ By using these tools and others like them, we can better understand how the netw
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ping <remote_host>
+root@htb[/htb]$ ping <remote_host>
 ```
 
 For example, pinging the Google DNS server will send ICMP packets to the Google DNS server and display the response times.
@@ -3477,7 +3477,7 @@ For example, pinging the Google DNS server will send ICMP packets to the Google 
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ping 8.8.8.8
+root@htb[/htb]$ ping 8.8.8.8
 
 PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 64 bytes from 8.8.8.8: icmp_seq=1 ttl=119 time=1.61 ms
@@ -3497,7 +3497,7 @@ Another tool is the `traceroute`, which traces the route packets take to reach a
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ traceroute www.inlanefreight.com
+root@htb[/htb]$ traceroute www.inlanefreight.com
 
 traceroute to www.inlanefreight.com (134.209.24.248), 30 hops max, 60 byte packets
  1  * * *
@@ -3523,7 +3523,7 @@ In the fourth line, we can see the third hop in the traceroute, consisting of tw
 &#x20; Network Configuration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ netstat -a
+root@htb[/htb]$ netstat -a
 
 Active Internet connections (servers and established)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State      
@@ -3602,7 +3602,7 @@ For this, we have to allow X11 forwarding in the SSH configuration file (`/etc/s
 &#x20; Remote Desktop Protocols in Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/ssh/sshd_config | grep X11Forwarding
+root@htb[/htb]$ cat /etc/ssh/sshd_config | grep X11Forwarding
 
 X11Forwarding yes
 ```
@@ -3612,7 +3612,7 @@ With this we can start the application from our client with the following comman
 &#x20; Remote Desktop Protocols in Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -X htb-student@10.129.23.11 /usr/bin/firefox
+root@htb[/htb]$ ssh -X htb-student@10.129.23.11 /usr/bin/firefox
 
 htb-student@10.129.14.130's password: ********
 <SKIP>
@@ -3749,7 +3749,7 @@ To encrypt the connection and make it more secure, we can create an SSH tunnel o
 &#x20; Remote Desktop Protocols in Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -L 5901:127.0.0.1:5901 -N -f -l htb-student 10.129.14.130
+root@htb[/htb]$ ssh -L 5901:127.0.0.1:5901 -N -f -l htb-student 10.129.14.130
 
 htb-student@10.129.14.130's password: *******
 ```
@@ -3761,7 +3761,7 @@ Finally, we can connect to the server through the SSH tunnel using the `xtightvn
 &#x20; Remote Desktop Protocols in Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xtightvncviewer localhost:5901
+root@htb[/htb]$ xtightvncviewer localhost:5901
 
 Connected to RFB server, using protocol version 3.8
 Performing standard VNC authentication
@@ -3796,7 +3796,7 @@ One of the Linux operating systems' most important security measures is keeping 
 &#x20; Linux Security
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apt update && apt dist-upgrade
+root@htb[/htb]$ apt update && apt dist-upgrade
 ```
 
 If firewall rules are not appropriately set at the network level, we can use the Linux firewall and/or `iptables` to restrict traffic into/out of the host.
@@ -3836,7 +3836,7 @@ In short, the `/etc/hosts.allow` file specifies which services and hosts are all
 &#x20; Linux Security
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/hosts.allow
+root@htb[/htb]$ cat /etc/hosts.allow
 
 # Allow access to SSH from the local network
 sshd : 10.129.14.0/24
@@ -3853,7 +3853,7 @@ telnetd : .inlanefreight.local
 &#x20; Linux Security
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/hosts.deny
+root@htb[/htb]$ cat /etc/hosts.deny
 
 # Deny access to all services from any host in the inlanefreight.com domain
 ALL : .inlanefreight.com
@@ -3940,7 +3940,7 @@ Let us illustrate a rule and consider that we want to add a new entry to the INP
 &#x20; Firewall Setup
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+root@htb[/htb]$ sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 ```
 
 **Matches**
@@ -3954,7 +3954,7 @@ In general, matches are specified using the '-m' option in iptables. For example
 &#x20; Firewall Setup
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+root@htb[/htb]$ sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 ```
 
 This example rule matches incoming TCP traffic (`-p tcp`) on port 80 (`--dport 80`) and jumps to the accept target (`-j ACCEPT`) if the match is successful.
@@ -4119,7 +4119,7 @@ On Ubuntu, we use the `uname` command to display information about the system, s
 &#x20; Solaris
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ uname -a
+root@htb[/htb]$ uname -a
 
 Linux ubuntu 5.4.0-1045 #48-Ubuntu SMP Fri Jan 15 10:47:29 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
 ```
@@ -4149,7 +4149,7 @@ On Ubuntu, the `apt-get` command is used to install packages. This could look li
 &#x20; Solaris
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install apache2
+root@htb[/htb]$ sudo apt-get install apache2
 ```
 
 However, in Solaris, we need to use `pkgadd` to install packages like `SUNWapchr`.
@@ -4169,7 +4169,7 @@ On Linux systems like Ubuntu but also on Solaris, the `chmod` command is used to
 &#x20; Solaris
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chmod 700 filename
+root@htb[/htb]$ chmod 700 filename
 ```
 
 To find files with specific permissions in Ubuntu, we use the `find` command. Let us take a look at an example of a file with the SUID bit set:
@@ -4177,7 +4177,7 @@ To find files with specific permissions in Ubuntu, we use the `find` command. Le
 &#x20; Solaris
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -perm 4000
+root@htb[/htb]$ find / -perm 4000
 ```
 
 To find files with specific permissions, like with the SUID bit set on Solaris, we can use the find command, too, but with a small adjustment.
@@ -4205,7 +4205,7 @@ This command shares the `/export/home` directory with read and writes permission
 &#x20; Solaris
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mount -F nfs 10.129.15.122:/nfs_share /mnt/local
+root@htb[/htb]$ mount -F nfs 10.129.15.122:/nfs_share /mnt/local
 ```
 
 In Solaris, the configuration for NFS is stored in the `/etc/dfs/dfstab` file. This file contains entries for each shared directory, along with the various options for NFS sharing.
@@ -4225,7 +4225,7 @@ Process mapping is an essential aspect of system administration and troubleshoot
 &#x20; Solaris
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo lsof -c apache2
+root@htb[/htb]$ sudo lsof -c apache2
 ```
 
 In Solaris, the `pfiles` command can be used to list all the files opened by a process. For example, to list all the files opened by the Apache web server process, we can use the following command:
@@ -4249,7 +4249,7 @@ For example, to trace the system calls made by the Apache web server process, we
 &#x20; Solaris
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo strace -p `pgrep apache2`
+root@htb[/htb]$ sudo strace -p `pgrep apache2`
 ```
 
 Here's an example of how to use `truss` to trace the system calls made by the `ls` command in Solaris:
