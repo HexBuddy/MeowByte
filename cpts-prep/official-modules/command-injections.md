@@ -473,7 +473,7 @@ There are many other methods we can utilize to bypass space filters. For example
 &#x20; Bypassing Space Filters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ {ls,-la}
+root@htb[/htb]$ {ls,-la}
 
 total 0
 drwxr-xr-x 1 21y4d 21y4d   0 Jul 13 07:37 .
@@ -503,7 +503,7 @@ For example, if we look at the `$PATH` environment variable in Linux, it may loo
 &#x20; Bypassing Other Blacklisted Characters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo ${PATH}
+root@htb[/htb]$ echo ${PATH}
 
 /usr/local/bin:/usr/bin:/bin:/usr/games
 ```
@@ -513,7 +513,7 @@ So, if we start at the `0` character, and only take a string of length `1`, we w
 &#x20; Bypassing Other Blacklisted Characters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo ${PATH:0:1}
+root@htb[/htb]$ echo ${PATH:0:1}
 
 /
 ```
@@ -525,7 +525,7 @@ We can do the same with the `$HOME` or `$PWD` environment variables as well. We 
 &#x20; Bypassing Other Blacklisted Characters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo ${LS_COLORS:10:1}
+root@htb[/htb]$ echo ${LS_COLORS:10:1}
 
 ;
 ```
@@ -575,8 +575,8 @@ There are other techniques to produce the required characters without using them
 &#x20; Bypassing Other Blacklisted Characters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man ascii     # \ is on 92, before it is [ on 91
-AbdulrahmanTamim@htb[/htb]$ echo $(tr '!-}' '"-~'<<<[)
+root@htb[/htb]$ man ascii     # \ is on 92, before it is [ on 91
+root@htb[/htb]$ echo $(tr '!-}' '"-~'<<<[)
 
 \
 ```
@@ -752,7 +752,7 @@ We can get creative with such techniques and create our own Linux/Windows comman
 &#x20; Advanced Command Obfuscation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'whoami' | rev
+root@htb[/htb]$ echo 'whoami' | rev
 imaohw
 ```
 
@@ -805,7 +805,7 @@ We can utilize various encoding tools, like `base64` (for b64 encoding) or `xxd`
 &#x20; Advanced Command Obfuscation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n 'cat /etc/passwd | grep 33' | base64
+root@htb[/htb]$ echo -n 'cat /etc/passwd | grep 33' | base64
 
 Y2F0IC9ldGMvcGFzc3dkIHwgZ3JlcCAzMw==
 ```
@@ -815,7 +815,7 @@ Now we can create a command that will decode the encoded string in a sub-shell (
 &#x20; Advanced Command Obfuscation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash<<<$(base64 -d<<<Y2F0IC9ldGMvcGFzc3dkIHwgZ3JlcCAzMw==)
+root@htb[/htb]$ bash<<<$(base64 -d<<<Y2F0IC9ldGMvcGFzc3dkIHwgZ3JlcCAzMw==)
 
 www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
 ```
@@ -847,7 +847,7 @@ We may also achieve the same thing on Linux, but we would have to convert the st
 &#x20; Advanced Command Obfuscation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n whoami | iconv -f utf-8 -t utf-16le | base64
+root@htb[/htb]$ echo -n whoami | iconv -f utf-8 -t utf-16le | base64
 
 dwBoAG8AYQBtAGkA
 ```
@@ -883,10 +883,10 @@ A handy tool we can utilize for obfuscating bash commands is [Bashfuscator](http
 &#x20; Evasion Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/Bashfuscator/Bashfuscator
-AbdulrahmanTamim@htb[/htb]$ cd Bashfuscator
-AbdulrahmanTamim@htb[/htb]$ pip3 install setuptools==65
-AbdulrahmanTamim@htb[/htb]$ python3 setup.py install --user
+root@htb[/htb]$ git clone https://github.com/Bashfuscator/Bashfuscator
+root@htb[/htb]$ cd Bashfuscator
+root@htb[/htb]$ pip3 install setuptools==65
+root@htb[/htb]$ python3 setup.py install --user
 ```
 
 Once we have the tool set up, we can start using it from the `./bashfuscator/bin/` directory. There are many flags we can use with the tool to fine-tune our final obfuscated command, as we can see in the `-h` help menu:
@@ -894,8 +894,8 @@ Once we have the tool set up, we can start using it from the `./bashfuscator/bin
 &#x20; Evasion Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cd ./bashfuscator/bin/
-AbdulrahmanTamim@htb[/htb]$ ./bashfuscator -h
+root@htb[/htb]$ cd ./bashfuscator/bin/
+root@htb[/htb]$ ./bashfuscator -h
 
 usage: bashfuscator [-h] [-l] ...SNIP...
 
@@ -914,7 +914,7 @@ We can start by simply providing the command we want to obfuscate with the `-c` 
 &#x20; Evasion Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./bashfuscator -c 'cat /etc/passwd'
+root@htb[/htb]$ ./bashfuscator -c 'cat /etc/passwd'
 
 [+] Mutators used: Token/ForCode -> Command/Reverse
 [+] Payload:
@@ -927,7 +927,7 @@ However, running the tool this way will randomly pick an obfuscation technique, 
 &#x20; Evasion Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./bashfuscator -c 'cat /etc/passwd' -s 1 -t 1 --no-mangling --layers 1
+root@htb[/htb]$ ./bashfuscator -c 'cat /etc/passwd' -s 1 -t 1 --no-mangling --layers 1
 
 [+] Mutators used: Token/ForCode
 [+] Payload:
@@ -940,7 +940,7 @@ We can now test the outputted command with `bash -c ''`, to see whether it does 
 &#x20; Evasion Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash -c 'eval "$(W0=(w \  t e c p s a \/ d);for Ll in 4 7 2 1 8 3 2 4 8 5 7 6 6 0 9;{ printf %s "${W0[$Ll]}";};)"'
+root@htb[/htb]$ bash -c 'eval "$(W0=(w \  t e c p s a \/ d);for Ll in 4 7 2 1 8 3 2 4 8 5 7 6 6 0 9;{ printf %s "${W0[$Ll]}";};)"'
 
 root:x:0:0:root:/root:/bin/bash
 ...SNIP...
