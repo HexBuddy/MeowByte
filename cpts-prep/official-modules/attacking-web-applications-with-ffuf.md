@@ -97,7 +97,7 @@ Within our PwnBox, we can find the entire `SecLists` repo available under `/opt/
 &#x20; Web Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate directory-list-2.3-small.txt
+root@htb[/htb]$ locate directory-list-2.3-small.txt
 
 /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt
 ```
@@ -234,7 +234,7 @@ One common way to identify that is by finding the server type through the HTTP r
 &#x20; Page Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <SNIP>
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <SNIP>
 ```
 
 Before we start fuzzing, we must specify which file that extension would be at the end of! We can always use two wordlists and have a unique keyword for each, and then do `FUZZ_1.FUZZ_2` to fuzz for both. However, there is one file we can always find in most websites, which is `index.*`, so we will use it as our file and fuzz extensions on it.
@@ -246,7 +246,7 @@ Now, we can rerun our command, carefully placing our `FUZZ` keyword where the ex
 &#x20; Page Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ -u http://SERVER_IP:PORT/blog/indexFUZZ
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ -u http://SERVER_IP:PORT/blog/indexFUZZ
 
 
         /'___\  /'___\           /'___\       
@@ -285,7 +285,7 @@ We will now use the same concept of keywords we've been using with `ffuf`, use `
 &#x20; Page Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/blog/FUZZ.php
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/blog/FUZZ.php
 
 
         /'___\  /'___\           /'___\       
@@ -348,7 +348,7 @@ Let us repeat the first command we used, add the recursion flags to it while spe
 &#x20; Recursive Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/FUZZ -recursion -recursion-depth 1 -e .php -v
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/FUZZ -recursion -recursion-depth 1 -e .php -v
 
 
         /'___\  /'___\           /'___\       
@@ -411,7 +411,7 @@ If we visit the IP directly, the browser goes to that IP directly and knows how 
 &#x20; DNS Records
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo sh -c 'echo "SERVER_IP  academy.htb" >> /etc/hosts'
+root@htb[/htb]$ sudo sh -c 'echo "SERVER_IP  academy.htb" >> /etc/hosts'
 ```
 
 Now we can visit the website (don't forget to add the PORT in the URL) and see that we can reach the website:
@@ -446,7 +446,7 @@ As for our target, we will use `inlanefreight.com` as our target and run our sca
 &#x20; Sub-domain Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u https://FUZZ.inlanefreight.com/
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u https://FUZZ.inlanefreight.com/
 
 
         /'___\  /'___\           /'___\
@@ -492,7 +492,7 @@ We see that we do get a few hits back. Now, we can try running the same thing on
 &#x20; Sub-domain Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://FUZZ.academy.htb/
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://FUZZ.academy.htb/
 
 
         /'___\  /'___\           /'___\
@@ -551,7 +551,7 @@ To scan for VHosts, without manually adding the entire wordlist to our `/etc/hos
 &#x20; Vhost Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:PORT/ -H 'Host: FUZZ.academy.htb'
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:PORT/ -H 'Host: FUZZ.academy.htb'
 
 
         /'___\  /'___\           /'___\       
@@ -606,7 +606,7 @@ So far, we have not been using any filtering to our `ffuf`, and the results are 
 &#x20; Filtering Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -h
+root@htb[/htb]$ ffuf -h
 ...SNIP...
 MATCHER OPTIONS:
   -mc              Match HTTP status codes, or "all" for everything. (default: 200,204,301,302,307,401,403)
@@ -629,7 +629,7 @@ In this case, we cannot use matching, as we don't know what the response size fr
 &#x20; Filtering Results
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:PORT/ -H 'Host: FUZZ.academy.htb' -fs 900
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ -u http://academy.htb:PORT/ -H 'Host: FUZZ.academy.htb' -fs 900
 
 
        /'___\  /'___\           /'___\       
@@ -700,7 +700,7 @@ Once again, we will get many results back, so we will filter out the default res
 &#x20; Parameter Fuzzing - GET
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php?FUZZ=key -fs xxx
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php?FUZZ=key -fs xxx
 
 
         /'___\  /'___\           /'___\       
@@ -750,7 +750,7 @@ So, let us repeat what we did earlier, but place our `FUZZ` keyword after the `-
 &#x20; Parameter Fuzzing - POST
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'FUZZ=key' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'FUZZ=key' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
 
 
         /'___\  /'___\           /'___\       
@@ -785,7 +785,7 @@ As we can see this time, we got a couple of hits, the same one we got when fuzzi
 &#x20; Parameter Fuzzing - POST
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=key' -H 'Content-Type: application/x-www-form-urlencoded'
+root@htb[/htb]$ curl http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=key' -H 'Content-Type: application/x-www-form-urlencoded'
 
 <div class='center'><p>Invalid id!</p></div>
 <...SNIP...>
@@ -814,7 +814,7 @@ There are many ways to create this wordlist, from manually typing the IDs in a f
 &#x20; Value Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for i in $(seq 1 1000); do echo $i >> ids.txt; done
+root@htb[/htb]$ for i in $(seq 1 1000); do echo $i >> ids.txt; done
 ```
 
 Once we run our command, we should have our wordlist ready:
@@ -822,7 +822,7 @@ Once we run our command, we should have our wordlist ready:
 &#x20; Value Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat ids.txt
+root@htb[/htb]$ cat ids.txt
 
 1
 2
@@ -844,7 +844,7 @@ Our command should be fairly similar to the `POST` command we used to fuzz for p
 &#x20; Value Fuzzing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w ids.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
+root@htb[/htb]$ ffuf -w ids.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php -X POST -d 'id=FUZZ' -H 'Content-Type: application/x-www-form-urlencoded' -fs xxx
 
 
         /'___\  /'___\           /'___\
