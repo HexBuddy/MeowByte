@@ -108,7 +108,7 @@ Once installed, Burp can either be launched from the terminal by typing `burpsui
 &#x20; Setting Up
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ java -jar </path/to/burpsuite.jar>
+root@htb[/htb]$ java -jar </path/to/burpsuite.jar>
 ```
 
 Note: Both Burp and ZAP rely on Java Runtime Environment to run, but this package should be included in the installer by default. If not, we can follow the instructions found on this [page](https://docs.oracle.com/goldengate/1212/gg-winux/GDRAD/java.htm).
@@ -630,7 +630,7 @@ We should also enable `Quiet Mode` to reduce noise by un-commenting `quiet_mode`
 &#x20; Proxying Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains curl http://SERVER_IP:PORT
+root@htb[/htb]$ proxychains curl http://SERVER_IP:PORT
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 <!DOCTYPE html>
@@ -658,7 +658,7 @@ Next, let's try to proxy `nmap` through our web proxy. To find out how to use th
 &#x20; Proxying Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -h | grep -i prox
+root@htb[/htb]$ nmap -h | grep -i prox
 
   --proxies <url1,[url2],...>: Relay connections through HTTP/SOCKS4 proxies
 ```
@@ -668,7 +668,7 @@ As we can see, we can use the `--proxies` flag. We should also add the `-Pn` fla
 &#x20; Proxying Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap --proxies http://127.0.0.1:8080 SERVER_IP -pPORT -Pn -sC
+root@htb[/htb]$ nmap --proxies http://127.0.0.1:8080 SERVER_IP -pPORT -Pn -sC
 
 Starting Nmap 7.91 ( https://nmap.org )
 Nmap scan report for SERVER_IP
@@ -695,7 +695,7 @@ Finally, let's try to proxy web traffic made by Metasploit modules to better inv
 &#x20; Proxying Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfconsole
+root@htb[/htb]$ msfconsole
 
 msf6 > use auxiliary/scanner/http/robots_txt
 msf6 auxiliary(scanner/http/robots_txt) > set PROXIES HTTP:127.0.0.1:8080
