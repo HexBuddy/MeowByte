@@ -302,7 +302,7 @@ We can also output the results in JSON format.
 &#x20; Domain Information
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq .
+root@htb[/htb]$ curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq .
 
 [
   {
@@ -346,7 +346,7 @@ If needed, we can also have them filtered by the unique subdomains.
 &#x20; Domain Information
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq . | grep name | cut -d":" -f2 | grep -v "CN=" | cut -d'"' -f2 | awk '{gsub(/\\n/,"\n");}1;' | sort -u
+root@htb[/htb]$ curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq . | grep name | cut -d":" -f2 | grep -v "CN=" | cut -d'"' -f2 | awk '{gsub(/\\n/,"\n");}1;' | sort -u
 
 account.ttn.inlanefreight.com
 blog.inlanefreight.com
@@ -379,7 +379,7 @@ Next, we can identify the hosts directly accessible from the Internet and not ho
 &#x20; Domain Information
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
+root@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
 
 blog.inlanefreight.com 10.129.24.93
 inlanefreight.com 10.129.27.33
@@ -397,8 +397,8 @@ Once we see which hosts can be investigated further, we can generate a list of I
 &#x20; Domain Information
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f4 >> ip-addresses.txt;done
-AbdulrahmanTamim@htb[/htb]$ for i in $(cat ip-addresses.txt);do shodan host $i;done
+root@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f4 >> ip-addresses.txt;done
+root@htb[/htb]$ for i in $(cat ip-addresses.txt);do shodan host $i;done
 
 10.129.24.93
 City:                    Berlin
@@ -476,7 +476,7 @@ We remember the IP `10.129.127.22` (`matomo.inlanefreight.com`) for later active
 &#x20; Domain Information
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig any inlanefreight.com
+root@htb[/htb]$ dig any inlanefreight.com
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> any inlanefreight.com
 ;; global options: +cmd
@@ -569,7 +569,7 @@ Even though cloud providers secure their infrastructure centrally, this does not
 &#x20; Cloud Resources
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
+root@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
 
 blog.inlanefreight.com 10.129.24.93
 inlanefreight.com 10.129.27.33
@@ -741,7 +741,7 @@ One of the most used FTP servers on Linux-based distributions is [vsFTPd](https:
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install vsftpd 
+root@htb[/htb]$ sudo apt install vsftpd 
 ```
 
 The vsFTPd server is only one of a few FTP servers available to us. There are many different alternatives to it, which also bring, among other things, many more functions and configuration options with them. We will use the vsFTPd server because it is an excellent way to show the configuration possibilities of an FTP server in a simple and easy-to-understand way without going into the details of the man pages. If we look at the configuration file of vsFTPd, we will see many options and settings that are either commented or commented out. However, the configuration file does not contain all possible settings that can be made. The existing and missing ones can be found on the [man page](http://vsftpd.beasts.org/vsftpd\_conf.html).
@@ -751,7 +751,7 @@ The vsFTPd server is only one of a few FTP servers available to us. There are ma
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/vsftpd.conf | grep -v "#"
+root@htb[/htb]$ cat /etc/vsftpd.conf | grep -v "#"
 ```
 
 | **Setting**                                                   | **Description**                                                                                          |
@@ -777,7 +777,7 @@ In addition, there is a file called `/etc/ftpusers` that we also need to pay att
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/ftpusers
+root@htb[/htb]$ cat /etc/ftpusers
 
 guest
 john
@@ -808,7 +808,7 @@ As soon as we connect to the vsFTPd server, the `response code 220` is displayed
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ftp 10.129.14.136
+root@htb[/htb]$ ftp 10.129.14.136
 
 Connected to 10.129.14.136.
 220 "Welcome to the HTB Academy vsFTP service."
@@ -1010,7 +1010,7 @@ ftp> exit
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls | grep Notes.txt
+root@htb[/htb]$ ls | grep Notes.txt
 
 'Important Notes.txt'
 ```
@@ -1022,7 +1022,7 @@ We also can download all the files and folders we have access to at once. This i
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget -m --no-passive ftp://anonymous:anonymous@10.129.14.136
+root@htb[/htb]$ wget -m --no-passive ftp://anonymous:anonymous@10.129.14.136
 
 --2021-09-19 14:45:58--  ftp://anonymous:*password*@10.129.14.136/                                         
            => ‘10.129.14.136/.listing’                                                                     
@@ -1054,7 +1054,7 @@ Once we have downloaded all the files, `wget` will create a directory with the n
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ tree .
 
 .
 └── 10.129.14.136
@@ -1084,7 +1084,7 @@ The ability to upload files to the FTP server connected to a web server increase
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ touch testupload.txt
+root@htb[/htb]$ touch testupload.txt
 ```
 
 With the `PUT` command, we can upload files in the current folder to the FTP server.
@@ -1131,7 +1131,7 @@ Footprinting using various network scanners is also a handy and widespread appro
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap --script-updatedb
+root@htb[/htb]$ sudo nmap --script-updatedb
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 13:49 CEST
 NSE: Updating rule database.
@@ -1144,7 +1144,7 @@ All the NSE scripts are located on the Pwnbox in `/usr/share/nmap/scripts/`, but
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -type f -name ftp* 2>/dev/null | grep scripts
+root@htb[/htb]$ find / -type f -name ftp* 2>/dev/null | grep scripts
 
 /usr/share/nmap/scripts/ftp-syst.nse
 /usr/share/nmap/scripts/ftp-vsftpd-backdoor.nse
@@ -1163,7 +1163,7 @@ As we already know, the FTP server usually runs on the standard TCP port 21, whi
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sV -p21 -sC -A 10.129.14.136
+root@htb[/htb]$ sudo nmap -sV -p21 -sC -A 10.129.14.136
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-16 18:12 CEST
 Nmap scan report for 10.129.14.136
@@ -1202,7 +1202,7 @@ The `ftp-syst`, for example, executes the `STAT` command, which displays informa
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sV -p21 -sC -A 10.129.14.136 --script-trace
+root@htb[/htb]$ sudo nmap -sV -p21 -sC -A 10.129.14.136 --script-trace
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 13:54 CEST                                                                                                                                                   
 NSOCK INFO [11.4640s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 8 [10.129.14.136:21]                                   
@@ -1229,13 +1229,13 @@ The scan history shows that four different parallel scans are running against th
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nv 10.129.14.136 21
+root@htb[/htb]$ nc -nv 10.129.14.136 21
 ```
 
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ telnet 10.129.14.136 21
+root@htb[/htb]$ telnet 10.129.14.136 21
 ```
 
 It looks slightly different if the FTP server runs with TLS/SSL encryption. Because then we need a client that can handle TLS/SSL. For this, we can use the client `openssl` and communicate with the FTP server. The good thing about using `openssl` is that we can see the SSL certificate, which can also be helpful.
@@ -1243,7 +1243,7 @@ It looks slightly different if the FTP server runs with TLS/SSL encryption. Beca
 &#x20; FTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ openssl s_client -connect 10.129.14.136:21 -starttls ftp
+root@htb[/htb]$ openssl s_client -connect 10.129.14.136:21 -starttls ftp
 
 CONNECTED(00000003)                                                                                      
 Can't use SSL_get_servername                        
@@ -2066,7 +2066,7 @@ NFS is not difficult to configure because there are not as many options as FTP o
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/exports 
+root@htb[/htb]$ cat /etc/exports 
 
 # /etc/exports: the access control list for filesystems which may be exported
 #               to NFS clients.  See exports(5).
@@ -2136,7 +2136,7 @@ When footprinting NFS, the TCP ports `111` and `2049` are essential. We can also
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.14.128 -p111,2049 -sV -sC
+root@htb[/htb]$ sudo nmap 10.129.14.128 -p111,2049 -sV -sC
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 17:12 CEST
 Nmap scan report for 10.129.14.128
@@ -2178,7 +2178,7 @@ The `rpcinfo` NSE script retrieves a list of all currently running RPC services,
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap --script nfs* 10.129.14.128 -sV -p111,2049
+root@htb[/htb]$ sudo nmap --script nfs* 10.129.14.128 -sV -p111,2049
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 17:37 CEST
 Nmap scan report for 10.129.14.128
@@ -2236,7 +2236,7 @@ Once we have discovered such an NFS service, we can mount it on our local machin
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ showmount -e 10.129.14.128
+root@htb[/htb]$ showmount -e 10.129.14.128
 
 Export list for 10.129.14.128:
 /mnt/nfs 10.129.14.0/24
@@ -2247,10 +2247,10 @@ Export list for 10.129.14.128:
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir target-NFS
-AbdulrahmanTamim@htb[/htb]$ sudo mount -t nfs 10.129.14.128:/ ./target-NFS/ -o nolock
-AbdulrahmanTamim@htb[/htb]$ cd target-NFS
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ mkdir target-NFS
+root@htb[/htb]$ sudo mount -t nfs 10.129.14.128:/ ./target-NFS/ -o nolock
+root@htb[/htb]$ cd target-NFS
+root@htb[/htb]$ tree .
 
 .
 └── mnt
@@ -2269,7 +2269,7 @@ There we will have the opportunity to access the rights and the usernames and gr
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l mnt/nfs/
+root@htb[/htb]$ ls -l mnt/nfs/
 
 total 16
 -rw-r--r-- 1 cry0l1t3 cry0l1t3 1872 Sep 25 00:55 cry0l1t3.priv
@@ -2284,7 +2284,7 @@ total 16
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -n mnt/nfs/
+root@htb[/htb]$ ls -n mnt/nfs/
 
 total 16
 -rw-r--r-- 1 1000 1000 1872 Sep 25 00:55 cry0l1t3.priv
@@ -2306,8 +2306,8 @@ After we have done all the necessary steps and obtained the information we need,
 &#x20; NFS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cd ..
-AbdulrahmanTamim@htb[/htb]$ sudo umount ./target-NFS
+root@htb[/htb]$ cd ..
+root@htb[/htb]$ sudo umount ./target-NFS
 ```
 
 
@@ -2360,7 +2360,7 @@ The `SOA` record is located in a domain's zone file and specifies who is respons
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig soa www.inlanefreight.com
+root@htb[/htb]$ dig soa www.inlanefreight.com
 
 ; <<>> DiG 9.16.27-Debian <<>> soa www.inlanefreight.com
 ;; global options: +cmd
@@ -2524,7 +2524,7 @@ The footprinting at DNS servers is done as a result of the requests we send. So,
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig ns inlanefreight.htb @10.129.14.128
+root@htb[/htb]$ dig ns inlanefreight.htb @10.129.14.128
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> ns inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
@@ -2557,7 +2557,7 @@ Sometimes it is also possible to query a DNS server's version using a class CHAO
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig CH TXT version.bind 10.129.120.85
+root@htb[/htb]$ dig CH TXT version.bind 10.129.120.85
 
 ; <<>> DiG 9.10.6 <<>> CH TXT version.bind
 ;; global options: +cmd
@@ -2584,7 +2584,7 @@ We can use the option `ANY` to view all available records. This will cause the s
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig any inlanefreight.htb @10.129.14.128
+root@htb[/htb]$ dig any inlanefreight.htb @10.129.14.128
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> any inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
@@ -2627,7 +2627,7 @@ The slave fetches the `SOA` record of the relevant zone from the master at certa
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig axfr inlanefreight.htb @10.129.14.128
+root@htb[/htb]$ dig axfr inlanefreight.htb @10.129.14.128
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> axfr inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
@@ -2654,7 +2654,7 @@ If the administrator used a subnet for the `allow-transfer` option for testing p
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig axfr internal.inlanefreight.htb @10.129.14.128
+root@htb[/htb]$ dig axfr internal.inlanefreight.htb @10.129.14.128
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> axfr internal.inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
@@ -2687,7 +2687,7 @@ An option would be to execute a `for-loop` in Bash that lists these entries and 
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for sub in $(cat /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-110000.txt);do dig $sub.inlanefreight.htb @10.129.14.128 | grep -v ';\|SOA' | sed -r '/^\s*$/d' | grep $sub | tee -a subdomains.txt;done
+root@htb[/htb]$ for sub in $(cat /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-110000.txt);do dig $sub.inlanefreight.htb @10.129.14.128 | grep -v ';\|SOA' | sed -r '/^\s*$/d' | grep $sub | tee -a subdomains.txt;done
 
 ns.inlanefreight.htb.   604800  IN      A       10.129.34.136
 mail1.inlanefreight.htb. 604800 IN      A       10.129.18.201
@@ -2699,7 +2699,7 @@ Many different tools can be used for this, and most of them work in the same way
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dnsenum --dnsserver 10.129.14.128 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-110000.txt inlanefreight.htb
+root@htb[/htb]$ dnsenum --dnsserver 10.129.14.128 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-110000.txt inlanefreight.htb
 
 dnsenum VERSION:1.2.6
 
@@ -2782,7 +2782,7 @@ Each SMTP server can be configured in many ways, as can all other services. Howe
 &#x20; SMTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/postfix/main.cf | grep -v "#" | sed -r "/^\s*$/d"
+root@htb[/htb]$ cat /etc/postfix/main.cf | grep -v "#" | sed -r "/^\s*$/d"
 
 smtpd_banner = ESMTP Server 
 biff = no
@@ -2827,7 +2827,7 @@ To interact with the SMTP server, we can use the `telnet` tool to initialize a T
 &#x20; SMTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ telnet 10.129.14.128 25
+root@htb[/htb]$ telnet 10.129.14.128 25
 
 Trying 10.129.14.128...
 Connected to 10.129.14.128.
@@ -2860,7 +2860,7 @@ The command `VRFY` can be used to enumerate existing users on the system. Howeve
 &#x20; SMTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ telnet 10.129.14.128 25
+root@htb[/htb]$ telnet 10.129.14.128 25
 
 Trying 10.129.14.128...
 Connected to 10.129.14.128.
@@ -2898,7 +2898,7 @@ All the commands we enter in the command line to send an email we know from ever
 &#x20; SMTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ telnet 10.129.14.128 25
+root@htb[/htb]$ telnet 10.129.14.128 25
 
 Trying 10.129.14.128...
 Connected to 10.129.14.128.
@@ -2983,7 +2983,7 @@ The default Nmap scripts include `smtp-commands`, which uses the `EHLO` command 
 &#x20; SMTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.14.128 -sC -sV -p25
+root@htb[/htb]$ sudo nmap 10.129.14.128 -sC -sV -p25
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-27 17:56 CEST
 Nmap scan report for 10.129.14.128
@@ -3005,7 +3005,7 @@ However, we can also use the [smtp-open-relay](https://nmap.org/nsedoc/scripts/s
 &#x20; SMTP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.14.128 -p25 --script smtp-open-relay -v
+root@htb[/htb]$ sudo nmap 10.129.14.128 -p25 --script smtp-open-relay -v
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-30 02:29 CEST
 NSE: Loaded 1 scripts for scanning.
@@ -3137,7 +3137,7 @@ By default, ports `110`, `143`, `993`, and `995` are used for IMAP and POP3. The
 &#x20; IMAP / POP3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.14.128 -sV -p110,143,993,995 -sC
+root@htb[/htb]$ sudo nmap 10.129.14.128 -sV -p110,143,993,995 -sC
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 22:09 CEST
 Nmap scan report for 10.129.14.128
@@ -3179,7 +3179,7 @@ If we successfully figure out the access credentials for one of the employees, a
 &#x20; IMAP / POP3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -k 'imaps://10.129.14.128' --user user:p4ssw0rd
+root@htb[/htb]$ curl -k 'imaps://10.129.14.128' --user user:p4ssw0rd
 
 * LIST (\HasNoChildren) "." Important
 * LIST (\HasNoChildren) "." INBOX
@@ -3190,7 +3190,7 @@ If we also use the `verbose` (`-v`) option, we will see how the connection is ma
 &#x20; IMAP / POP3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -k 'imaps://10.129.14.128' --user cry0l1t3:1234 -v
+root@htb[/htb]$ curl -k 'imaps://10.129.14.128' --user cry0l1t3:1234 -v
 
 *   Trying 10.129.14.128:993...
 * TCP_NODELAY set
@@ -3239,7 +3239,7 @@ To interact with the IMAP or POP3 server over SSL, we can use `openssl`, as well
 &#x20; IMAP / POP3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ openssl s_client -connect 10.129.14.128:pop3s
+root@htb[/htb]$ openssl s_client -connect 10.129.14.128:pop3s
 
 CONNECTED(00000003)
 Can't use SSL_get_servername
@@ -3297,7 +3297,7 @@ read R BLOCK
 &#x20; IMAP / POP3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ openssl s_client -connect 10.129.14.128:imaps
+root@htb[/htb]$ openssl s_client -connect 10.129.14.128:imaps
 
 CONNECTED(00000003)
 Can't use SSL_get_servername
@@ -3403,7 +3403,7 @@ The default configuration of the SNMP daemon defines the basic settings for the 
 &#x20; SNMP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/snmp/snmpd.conf | grep -v "#" | sed -r '/^\s*$/d'
+root@htb[/htb]$ cat /etc/snmp/snmpd.conf | grep -v "#" | sed -r '/^\s*$/d'
 
 sysLocation    Sitting on the Dock of the Bay
 sysContact     Me <me@example.org>
@@ -3442,7 +3442,7 @@ For footprinting SNMP, we can use tools like `snmpwalk`, `onesixtyone`, and `bra
 &#x20; SNMP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ snmpwalk -v2c -c public 10.129.14.128
+root@htb[/htb]$ snmpwalk -v2c -c public 10.129.14.128
 
 iso.3.6.1.2.1.1.1.0 = STRING: "Linux htb 5.11.0-34-generic #36~20.04.1-Ubuntu SMP Fri Aug 27 08:06:32 UTC 2021 x86_64"
 iso.3.6.1.2.1.1.2.0 = OID: iso.3.6.1.4.1.8072.3.2.10
@@ -3521,8 +3521,8 @@ Here we recognize some Python packages that have been installed on the system. I
 &#x20; SNMP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install onesixtyone
-AbdulrahmanTamim@htb[/htb]$ onesixtyone -c /opt/useful/SecLists/Discovery/SNMP/snmp.txt 10.129.14.128
+root@htb[/htb]$ sudo apt install onesixtyone
+root@htb[/htb]$ onesixtyone -c /opt/useful/SecLists/Discovery/SNMP/snmp.txt 10.129.14.128
 
 Scanning 1 hosts, 3220 communities
 10.129.14.128 [public] Linux htb 5.11.0-37-generic #41~20.04.2-Ubuntu SMP Fri Sep 24 09:06:38 UTC 2021 x86_64
@@ -3537,9 +3537,9 @@ Once we know a community string, we can use it with [braa](https://github.com/mt
 &#x20; SNMP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install braa
-AbdulrahmanTamim@htb[/htb]$ braa <community string>@<IP>:.1.3.6.*   # Syntax
-AbdulrahmanTamim@htb[/htb]$ braa public@10.129.14.128:.1.3.6.*
+root@htb[/htb]$ sudo apt install braa
+root@htb[/htb]$ braa <community string>@<IP>:.1.3.6.*   # Syntax
+root@htb[/htb]$ braa public@10.129.14.128:.1.3.6.*
 
 10.129.14.128:20ms:.1.3.6.1.2.1.1.1.0:Linux htb 5.11.0-34-generic #36~20.04.1-Ubuntu SMP Fri Aug 27 08:06:32 UTC 2021 x86_64
 10.129.14.128:20ms:.1.3.6.1.2.1.1.2.0:.1.3.6.1.4.1.8072.3.2.10
@@ -3599,8 +3599,8 @@ The management of SQL databases and their configurations is a vast topic. It is 
 &#x20; MySQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install mysql-server -y
-AbdulrahmanTamim@htb[/htb]$ cat /etc/mysql/mysql.conf.d/mysqld.cnf | grep -v "#" | sed -r '/^\s*$/d'
+root@htb[/htb]$ sudo apt install mysql-server -y
+root@htb[/htb]$ cat /etc/mysql/mysql.conf.d/mysqld.cnf | grep -v "#" | sed -r '/^\s*$/d'
 
 [client]
 port		= 3306
@@ -3659,7 +3659,7 @@ There are many reasons why a MySQL server could be accessed from an external net
 &#x20; MySQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap 10.129.14.128 -sV -sC -p3306 --script mysql*
+root@htb[/htb]$ sudo nmap 10.129.14.128 -sV -sC -p3306 --script mysql*
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-21 00:53 CEST
 Nmap scan report for 10.129.14.128
@@ -3713,7 +3713,7 @@ As with all our scans, we must be careful with the results and manually confirm 
 &#x20; MySQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u root -h 10.129.14.132
+root@htb[/htb]$ mysql -u root -h 10.129.14.132
 
 ERROR 1045 (28000): Access denied for user 'root'@'10.129.14.1' (using password: NO)
 ```
@@ -3723,7 +3723,7 @@ For example, if we use a password that we have guessed or found through our rese
 &#x20; MySQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mysql -u root -pP4SSw0rd -h 10.129.14.128
+root@htb[/htb]$ mysql -u root -pP4SSw0rd -h 10.129.14.128
 
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MySQL connection id is 150165
@@ -3859,7 +3859,7 @@ Of the MSSQL clients listed above, pentesters may find Impacket's mssqlclient.py
 &#x20; MSSQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate mssqlclient
+root@htb[/htb]$ locate mssqlclient
 
 /usr/bin/impacket-mssqlclient
 /usr/share/doc/python3-impacket/examples/mssqlclient.py
@@ -3915,7 +3915,7 @@ The scripted NMAP scan below provides us with helpful information. We can see th
 &#x20; MSSQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.129.201.248
+root@htb[/htb]$ sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.129.201.248
 
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-08 09:40 EST
 Nmap scan report for 10.129.201.248
@@ -3984,7 +3984,7 @@ If we can guess or gain access to credentials, this allows us to remotely connec
 &#x20; MSSQL
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 mssqlclient.py Administrator@10.129.201.248 -windows-auth
+root@htb[/htb]$ python3 mssqlclient.py Administrator@10.129.201.248 -windows-auth
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -4158,7 +4158,7 @@ After that, we can try to determine if the installation was successful by runnin
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./odat.py -h
+root@htb[/htb]$ ./odat.py -h
 
 usage: odat.py [-h] [--version]
                {all,tnscmd,tnspoison,sidguesser,snguesser,passwordguesser,utlhttp,httpuritype,utltcp,ctxsys,externaltable,dbmsxslprocessor,dbmsadvisor,utlfile,dbmsscheduler,java,passwordstealer,oradbg,dbmslob,stealremotepwds,userlikepwd,smb,privesc,cve,search,unwrapper,clean}
@@ -4188,7 +4188,7 @@ Let's now use `nmap` to scan the default Oracle TNS listener port.
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -p1521 -sV 10.129.204.235 --open
+root@htb[/htb]$ sudo nmap -p1521 -sV 10.129.204.235 --open
 
 Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-06 10:59 EST
 Nmap scan report for 10.129.204.235
@@ -4212,7 +4212,7 @@ There are various ways to enumerate, or better said, guess SIDs. Therefore we ca
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -p1521 -sV 10.129.204.235 --open --script oracle-sid-brute
+root@htb[/htb]$ sudo nmap -p1521 -sV 10.129.204.235 --open --script oracle-sid-brute
 
 Starting Nmap 7.93 ( https://nmap.org ) at 2023-03-06 11:01 EST
 Nmap scan report for 10.129.204.235
@@ -4234,7 +4234,7 @@ We can use the `odat.py` tool to perform a variety of scans to enumerate and gat
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./odat.py all -s 10.129.204.235
+root@htb[/htb]$ ./odat.py all -s 10.129.204.235
 
 [+] Checking if target 10.129.204.235:1521 is well configured for a connection...
 [+] According to a test, the TNS listener 10.129.204.235:1521 is well configured. Continue...
@@ -4256,7 +4256,7 @@ In this example, we found valid credentials for the user `scott` and his passwor
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlplus scott/tiger@10.129.204.235/XE
+root@htb[/htb]$ sqlplus scott/tiger@10.129.204.235/XE
 
 SQL*Plus: Release 21.0.0.0.0 - Production on Mon Mar 6 11:19:21 2023
 Version 21.4.0.0.0
@@ -4279,7 +4279,7 @@ If you come across the following error `sqlplus: error while loading shared libr
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo sh -c "echo /usr/lib/oracle/12.2/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf";sudo ldconfig
+root@htb[/htb]$ sudo sh -c "echo /usr/lib/oracle/12.2/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf";sudo ldconfig
 ```
 
 There are many [SQLplus commands](https://docs.oracle.com/cd/E11882\_01/server.112/e41085/sqlqraa001.htm#SQLQR985) that we can use to enumerate the database manually. For example, we can list all available tables in the current database or show us the privileges of the current user like the following:
@@ -4323,7 +4323,7 @@ Here, the user `scott` has no administrative privileges. However, we can try usi
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlplus scott/tiger@10.129.204.235/XE as sysdba
+root@htb[/htb]$ sqlplus scott/tiger@10.129.204.235/XE as sysdba
 
 SQL*Plus: Release 21.0.0.0.0 - Production on Mon Mar 6 11:32:58 2023
 Version 21.4.0.0.0
@@ -4402,8 +4402,8 @@ First, trying our exploitation approach with files that do not look dangerous fo
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo "Oracle File Upload Test" > testing.txt
-AbdulrahmanTamim@htb[/htb]$ ./odat.py utlfile -s 10.129.204.235 -d XE -U scott -P tiger --sysdba --putFile C:\\inetpub\\wwwroot testing.txt ./testing.txt
+root@htb[/htb]$ echo "Oracle File Upload Test" > testing.txt
+root@htb[/htb]$ ./odat.py utlfile -s 10.129.204.235 -d XE -U scott -P tiger --sysdba --putFile C:\\inetpub\\wwwroot testing.txt ./testing.txt
 
 [1] (10.129.204.235:1521): Put the ./testing.txt local file in the C:\inetpub\wwwroot folder like testing.txt on the 10.129.204.235 server                                                                                                  
 [+] The ./testing.txt file was created on the C:\inetpub\wwwroot directory on the 10.129.204.235 server like the testing.txt file
@@ -4414,7 +4414,7 @@ Finally, we can test if the file upload approach worked with `curl`. Therefore, 
 &#x20; Oracle TNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X GET http://10.129.204.235/testing.txt
+root@htb[/htb]$ curl -X GET http://10.129.204.235/testing.txt
 
 Oracle File Upload Test
 ```
@@ -4454,7 +4454,7 @@ IPMI communicates over port 623 UDP. Systems that use the IPMI protocol are call
 &#x20; IPMI
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sU --script ipmi-version -p 623 ilo.inlanfreight.local
+root@htb[/htb]$ sudo nmap -sU --script ipmi-version -p 623 ilo.inlanfreight.local
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-11-04 21:48 GMT
 Nmap scan report for ilo.inlanfreight.local (172.16.2.2)
@@ -4605,7 +4605,7 @@ The [sshd\_config](https://www.ssh.com/academy/ssh/sshd\_config) file, responsib
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/ssh/sshd_config  | grep -v "#" | sed -r '/^\s*$/d'
+root@htb[/htb]$ cat /etc/ssh/sshd_config  | grep -v "#" | sed -r '/^\s*$/d'
 
 Include /etc/ssh/sshd_config.d/*.conf
 ChallengeResponseAuthentication no
@@ -4648,8 +4648,8 @@ One of the tools we can use to fingerprint the SSH server is [ssh-audit](https:/
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/jtesta/ssh-audit.git && cd ssh-audit
-AbdulrahmanTamim@htb[/htb]$ ./ssh-audit.py 10.129.14.132
+root@htb[/htb]$ git clone https://github.com/jtesta/ssh-audit.git && cd ssh-audit
+root@htb[/htb]$ ./ssh-audit.py 10.129.14.132
 
 # general
 (gen) banner: SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.3
@@ -4691,7 +4691,7 @@ The first thing we can see in the first few lines of the output is the banner th
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -v cry0l1t3@10.129.14.132
+root@htb[/htb]$ ssh -v cry0l1t3@10.129.14.132
 
 OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
 debug1: Reading configuration data /etc/ssh/ssh_config 
@@ -4704,7 +4704,7 @@ For potential brute-force attacks, we can specify the authentication method with
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -v cry0l1t3@10.129.14.132 -o PreferredAuthentications=password
+root@htb[/htb]$ ssh -v cry0l1t3@10.129.14.132 -o PreferredAuthentications=password
 
 OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
 debug1: Reading configuration data /etc/ssh/ssh_config
@@ -4734,7 +4734,7 @@ Let's do a bit of quick footprinting. We can see that Rsync is in use using prot
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sV -p 873 127.0.0.1
+root@htb[/htb]$ sudo nmap -sV -p 873 127.0.0.1
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-09-19 09:31 EDT
 Nmap scan report for localhost (127.0.0.1)
@@ -4754,7 +4754,7 @@ We can next probe the service a bit to see what we can gain access to.
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nv 127.0.0.1 873
+root@htb[/htb]$ nc -nv 127.0.0.1 873
 
 (UNKNOWN) [127.0.0.1] 873 (rsync) open
 @RSYNCD: 31.0
@@ -4771,7 +4771,7 @@ Here we can see a share called `dev`, and we can enumerate it further.
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rsync -av --list-only rsync://127.0.0.1/dev
+root@htb[/htb]$ rsync -av --list-only rsync://127.0.0.1/dev
 
 receiving incremental file list
 drwxr-xr-x             48 2022/09/19 09:43:10 .
@@ -4819,7 +4819,7 @@ The /etc/hosts.equiv file contains a list of trusted hosts and is used to grant 
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/hosts.equiv
+root@htb[/htb]$ cat /etc/hosts.equiv
 
 # <hostname> <local username>
 pwnbox cry0l1t3
@@ -4832,7 +4832,7 @@ Now that we have a basic understanding of `r-commands`, let's do some quick foot
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sV -p 512,513,514 10.0.17.2
+root@htb[/htb]$ sudo nmap -sV -p 512,513,514 10.0.17.2
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2022-12-02 15:02 EST
 Nmap scan report for 10.0.17.2
@@ -4858,7 +4858,7 @@ Note: The `hosts.equiv` file is recognized as the global configuration regarding
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat .rhosts
+root@htb[/htb]$ cat .rhosts
 
 htb-student     10.0.17.5
 +               10.0.17.10
@@ -4874,7 +4874,7 @@ Misconfigurations in either of these files can allow an attacker to authenticate
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rlogin 10.0.17.2 -l htb-student
+root@htb[/htb]$ rlogin 10.0.17.2 -l htb-student
 
 Last login: Fri Dec  2 16:11:21 from localhost
 
@@ -4888,7 +4888,7 @@ We have successfully logged in under the `htb-student` account on the remote hos
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rwho
+root@htb[/htb]$ rwho
 
 root     web01:pts/0 Dec  2 21:34
 htb-student     workstn01:tty1  Dec  2 19:57  2:25       
@@ -4903,7 +4903,7 @@ To provide additional information in conjunction with `rwho`, we can issue the `
 &#x20; Linux Remote Management Protocols
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rusers -al 10.0.17.5
+root@htb[/htb]$ rusers -al 10.0.17.5
 
 htb-student     10.0.17.5:console          Dec 2 19:57     2:25
 ```
