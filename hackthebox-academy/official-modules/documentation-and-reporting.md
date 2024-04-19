@@ -107,7 +107,7 @@ First, clone the [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm) repo
 &#x20; Notetaking & Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+root@htb[/htb]$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
 Next, create a `.tmux.conf` file in the home directory.
@@ -115,7 +115,7 @@ Next, create a `.tmux.conf` file in the home directory.
 &#x20; Notetaking & Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ touch .tmux.conf
+root@htb[/htb]$ touch .tmux.conf
 ```
 
 The config file should have the following contents:
@@ -123,7 +123,7 @@ The config file should have the following contents:
 &#x20; Notetaking & Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat .tmux.conf 
+root@htb[/htb]$ cat .tmux.conf 
 
 # List of plugins
 
@@ -140,7 +140,7 @@ After creating this config file, we need to execute it in our current session, s
 &#x20; Notetaking & Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tmux source ~/.tmux.conf 
+root@htb[/htb]$ tmux source ~/.tmux.conf 
 ```
 
 Next, we can start a new Tmux session (i.e., `tmux new -s setup`).
@@ -248,13 +248,13 @@ It's a good idea to have scripts and tricks for setting up at the beginning of a
 &#x20; Notetaking & Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ mkdir -p ACME-IPT/{Admin,Deliverables,Evidence/{Findings,Scans/{Vuln,Service,Web,'AD Enumeration'},Notes,OSINT,Wireless,'Logging output','Misc Files'},Retest}
+root@htb[/htb]$ mkdir -p ACME-IPT/{Admin,Deliverables,Evidence/{Findings,Scans/{Vuln,Service,Web,'AD Enumeration'},Notes,OSINT,Wireless,'Logging output','Misc Files'},Retest}
 ```
 
 &#x20; Notetaking & Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree ACME-IPT/
+root@htb[/htb]$ tree ACME-IPT/
 
 ACME-IPT/
 ├── Admin
@@ -287,7 +287,7 @@ Taking a quick look at the directory structure, we can see each folder we create
 &#x20; Notetaking & Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree
+root@htb[/htb]$ tree
 .
 └── Inlanefreight Penetration Test
     ├── Admin
@@ -377,7 +377,7 @@ When starting a penetration test, we are being trusted by our customers to enter
 We have included a partially filled-out sample Obsidian notebook in the Parrot Linux host that can be spawned at the end of this section. You can access it with the credentials provided using the following command:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /v:10.129.203.82 /u:htb-student /p:HTB_@cademy_stdnt!
+root@htb[/htb]$ xfreerdp /v:10.129.203.82 /u:htb-student /p:HTB_@cademy_stdnt!
 ```
 
 Once connected in, you can open Obsidian from the Desktop, browse the sample notebook, and review the information that has been pre-populated with some sample data based on the lab that we will work against later in this module when we work through some optional (but highly encouraged!) exercises. We also provided a copy of this Obsidian notebook which can be downloaded from `Resources` in the top right of any section in this module. Once downloaded and unzipped, you can open this in a local copy of Obsidian by selecting `Open folder as vault`. Detailed instructions for creating or opening a vault can be found [here](https://help.obsidian.md/Getting+started/Create+a+vault).
