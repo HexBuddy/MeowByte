@@ -65,14 +65,14 @@ We will refer to URLs such as `http://xss.htb.net` throughout the module section
 To do this quickly, we could run the following (be reminded that the password for your user can be found inside the `my_credentials.txt` file, which is placed on the Pwnbox's Desktop):
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ IP=ENTER SPAWNED TARGET IP HERE
-AbdulrahmanTamim@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "xss.htb.net csrf.htb.net oredirect.htb.net minilab.htb.net" | sudo tee -a /etc/hosts
+root@htb[/htb]$ IP=ENTER SPAWNED TARGET IP HERE
+root@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "xss.htb.net csrf.htb.net oredirect.htb.net minilab.htb.net" | sudo tee -a /etc/hosts
 ```
 
 After this command, our `/etc/hosts` file would look like the following (on a newly spawned Pwnbox):
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/hosts
+root@htb[/htb]$ cat /etc/hosts
 
 # Your system has configured 'manage_etc_hosts' as True.
 # As a result, if you wish for changes to this file to persist
@@ -129,8 +129,8 @@ Proceed to the end of this section and click on `Click here to spawn the target 
 A quick way to specify this (and any other) vhost in your attacking system is the below:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ IP=ENTER SPAWNED TARGET IP HERE
-AbdulrahmanTamim@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "xss.htb.net csrf.htb.net oredirect.htb.net minilab.htb.net" | sudo tee -a /etc/hosts
+root@htb[/htb]$ IP=ENTER SPAWNED TARGET IP HERE
+root@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "xss.htb.net csrf.htb.net oredirect.htb.net minilab.htb.net" | sudo tee -a /etc/hosts
 ```
 
 **Part 1: Identify the session identifier**
@@ -302,8 +302,8 @@ A quick way to specify this (and any other) vhost in your attacking system is th
 &#x20; Obtaining Session Identifiers without User Interaction
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ IP=ENTER SPAWNED TARGET IP HERE
-AbdulrahmanTamim@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "xss.htb.net csrf.htb.net oredirect.htb.net minilab.htb.net" | sudo tee -a /etc/hosts
+root@htb[/htb]$ IP=ENTER SPAWNED TARGET IP HERE
+root@htb[/htb]$ printf "%s\t%s\n\n" "$IP" "xss.htb.net csrf.htb.net oredirect.htb.net minilab.htb.net" | sudo tee -a /etc/hosts
 ```
 
 **Part 1: Simulate the attacker**
@@ -315,7 +315,7 @@ Now fire up Wireshark to start sniffing traffic on the local network as follows.
 &#x20; Obtaining Session Identifiers without User Interaction
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo -E wireshark
+root@htb[/htb]$ sudo -E wireshark
 ```
 
 You will come across the below. ![image](https://academy.hackthebox.com/storage/modules/153/1.png)
@@ -370,9 +370,9 @@ The entry `session.save_path` in `PHP.ini` specifies where session data will be 
 &#x20; Obtaining Session Identifiers without User Interaction
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate php.ini
-AbdulrahmanTamim@htb[/htb]$ cat /etc/php/7.4/cli/php.ini | grep 'session.save_path'
-AbdulrahmanTamim@htb[/htb]$ cat /etc/php/7.4/apache2/php.ini | grep 'session.save_path'
+root@htb[/htb]$ locate php.ini
+root@htb[/htb]$ cat /etc/php/7.4/cli/php.ini | grep 'session.save_path'
+root@htb[/htb]$ cat /etc/php/7.4/apache2/php.ini | grep 'session.save_path'
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/153/11.png)
@@ -386,8 +386,8 @@ The same PHP session identifier but on the webserver side looks as follows.
 &#x20; Obtaining Session Identifiers without User Interaction
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /var/lib/php/sessions
-AbdulrahmanTamim@htb[/htb]$ cat //var/lib/php/sessions/sess_s6kitq8d3071rmlvbfitpim9mm
+root@htb[/htb]$ ls /var/lib/php/sessions
+root@htb[/htb]$ cat //var/lib/php/sessions/sess_s6kitq8d3071rmlvbfitpim9mm
 ```
 
 ![image](https://academy.hackthebox.com/storage/modules/153/13.png)
@@ -561,7 +561,7 @@ The cookie-logging script can be run as follows. `TUN Adapter IP` is the `tun` i
 &#x20; Cross-Site Scripting (XSS)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ php -S <VPN/TUN Adapter IP>:8000
+root@htb[/htb]$ php -S <VPN/TUN Adapter IP>:8000
 [Mon Mar  7 10:54:04 2022] PHP 7.4.21 Development Server (http://<VPN/TUN Adapter IP>:8000) started
 ```
 
@@ -627,7 +627,7 @@ Let us also instruct Netcat to listen on port 8000 as follows.
 &#x20; Cross-Site Scripting (XSS)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nlvp 8000
+root@htb[/htb]$ nc -nlvp 8000
 listening on [any] 8000 ...
 ```
 
@@ -701,7 +701,7 @@ Run Burp Suite as follows.
 &#x20; Cross-Site Request Forgery (CSRF or XSRF)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ burpsuite
+root@htb[/htb]$ burpsuite
 ```
 
 Activate burp suite's proxy (_Intercept On_) and configure your browser to go through it.
@@ -741,7 +741,7 @@ We can serve the page above from our attacking machine as follows.
 &#x20; Cross-Site Request Forgery (CSRF or XSRF)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python -m http.server 1337
+root@htb[/htb]$ python -m http.server 1337
 Serving HTTP on 0.0.0.0 port 1337 (http://0.0.0.0:1337/) ...
 ```
 
@@ -815,7 +815,7 @@ You can serve the page above from your attacking machine as follows.
 &#x20; Cross-Site Request Forgery (GET-based)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python -m http.server 1337
+root@htb[/htb]$ python -m http.server 1337
 Serving HTTP on 0.0.0.0 port 1337 (http://0.0.0.0:1337/) ...
 ```
 
@@ -867,7 +867,7 @@ Let us first instruct Netcat to listen on port 8000, as follows.
 &#x20; Cross-Site Request Forgery (POST-based)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nlvp 8000
+root@htb[/htb]$ nc -nlvp 8000
 listening on [any] 8000 ...
 ```
 
@@ -926,7 +926,7 @@ Run Burp Suite as follows.
 &#x20; XSS & CSRF Chaining
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ burpsuite
+root@htb[/htb]$ burpsuite
 ```
 
 By browsing the application, we notice that Ela Stienen can't share her profile. This is because her profile is _private_. Let us change that by clicking "Change Visibility."
@@ -1128,7 +1128,7 @@ Execute the below command to calculate the MD5 hash of the string "goldenpeacock
 &#x20; Exploiting Weak CSRF Tokens
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n goldenpeacock467 | md5sum
+root@htb[/htb]$ echo -n goldenpeacock467 | md5sum
 0bef12f8998057a7656043b6d30c90a2  -
 ```
 
@@ -1194,7 +1194,7 @@ We can serve the page and JavaScript code above from our attacking machine as fo
 &#x20; Exploiting Weak CSRF Tokens
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python -m http.server 1337
+root@htb[/htb]$ python -m http.server 1337
 Serving HTTP on 0.0.0.0 port 1337 (http://0.0.0.0:1337/) ...
 ```
 
@@ -1442,7 +1442,7 @@ First, let us set up a Netcat listener.
 &#x20; Open Redirect
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 1337
+root@htb[/htb]$ nc -lvnp 1337
 ```
 
 Copy the entire URL where you landed after navigating to `oredirect.htb.net`. It should be a URL of the below format:
