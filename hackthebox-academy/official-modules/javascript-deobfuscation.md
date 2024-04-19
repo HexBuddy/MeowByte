@@ -384,7 +384,7 @@ In the previous section, we found out that the `secret.js` main function is send
 &#x20; HTTP Requests
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://SERVER_IP:PORT/
+root@htb[/htb]$ curl http://SERVER_IP:PORT/
 
 </html>
 <!DOCTYPE html>
@@ -417,7 +417,7 @@ To send a `POST` request, we should add the `-X POST` flag to our command, and i
 &#x20; HTTP Requests
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://SERVER_IP:PORT/ -X POST
+root@htb[/htb]$ curl -s http://SERVER_IP:PORT/ -X POST
 ```
 
 Tip: We add the "-s" flag to reduce cluttering the response with unnecessary data
@@ -427,7 +427,7 @@ However, `POST` request usually contains `POST` data. To send data, we can use t
 &#x20; HTTP Requests
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://SERVER_IP:PORT/ -X POST -d "param1=sample"
+root@htb[/htb]$ curl -s http://SERVER_IP:PORT/ -X POST -d "param1=sample"
 ```
 
 Now that we know how to use `cURL` to send basic `POST` requests, in the next section, we will utilize this to replicate what `server.js` is doing to understand its purpose better.
@@ -443,7 +443,7 @@ After doing the exercise in the previous section, we got a strange block of text
 &#x20; Decoding
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http:/SERVER_IP:PORT/serial.php -X POST -d "param1=sample"
+root@htb[/htb]$ curl http:/SERVER_IP:PORT/serial.php -X POST -d "param1=sample"
 
 ZG8gdGhlIGV4ZXJjaXNlLCBkb24ndCBjb3B5IGFuZCBwYXN0ZSA7KQo=
 ```
@@ -471,7 +471,7 @@ To encode any text into `base64` in Linux, we can echo it and pipe it with '`|`'
 &#x20; Decoding
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo https://www.hackthebox.eu/ | base64
+root@htb[/htb]$ echo https://www.hackthebox.eu/ | base64
 
 aHR0cHM6Ly93d3cuaGFja3RoZWJveC5ldS8K
 ```
@@ -483,7 +483,7 @@ If we want to decode any `base64` encoded string, we can use `base64 -d`, as fol
 &#x20; Decoding
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo aHR0cHM6Ly93d3cuaGFja3RoZWJveC5ldS8K | base64 -d
+root@htb[/htb]$ echo aHR0cHM6Ly93d3cuaGFja3RoZWJveC5ldS8K | base64 -d
 
 https://www.hackthebox.eu/
 ```
@@ -505,7 +505,7 @@ To encode any string into `hex` in Linux, we can use the `xxd -p` command:
 &#x20; Decoding
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo https://www.hackthebox.eu/ | xxd -p
+root@htb[/htb]$ echo https://www.hackthebox.eu/ | xxd -p
 
 68747470733a2f2f7777772e6861636b746865626f782e65752f0a
 ```
@@ -517,7 +517,7 @@ To decode a `hex` encoded string, we can use the `xxd -p -r` command:
 &#x20; Decoding
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 68747470733a2f2f7777772e6861636b746865626f782e65752f0a | xxd -p -r
+root@htb[/htb]$ echo 68747470733a2f2f7777772e6861636b746865626f782e65752f0a | xxd -p -r
 
 https://www.hackthebox.eu/
 ```
@@ -539,7 +539,7 @@ There isn't a specific command in Linux to do `rot13` encoding. However, it is f
 &#x20; Decoding
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo https://www.hackthebox.eu/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+root@htb[/htb]$ echo https://www.hackthebox.eu/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
 uggcf://jjj.unpxgurobk.rh/
 ```
@@ -551,7 +551,7 @@ We can use the same previous command to decode rot13 as well:
 &#x20; Decoding
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo uggcf://jjj.unpxgurobk.rh/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+root@htb[/htb]$ echo uggcf://jjj.unpxgurobk.rh/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
 https://www.hackthebox.eu/
 ```
