@@ -834,7 +834,7 @@ The following shows an example of requesting a page in a Linux terminal using th
 &#x20; Web Servers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -I https://academy.hackthebox.com
+root@htb[/htb]$ curl -I https://academy.hackthebox.com
 
 HTTP/2 200
 date: Tue, 15 Dec 2020 19:54:29 GMT
@@ -847,7 +847,7 @@ While this `cURL` command example shows us the source code of the webpage:
 &#x20; Web Servers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl https://academy.hackthebox.com
+root@htb[/htb]$ curl https://academy.hackthebox.com
 
 <!doctype html>
 <html lang="en">
