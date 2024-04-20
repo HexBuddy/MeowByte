@@ -48,3 +48,5 @@
   * [Windows Privilege Escalation](hackthebox-academy/official-modules/windows-privilege-escalation.md)
   * [Documentation & Reporting](hackthebox-academy/official-modules/documentation-and-reporting.md)
   * [Attacking Enterprise Networks](hackthebox-academy/official-modules/attacking-enterprise-networks.md)
+  * [Incident Handling Process](hackthebox-academy/official-modules/incident-handling-process.md)
+  * [Page](hackthebox-academy/official-modules/page-1.md)

