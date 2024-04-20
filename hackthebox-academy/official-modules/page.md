@@ -99,7 +99,7 @@ We can send a basic HTTP request to any URL by using it as an argument for cURL,
 &#x20; HyperText Transfer Protocol (HTTP)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl inlanefreight.com
+root@htb[/htb]$ curl inlanefreight.com
 
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
@@ -113,8 +113,8 @@ We may also use cURL to download a page or a file and output the content into a 
 &#x20; HyperText Transfer Protocol (HTTP)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -O inlanefreight.com/index.html
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ curl -O inlanefreight.com/index.html
+root@htb[/htb]$ ls
 index.html
 ```
 
@@ -123,7 +123,7 @@ As we can see, the output was not printed this time but rather saved into `index
 &#x20; HyperText Transfer Protocol (HTTP)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s -O inlanefreight.com/index.html
+root@htb[/htb]$ curl -s -O inlanefreight.com/index.html
 ```
 
 This time, cURL did not print anything, as the output was saved into the `index.html` file. Finally, we may use the `-h` flag to see what other options we may use with cURL:
@@ -131,7 +131,7 @@ This time, cURL did not print anything, as the output was saved into the `index.
 &#x20; HyperText Transfer Protocol (HTTP)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -h
+root@htb[/htb]$ curl -h
 Usage: curl [options...] <url>
  -d, --data <data>   HTTP POST data
  -h, --help <category> Get help for commands
@@ -201,7 +201,7 @@ cURL should automatically handle all HTTPS communication standards and perform a
 &#x20; Hypertext Transfer Protocol Secure (HTTPS)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl https://inlanefreight.com
+root@htb[/htb]$ curl https://inlanefreight.com
 
 curl: (60) SSL certificate problem: Invalid certificate chain
 More details here: https://curl.haxx.se/docs/sslcerts.html
@@ -215,7 +215,7 @@ We may face such an issue when testing a local web application or with a web app
 &#x20; Hypertext Transfer Protocol Secure (HTTPS)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -k https://inlanefreight.com
+root@htb[/htb]$ curl -k https://inlanefreight.com
 
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
@@ -279,7 +279,7 @@ In our earlier examples with cURL, we only specified the URL and got the respons
 &#x20; HTTP Requests and Responses
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl inlanefreight.com -v
+root@htb[/htb]$ curl inlanefreight.com -v
 
 *   Trying SERVER_IP:80...
 * TCP_NODELAY set
@@ -417,7 +417,7 @@ The following command shows an example output of using the `-I` flag:
 &#x20; HTTP Headers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -I https://www.inlanefreight.com
+root@htb[/htb]$ curl -I https://www.inlanefreight.com
 
 Host: www.inlanefreight.com
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko)
@@ -446,7 +446,7 @@ In addition to viewing headers, cURL also allows us to set request headers with 
 &#x20; HTTP Headers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl https://www.inlanefreight.com -A 'Mozilla/5.0'
+root@htb[/htb]$ curl https://www.inlanefreight.com -A 'Mozilla/5.0'
 
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
@@ -545,7 +545,7 @@ Once we enter the credentials, we would get access to the page:
 Let's try to access the page with cURL, and we'll add `-i` to view the response headers:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -i http://<SERVER_IP>:<PORT>/
+root@htb[/htb]$ curl -i http://<SERVER_IP>:<PORT>/
 HTTP/1.1 401 Authorization Required
 Date: Mon, 21 Feb 2022 13:11:46 GMT
 Server: Apache/2.4.41 (Ubuntu)
@@ -560,7 +560,7 @@ Access denied
 As we can see, we get `Access denied` in the response body, and we also get `Basic realm="Access denied"` in the `WWW-Authenticate` header, which confirms that this page indeed uses `basic HTTP auth`, as discussed in the Headers section. To provide the credentials through cURL, we can use the `-u` flag, as follows:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -u admin:admin http://<SERVER_IP>:<PORT>/
+root@htb[/htb]$ curl -u admin:admin http://<SERVER_IP>:<PORT>/
 
 <!DOCTYPE html>
 <html lang="en">
@@ -572,7 +572,7 @@ AbdulrahmanTamim@htb[/htb]$ curl -u admin:admin http://<SERVER_IP>:<PORT>/
 This time we do get the page in the response. There is another method we can provide the `basic HTTP auth` credentials, which is directly through the URL as (`username:password@URL`), as we discussed in the first section. If we try the same with cURL or our browser, we do get access to the page as well:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://admin:admin@<SERVER_IP>:<PORT>/
+root@htb[/htb]$ curl http://admin:admin@<SERVER_IP>:<PORT>/
 
 <!DOCTYPE html>
 <html lang="en">
@@ -592,7 +592,7 @@ Exercise: Try to view the response headers by adding -i to the above request, an
 If we add the `-v` flag to either of our earlier cURL commands:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -v http://admin:admin@<SERVER_IP>:<PORT>/
+root@htb[/htb]$ curl -v http://admin:admin@<SERVER_IP>:<PORT>/
 
 *   Trying <SERVER_IP>:<PORT>...
 * Connected to <SERVER_IP> (<SERVER_IP>) port PORT (#0)
@@ -627,7 +627,7 @@ As we are using `basic HTTP auth`, we see that our HTTP request sets the `Author
 Let's try to manually set the `Authorization`, without supplying the credentials, to see if it does allow us access to the page. We can set the header with the `-H` flag, and will use the same value from the above HTTP request. We can add the `-H` flag multiple times to specify multiple headers:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://<SERVER_IP>:<PORT>/
+root@htb[/htb]$ curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://<SERVER_IP>:<PORT>/
 
 <!DOCTYPE html
 <html lang="en">
@@ -661,7 +661,7 @@ Now, we can send the same request directly to `search.php` to get the full searc
 To send a GET request with cURL, we can use the exact same URL seen in the above screenshots since GET requests place their parameters in the URL. However, browser devtools provide a more convenient method of obtaining the cURL command. We can right-click on the request and select `Copy>Copy as cURL`. Then, we can paste the copied command in our terminal and execute it, and we should get the exact same response:
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl 'http://<SERVER_IP>:<PORT>/search.php?search=le' -H 'Authorization: Basic YWRtaW46YWRtaW4='
+root@htb[/htb]$ curl 'http://<SERVER_IP>:<PORT>/search.php?search=le' -H 'Authorization: Basic YWRtaW46YWRtaW4='
 
 Leeds (UK)
 Leicester (UK)
@@ -851,7 +851,7 @@ The first thing we will do when interacting with an API is reading data. As ment
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/api.php/city/london
+root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/api.php/city/london
 
 [{"city_name":"London","country_name":"(UK)"}]
 ```
@@ -861,7 +861,7 @@ We see that the result is sent as a JSON string. To have it properly formatted i
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
+root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
 
 [
   {
@@ -876,7 +876,7 @@ As we can see, we got the output in a nicely formatted output. We can also provi
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/le | jq
+root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/le | jq
 
 [
   {
@@ -900,7 +900,7 @@ Finally, we can pass an empty string to retrieve all entries in the table:
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/ | jq
+root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/ | jq
 
 [
   {
@@ -930,7 +930,7 @@ To add a new entry, we can use an HTTP POST request, which is quite similar to w
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X POST http://<SERVER_IP>:<PORT>/api.php/city/ -d '{"city_name":"HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'
+root@htb[/htb]$ curl -X POST http://<SERVER_IP>:<PORT>/api.php/city/ -d '{"city_name":"HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'
 ```
 
 Now, we can read the content of the city we added (`HTB_City`), to see if it was successfully added:
@@ -938,7 +938,7 @@ Now, we can read the content of the city we added (`HTB_City`), to see if it was
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/HTB_City | jq
+root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/HTB_City | jq
 
 [
   {
@@ -965,7 +965,7 @@ Using `PUT` is quite similar to `POST` in this case, with the only difference be
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X PUT http://<SERVER_IP>:<PORT>/api.php/city/london -d '{"city_name":"New_HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'
+root@htb[/htb]$ curl -X PUT http://<SERVER_IP>:<PORT>/api.php/city/london -d '{"city_name":"New_HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'
 ```
 
 We see in the example above that we first specified `/city/london` as our city, and passed a JSON string that contained `"city_name":"New_HTB_City"` in the request data. So, the london city should no longer exist, and a new city with the name `New_HTB_City` should exist. Let's try reading both to confirm:
@@ -973,13 +973,13 @@ We see in the example above that we first specified `/city/london` as our city, 
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
+root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
 ```
 
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
+root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
 
 [
   {
@@ -1002,13 +1002,13 @@ Finally, let's try to delete a city, which is as easy as reading a city. We simp
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -X DELETE http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City
+root@htb[/htb]$ curl -X DELETE http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City
 ```
 
 &#x20; CRUD API
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
+root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
 []
 ```
 
