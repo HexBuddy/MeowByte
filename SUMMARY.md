@@ -58,3 +58,7 @@
   * [Intermediate Network Traffic Analysis](hackthebox-academy/official-modules/intermediate-network-traffic-analysis.md)
   * [Working with IDS/IPS](hackthebox-academy/official-modules/working-with-ids-ips.md)
   * [Introduction to Malware Analysis](hackthebox-academy/official-modules/introduction-to-malware-analysis.md)
+  * [YARA & Sigma for SOC Analysts](hackthebox-academy/official-modules/yara-and-sigma-for-soc-analysts.md)
+  * [Introduction to Digital Forensics](hackthebox-academy/official-modules/introduction-to-digital-forensics.md)
+  * [Detecting Windows Attacks with Splunk](hackthebox-academy/official-modules/detecting-windows-attacks-with-splunk.md)
+  * [Security Incident Reporting](hackthebox-academy/official-modules/security-incident-reporting.md)
