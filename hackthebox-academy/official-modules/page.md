@@ -6,43 +6,41 @@ The cheat sheet is a useful command reference for this module.
 
 ### cURL
 
-| **Command**                                                                                                       | **Description**                                      |
-| ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-|  `curl -h`                                                                                                        | cURL help menu                                       |
-|  `curl inlanefreight.com`                                                                                         | Basic GET request                                    |
-|  `curl -s -O inlanefreight.com/index.html`                                                                        | Download file                                        |
-|  `curl -k https://inlanefreight.com`                                                                              | Skip HTTPS (SSL) certificate validation              |
-|  `curl inlanefreight.com -v`                                                                                      | Print full HTTP request/response details             |
-|  `curl -I https://www.inlanefreight.com`                                                                          | Send HEAD request (only prints response headers)     |
-|  `curl -i https://www.inlanefreight.com`                                                                          | Print response headers and response body             |
-|  `curl https://www.inlanefreight.com -A 'Mozilla/5.0'`                                                            | Set User-Agent header                                |
-|  `curl -u admin:admin http://<SERVER_IP>:<PORT>/`                                                                 | Set HTTP basic authorization credentials             |
-|  `curl http://admin:admin@<SERVER_IP>:<PORT>/`                                                                    | Pass HTTP basic authorization credentials in the URL |
-|  `curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://<SERVER_IP>:<PORT>/`                                     | Set request header                                   |
-|  `curl 'http://<SERVER_IP>:<PORT>/search.php?search=le'`                                                          | Pass GET parameters                                  |
-|  `curl -X POST -d 'username=admin&password=admin' http://<SERVER_IP>:<PORT>/`                                     | Send POST request with POST data                     |
-|  `curl -b 'PHPSESSID=c1nsa6op7vtk7kdis7bcnbadf1' http://<SERVER_IP>:<PORT>/`                                      | Set request cookies                                  |
-|  `curl -X POST -d '{"search":"london"}' -H 'Content-Type: application/json' http://<SERVER_IP>:<PORT>/search.php` | Send POST request with JSON data                     |
+| **Command**                                                                                                      | **Description**                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `curl -h`                                                                                                        | cURL help menu                                       |
+| `curl inlanefreight.com`                                                                                         | Basic GET request                                    |
+| `curl -s -O inlanefreight.com/index.html`                                                                        | Download file                                        |
+| `curl -k https://inlanefreight.com`                                                                              | Skip HTTPS (SSL) certificate validation              |
+| `curl inlanefreight.com -v`                                                                                      | Print full HTTP request/response details             |
+| `curl -I https://www.inlanefreight.com`                                                                          | Send HEAD request (only prints response headers)     |
+| `curl -i https://www.inlanefreight.com`                                                                          | Print response headers and response body             |
+| `curl https://www.inlanefreight.com -A 'Mozilla/5.0'`                                                            | Set User-Agent header                                |
+| `curl -u admin:admin http://<SERVER_IP>:<PORT>/`                                                                 | Set HTTP basic authorization credentials             |
+| `curl http://admin:admin@<SERVER_IP>:<PORT>/`                                                                    | Pass HTTP basic authorization credentials in the URL |
+| `curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://<SERVER_IP>:<PORT>/`                                     | Set request header                                   |
+| `curl 'http://<SERVER_IP>:<PORT>/search.php?search=le'`                                                          | Pass GET parameters                                  |
+| `curl -X POST -d 'username=admin&password=admin' http://<SERVER_IP>:<PORT>/`                                     | Send POST request with POST data                     |
+| `curl -b 'PHPSESSID=c1nsa6op7vtk7kdis7bcnbadf1' http://<SERVER_IP>:<PORT>/`                                      | Set request cookies                                  |
+| `curl -X POST -d '{"search":"london"}' -H 'Content-Type: application/json' http://<SERVER_IP>:<PORT>/search.php` | Send POST request with JSON data                     |
 
 ### APIs
 
-| **Command**                                                                                                                                              | **Description**       |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
-|  `curl http://<SERVER_IP>:<PORT>/api.php/city/london`                                                                                                    | Read entry            |
-|  `curl -s http://<SERVER_IP>:<PORT>/api.php/city/ \| jq`                                                                                                 | Read all entries      |
-|  `curl -X POST http://<SERVER_IP>:<PORT>/api.php/city/ -d '{"city_name":"HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'`          | Create (add) entry    |
-|  `curl -X PUT http://<SERVER_IP>:<PORT>/api.php/city/london -d '{"city_name":"New_HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'` | Update (modify) entry |
-|  `curl -X DELETE http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City`                                                                                    | Delete entry          |
+| **Command**                                                                                                                                             | **Description**       |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `curl http://<SERVER_IP>:<PORT>/api.php/city/london`                                                                                                    | Read entry            |
+| `curl -s http://<SERVER_IP>:<PORT>/api.php/city/ \| jq`                                                                                                 | Read all entries      |
+| `curl -X POST http://<SERVER_IP>:<PORT>/api.php/city/ -d '{"city_name":"HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'`          | Create (add) entry    |
+| `curl -X PUT http://<SERVER_IP>:<PORT>/api.php/city/london -d '{"city_name":"New_HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'` | Update (modify) entry |
+| `curl -X DELETE http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City`                                                                                    | Delete entry          |
 
 ### Browser DevTools
 
-| **Shortcut**                   | **Description**  |
-| ------------------------------ | ---------------- |
-|  \[`CTRL+SHIFT+I`] or \[`F12`] | Show devtools    |
-|  \[`CTRL+SHIFT+E`]             | Show Network tab |
-|  \[`CTRL+SHIFT+K`]             | Show Console tab |
-
-
+| **Shortcut**                  | **Description**  |
+| ----------------------------- | ---------------- |
+| \[`CTRL+SHIFT+I`] or \[`F12`] | Show devtools    |
+| \[`CTRL+SHIFT+E`]             | Show Network tab |
+| \[`CTRL+SHIFT+K`]             | Show Console tab |
 
 ## HyperText Transfer Protocol (HTTP)
 
@@ -96,7 +94,7 @@ In this module, we will be sending web requests through two of the most importan
 
 We can send a basic HTTP request to any URL by using it as an argument for cURL, as follows:
 
-&#x20; HyperText Transfer Protocol (HTTP)
+HyperText Transfer Protocol (HTTP)
 
 ```shell-session
 root@htb[/htb]$ curl inlanefreight.com
@@ -110,7 +108,7 @@ We see that cURL does not render the HTML/JavaScript/CSS code, unlike a web brow
 
 We may also use cURL to download a page or a file and output the content into a file using the `-O` flag. If we want to specify the output file name, we can use the `-o` flag and specify the name. Otherwise, we can use `-O` and cURL will use the remote file name, as follows:
 
-&#x20; HyperText Transfer Protocol (HTTP)
+HyperText Transfer Protocol (HTTP)
 
 ```shell-session
 root@htb[/htb]$ curl -O inlanefreight.com/index.html
@@ -120,7 +118,7 @@ index.html
 
 As we can see, the output was not printed this time but rather saved into `index.html`. We noticed that cURL still printed some status while processing the request. We can silent the status with the `-s` flag, as follows:
 
-&#x20; HyperText Transfer Protocol (HTTP)
+HyperText Transfer Protocol (HTTP)
 
 ```shell-session
 root@htb[/htb]$ curl -s -O inlanefreight.com/index.html
@@ -128,7 +126,7 @@ root@htb[/htb]$ curl -s -O inlanefreight.com/index.html
 
 This time, cURL did not print anything, as the output was saved into the `index.html` file. Finally, we may use the `-h` flag to see what other options we may use with cURL:
 
-&#x20; HyperText Transfer Protocol (HTTP)
+HyperText Transfer Protocol (HTTP)
 
 ```shell-session
 root@htb[/htb]$ curl -h
@@ -151,8 +149,6 @@ Use the user manual `man curl` or the "--help all" flag for all options.
 As the above message mentions, we may use `--help all` to print a more detailed help menu, or `--help category` (e.g. `-h http`) to print the detailed help of a specific flag. If we ever need to read more detailed documentation, we can use `man curl` to view the full cURL manual page.
 
 In the upcoming sections, we will cover most of the above flags and see where we should use each of them.
-
-
 
 ## Hypertext Transfer Protocol Secure (HTTPS)
 
@@ -198,7 +194,7 @@ Note: Depending on the circumstances, an attacker may be able to perform an HTTP
 
 cURL should automatically handle all HTTPS communication standards and perform a secure handshake and then encrypt and decrypt data automatically. However, if we ever contact a website with an invalid SSL certificate or an outdated one, then cURL by default would not proceed with the communication to protect against the earlier mentioned MITM attacks:
 
-&#x20; Hypertext Transfer Protocol Secure (HTTPS)
+Hypertext Transfer Protocol Secure (HTTPS)
 
 ```shell-session
 root@htb[/htb]$ curl https://inlanefreight.com
@@ -212,7 +208,7 @@ Modern web browsers would do the same, warning the user against visiting a websi
 
 We may face such an issue when testing a local web application or with a web application hosted for practice purposes, as such web applications may not yet have implemented a valid SSL certificate. To skip the certificate check with cURL, we can use the `-k` flag:
 
-&#x20; Hypertext Transfer Protocol Secure (HTTPS)
+Hypertext Transfer Protocol Secure (HTTPS)
 
 ```shell-session
 root@htb[/htb]$ curl -k https://inlanefreight.com
@@ -223,8 +219,6 @@ root@htb[/htb]$ curl -k https://inlanefreight.com
 ```
 
 As we can see, the request went through this time, and we received the response data.
-
-
 
 ## HTTP Requests and Responses
 
@@ -276,7 +270,7 @@ Finally, the response may end with a response body, which is separated by a new 
 
 In our earlier examples with cURL, we only specified the URL and got the response body in return. However, cURL also allows us to preview the full HTTP request and the full HTTP response, which can become very handy when performing web penetration tests or writing exploits. To view the full HTTP request and response, we can simply add the `-v` verbose flag to our earlier commands, and it should print both the request and response:
 
-&#x20; HTTP Requests and Responses
+HTTP Requests and Responses
 
 ```shell-session
 root@htb[/htb]$ curl inlanefreight.com -v
@@ -316,13 +310,11 @@ Most modern web browsers come with built-in developer tools (`DevTools`), which 
 
 Whenever we visit any website or access any web application, our browser sends multiple web requests and handles multiple HTTP responses to render the final view we see in the browser window. To open the browser devtools in either Chrome or Firefox, we can click \[`CTRL+SHIFT+I`] or simply click \[`F12`]. The devtools contain multiple tabs, each of which has its own use. We will mostly be focusing on the `Network` tab in this module, as it is responsible for web requests.
 
-If we click on the Network tab and refresh the page, we should be able to see the list of requests sent by the page:&#x20;
+If we click on the Network tab and refresh the page, we should be able to see the list of requests sent by the page:
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 As we can see, the devtools show us at a glance the response status (i.e. response code), the request method used (`GET`), the requested resource (i.e. URL/domain), along with the requested path. Furthermore, we can use `Filter URLs` to search for a specific request, in case the website loads too many to go through.
-
-
 
 ## HTTP Headers
 
@@ -414,7 +406,7 @@ In the previous section, we saw how using the `-v` flag with cURL shows us the f
 
 The following command shows an example output of using the `-I` flag:
 
-&#x20; HTTP Headers
+HTTP Headers
 
 ```shell-session
 root@htb[/htb]$ curl -I https://www.inlanefreight.com
@@ -443,7 +435,7 @@ Exercise: Try to go through all of the above headers, and see whether you can re
 
 In addition to viewing headers, cURL also allows us to set request headers with the `-H` flag, as we will see in a later section. Some headers, like the `User-Agent` or `Cookie` headers, have their own flags. For example, we can use the `-A` to set our `User-Agent`, as follows:
 
-&#x20; HTTP Headers
+HTTP Headers
 
 ```shell-session
 root@htb[/htb]$ curl https://www.inlanefreight.com -A 'Mozilla/5.0'
@@ -459,13 +451,11 @@ Exercise: Try to use the `-I` or the `-v` flags with the above example, to ensur
 
 ### Browser DevTools
 
-Finally, let's see how we can preview the HTTP headers using the browser devtools. Just as we did in the previous section, we can go to the `Network` tab to view the different requests made by the page. We can click on any of the requests to view its details:&#x20;
+Finally, let's see how we can preview the HTTP headers using the browser devtools. Just as we did in the previous section, we can go to the `Network` tab to view the different requests made by the page. We can click on any of the requests to view its details:
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 In the first `Headers` tab, we see both the HTTP request and HTTP response headers. The devtools automatically arrange the headers into sections, but we can click on the `Raw` button to view their details in their raw format. Furthermore, we can check the `Cookies` tab to see any cookies used by the request, as discussed in an upcoming section.
-
-
 
 ## HTTP Methods and Codes
 
@@ -520,8 +510,6 @@ The following are some of the commonly seen examples from each of the above HTTP
 
 For a full list of standard HTTP response codes, you can visit this [link](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status). Apart from the standard HTTP codes, various servers and providers such as [Cloudflare](https://support.cloudflare.com/hc/en-us/articles/115003014432-HTTP-Status-Codes) or [AWS](https://docs.aws.amazon.com/AmazonSimpleDB/latest/DeveloperGuide/APIError.html) implement their own codes.
 
-
-
 ## GET
 
 Whenever we visit any URL, our browsers default to a GET request to obtain the remote resources hosted at that URL. Once the browser receives the initial page it is requesting; it may send other requests using various HTTP methods. This can be observed through the Network tab in the browser devtools, as seen in the previous section.
@@ -536,11 +524,11 @@ When we visit the exercise found at the end of this section, it prompts us to en
 
 To access the page, we have to enter a valid pair of credentials, which are `admin`:`admin` in this case:
 
-&#x20;  ![](https://academy.hackthebox.com/storage/modules/35/http\_auth\_login.jpg)
+![](https://academy.hackthebox.com/storage/modules/35/http\_auth\_login.jpg)
 
 Once we enter the credentials, we would get access to the page:
 
-&#x20;  ![](https://academy.hackthebox.com/storage/modules/35/http\_auth\_index.jpg)
+![](https://academy.hackthebox.com/storage/modules/35/http\_auth\_index.jpg)
 
 Let's try to access the page with cURL, and we'll add `-i` to view the response headers:
 
@@ -644,15 +632,11 @@ As we see, this also gave us access to the page. These are a few methods we can 
 
 Once we are authenticated, we get access to a `City Search` function, in which we can enter a search term and get a list of matching cities:
 
-&#x20;  ![](https://academy.hackthebox.com/storage/modules/35/http\_auth\_index.jpg)
+![](https://academy.hackthebox.com/storage/modules/35/http\_auth\_index.jpg)
 
-As the page returns our results, it may be contacting a remote resource to obtain the information, and then display them on the page. To verify this, we can open the browser devtools and go to the Network tab, or use the shortcut \[`CTRL+SHIFT+E`] to get to the same tab. Before we enter our search term and view the requests, we may need to click on the `trash` icon on the top left, to ensure we clear any previous requests and only monitor newer requests:&#x20;
+As the page returns our results, it may be contacting a remote resource to obtain the information, and then display them on the page. To verify this, we can open the browser devtools and go to the Network tab, or use the shortcut \[`CTRL+SHIFT+E`] to get to the same tab. Before we enter our search term and view the requests, we may need to click on the `trash` icon on the top left, to ensure we clear any previous requests and only monitor newer requests:
 
-
-
-After that, we can enter any search term and hit enter, and we will immediately notice a new request being sent to the backend:&#x20;
-
-
+After that, we can enter any search term and hit enter, and we will immediately notice a new request being sent to the backend:
 
 ![](<../../.gitbook/assets/image (4).png>)When we click on the request, it gets sent to `search.php` with the GET parameter `search=le` used in the URL. This helps us understand that the search function requests another page for the results.
 
@@ -669,13 +653,11 @@ Leicester (UK)
 
 Note: The copied command will contain all headers used in the HTTP request. However, we can remove most of them and only keep necessary authentication headers, like the `Authorization` header.
 
-We can also repeat the exact request right within the browser devtools, by selecting `Copy>Copy as Fetch`. This will copy the same HTTP request using the JavaScript Fetch library. Then, we can go to the JavaScript console tab by clicking \[`CTRL+SHIFT+K`], paste our Fetch command and hit enter to send the request:&#x20;
+We can also repeat the exact request right within the browser devtools, by selecting `Copy>Copy as Fetch`. This will copy the same HTTP request using the JavaScript Fetch library. Then, we can go to the JavaScript console tab by clicking \[`CTRL+SHIFT+K`], paste our Fetch command and hit enter to send the request:
 
 <figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 As we see, the browser sent our request, and we can see the response returned after it. We can click on the response to view its details, expand various details, and read them.
-
-
 
 ## POST
 
@@ -695,11 +677,11 @@ So, let's see some examples of how POST requests work, and how we can utilize to
 
 The exercise at the end of this section is similar to the example we saw in the GET section. However, once we visit the web application, we see that it utilizes a PHP login form instead of HTTP basic auth:
 
-&#x20;  ![](https://academy.hackthebox.com/storage/modules/35/web\_requests\_post\_login.jpg)
+![](https://academy.hackthebox.com/storage/modules/35/web\_requests\_post\_login.jpg)
 
 If we try to login with `admin`:`admin`, we get in and see a similar search function to the one we saw earlier in the GET section:
 
-&#x20;  ![](https://academy.hackthebox.com/storage/modules/35/web\_requests\_login\_search.jpg)
+![](https://academy.hackthebox.com/storage/modules/35/web\_requests\_login\_search.jpg)
 
 If we clear the Network tab in our browser devtools and try to log in again, we will see many requests being sent. We can filter the requests by our server IP, so it would only show requests going to the web application's web server (i.e. filter out external requests), and we will notice the following POST request being sent: ![web\_requests\_login\_request](https://academy.hackthebox.com/storage/modules/35/web\_requests\_login\_request.jpg)
 
@@ -811,8 +793,6 @@ Finally, let's try to repeat the same above request by using `Fetch`, as we did 
 
 Our request successfully returns the same data we got with cURL. `Try to search for different cities by directly interacting with the search.php through Fetch or cURL.`
 
-
-
 ## CRUD API
 
 We saw examples of a `City Search` web application that uses PHP parameters to search for a city name in the previous sections. This section will look at how such a web application may utilize APIs to perform the same thing, and we will directly interact with the API endpoint.
@@ -848,7 +828,7 @@ These four operations are mainly linked to the commonly known CRUD APIs, but the
 
 The first thing we will do when interacting with an API is reading data. As mentioned earlier, we can simply specify the table name after the API (e.g. `/city`) and then specify our search term (e.g. `/london`), as follows:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/api.php/city/london
@@ -858,7 +838,7 @@ root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/api.php/city/london
 
 We see that the result is sent as a JSON string. To have it properly formatted in JSON format, we can pipe the output to the `jq` utility, which will format it properly. We will also silent any unneeded cURL output with `-s`, as follows:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
@@ -873,7 +853,7 @@ root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
 
 As we can see, we got the output in a nicely formatted output. We can also provide a search term and get all matching results:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/le | jq
@@ -897,7 +877,7 @@ root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/le | jq
 
 Finally, we can pass an empty string to retrieve all entries in the table:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/ | jq
@@ -927,7 +907,7 @@ root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/ | jq
 
 To add a new entry, we can use an HTTP POST request, which is quite similar to what we have performed in the previous section. We can simply POST our JSON data, and it will be added to the table. As this API is using JSON data, we will also set the `Content-Type` header to JSON, as follows:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -X POST http://<SERVER_IP>:<PORT>/api.php/city/ -d '{"city_name":"HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'
@@ -935,7 +915,7 @@ root@htb[/htb]$ curl -X POST http://<SERVER_IP>:<PORT>/api.php/city/ -d '{"city_
 
 Now, we can read the content of the city we added (`HTB_City`), to see if it was successfully added:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/HTB_City | jq
@@ -962,7 +942,7 @@ Note: The HTTP `PATCH` method may also be used to update API entries instead of 
 
 Using `PUT` is quite similar to `POST` in this case, with the only difference being that we have to specify the name of the entity we want to edit in the URL, otherwise the API will not know which entity to edit. So, all we have to do is specify the `city` name in the URL, change the request method to `PUT`, and provide the JSON data like we did with POST, as follows:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -X PUT http://<SERVER_IP>:<PORT>/api.php/city/london -d '{"city_name":"New_HTB_City", "country_name":"HTB"}' -H 'Content-Type: application/json'
@@ -970,13 +950,13 @@ root@htb[/htb]$ curl -X PUT http://<SERVER_IP>:<PORT>/api.php/city/london -d '{"
 
 We see in the example above that we first specified `/city/london` as our city, and passed a JSON string that contained `"city_name":"New_HTB_City"` in the request data. So, the london city should no longer exist, and a new city with the name `New_HTB_City` should exist. Let's try reading both to confirm:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
 ```
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
@@ -999,13 +979,13 @@ Note: In some APIs, the `Update` operation may be used to create new entries as 
 
 Finally, let's try to delete a city, which is as easy as reading a city. We simply specify the city name for the API and use the HTTP `DELETE` method, and it would delete the entry, as follows:
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -X DELETE http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City
 ```
 
-&#x20; CRUD API
+CRUD API
 
 ```shell-session
 root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
@@ -1015,6 +995,3 @@ root@htb[/htb]$ curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
 As we can see, after we deleted `New_HTB_City`, we get an empty array when we try reading it, meaning it no longer exists.
 
 With this, we are able to perform all 4 `CRUD` operations through cURL. In a real web application, such actions may not be allowed for all users, or it would be considered a vulnerability if anyone can modify or delete any entry. Each user would have certain privileges on what they can `read` or `write`, where `write` refers to adding, modifying, or deleting data. To authenticate our user to use the API, we would need to pass a cookie or an authorization header (e.g. JWT), as we did in an earlier section. Other than that, the operations are similar to what we practiced in this section.
-
-
-
