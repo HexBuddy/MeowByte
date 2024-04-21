@@ -39,7 +39,7 @@ Corporate environments usually consist of heterogeneous networks (hosts/servers 
 &#x20; Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ tree .
 
 .
 └── Penetration-Testing
@@ -79,7 +79,7 @@ If we are specialized in specific penetration testing fields, we can, of course,
 &#x20; Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tree .
+root@htb[/htb]$ tree .
 
 .
 └── Penetration-Testing
@@ -242,10 +242,10 @@ To start logging with `script` (for Linux) and [Start-Transcript](https://docs.m
 &#x20; Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ script 03-21-2021-0200pm-exploitation.log
+root@htb[/htb]$ script 03-21-2021-0200pm-exploitation.log
 
-AbdulrahmanTamim@htb[/htb]$ ...SNIP...
-AbdulrahmanTamim@htb[/htb]$ exit
+root@htb[/htb]$ ...SNIP...
+root@htb[/htb]$ exit
 ```
 
 **Start-Transcript**
@@ -272,13 +272,13 @@ In addition, most tools offer the possibility to save the results in separate fi
 &#x20; Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./custom-tool.py 10.129.28.119 > logs.custom-tool
+root@htb[/htb]$ ./custom-tool.py 10.129.28.119 > logs.custom-tool
 ```
 
 &#x20; Organization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./custom-tool.py 10.129.28.119 | tee -a logs.custom-tool
+root@htb[/htb]$ ./custom-tool.py 10.129.28.119 | tee -a logs.custom-tool
 ```
 
 **Windows Output Redirection**
@@ -407,7 +407,7 @@ An excellent and free alternative to VMware Workstation is [VirtualBox](https://
 &#x20; Virtualization
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install virtualbox virtualbox-ext-pack -y
+root@htb[/htb]$ sudo apt install virtualbox virtualbox-ext-pack -y
 ```
 
 ![](https://academy.hackthebox.com/storage/modules/87/vbox.png)
@@ -449,8 +449,8 @@ An image of the file system forms the basis of each container. We can choose whe
 &#x20; Containers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt update -y 
-AbdulrahmanTamim@htb[/htb]$ sudo apt install docker.io -y
+root@htb[/htb]$ sudo apt update -y 
+root@htb[/htb]$ sudo apt install docker.io -y
 ```
 
 &#x20; Containers
@@ -474,8 +474,8 @@ C:\> choco install docker-desktop
 &#x20; Containers
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt update -y 
-AbdulrahmanTamim@htb[/htb]$ sudo apt install virtualbox virtualbox-dkms vagrant
+root@htb[/htb]$ sudo apt update -y 
+root@htb[/htb]$ sudo apt install virtualbox virtualbox-dkms vagrant
 ```
 
 &#x20; Containers
@@ -1751,7 +1751,7 @@ Now we can test this and try to login to the SSH server with our SSH key and che
 &#x20; VPS Hardening
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh cry0l1t3@VPS -i ~/.ssh/vps-ssh
+root@htb[/htb]$ ssh cry0l1t3@VPS -i ~/.ssh/vps-ssh
 
 Enter passphrase for key 'cry0l1t3': *************
 Verification code: <Google-Auth Code>
@@ -1764,7 +1764,7 @@ Finally, we can transfer all our resources, scripts, notes, and other components
 &#x20; VPS Hardening
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp -i <ssh-private-key> -r <directory to transfer> <username>@<IP/FQDN>:<path>
+root@htb[/htb]$ scp -i <ssh-private-key> -r <directory to transfer> <username>@<IP/FQDN>:<path>
 ```
 
 **Resources Transfer**
@@ -1772,7 +1772,7 @@ AbdulrahmanTamim@htb[/htb]$ scp -i <ssh-private-key> -r <directory to transfer> 
 &#x20; VPS Hardening
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp -i ~/.ssh/vps-ssh -r ~/Pentesting cry0l1t3@VPS:~/
+root@htb[/htb]$ scp -i ~/.ssh/vps-ssh -r ~/Pentesting cry0l1t3@VPS:~/
 
 Enter passphrase for key 'cry0l1t3': *************
 Verification code: <Google-Auth Code>
