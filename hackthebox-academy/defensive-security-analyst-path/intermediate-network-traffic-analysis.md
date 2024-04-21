@@ -65,7 +65,7 @@ We can typically find `tcpdump` located in `/usr/sbin/tcpdump`. However, if the 
 &#x20; ARP Spoofing & Abnormality Detection
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install tcpdump -y
+root@htb[/htb]$ sudo apt install tcpdump -y
 ```
 
 To initiate the traffic capture, we can employ the command-line tool `tcpdump`, specifying our network interface with the `-i` switch, and dictating the name of the output capture file using the `-w` switch.
@@ -73,7 +73,7 @@ To initiate the traffic capture, we can employ the command-line tool `tcpdump`, 
 &#x20; ARP Spoofing & Abnormality Detection
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 -w filename.pcapng
+root@htb[/htb]$ sudo tcpdump -i eth0 -w filename.pcapng
 ```
 
 ### Finding ARP Spoofing
@@ -83,7 +83,7 @@ For detecting ARP Spoofing attacks, we'll need to open the related traffic captu
 &#x20; ARP Spoofing & Abnormality Detection
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wireshark ARP_Spoof.pcapng
+root@htb[/htb]$ wireshark ARP_Spoof.pcapng
 ```
 
 Once we've navigated to Wireshark, we can streamline our view to focus solely on ARP requests and replies by employing the filter `arp.opcode`.
@@ -116,7 +116,7 @@ Upon immediate inspection, we might discern that one IP address is mapped to two
 &#x20; ARP Spoofing & Abnormality Detection
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ arp -a | grep 50:eb:f6:ec:0e:7f
+root@htb[/htb]$ arp -a | grep 50:eb:f6:ec:0e:7f
 
 ? (192.168.10.4) at 50:eb:f6:ec:0e:7f [ether] on eth0
 ```
@@ -124,7 +124,7 @@ AbdulrahmanTamim@htb[/htb]$ arp -a | grep 50:eb:f6:ec:0e:7f
 &#x20; ARP Spoofing & Abnormality Detection
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ arp -a | grep 08:00:27:53:0c:ba
+root@htb[/htb]$ arp -a | grep 08:00:27:53:0c:ba
 
 ? (192.168.10.4) at 08:00:27:53:0c:ba [ether] on eth0
 ```
@@ -239,7 +239,7 @@ Let's assume we do possess a Wi-Fi interface capable of monitor mode. We could e
 &#x20; 802.11 Denial of Service
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ iwconfig
+root@htb[/htb]$ iwconfig
 
 wlan0     IEEE 802.11  ESSID:off/any  
           Mode:Managed  Access Point: Not-Associated   Tx-Power=20 dBm   
@@ -254,7 +254,7 @@ We have a couple of options to set our interface into monitor mode. Firstly, emp
 &#x20; 802.11 Denial of Service
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo airmon-ng start wlan0
+root@htb[/htb]$ sudo airmon-ng start wlan0
 
 Found 2 processes that could cause trouble.
 Kill them using 'airmon-ng check kill' before putting
@@ -279,9 +279,9 @@ Secondly, using system utilities, we would need to deactivate our interface, mod
 &#x20; 802.11 Denial of Service
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo ifconfig wlan0 down
-AbdulrahmanTamim@htb[/htb]$ sudo iwconfig wlan0 mode monitor
-AbdulrahmanTamim@htb[/htb]$ sudo ifconfig wlan0 up
+root@htb[/htb]$ sudo ifconfig wlan0 down
+root@htb[/htb]$ sudo iwconfig wlan0 mode monitor
+root@htb[/htb]$ sudo ifconfig wlan0 up
 ```
 
 We could verify if our interface is in `monitor mode` using the `iwconfig` utility.
@@ -289,7 +289,7 @@ We could verify if our interface is in `monitor mode` using the `iwconfig` utili
 &#x20; 802.11 Denial of Service
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ iwconfig
+root@htb[/htb]$ iwconfig
 
 wlan0mon  IEEE 802.11  Mode:Monitor  Frequency:2.457 GHz  Tx-Power=20 dBm   
           Retry short  long limit:2   RTS thr:off   Fragment thr:off
@@ -301,7 +301,7 @@ It's possible that our interface doesn't conform to the `wlan0mon` convention. I
 &#x20; 802.11 Denial of Service
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ iwconfig
+root@htb[/htb]$ iwconfig
 
 wlan0     IEEE 802.11  Mode:Monitor  Frequency:2.457 GHz  Tx-Power=20 dBm   
           Retry short  long limit:2   RTS thr:off   Fragment thr:off
@@ -315,7 +315,7 @@ To commence capturing traffic from our clients and network, we can employ `airod
 &#x20; 802.11 Denial of Service
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo airodump-ng -c 4 --bssid F8:14:FE:4D:E6:F1 wlan0 -w raw
+root@htb[/htb]$ sudo airodump-ng -c 4 --bssid F8:14:FE:4D:E6:F1 wlan0 -w raw
 
 BSSID              PWR RXQ  Beacons    #Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID
 F8:14:FE:4D:E6:F1  -23  64      115        6    0   4  130   WPA2 CCMP   PSK  HTB-Wireless
@@ -350,7 +350,7 @@ To detect these potential attacks, we can open the related traffic capture file 
 &#x20; 802.11 Denial of Service
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo wireshark deauthandbadauth.cap
+root@htb[/htb]$ sudo wireshark deauthandbadauth.cap
 ```
 
 If we wanted to limit our view to traffic from our AP's BSSID (`MAC`), we could use the following Wireshark filter:
@@ -450,7 +450,7 @@ Right away, we could utilize the ESSID filter for Airodump-ng to detect Evil-Twi
 &#x20; Rogue Access Point & Evil-Twin Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo airodump-ng -c 4 --essid HTB-Wireless wlan0 -w raw
+root@htb[/htb]$ sudo airodump-ng -c 4 --essid HTB-Wireless wlan0 -w raw
 
  CH  4 ][ Elapsed: 1 min ][ 2023-07-13 16:06    
  BSSID              PWR RXQ  Beacons    #Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID
@@ -548,7 +548,7 @@ In order to better understand the abovementioned mechanics, we can open the rela
 &#x20; Fragmentation Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wireshark nmap_frag_fw_bypass.pcapng
+root@htb[/htb]$ wireshark nmap_frag_fw_bypass.pcapng
 ```
 
 For starters, we might notice several ICMP requests going to one host from another, this is indicative of the starting requests from a traditional Nmap scan. This is the beginning of the host discovery process. An attacker might run a command like this.
@@ -558,7 +558,7 @@ For starters, we might notice several ICMP requests going to one host from anoth
 &#x20; Fragmentation Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap <host ip>
+root@htb[/htb]$ nmap <host ip>
 ```
 
 In doing so, they will generate the following.
@@ -570,7 +570,7 @@ Secondarily, an attacker might define a maximum transmission unit size like this
 &#x20; Fragmentation Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nmap -f 10 <host ip>
+root@htb[/htb]$ nmap -f 10 <host ip>
 ```
 
 In doing so they will generate IP packets with a maximum size of 10. Seeing a ton of fragmentation from a host can be an indicator of this attack, and it would look like the following.
@@ -935,7 +935,7 @@ We could copy this value out of Wireshark and decode it within linux with the ba
 &#x20; ICMP Tunneling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'VGhpcyBpcyBhIHNlY3VyZSBrZXk6IEtleTEyMzQ1Njc4OQo=' | base64 -d
+root@htb[/htb]$ echo 'VGhpcyBpcyBhIHNlY3VyZSBrZXk6IEtleTEyMzQ1Njc4OQo=' | base64 -d
 ```
 
 This would also be a case where ICMP tunneling is observed. In many cases, if the ICMP data length is larger than 48-bytes, we know something fishy is going on, and should always look into it.
@@ -988,7 +988,7 @@ We can also always reference this traffic within our access logs on our web serv
 &#x20; HTTP/HTTPs Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat access.log | grep "192.168.10.5"
+root@htb[/htb]$ cat access.log | grep "192.168.10.5"
 
 192.168.10.5 - - [18/Jul/2023:12:58:07 -0600] "GET /randomfile1 HTTP/1.1" 404 435 "-" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"
 192.168.10.5 - - [18/Jul/2023:12:58:07 -0600] "GET /frand2 HTTP/1.1" 404 435 "-" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"
@@ -1007,7 +1007,7 @@ And to use awk, we could do the following
 &#x20; HTTP/HTTPs Service Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat access.log | awk '$1 == "192.168.10.5"'
+root@htb[/htb]$ cat access.log | awk '$1 == "192.168.10.5"'
 
 192.168.10.5 - - [18/Jul/2023:12:58:07 -0600] "GET /randomfile1 HTTP/1.1" 404 435 "-" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"
 192.168.10.5 - - [18/Jul/2023:12:58:07 -0600] "GET /frand2 HTTP/1.1" 404 435 "-" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"
@@ -1402,7 +1402,7 @@ Then if we were to go into our Linux machine, in this case we could utilize some
 &#x20; Peculiar DNS Traffic
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'VTBaU1EyVXhaSFprVjNocldETnNkbVJXT1cxaU0wb3pXVmhLYTFneU1XeFlNMUp2WVZoT1ptTklTbXhrU0ZJMVdETkNjMXBYUm5wYQpXREJMQ2c9PQo=' | base64 -d 
+root@htb[/htb]$ echo 'VTBaU1EyVXhaSFprVjNocldETnNkbVJXT1cxaU0wb3pXVmhLYTFneU1XeFlNMUp2WVZoT1ptTklTbXhrU0ZJMVdETkNjMXBYUm5wYQpXREJMQ2c9PQo=' | base64 -d 
 
 U0ZSQ2UxZHZkV3hrWDNsdmRWOW1iM0ozWVhKa1gyMWxYM1JvYVhOZmNISmxkSFI1WDNCc1pXRnpaWDBLCg==
 ```
@@ -1412,7 +1412,7 @@ However, in some cases attackers will double if not triple encode the value they
 &#x20; Peculiar DNS Traffic
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo 'VTBaU1EyVXhaSFprVjNocldETnNkbVJXT1cxaU0wb3pXVmhLYTFneU1XeFlNMUp2WVZoT1ptTklTbXhrU0ZJMVdETkNjMXBYUm5wYQpXREJMQ2c9PQo=' | base64 -d | base64 -d | base64 -d
+root@htb[/htb]$ echo 'VTBaU1EyVXhaSFprVjNocldETnNkbVJXT1cxaU0wb3pXVmhLYTFneU1XeFlNMUp2WVZoT1ptTklTbXhrU0ZJMVdETkNjMXBYUm5wYQpXREJMQ2c9PQo=' | base64 -d | base64 -d | base64 -d
 ```
 
 However, we might need to do more than just base64 decode these values, as in many cases as mentioned these values might be encrypted.
