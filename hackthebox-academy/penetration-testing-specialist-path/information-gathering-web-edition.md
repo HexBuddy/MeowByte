@@ -170,8 +170,8 @@ We would get the following response from the previous command to run a `whois` l
 &#x20; WHOIS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com" # Assign our target to an environment variable
-AbdulrahmanTamim@htb[/htb]$ whois $TARGET
+root@htb[/htb]$ export TARGET="facebook.com" # Assign our target to an environment variable
+root@htb[/htb]$ whois $TARGET
 
 Domain Name: FACEBOOK.COM
 Registry Domain ID: 2320948_DOMAIN_COM-VRSN
@@ -354,8 +354,8 @@ We can query `A` records by just submitting a domain name. But we can also use t
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ nslookup $TARGET
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ nslookup $TARGET
 
 Server:		1.1.1.1
 Address:	1.1.1.1#53
@@ -372,7 +372,7 @@ We can also specify a nameserver if needed by adding `@<nameserver/IP>` to the c
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig facebook.com @1.1.1.1
+root@htb[/htb]$ dig facebook.com @1.1.1.1
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> facebook.com @1.1.1.1
 ;; global options: +cmd
@@ -401,8 +401,8 @@ The entry starts with the complete domain name, including the final dot. The ent
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET=www.facebook.com
-AbdulrahmanTamim@htb[/htb]$ nslookup -query=A $TARGET
+root@htb[/htb]$ export TARGET=www.facebook.com
+root@htb[/htb]$ nslookup -query=A $TARGET
 
 Server:		1.1.1.1
 Address:	1.1.1.1#53
@@ -416,7 +416,7 @@ Address: 31.13.92.36
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig a www.facebook.com @1.1.1.1
+root@htb[/htb]$ dig a www.facebook.com @1.1.1.1
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> a www.facebook.com @1.1.1.1
 ;; global options: +cmd
@@ -444,7 +444,7 @@ star-mini.c10r.facebook.com. 45 IN      A       31.13.92.36
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nslookup -query=PTR 31.13.92.36
+root@htb[/htb]$ nslookup -query=PTR 31.13.92.36
 
 Server:		1.1.1.1
 Address:	1.1.1.1#53
@@ -458,7 +458,7 @@ Authoritative answers can be found from:
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig -x 31.13.92.36 @1.1.1.1
+root@htb[/htb]$ dig -x 31.13.92.36 @1.1.1.1
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> -x 31.13.92.36 @1.1.1.1
 ;; global options: +cmd
@@ -487,8 +487,8 @@ In this example, we are using Google as an example instead of Facebook as the la
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="google.com"
-AbdulrahmanTamim@htb[/htb]$ nslookup -query=ANY $TARGET
+root@htb[/htb]$ export TARGET="google.com"
+root@htb[/htb]$ nslookup -query=ANY $TARGET
 
 Server:		10.100.0.1
 Address:	10.100.0.1#53
@@ -532,7 +532,7 @@ Authoritative answers can be found from:
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig any google.com @8.8.8.8
+root@htb[/htb]$ dig any google.com @8.8.8.8
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> any google.com @8.8.8.8
 ;; global options: +cmd
@@ -580,7 +580,7 @@ The more recent [RFC8482](https://tools.ietf.org/html/rfc8482) specified that `A
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig any cloudflare.com @8.8.8.8
+root@htb[/htb]$ dig any cloudflare.com @8.8.8.8
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> any cloudflare.com @8.8.8.8
 ;; global options: +cmd
@@ -608,8 +608,8 @@ cloudflare.com.         2747    IN      RRSIG   HINFO 13 2 3789 20211019145905 2
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ nslookup -query=TXT $TARGET
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ nslookup -query=TXT $TARGET
 
 Server:		1.1.1.1
 Address:	1.1.1.1#53
@@ -625,7 +625,7 @@ Authoritative answers can be found from:
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig txt facebook.com @1.1.1.1
+root@htb[/htb]$ dig txt facebook.com @1.1.1.1
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> txt facebook.com @1.1.1.1
 ;; global options: +cmd
@@ -654,8 +654,8 @@ facebook.com.           7200    IN      TXT     "google-site-verification=wdH5DT
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ nslookup -query=MX $TARGET
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ nslookup -query=MX $TARGET
 
 Server:		1.1.1.1
 Address:	1.1.1.1#53
@@ -669,7 +669,7 @@ Authoritative answers can be found from:
 &#x20; DNS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig mx facebook.com @1.1.1.1
+root@htb[/htb]$ dig mx facebook.com @1.1.1.1
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> mx facebook.com @1.1.1.1
 ;; global options: +cmd
@@ -698,8 +698,8 @@ We can combine some of the results gathered via nslookup with the whois database
 **Nslookup**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ nslookup $TARGET
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ nslookup $TARGET
 
 Server:		1.1.1.1
 Address:	1.1.1.1#53
@@ -714,7 +714,7 @@ Address: 2a03:2880:f15e:83:face:b00c:0:25de
 **WHOIS**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ whois 157.240.199.35
+root@htb[/htb]$ whois 157.240.199.35
 
 NetRange:       157.240.0.0 - 157.240.255.255
 CIDR:           157.240.0.0/16
@@ -795,14 +795,14 @@ Although the website is excellent, we would like to have this information organi
 &#x20; Passive Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ curl -s "https://crt.sh/?q=${TARGET}&output=json" | jq -r '.[] | "\(.name_value)\n\(.common_name)"' | sort -u > "${TARGET}_crt.sh.txt"
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ curl -s "https://crt.sh/?q=${TARGET}&output=json" | jq -r '.[] | "\(.name_value)\n\(.common_name)"' | sort -u > "${TARGET}_crt.sh.txt"
 ```
 
 &#x20; Passive Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ head -n20 facebook.com_crt.sh.txt
+root@htb[/htb]$ head -n20 facebook.com_crt.sh.txt
 
 *.adtools.facebook.com
 *.ak.facebook.com
@@ -833,9 +833,9 @@ We also can manually perform this operation against a target using OpenSSL via:
 &#x20; Passive Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ export PORT="443"
-AbdulrahmanTamim@htb[/htb]$ openssl s_client -ign_eof 2>/dev/null <<<$'HEAD / HTTP/1.0\r\n\r' -connect "${TARGET}:${PORT}" | openssl x509 -noout -text -in - | grep 'DNS' | sed -e 's|DNS:|\n|g' -e 's|^\*.*||g' | tr -d ',' | sort -u
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ export PORT="443"
+root@htb[/htb]$ openssl s_client -ign_eof 2>/dev/null <<<$'HEAD / HTTP/1.0\r\n\r' -connect "${TARGET}:${PORT}" | openssl x509 -noout -text -in - | grep 'DNS' | sed -e 's|DNS:|\n|g' -e 's|^\*.*||g' | tr -d ',' | sort -u
 
 *.facebook.com
 *.facebook.net
@@ -869,7 +869,7 @@ To automate this, we will create a file called sources.txt with the following co
 &#x20; Passive Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat sources.txt
+root@htb[/htb]$ cat sources.txt
 
 baidu
 bufferoverun
@@ -892,8 +892,8 @@ Once the file is created, we will execute the following commands to gather infor
 &#x20; Passive Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ cat sources.txt | while read source; do theHarvester -d "${TARGET}" -b $source -f "${source}_${TARGET}";done
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ cat sources.txt | while read source; do theHarvester -d "${TARGET}" -b $source -f "${source}_${TARGET}";done
 
 <SNIP>
 *******************************************************************
@@ -934,7 +934,7 @@ When the process finishes, we can extract all the subdomains found and sort them
 &#x20; Passive Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat *.json | jq -r '.hosts[]' 2>/dev/null | cut -d':' -f 1 | sort -u > "${TARGET}_theHarvester.txt"
+root@htb[/htb]$ cat *.json | jq -r '.hosts[]' 2>/dev/null | cut -d':' -f 1 | sort -u > "${TARGET}_theHarvester.txt"
 ```
 
 Now we can merge all the passive reconnaissance files via:
@@ -942,8 +942,8 @@ Now we can merge all the passive reconnaissance files via:
 &#x20; Passive Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat facebook.com_*.txt | sort -u > facebook.com_subdomains_passive.txt
-AbdulrahmanTamim@htb[/htb]$ cat facebook.com_subdomains_passive.txt | wc -l
+root@htb[/htb]$ cat facebook.com_*.txt | sort -u > facebook.com_subdomains_passive.txt
+root@htb[/htb]$ cat facebook.com_subdomains_passive.txt | wc -l
 
 11947
 ```
@@ -985,7 +985,7 @@ We can also use the tool [waybackurls](https://github.com/tomnomnom/waybackurls)
 &#x20; Passive Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ go install github.com/tomnomnom/waybackurls@latest
+root@htb[/htb]$ go install github.com/tomnomnom/waybackurls@latest
 ```
 
 To get a list of crawled URLs from a domain with the date it was obtained, we can add the `-dates` switch to our command as follows:
@@ -993,8 +993,8 @@ To get a list of crawled URLs from a domain with the date it was obtained, we ca
 &#x20; Passive Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ waybackurls -dates https://facebook.com > waybackurls.txt
-AbdulrahmanTamim@htb[/htb]$ cat waybackurls.txt
+root@htb[/htb]$ waybackurls -dates https://facebook.com > waybackurls.txt
+root@htb[/htb]$ cat waybackurls.txt
 
 2018-05-20T09:46:07Z http://www.facebook.com./
 2018-05-20T10:07:12Z https://www.facebook.com/
@@ -1041,7 +1041,7 @@ The first thing we can do to identify the webserver version is to look at the re
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -I "http://${TARGET}"
+root@htb[/htb]$ curl -I "http://${TARGET}"
 
 HTTP/1.1 200 OK
 Date: Thu, 23 Sep 2021 15:10:42 GMT
@@ -1062,7 +1062,7 @@ There are also other characteristics to take into account while fingerprinting w
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -I http://${TARGET}
+root@htb[/htb]$ curl -I http://${TARGET}
 
 HTTP/1.1 200 OK
 Host: randomtarget.com
@@ -1085,7 +1085,7 @@ Other available tools analyze common web server characteristics by probing them 
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ whatweb -a3 https://www.facebook.com -v
+root@htb[/htb]$ whatweb -a3 https://www.facebook.com -v
 
 WhatWeb report for https://www.facebook.com
 Status    : 200 OK
@@ -1262,7 +1262,7 @@ We also would want to install [Wappalyzer](https://www.wappalyzer.com/) as a bro
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install wafw00f -y
+root@htb[/htb]$ sudo apt install wafw00f -y
 ```
 
 We can use options like `-a` to check all possible WAFs in place instead of stopping scanning at the first match, read targets from an input file via the `-i` flag, or proxy the requests using the `-p` option.
@@ -1270,7 +1270,7 @@ We can use options like `-a` to check all possible WAFs in place instead of stop
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wafw00f -v https://www.tesla.com
+root@htb[/htb]$ wafw00f -v https://www.tesla.com
 
                    ______
                   /      \
@@ -1298,9 +1298,9 @@ AbdulrahmanTamim@htb[/htb]$ wafw00f -v https://www.tesla.com
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install golang chromium-driver
-AbdulrahmanTamim@htb[/htb]$ go install github.com/michenriksen/aquatone@latest
-AbdulrahmanTamim@htb[/htb]$ export PATH="$PATH":"$HOME/go/bin"
+root@htb[/htb]$ sudo apt install golang chromium-driver
+root@htb[/htb]$ go install github.com/michenriksen/aquatone@latest
+root@htb[/htb]$ export PATH="$PATH":"$HOME/go/bin"
 ```
 
 After this, we need to explore some options:
@@ -1310,7 +1310,7 @@ After this, we need to explore some options:
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ aquatone --help
+root@htb[/htb]$ aquatone --help
 
 Usage of aquatone:
   -chrome-path string
@@ -1352,7 +1352,7 @@ Now, it's time to use `cat` in our subdomain list and pipe the command to `aquat
 &#x20; Active Infrastructure Identification
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat facebook_aquatone.txt | aquatone -out ./aquatone -screenshot-timeout 1000
+root@htb[/htb]$ cat facebook_aquatone.txt | aquatone -out ./aquatone -screenshot-timeout 1000
 
 aquatone v1.7.0 started at 2021-10-06T10:14:42+01:00
 
@@ -1456,7 +1456,7 @@ A manual approach will be the following set of commands:
 &#x20; Active Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nslookup -type=NS zonetransfer.me
+root@htb[/htb]$ nslookup -type=NS zonetransfer.me
 
 Server:		10.100.0.1
 Address:	10.100.0.1#53
@@ -1473,7 +1473,7 @@ zonetransfer.me	nameserver = nsztm1.digi.ninja.
 &#x20; Active Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nslookup -type=any -query=AXFR zonetransfer.me nsztm1.digi.ninja
+root@htb[/htb]$ nslookup -type=any -query=AXFR zonetransfer.me nsztm1.digi.ninja
 
 Server:		nsztm1.digi.ninja
 Address:	81.4.108.41#53
@@ -1595,10 +1595,10 @@ In our case, this will be the command.
 &#x20; Active Subdomain Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export TARGET="facebook.com"
-AbdulrahmanTamim@htb[/htb]$ export NS="d.ns.facebook.com"
-AbdulrahmanTamim@htb[/htb]$ export WORDLIST="numbers.txt"
-AbdulrahmanTamim@htb[/htb]$ gobuster dns -q -r "${NS}" -d "${TARGET}" -w "${WORDLIST}" -p ./patterns.txt -o "gobuster_${TARGET}.txt"
+root@htb[/htb]$ export TARGET="facebook.com"
+root@htb[/htb]$ export NS="d.ns.facebook.com"
+root@htb[/htb]$ export WORDLIST="numbers.txt"
+root@htb[/htb]$ gobuster dns -q -r "${NS}" -d "${TARGET}" -w "${WORDLIST}" -p ./patterns.txt -o "gobuster_${TARGET}.txt"
 
 Found: lert-api-shv-01-sin6.facebook.com
 Found: atlas-pp-shv-01-sin6.facebook.com
@@ -1638,7 +1638,7 @@ Imagine we have identified a web server at `192.168.10.10` during an internal pe
 &#x20; Virtual Hosts
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://192.168.10.10
+root@htb[/htb]$ curl -s http://192.168.10.10
 
 <!DOCTYPE html>
 <html>
@@ -1672,7 +1672,7 @@ Let's make a `cURL` request sending a domain previously identified during the in
 &#x20; Virtual Hosts
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://192.168.10.10 -H "Host: randomtarget.com"
+root@htb[/htb]$ curl -s http://192.168.10.10 -H "Host: randomtarget.com"
 
 <html>
     <head>
@@ -1710,7 +1710,7 @@ www
 &#x20; Virtual Hosts
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat ./vhosts | while read vhost;do echo "\n********\nFUZZING: ${vhost}\n********";curl -s -I http://192.168.10.10 -H "HOST: ${vhost}.randomtarget.com" | grep "Content-Length: ";done
+root@htb[/htb]$ cat ./vhosts | while read vhost;do echo "\n********\nFUZZING: ${vhost}\n********";curl -s -I http://192.168.10.10 -H "HOST: ${vhost}.randomtarget.com" | grep "Content-Length: ";done
 
 
 ********
@@ -1779,7 +1779,7 @@ We have successfully identified a virtual host called `dev-admin`, which we can 
 &#x20; Virtual Hosts
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s http://192.168.10.10 -H "Host: dev-admin.randomtarget.com"
+root@htb[/htb]$ curl -s http://192.168.10.10 -H "Host: dev-admin.randomtarget.com"
 
 <!DOCTYPE html>
 <html>
@@ -1823,7 +1823,7 @@ We can match or filter responses based on different options. The web server resp
 &#x20; Virtual Hosts
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w ./vhosts -u http://192.168.10.10 -H "HOST: FUZZ.randomtarget.com" -fs 612
+root@htb[/htb]$ ffuf -w ./vhosts -u http://192.168.10.10 -H "HOST: FUZZ.randomtarget.com" -fs 612
 
         /'___\  /'___\           /'___\
        /\ \__/ /\ \__/  __  __  /\ \__/
@@ -1910,7 +1910,7 @@ We can use [ffuf](https://github.com/ffuf/ffuf) to discover files and folders th
 
 ```shell-session
 
-AbdulrahmanTamim@htb[/htb]$ ffuf -recursion -recursion-depth 1 -u http://192.168.10.10/FUZZ -w /opt/useful/SecLists/Discovery/Web-Content/raft-small-directories-lowercase.txt
+root@htb[/htb]$ ffuf -recursion -recursion-depth 1 -u http://192.168.10.10/FUZZ -w /opt/useful/SecLists/Discovery/Web-Content/raft-small-directories-lowercase.txt
 
         /'___\  /'___\           /'___\
        /\ \__/ /\ \__/  __  __  /\ \__/
@@ -1978,7 +1978,7 @@ Next, we will extract some keywords from the website using [CeWL](https://github
 &#x20; Crawling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cewl -m5 --lowercase -w wordlist.txt http://192.168.10.10
+root@htb[/htb]$ cewl -m5 --lowercase -w wordlist.txt http://192.168.10.10
 ```
 
 The next step will be to combine everything in ffuf to see if we can find some juicy information. For this, we will use the following parameters in `ffuf`:
@@ -1989,7 +1989,7 @@ The next step will be to combine everything in ffuf to see if we can find some j
 &#x20; Crawling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ffuf -w ./folders.txt:FOLDERS,./wordlist.txt:WORDLIST,./extensions.txt:EXTENSIONS -u http://192.168.10.10/FOLDERS/WORDLISTEXTENSIONS
+root@htb[/htb]$ ffuf -w ./folders.txt:FOLDERS,./wordlist.txt:WORDLIST,./extensions.txt:EXTENSIONS -u http://192.168.10.10/FOLDERS/WORDLISTEXTENSIONS
 
         /'___\  /'___\           /'___\
        /\ \__/ /\ \__/  __  __  /\ \__/
@@ -2034,7 +2034,7 @@ ________________________________________________
 &#x20; Crawling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl http://192.168.10.10/wp-content/secret~
+root@htb[/htb]$ curl http://192.168.10.10/wp-content/secret~
 
 Oooops!
 ```
