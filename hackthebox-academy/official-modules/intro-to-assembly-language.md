@@ -451,7 +451,7 @@ If we want to know whether our Linux system supports `x86_64` architecture, we c
 &#x20; CPU Architecture
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ lscpu
+root@htb[/htb]$ lscpu
 
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
@@ -854,7 +854,7 @@ Note how we used `equ` to dynamically calculate the length of `message`, instead
 &#x20; Assembling & Disassembling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nasm -f elf64 helloWorld.s
+root@htb[/htb]$ nasm -f elf64 helloWorld.s
 ```
 
 Note: The `-f elf64` flag is used to note that we want to assemble a 64-bit assembly code. If we wanted to assemble a 32-bit code, we would use `-f elf`.
@@ -872,7 +872,7 @@ This is why a Linux binary is called `ELF`, which stands for an `Executable and 
 &#x20; Assembling & Disassembling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ld -o helloWorld helloWorld.o
+root@htb[/htb]$ ld -o helloWorld helloWorld.o
 ```
 
 Note: if we were to assemble a 32-bit binary, we need to add the '`-m elf_i386`' flag.
@@ -882,7 +882,7 @@ Once we link the file with `ld`, we should have the final executable file:
 &#x20; Assembling & Disassembling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./helloWorld
+root@htb[/htb]$ ./helloWorld
 Hello HTB Academy!
 ```
 
@@ -905,7 +905,7 @@ Now we can write this script to `assembler.sh`, `chmod +x` it, and then run it o
 &#x20; Assembling & Disassembling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./assembler.sh helloWorld.s
+root@htb[/htb]$ ./assembler.sh helloWorld.s
 Hello HTB Academy!
 ```
 
@@ -924,7 +924,7 @@ Let's start by disassembling our final `ELF` executable file:
 &#x20; Assembling & Disassembling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ objdump -M intel -d helloWorld
+root@htb[/htb]$ objdump -M intel -d helloWorld
 
 helloWorld:     file format elf64-x86-64
 
@@ -949,7 +949,7 @@ If we wanted to only show the assembly code, without machine code or addresses, 
 &#x20; Assembling & Disassembling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ objdump -M intel --no-show-raw-insn --no-addresses -d helloWorld
+root@htb[/htb]$ objdump -M intel --no-show-raw-insn --no-addresses -d helloWorld
 
 helloWorld:     file format elf64-x86-64
 
@@ -973,7 +973,7 @@ The `-d` flag will only disassemble the `.text` section of our code. To dump any
 &#x20; Assembling & Disassembling
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ objdump -sj .data helloWorld
+root@htb[/htb]$ objdump -sj .data helloWorld
 
 helloWorld:     file format elf64-x86-64
 
@@ -1005,8 +1005,8 @@ GDB is installed in many Linux distributions, and it is also installed by defaul
 &#x20; GNU Debugger (GDB)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get update
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install gdb
+root@htb[/htb]$ sudo apt-get update
+root@htb[/htb]$ sudo apt-get install gdb
 ```
 
 One of the great features of `GDB` is its support for third-party plugins. An excellent plugin that is well maintained and has good documentation is [GEF](https://github.com/hugsy/gef). GEF is a free and open-source GDB plugin that is built precisely for reverse engineering and binary exploitation. This fact makes it a great tool to learn.
@@ -1016,8 +1016,8 @@ To add GEF to GDB, we can use the following commands:
 &#x20; GNU Debugger (GDB)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py
-AbdulrahmanTamim@htb[/htb]$ echo source ~/.gdbinit-gef.py >> ~/.gdbinit
+root@htb[/htb]$ wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py
+root@htb[/htb]$ echo source ~/.gdbinit-gef.py >> ~/.gdbinit
 ```
 
 ***
@@ -1029,7 +1029,7 @@ Now that we have both tools installed, we can run gdb to debug our `HelloWorld` 
 &#x20; GNU Debugger (GDB)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gdb -q ./helloWorld
+root@htb[/htb]$ gdb -q ./helloWorld
 ...SNIP...
 gef➤
 ```
@@ -1041,7 +1041,7 @@ Going forward, we will frequently be assembling and linking our assembly code an
 &#x20; GNU Debugger (GDB)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./assembler.sh helloWorld.s -g
+root@htb[/htb]$ ./assembler.sh helloWorld.s -g
 ...SNIP...
 gef➤
 ```
@@ -1507,7 +1507,7 @@ The program will first ask you for the maximum Fibonacci you want to calculate a
 &#x20; Module Project
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./fib 
+root@htb[/htb]$ ./fib 
 
 Please input max Fn
 100
@@ -1614,7 +1614,7 @@ Now let's assemble it and view its shellcode with `objdump`:
 &#x20; Data Movement
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nasm -f elf64 fib.s && objdump -M intel -d fib.o
+root@htb[/htb]$ nasm -f elf64 fib.s && objdump -M intel -d fib.o
 ...SNIP...
 0000000000000000 <_start>:
    0:	b8 00 00 00 00       	mov    eax,0x0
@@ -2738,7 +2738,7 @@ There are many available syscalls provided by the Linux Kernel, and we can find 
 &#x20; Syscalls
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /usr/include/x86_64-linux-gnu/asm/unistd_64.h
+root@htb[/htb]$ cat /usr/include/x86_64-linux-gnu/asm/unistd_64.h
 #ifndef _ASM_X86_UNISTD_64_H
 #define _ASM_X86_UNISTD_64_H 1
 
@@ -2765,7 +2765,7 @@ To use the `write` syscall, we must first know what arguments it accepts. To fin
 &#x20; Syscalls
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man -s 2 write
+root@htb[/htb]$ man -s 2 write
 ...SNIP...
        ssize_t write(int fd, const void *buf, size_t count);
 ```
@@ -2903,7 +2903,7 @@ Let's now assemble our code and run it, and see if our intro message gets printe
 &#x20; Syscalls
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./assembler.sh fib.s
+root@htb[/htb]$ ./assembler.sh fib.s
 
 Fibonacci Sequence:
 [1]    107348 segmentation fault  ./fib
@@ -2955,7 +2955,7 @@ So, let's add this to the end of our code. First, we need to find the `exit sysc
 &#x20; Syscalls
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ grep exit /usr/include/x86_64-linux-gnu/asm/unistd_64.h
+root@htb[/htb]$ grep exit /usr/include/x86_64-linux-gnu/asm/unistd_64.h
 
 #define __NR_exit 60
 #define __NR_exit_group 231
@@ -2966,7 +2966,7 @@ We need to use the first one, with a syscall number `60`. Next, let's see if the
 &#x20; Syscalls
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man -s 2 exit
+root@htb[/htb]$ man -s 2 exit
 
 ...SNIP...
 void _exit(int status);
@@ -3017,7 +3017,7 @@ We can now assemble our code and rerun it:
 &#x20; Syscalls
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./assembler.sh fib.s
+root@htb[/htb]$ ./assembler.sh fib.s
 
 Fibonacci Sequence:
 ```
@@ -3027,7 +3027,7 @@ Great! We see that this time our program exited properly without a `segmentation
 &#x20; Syscalls
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ echo $?
+root@htb[/htb]$ echo $?
 
 0
 ```
@@ -3286,7 +3286,7 @@ First, we need to find out what arguments are accepted by the `printf` function 
 &#x20; Functions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man -s 3 printf
+root@htb[/htb]$ man -s 3 printf
 
 ...SNIP...
        int printf(const char *format, ...);
@@ -3469,7 +3469,7 @@ We can now assemble our code with `nasm`. When we link our code with `ld`, we sh
 &#x20; Functions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nasm -f elf64 fib.s &&  ld fib.o -o fib -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 && ./fib
+root@htb[/htb]$ nasm -f elf64 fib.s &&  ld fib.o -o fib -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 && ./fib
 
 1
 1
@@ -3533,7 +3533,7 @@ Next, we need to know what arguments are accepted by `scanf`, as follows:
 &#x20; Libc Functions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man -s 3 scanf
+root@htb[/htb]$ man -s 3 scanf
 
 ...SNIP...
 int scanf(const char *format, ...);
@@ -3694,7 +3694,7 @@ Let's assemble our code, link it, and try to print Fibonacci numbers up to `100`
 &#x20; Libc Functions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nasm -f elf64 fib.s &&  ld fib.o -o fib -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 && ./fib
+root@htb[/htb]$ nasm -f elf64 fib.s &&  ld fib.o -o fib -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 && ./fib
 
 Please input max Fn:
 100
@@ -3783,7 +3783,7 @@ Remember: Assembly language is made for human readability, and the processor can
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo pip3 install pwntools
+root@htb[/htb]$ sudo pip3 install pwntools
 ```
 
 Now, we can use `pwn asm` to assemble any assembly code into its shellcode, as follows:
@@ -3791,7 +3791,7 @@ Now, we can use `pwn asm` to assemble any assembly code into its shellcode, as f
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pwn asm 'push rax'  -c 'amd64'
+root@htb[/htb]$ pwn asm 'push rax'  -c 'amd64'
    0:    50                       push   eax
 ```
 
@@ -3802,7 +3802,7 @@ As we can see, we get `50`, which is the same machine code for `push rax`. Likew
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pwn disasm '50' -c 'amd64'
+root@htb[/htb]$ pwn disasm '50' -c 'amd64'
    0:    50                       push   eax
 ```
 
@@ -3819,7 +3819,7 @@ A binary's shellcode represents its executable `.text` section only, as shellcod
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3
+root@htb[/htb]$ python3
 
 >>> from pwn import *
 >>> file = ELF('helloworld')
@@ -3858,7 +3858,7 @@ We can copy the above script to `shellcoder.py`, and then pass it any binary fil
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 shellcoder.py helloworld
+root@htb[/htb]$ python3 shellcoder.py helloworld
 
 48be0020400000000000bf01000000ba12000000b8010000000f05b83c000000bf000000000f05
 ```
@@ -3878,7 +3878,7 @@ Again, we can try running it on `helloworld` to get its shellcode, as follows:
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./shellcoder.sh helloworld
+root@htb[/htb]$ ./shellcoder.sh helloworld
 
 48be0020400000000000bf01000000ba12000000b8010000000f05b83c000000bf000000000f05
 ```
@@ -3900,7 +3900,7 @@ To do run our shellcode with `pwntools`, we can use the `run_shellcode` function
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3
+root@htb[/htb]$ python3
 
 >>> from pwn import *
 >>> context(os="linux", arch="amd64", log_level="error")
@@ -3939,7 +3939,7 @@ We can copy the above script to `loader.py`, pass our shellcode as an argument, 
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 loader.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05'
+root@htb[/htb]$ python3 loader.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05'
 
 Hello HTB Academy!
 ```
@@ -3985,13 +3985,13 @@ We can now run `assembler.py`, pass the shellcode as the first argument, and the
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python assembler.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05' 'helloworld'
+root@htb[/htb]$ python assembler.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05' 'helloworld'
 ```
 
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./helloworld
+root@htb[/htb]$ ./helloworld
 
 Hello HTB Academy!
 ```
@@ -4033,8 +4033,8 @@ Then, we can compile our `C` code with `gcc`, and run it with `gdb`:
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gcc helloworld.c -o helloworld
-AbdulrahmanTamim@htb[/htb]$ gdb -q helloworld
+root@htb[/htb]$ gcc helloworld.c -o helloworld
+root@htb[/htb]$ gdb -q helloworld
 ```
 
 However, this method is not very reliable for a few reasons. First, it will wrap the entire binary in `C` code, so the binary will not contain our shellcode, but will contain various other `C` functions and libraries. This method may also not always compile, depending on the existing memory protections, so we may have to add flags to bypass memory protections, as follows:
@@ -4042,8 +4042,8 @@ However, this method is not very reliable for a few reasons. First, it will wrap
 &#x20; Shellcodes
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ gcc helloworld.c -o helloworld -fno-stack-protector -z execstack -Wl,--omagic -g --static
-AbdulrahmanTamim@htb[/htb]$ ./helloworld
+root@htb[/htb]$ gcc helloworld.c -o helloworld -fno-stack-protector -z execstack -Wl,--omagic -g --static
+root@htb[/htb]$ ./helloworld
 
 Hello HTB Academy!
 ```
@@ -4173,7 +4173,7 @@ We can now apply these changes to our code, assemble it and run it to see if it 
 &#x20; Shellcoding Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./assembler.sh helloworld.s
+root@htb[/htb]$ ./assembler.sh helloworld.s
 
 Hello HTB Academy!
 ```
@@ -4249,7 +4249,7 @@ For example, in our code above, when we use `mov rax, 1`, it will be moving `00 
 &#x20; Shellcoding Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pwn asm 'mov rax, 1' -c 'amd64'
+root@htb[/htb]$ pwn asm 'mov rax, 1' -c 'amd64'
 
 48c7c001000000
 ```
@@ -4259,7 +4259,7 @@ To avoid having these NULL bytes, `we must use registers that match our data siz
 &#x20; Shellcoding Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pwn asm 'xor rax, rax' -c 'amd64'
+root@htb[/htb]$ pwn asm 'xor rax, rax' -c 'amd64'
 
 4831c0
 $ pwn asm 'mov al, 1' -c 'amd64'
@@ -4337,7 +4337,7 @@ Finally, We can assemble our code and run it:
 &#x20; Shellcoding Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./assembler.sh helloworld.s
+root@htb[/htb]$ ./assembler.sh helloworld.s
 
 Hello HTB Academy!
 ```
@@ -4353,7 +4353,7 @@ We can now try to extract the shellcode of our new `helloworld` program, using o
 &#x20; Shellcoding Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 shellcoder.py helloworld
+root@htb[/htb]$ python3 shellcoder.py helloworld
 
 4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05
 ```
@@ -4371,7 +4371,7 @@ Let's run our updated script, to see if our shellcode contains any NULL bytes:
 &#x20; Shellcoding Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 shellcoder.py helloworld
+root@htb[/htb]$ python3 shellcoder.py helloworld
 
 4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05
 61 bytes - No NULL bytes
@@ -4384,7 +4384,7 @@ Try running the script on the previous `Hello World` program to see whether it d
 &#x20; Shellcoding Techniques
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 loader.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05'
+root@htb[/htb]$ python3 loader.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05'
 
 Hello HTB Academy!
 ```
@@ -4414,7 +4414,7 @@ Before we continue with tools and online resources, let's try to craft our own `
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man -s 2 execve
+root@htb[/htb]$ man -s 2 execve
 
 int execve(const char *pathname, char *const argv[], char *const envp[]);
 ```
@@ -4475,7 +4475,7 @@ Once we fix our code, we can run `shellcoder.py` on it, and have a shellcode wit
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 shellcoder.py sh
+root@htb[/htb]$ python3 shellcoder.py sh
 
 b03b4831d25248bf2f62696e2f2f7368574889e752574889e60f05
 27 bytes - No NULL bytes
@@ -4492,7 +4492,7 @@ Let's start with our usual tools, `pwntools`, and use its `shellcraft` library, 
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pwn shellcraft -l 'amd64.linux'
+root@htb[/htb]$ pwn shellcraft -l 'amd64.linux'
 
 ...SNIP...
 amd64.linux.sh
@@ -4503,7 +4503,7 @@ We see the `amd64.linux.sh` syscall, which would drop us into a shell like our a
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pwn shellcraft amd64.linux.sh
+root@htb[/htb]$ pwn shellcraft amd64.linux.sh
 
 6a6848b82f62696e2f2f2f73504889e768726901018134240101010131f6566a085e4801e6564889e631d26a3b580f05
 ```
@@ -4513,7 +4513,7 @@ Note that this shellcode is not as optimized and short as our shellcode. We can 
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pwn shellcraft amd64.linux.sh -r
+root@htb[/htb]$ pwn shellcraft amd64.linux.sh -r
 
 $ whoami
 
@@ -4525,7 +4525,7 @@ And it works as expected. Furthermore, we can use the `Python3` interpreter to u
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3
+root@htb[/htb]$ python3
 
 >>> from pwn import *
 >>> context(os="linux", arch="amd64", log_level="error")
@@ -4550,7 +4550,7 @@ We can find a complete list of `x86_64` accepted syscalls and their arguments on
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 loader.py '48b801010101010101015048b82e63686f2e726901483104244889e748b801010101010101015048b82e63686f2e7269014831042431f6566a085e4801e6564889e631d26a3b580f05'
+root@htb[/htb]$ python3 loader.py '48b801010101010101015048b82e63686f2e726901483104244889e748b801010101010101015048b82e63686f2e7269014831042431f6566a085e4801e6564889e631d26a3b580f05'
 
 $ whoami
 
@@ -4568,7 +4568,7 @@ Let's try `msfvenom`, which is another common tool we can use for shellcode gene
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -l payloads | grep 'linux/x64'
+root@htb[/htb]$ msfvenom -l payloads | grep 'linux/x64'
 
 linux/x64/exec                                      Execute an arbitrary command
 ...SNIP...
@@ -4579,7 +4579,7 @@ The `exec` payload allows us to execute a command we specify. Let's pass '`/bin/
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p 'linux/x64/exec' CMD='sh' -a 'x64' --platform 'linux' -f 'hex'
+root@htb[/htb]$ msfvenom -p 'linux/x64/exec' CMD='sh' -a 'x64' --platform 'linux' -f 'hex'
 
 No encoder specified, outputting raw payload
 Payload size: 48 bytes
@@ -4592,7 +4592,7 @@ Note that this shellcode is also not as optimized and short as our shellcode. Le
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 loader.py '6a3b589948bb2f62696e2f736800534889e7682d6300004889e652e80300000073680056574889e60f05'
+root@htb[/htb]$ python3 loader.py '6a3b589948bb2f62696e2f736800534889e7682d6300004889e652e80300000073680056574889e60f05'
 
 $ whoami
 
@@ -4612,7 +4612,7 @@ We can use `msfvenom` to encode our shellcodes as well. We can first list availa
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -l encoders
+root@htb[/htb]$ msfvenom -l encoders
 
 Framework Encoders [--encoder <value>]
 ======================================
@@ -4629,7 +4629,7 @@ Then we can pick one for `x64`, like `x64/xor`, and use it with the `-e` flag, a
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p 'linux/x64/exec' CMD='sh' -a 'x64' --platform 'linux' -f 'hex' -e 'x64/xor'
+root@htb[/htb]$ msfvenom -p 'linux/x64/exec' CMD='sh' -a 'x64' --platform 'linux' -f 'hex' -e 'x64/xor'
 
 Found 1 compatible encoders
 Attempting to encode payload with 1 iterations of x64/xor
@@ -4645,7 +4645,7 @@ Let's try running the encoded shellcode to see if it runs:
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 loader.py 
+root@htb[/htb]$ python3 loader.py 
 '4831c94881e9faffffff488d05efffffff48bbf377c2ea294e325c48315827482df8ffffffe2f4994c9a7361f51d3e9a19ed99414e61147a90aac74a4e32147a9190022a4e325c801fc2bc7e06bbbafc72c2ea294e325c'
 
 $ whoami
@@ -4664,8 +4664,8 @@ If we had a custom shellcode that we wrote, we could use `msfvenom` to encode it
 &#x20; Shellcoding Tools
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -c "import sys; sys.stdout.buffer.write(bytes.fromhex('b03b4831d25248bf2f62696e2f2f7368574889e752574889e60f05'))" > shell.bin
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p - -a 'x64' --platform 'linux' -f 'hex' -e 'x64/xor' < shell.bin
+root@htb[/htb]$ python3 -c "import sys; sys.stdout.buffer.write(bytes.fromhex('b03b4831d25248bf2f62696e2f2f7368574889e752574889e60f05'))" > shell.bin
+root@htb[/htb]$ msfvenom -p - -a 'x64' --platform 'linux' -f 'hex' -e 'x64/xor' < shell.bin
 
 Attempting to read payload from STDIN...
 Found 1 compatible encoders
