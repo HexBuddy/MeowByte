@@ -231,7 +231,7 @@ Initially, we need to conduct a string analysis on our malware sample.
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strings svchost.exe
+root@htb[/htb]$ strings svchost.exe
 !This program cannot be run in DOS mode.
 UPX0
 UPX1
@@ -302,7 +302,7 @@ Once again, we need to conduct a string analysis on our malware sample.
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strings dharma_sample.exe
+root@htb[/htb]$ strings dharma_sample.exe
 !This program cannot be run in DOS mode.
 Rich
 .text
@@ -351,7 +351,7 @@ Let's place our sample in a `temp` directory (there is one available at `/home/h
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 yarGen.py -m /home/htb-student/temp -o htb_sample.yar
+root@htb[/htb]$ python3 yarGen.py -m /home/htb-student/temp -o htb_sample.yar
 
 ------------------------------------------------------------------------
                    _____
@@ -447,7 +447,7 @@ The resulting YARA rules will be written to the `htb_sample.yar` file inside the
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat htb_sample.yar
+root@htb[/htb]$ cat htb_sample.yar
 /*
    YARA Rule Set
    Author: yarGen Rule Generator
@@ -497,7 +497,7 @@ Now, for the moment of truth. We'll unleash YARA with our newly minted rule to s
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ yara htb_sample.yar /home/htb-student/Samples/YARASigma 
+root@htb[/htb]$ yara htb_sample.yar /home/htb-student/Samples/YARASigma 
 dharma_sample /home/htb-student/Samples/YARASigma/dharma_sample.exe
 dharma_sample /home/htb-student/Samples/YARASigma/pdf_reader.exe
 dharma_sample /home/htb-student/Samples/YARASigma/microsoft.com
@@ -526,7 +526,7 @@ Let's start with our string analysis endeavors as follows.
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strings legit.exe
+root@htb[/htb]$ strings legit.exe
 !This program cannot be run in DOS mode.
 Rich
 .text
@@ -801,7 +801,7 @@ Finally, the sample's Imphash can be calculated as follows, using the `imphash_c
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 imphash_calc.py /home/htb-student/Samples/YARASigma/legit.exe
+root@htb[/htb]$ python3 imphash_calc.py /home/htb-student/Samples/YARASigma/legit.exe
 414bbd566b700ea021cfae3ad8f4d9b9
 ```
 
@@ -889,13 +889,13 @@ This can be done using the [monodis](https://www.mono-project.com/docs/tools+lib
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ monodis --output=code Microsoft.Exchange.Service.exe
+root@htb[/htb]$ monodis --output=code Microsoft.Exchange.Service.exe
 ```
 
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat code
+root@htb[/htb]$ cat code
 .assembly extern System.Configuration.Install
 {
   .ver 4:0:0:0
@@ -1003,7 +1003,7 @@ Encrypted/compressed/obfuscated in PE files usually means high [entropy](https:/
 &#x20; Developing YARA Rules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 entropy_pe_section.py -f /home/htb-student/Samples/YARASigma/sham2.exe
+root@htb[/htb]$ python3 entropy_pe_section.py -f /home/htb-student/Samples/YARASigma/sham2.exe
         virtual address: 0x1000
         virtual size: 0x25f86
         raw size: 0x26000
@@ -1641,7 +1641,7 @@ Here's an example command for YARA-based memory scanning:
 &#x20; Hunting Evil with YARA (Linux Edition)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ yara /home/htb-student/Rules/yara/wannacry_artifacts_memory.yar /home/htb-student/MemoryDumps/compromised_system.raw --print-strings
+root@htb[/htb]$ yara /home/htb-student/Rules/yara/wannacry_artifacts_memory.yar /home/htb-student/MemoryDumps/compromised_system.raw --print-strings
 Ransomware_WannaCry /home/htb-student/MemoryDumps/compromised_system.raw
 0x4e140:$wannacry_payload_str1: tasksche.exe
 0x1cb9b24:$wannacry_payload_str1: tasksche.exe
@@ -1705,7 +1705,7 @@ Introducing this pattern within the command line using `-U "www.iuqerfsodp9ifjap
 &#x20; Hunting Evil with YARA (Linux Edition)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/compromised_system.raw yarascan -U "www.iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com"
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/compromised_system.raw yarascan -U "www.iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com"
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -1747,7 +1747,7 @@ The YARA rules file we will use for demostration purposes is the following.
 &#x20; Hunting Evil with YARA (Linux Edition)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /home/htb-student/Rules/yara/wannacry_artifacts_memory.yar
+root@htb[/htb]$ cat /home/htb-student/Rules/yara/wannacry_artifacts_memory.yar
 rule Ransomware_WannaCry {
 
     meta:
@@ -1773,7 +1773,7 @@ Let's run Volatility with the rule `wannacry_artifacts_memory.yar` (residing in 
 &#x20; Hunting Evil with YARA (Linux Edition)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/compromised_system.raw yarascan -y /home/htb-student/Rules/yara/wannacry_artifacts_memory.yar
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/compromised_system.raw yarascan -y /home/htb-student/Rules/yara/wannacry_artifacts_memory.yar
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
