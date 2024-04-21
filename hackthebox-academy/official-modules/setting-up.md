@@ -26,8 +26,6 @@ This is yet another area of penetration testing in which we must be versatile an
 
 Over time, we all gather different experiences and collections of tools that we are most familiar with. Being structured is of paramount importance, as it increases our efficiency in penetration testing. Searching for individual resources and even needing additional tools to make these resources work by the time an engagement starts can be eliminated by having access to a prebaked, organized, and structured environment. Doing so requires some preparation and knowledge of different operating systems.
 
-
-
 ## Organization
 
 ***
@@ -35,8 +33,6 @@ Over time, we all gather different experiences and collections of tools that we 
 As we have already seen in the `Learning Process` module, organization plays a significant role in our penetration tests. It does not matter what type of penetration test it is. Having a working environment that we can navigate almost blindly saves a tremendous amount of time researching resources that we are already familiar with and have invested our time learning. These sources can be found within a few minutes, but once we have an extensive list of resources required for each assessment and include installation, this results in a few hours of pure preparation.
 
 Corporate environments usually consist of heterogeneous networks (hosts/servers having different Operating Systems). Therefore, it makes sense to organize hosts and servers based on their Operating System. If we organize our structure according to penetration testing stages and the targets’ Operating System, then a sample folder structure could look as follows.
-
-&#x20; Organization
 
 ```shell-session
 root@htb[/htb]$ tree .
@@ -75,8 +71,6 @@ root@htb[/htb]$ tree .
 ```
 
 If we are specialized in specific penetration testing fields, we can, of course, reorganize the structure according to these fields. We are all free to develop a system with which we are familiar, and in fact, it is recommended that we do so. Everyone works differently and has their strengths and weaknesses. If we work in a team, we should develop a structure that each team member is familiar with. Take this example as a starting point for creating your system.
-
-&#x20; Organization
 
 ```shell-session
 root@htb[/htb]$ tree .
@@ -220,15 +214,11 @@ Logging is essential for both documentation and our protection. If third parties
 
 **PS1**
 
-Code: bash
-
 ```bash
 PS1="\[\033[1;32m\]\342\224\200\$([[ \$(/opt/vpnbash.sh) == *\"10.\"* ]] && echo \"[\[\033[1;34m\]\$(/opt/vpnserver.sh)\[\033[1;32m\]]\342\224\200[\[\033[1;37m\]\$(/opt/vpnbash.sh)\[\033[1;32m\]]\342\224\200\")[\[\033[1;37m\]\u\[\033[01;32m\]@\[\033[01;34m\]\h\[\033[1;32m\]]\342\224\200[\[\033[1;37m\]\w\[\033[1;32m\]]\n\[\033[1;32m\]\342\224\224\342\224\200\342\224\200\342\225\274 [\[\e[01;33m\]$(date +%D-%r)\[\e[01;32m\]]\\$ \[\e[0m\]"
 ```
 
 **Date**
-
-&#x20; Organization
 
 ```shell-session
 ─[eu-academy-1]─[10.10.14.2]─[Cry0l1t3@htb]─[~]
@@ -239,8 +229,6 @@ To start logging with `script` (for Linux) and [Start-Transcript](https://docs.m
 
 **Script**
 
-&#x20; Organization
-
 ```shell-session
 root@htb[/htb]$ script 03-21-2021-0200pm-exploitation.log
 
@@ -249,8 +237,6 @@ root@htb[/htb]$ exit
 ```
 
 **Start-Transcript**
-
-&#x20; Organization
 
 ```powershell-session
 C:\> Start-Transcript -Path "C:\Pentesting\03-21-2021-0200pm-exploitation.log"
@@ -269,13 +255,9 @@ In addition, most tools offer the possibility to save the results in separate fi
 
 **Linux Output Redirection**
 
-&#x20; Organization
-
 ```shell-session
 root@htb[/htb]$ ./custom-tool.py 10.129.28.119 > logs.custom-tool
 ```
-
-&#x20; Organization
 
 ```shell-session
 root@htb[/htb]$ ./custom-tool.py 10.129.28.119 | tee -a logs.custom-tool
@@ -283,13 +265,9 @@ root@htb[/htb]$ ./custom-tool.py 10.129.28.119 | tee -a logs.custom-tool
 
 **Windows Output Redirection**
 
-&#x20; Organization
-
 ```powershell-session
 C:\> .\custom-tool.ps1 10.129.28.119 > logs.custom-tool
 ```
-
-&#x20; Organization
 
 ```powershell-session
 C:\> .\custom-tool.ps1 10.129.28.119 | Out-File -Append logs.custom-tool
@@ -308,8 +286,6 @@ Sometimes, however, we cannot show all the necessary steps in one or more screen
 **Peek**
 
 ![](https://raw.githubusercontent.com/phw/peek/master/data/screenshots/peek-recording-itself.gif)
-
-
 
 ## Virtualization
 
@@ -358,7 +334,7 @@ VMware produces software products for the virtualization of computer systems. `V
 
 For both operating systems, Windows and Linux, the installation files can be downloaded [here](https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html). Since most people are more familiar with Windows, we will install it on a Windows operating system.
 
-&#x20;  ![](https://academy.hackthebox.com/storage/modules/87/vmware.png)
+![](https://academy.hackthebox.com/storage/modules/87/vmware.png)
 
 **VMware Installation on Windows**
 
@@ -375,8 +351,6 @@ Here we now have the option to create a new VM or to include an existing one. Ex
 **VMware Installation on Linux**
 
 The installation of VMware Workstation Player on a Linux-based operating system looks a little different. However, we need to download the installation file first. Once we have downloaded it, we can run the installation with the following commands:
-
-&#x20; Virtualization
 
 ```shell-session
 username@Linux:~$ sudo apt install build-essential -y
@@ -404,8 +378,6 @@ An excellent and free alternative to VMware Workstation is [VirtualBox](https://
 
 **VirtualBox Installation**
 
-&#x20; Virtualization
-
 ```shell-session
 root@htb[/htb]$ sudo apt install virtualbox virtualbox-ext-pack -y
 ```
@@ -413,8 +385,6 @@ root@htb[/htb]$ sudo apt install virtualbox virtualbox-ext-pack -y
 ![](https://academy.hackthebox.com/storage/modules/87/vbox.png)
 
 From the example of a created VM shown above, we can see what configuration options are available for the VDI within VirtualBox. Also, we have the possibility and function to `encrypt` the VM, which we should always use. We will use this option as soon as we have prepared our VM accordingly and ready for use.
-
-
 
 ## Containers
 
@@ -446,14 +416,10 @@ An image of the file system forms the basis of each container. We can choose whe
 
 **Docker Installation**
 
-&#x20; Containers
-
 ```shell-session
 root@htb[/htb]$ sudo apt update -y 
 root@htb[/htb]$ sudo apt install docker.io -y
 ```
-
-&#x20; Containers
 
 ```powershell-session
 C:\> IEX((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -471,14 +437,10 @@ C:\> choco install docker-desktop
 
 **Vagrant Installation**
 
-&#x20; Containers
-
 ```shell-session
 root@htb[/htb]$ sudo apt update -y 
 root@htb[/htb]$ sudo apt install virtualbox virtualbox-dkms vagrant
 ```
-
-&#x20; Containers
 
 ```powershell-session
 C:\> IEX((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -489,8 +451,6 @@ C:\> cinst virtualbox cyg-get vagrant
 ***
 
 It is highly recommended to play around with different containers and experiment to get a feel for them. We should look at the documentation and read through it to understand how the containers work and what they depend on. It will also help us understand what advantages and disadvantages they bring.
-
-
 
 ## Linux
 
@@ -597,8 +557,6 @@ Now that we have installed the operating system, we need to bring it up to date.
 
 **ParrotOS Sources List**
 
-&#x20; Linux
-
 ```shell-session
 ┌─[cry0l1t3@parrot]─[~]
 └──╼ $ cat /etc/apt/sources.list.d/parrot.list
@@ -614,8 +572,6 @@ deb https://deb.parrot.sh/parrot/ rolling-security main contrib non-free
 Here the package manager can access a list of HTTP and FTP servers and obtain and install the corresponding packages from there. If packages are searched for, they are automatically loaded from the list of available repositories. Since program versions can be compared quickly under APT and can be loaded automatically from the repositories list, updating existing program packages under APT is relatively easy and comfortable.
 
 **Updating ParrotOS**
-
-&#x20; Linux
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -638,8 +594,6 @@ The following packages were automatically installed and are no longer required:
 ```
 
 **Tools List**
-
-&#x20; Linux
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -680,8 +634,6 @@ If there are only a few packages that we want to install, we can enter them manu
 
 **Installing Additional Tools**
 
-&#x20; Linux
-
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
 └──╼ $ sudo apt install netcat ncat nmap wireshark tcpdump ...SNIP... git vim tmux -y
@@ -698,8 +650,6 @@ The following packages were automatically installed and are no longer required:
 However, if the list contains more than just five packages, we should always create a list and keep it updated. With the following command, we will install all the tools from the list at once using APT.
 
 **Installing Additional Tools from a List**
-
-&#x20; Linux
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -722,8 +672,6 @@ We will also come across tools that are not found in the repositories and theref
 
 **Clone Github Repository**
 
-&#x20; Linux
-
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
 └──╼ $ git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
@@ -738,8 +686,6 @@ Resolving deltas: 100% (3129/3129), done.
 ```
 
 **List Contents**
-
-&#x20; Linux
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -789,8 +735,6 @@ Another handy component that we should adapt to our needs is the Bash prompt. Th
 
 **Customize Bash Prompt**
 
-&#x20; Linux
-
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
 └──╼ $ cp .bashrc .bashrc.bak
@@ -799,8 +743,6 @@ Another handy component that we should adapt to our needs is the Bash prompt. Th
 ```
 
 **Customized Bash Prompt**
-
-&#x20; Linux
 
 ```shell-session
 -[Tue Mar 23-00:39:51]-[cry0l1t3@parrotos]-
@@ -817,8 +759,6 @@ The automation process is also an essential part of our preparation for penetrat
 
 **Bash Prompt Customization Script - Prompt.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -833,15 +773,13 @@ If we then host this script on our VPS, we can retrieve it from our customer's L
 
 **Request Prompt.sh**
 
-&#x20; Linux
+Linux
 
 ```shell-session
 user@workstation:~$ curl -s http://myvps.vps-provider.net/Prompt.sh | bash
 ```
 
 **Customized Bash Prompt**
-
-&#x20; Linux
 
 ```shell-session
 -[Wed Mar 24-11:27:15]-[user@workstation]-
@@ -851,8 +789,6 @@ user@workstation:~$ curl -s http://myvps.vps-provider.net/Prompt.sh | bash
 A simple designation of these scripts is also of great use. For example, suppose we assume that we want to configure our Bash prompt and other operating system components. In that case, we need to name the scripts for this as `understandably` as possible. If we have created several scripts like this, we can write a simple Bash script from memory on the working station, which then does all the configuration. Let us assume we have created the following list of scripts, and we are hosting these on our `Virtual Private Server` (`VPS`):
 
 **Customization Scripts**
-
-&#x20; Linux
 
 ```shell-session
 user@workstation:~$ cat customization-scripts.txt
@@ -867,8 +803,6 @@ Vim.sh
 Now we could write a Bash script that takes care of all these settings for us or even combines them into a single command:
 
 **Customization Scripts Execution**
-
-&#x20; Linux
 
 ```shell-session
 user@workstation:~$ for script in $(cat customization-scripts.txt); do curl -s http://myvps.vps-provider.net/$script | bash; done
@@ -907,8 +841,6 @@ When we close VMware and open it again, we are asked for the password for this V
 **VM Decryption**
 
 ![](https://academy.hackthebox.com/storage/modules/87/linux\_vmware\_encrypted.png)
-
-
 
 ## Windows
 
@@ -976,8 +908,6 @@ To keep with our command-line use, we will work at utilizing the command-line wh
 
 **Updates**
 
-&#x20; Windows
-
 ```powershell-session
 PS C:\htb> Get-ExecutionPolicy -List
 
@@ -993,8 +923,6 @@ LocalMachine Undefined
 We must first check our systems Execution Policy to ensure we can download, load, and run modules and scripts. The above command will show us a list output with the policy set for each scope. In our case, we do not want this change to be permanent, so we will only change the ExecutionPolicy for the scope of `Process`.
 
 **Execution Policy**
-
-&#x20; Windows
 
 ```powershell-session
 PS C:\htb> Set-ExecutionPolicy Unrestricted -Scope Process
@@ -1021,8 +949,6 @@ Now that we have our ExecutionPolicy set, let us install the PSWindowsUpdate mod
 
 **PSWindowsUpdate**
 
-&#x20; Windows
-
 ```powershell-session
 PS C:\htb> Install-Module PSWindowsUpdate 
 
@@ -1034,8 +960,6 @@ Are you sure you want to install the modules from 'PSGallery'?
 ```
 
 Once the module installation completes, we can import it and run our updates.
-
-&#x20; Windows
 
 ```powershell-session
 PS C:\htb> Import-Module PSWindowsUpdate 
@@ -1062,8 +986,6 @@ The above Powershell example will import the `PSWindowsUpdate` module, run the u
 Chocolatey is a free and open software package management solution that can manage the installation and dependencies for our software packages and scripts. It also allows for automation with Powershell, Ansible, and several other management solutions. Chocolatey will enable us to install the tools we need from one source instead of downloading and installing each tool individually from the internet. Follow the Powershell windows below to learn how to install Chocolatey and use it to gather and install our tools.
 
 **Chocolatey**
-
-&#x20; Windows
 
 ```powershell-session
 PS C:\htb> Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -1093,8 +1015,6 @@ Ensuring chocolatey.nupkg is in the lib folder
 
 We have now installed chocolatey. The Powershell string we issued sets our ExecutionPolicy for the session and then downloads the installer from chocolatey.org and runs the script. Next, we will update chocolatey then start installing packages. To ensure no issues arise, it is recommended that we periodically restart our host.
 
-&#x20; Windows
-
 ```powershell-session
 PS C:\htb> choco upgrade chocolatey -y 
 
@@ -1110,7 +1030,7 @@ See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
 
 Now that we are sure chocolatey is up-to-date let us run our packages. We can use `choco` to install packages by issuing the `choco install pkg1 pkg2 pkg3` command listing out the package you need one by one separated by spaces. Alternatively, we can use a `packages.config` file for the installation. This is an XML file formatted so that chocolatey can install a list of packages. One helpful command to use is `choco info pkg`. It will show us various information about a package if it is available in the choco repository. See the [install page](https://docs.chocolatey.org/en-us/choco/commands/install) for more info on how to utilize chocolatey.
 
-&#x20; Windows
+Windows
 
 ```powershell-session
 PS C:\htb> choco info vscode 
@@ -1136,8 +1056,6 @@ Description: Build and debug modern web and cloud applications. Code is free and
 ```
 
 Above is an example of using the info option with chocolatey.
-
-&#x20; Windows
 
 ```powershell-session
 PS C:\htb> choco install python vscode git wsl2 openssh openvpn 
@@ -1187,8 +1105,6 @@ Windows Terminal is Microsoft's updated release for a GUI terminal emulator. It 
 
 To install Terminal with Chocolatey:
 
-&#x20; Windows
-
 ```powershell-session
 PS C:\htb> choco install microsoft-windows-terminal
 
@@ -1227,8 +1143,6 @@ See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
 What does this mean for us? Having the ability to interact and utilize Linux native tools and applications from our Windows host provides us with a hybrid environment and the flexibility that comes with it. To install the subsystem, the quickest route is to utilize chocolatey.
 
 **Chocolatey - WSL2**
-
-&#x20; Windows
 
 ```powershell-session
 PS C:\htb> choco install WSL2
@@ -1284,8 +1198,6 @@ These three folders are just a start. As we add more tools and scripts, we may n
 
 **Adding Exclusions**
 
-&#x20; Windows
-
 ```powershell-session
 PS C:\htb> Add-MpPreference -ExclusionPath "C:\Users\your user here\AppData\Local\Temp\chocolatey\"
 ```
@@ -1299,8 +1211,6 @@ Repeat the same steps for each folder we wish to exclude.
 Utilizing Chocolatey for package management makes it super easy to automate the initial install of core tools and applications. We can use a simple PowerShell script to pull everything for us in one run. Here is an example of a simple script to install some of our requirements. As usual, before executing any scripts, we need to change the execution policy. Once we have our initial script built, we can modify it as our toolkit changes and reuse it to speed up our setup process.
 
 **Choco Build Script**
-
-Code: powershell
 
 ```powershell
 # Choco build script
@@ -1326,8 +1236,6 @@ When scripting with Chocolatey, the developers recommend a few rules to follow:
 Not all of our packages can be acquired from Chocolatey. Fortunately for us, a majority of what is left resides in Github. We can set up a script for this and download the repositories and binaries we need, then extract them to our scripts folder. Below we will build out a quick example of a Git script. First, let us see what it looks like to clone a repository to our local host.
 
 **Git Clone**
-
-&#x20; Windows
 
 ```powershell-session
 PS C:\htb> git clone https://github.com/dafthack/DomainPasswordSpray.git
@@ -1387,8 +1295,6 @@ Tools that can be used to install older versions of Windows:
 
 Now that we have our Linux and Windows VMs configured, let's dive into Virtual Private Server (VPS) setup and usage.
 
-
-
 ## VPS Providers
 
 ***
@@ -1411,8 +1317,6 @@ We can choose from a range of Windows and Linux operating systems to provide the
 | [Linode](https://www.linode.com/pricing/)              | $10/mo    | 2GB     | 1 CPU         | 50 GB       | 2 TB                   |
 | [DigitalOcean](https://www.digitalocean.com/pricing)   | $10/mo    | 2GB     | 1 CPU         | 50 GB       | 2 TB                   |
 | [OneHostCloud](https://onehostcloud.hosting/)          | $14.99/mo | 2GB     | 1 CPU         | 50 GB       | 2 TB                   |
-
-
 
 ## VPS Setup
 
@@ -1446,8 +1350,6 @@ Next, we have the choice if we want to use [IPv6](https://en.wikipedia.org/wiki/
 
 After that, we can generate our SSH keys, which we can use to log in to the VPS via SSH later. We can also generate these keys later on our VPS or our VM or own host operating system. Let's use our VM to generate the key pair.
 
-**Generate SSH Keys**
-
 ```shell-session
 ┌─[cry0l1t3@parrot]─[~]
 └──╼ $ ssh-keygen -t rsa -b 4096 -f vps-ssh
@@ -1465,8 +1367,6 @@ The key's randomart image is:
 
 With the command shown above, we generate two different keys. The `vps-ssh` is the `private key` and must not be shared anywhere or with anyone. The second `vps-ssh.pub` is the `public key` which we can now insert in the Vultr control panel.
 
-**SSH Keys**
-
 ```shell-session
 ┌─[cry0l1t3@parrot]─[~]
 └──╼ $ ls -l vps*
@@ -1483,8 +1383,6 @@ Finally, we choose a hostname and the server label with which we want to name ou
 
 Once the VPS is installed, we can access it via SSH.
 
-**SSH Using Password**
-
 ```shell-session
 [!bash!]$ ssh root@<vps-ip-address>
 
@@ -1494,8 +1392,6 @@ root@<vps-ip-address>'s password:
 ```
 
 After that, we should add a new user for the VPS to not run our services with root or administrator privileges. For this, we can then generate another SSH key and insert it for this user.
-
-**Adding a New Sudo User**
 
 ```shell-session
 [root@VPS ~]# adduser cry0l1t3
@@ -1516,15 +1412,11 @@ Password:
 
 Once we have added this to the `authorized_keys` file, we can use the `private key` to log in to the system via SSH.
 
-**Using SSH Keys**
-
 ```shell-session
 [!bash!]$ ssh cry0l1t3@<vps-ip-address> -i vps-ssh
 
 [cry0l1t3@VPS ~]$ 
 ```
-
-
 
 ## VPS Hardening
 
@@ -1551,8 +1443,6 @@ One of the first steps in hardening our system is updating and bringing the syst
 
 **Update the System**
 
-&#x20; VPS Hardening
-
 ```shell-session
 [cry0l1t3@VPS ~]$ sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
 ```
@@ -1565,8 +1455,6 @@ SSH is always installed on the VPS, giving us guaranteed access to the server in
 
 **Install Fail2Ban**
 
-&#x20; VPS Hardening
-
 ```shell-session
 [cry0l1t3@VPS ~]$ sudo apt install fail2ban -y
 ```
@@ -1575,8 +1463,6 @@ Once we have installed it, we can find the configuration file at `/etc/fail2ban/
 
 **Fail2Ban Config Backup**
 
-&#x20; VPS Hardening
-
 ```shell-session
 [cry0l1t3@VPS ~]$ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.bak
 ```
@@ -1584,8 +1470,6 @@ Once we have installed it, we can find the configuration file at `/etc/fail2ban/
 In this file, we will find the field commented out with `# [sshd]`. In most cases, we will find the first line commented out there. Otherwise, we add this and two more, as shown in the following example:
 
 **/etc/fail2ban/jail.conf**
-
-&#x20; VPS Hardening
 
 ```shell-session
 ...SNIP...
@@ -1599,8 +1483,6 @@ maxretry = 3
 With this, we enable monitoring for the SSH server, set the `ban time` to four weeks, and allow a maximum of 3 `attempts`. The advantage of this is that once we have configured our `2FA` feature for SSH, fail2ban will ban the IP address that has entered the `verification code` incorrectly three times too. We should make the following configurations in the `/etc/ssh/sshd_config` file:
 
 **Editing OpenSSH Config**
-
-&#x20; VPS Hardening
 
 ```shell-session
 [cry0l1t3@VPS ~]$ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
@@ -1636,8 +1518,6 @@ We will use Google Authenticator as our authentication application on our Androi
 
 **Installing Google-Authenticator PAM Module**
 
-&#x20; VPS Hardening
-
 ```shell-session
 [cry0l1t3@VPS ~]$ sudo apt install libpam-google-authenticator -y
 [cry0l1t3@VPS ~]$ google-authenticator
@@ -1658,8 +1538,6 @@ If we follow these steps, then a `QR code` and a `secret key` will appear in our
 The module will then generate several `emergency scratch codes` (`backup codes`), which we should save safely. These will be used in case we lose our smartphone. Should this happen, we can then log in with the `backup codes`.
 
 **Google-Authenticator Configuration**
-
-&#x20; VPS Hardening
 
 ```shell-session
 Enter code from app (-1 to skip): <Google-Auth Code>
@@ -1699,8 +1577,6 @@ Next, we need to configure the [PAM](https://en.wikipedia.org/wiki/Linux\_PAM) m
 
 **2FA PAM Configuration**
 
-&#x20; VPS Hardening
-
 ```shell-session
 [cry0l1t3@VPS ~]$ sudo cp /etc/pam.d/sshd /etc/pam.d/sshd.bak
 [cry0l1t3@VPS ~]$ sudo vim /etc/pam.d/sshd
@@ -1709,8 +1585,6 @@ Next, we need to configure the [PAM](https://en.wikipedia.org/wiki/Linux\_PAM) m
 We comment out the "`@include common-auth`" line by putting a "`#`" in front of it. Besides, we add two new lines at the end of the file, as follows:
 
 **/etc/pam.d/sshd**
-
-&#x20; VPS Hardening
 
 ```shell-session
 #@include common-auth
@@ -1725,8 +1599,6 @@ Next, we need to adjust our settings in our SSH daemon to allow this authenticat
 
 **/etc/ssh/sshd\_config**
 
-&#x20; VPS Hardening
-
 ```shell-session
 ...SNIP...
 
@@ -1738,8 +1610,6 @@ Finally, we have to restart the SSH server to apply the new configurations and s
 
 **Restart SSH Server**
 
-&#x20; VPS Hardening
-
 ```shell-session
 [cry0l1t3@VPS ~]$ sudo service ssh restart
 ```
@@ -1747,8 +1617,6 @@ Finally, we have to restart the SSH server to apply the new configurations and s
 Now we can test this and try to login to the SSH server with our SSH key and check if everything works as intended.
 
 **2FA SSH Login**
-
-&#x20; VPS Hardening
 
 ```shell-session
 root@htb[/htb]$ ssh cry0l1t3@VPS -i ~/.ssh/vps-ssh
@@ -1761,15 +1629,11 @@ Finally, we can transfer all our resources, scripts, notes, and other components
 
 **SCP Syntax**
 
-&#x20; VPS Hardening
-
 ```shell-session
 root@htb[/htb]$ scp -i <ssh-private-key> -r <directory to transfer> <username>@<IP/FQDN>:<path>
 ```
 
 **Resources Transfer**
-
-&#x20; VPS Hardening
 
 ```shell-session
 root@htb[/htb]$ scp -i ~/.ssh/vps-ssh -r ~/Pentesting cry0l1t3@VPS:~/

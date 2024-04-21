@@ -140,8 +140,6 @@ The cheat sheet is a useful command reference for this module.
 2. Does not refer to direct memory addresses
 3. Does not contain any NULL bytes `00`
 
-
-
 ## Assembly Language
 
 ***
@@ -172,15 +170,11 @@ Later on, interpreted languages were developed, like `Python`, `PHP`, `Bash`, `J
 
 Let's take a basic '`Hello World!`' program that prints these words on the screen and show how it changes from high-level to machine code. In an interpreted language, like Python, it would be the following basic line:
 
-Code: python
-
 ```python
 print("Hello World!")
 ```
 
 If we run this Python line, it would be essentially executing the following `C` code:
-
-Code: c
 
 ```c
 #include <unistd.h>
@@ -196,8 +190,6 @@ Note: the actual `C` source code is much longer, but the above is the essence of
 
 The above `C` code uses the Linux `write` syscall, built-in for processes to write to the screen. The same syscall called in Assembly looks like the following:
 
-Code: nasm
-
 ```nasm
 mov rax, 1
 mov rdi, 1
@@ -212,8 +204,6 @@ syscall
 
 As we can see, when the `write` syscall is called in `C` or Assembly, both are using `1`, the text, and `12` as the arguments. This will be covered more in-depth later in the module. From this point, Assembly code, shellcode, and binary machine code are mostly identical but written in different formats. The previous Assembly code can be assembled into the following hex machine code (i.e., shellcode):
 
-Code: shellcode
-
 ```shellcode
 48 c7 c0 01
 48 c7 c7 01
@@ -227,8 +217,6 @@ Code: shellcode
 ```
 
 Finally, for the processor to execute the instructions linked to this machine, it would have to be translated into binary, which would look like the following:
-
-Code: binary
 
 ```binary
 01001000 11000111 11000000 00000001
@@ -257,8 +245,6 @@ Understanding assembly language instructions is critical for binary exploitation
 This is why once we start learning binary exploitation techniques, like buffer overflows, ROP chains, heap exploitation, and others, we will be dealing a lot with assembly instructions and following them in memory. Furthermore, to exploit these vulnerabilities, we will have to build custom exploits that use assembly instructions to manipulate the code while in memory and inject assembly shellcode to be executed.
 
 Learning Intel x86 Assembly Language is crucial for writing exploits for binaries on modern machines. In addition to Intel x86, ARM is becoming more common, as most modern smartphones and some modern laptops like the M1 MacBook Pro feature ARM processors. Exploiting binaries in these systems requires ARM Assembly knowledge. This module will not cover ARM Assembly Language. That being said, Assembly Language basics will undoubtedly be helpful to anyone willing to learn ARM Assembly since the two languages have a lot of similarities.
-
-
 
 ## Computer Architecture
 
@@ -308,11 +294,7 @@ Since RAM clock speed is usually much slower than the CPU cores, in addition to 
 
 There are usually three levels of cache memory, depending on their closeness to the CPU core:
 
-| **Level**       | **Description**                                                                                            |
-| --------------- | ---------------------------------------------------------------------------------------------------------- |
-| `Level 1 Cache` | Usually in kilobytes, the fastest memory available, located in each CPU core. (Only registers are faster.) |
-| `Level 2 Cache` | Usually in megabytes, extremely fast (but slower than L1), shared between all CPU cores.                   |
-| `Level 3 Cache` | Usually in megabytes (larger than L2), faster than RAM but slower than L1/L2. (Not all CPUs use L3.)       |
+<table data-header-hidden><thead><tr><th width="224"></th><th></th></tr></thead><tbody><tr><td><strong>Level</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Level 1 Cache</code></td><td>Usually in kilobytes, the fastest memory available, located in each CPU core. (Only registers are faster.)</td></tr><tr><td><code>Level 2 Cache</code></td><td>Usually in megabytes, extremely fast (but slower than L1), shared between all CPU cores.</td></tr><tr><td><code>Level 3 Cache</code></td><td>Usually in megabytes (larger than L2), faster than RAM but slower than L1/L2. (Not all CPUs use L3.)</td></tr></tbody></table>
 
 **RAM**
 
@@ -328,12 +310,7 @@ When a program is run, all of its data and instructions are moved from the stora
 
 As we can see, the RAM is split into four main `segments`:
 
-| Segment | Description                                                                                                                                                                                      |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `Stack` | Has a Last-in First-out (LIFO) design and is fixed in size. Data in it can only be accessed in a specific order by push-ing and pop-ing data.                                                    |
-| `Heap`  | Has a hierarchical design and is therefore much larger and more versatile in storing data, as data can be stored and retrieved in any order. However, this makes the heap slower than the Stack. |
-| `Data`  | Has two parts: `Data`, which is used to hold variables, and `.bss`, which is used to hold unassigned variables (i.e., buffer memory for later allocation).                                       |
-| `Text`  | Main assembly instructions are loaded into this segment to be fetched and executed by the CPU.                                                                                                   |
+<table><thead><tr><th width="145">Segment</th><th>Description</th></tr></thead><tbody><tr><td><code>Stack</code></td><td>Has a Last-in First-out (LIFO) design and is fixed in size. Data in it can only be accessed in a specific order by push-ing and pop-ing data.</td></tr><tr><td><code>Heap</code></td><td>Has a hierarchical design and is therefore much larger and more versatile in storing data, as data can be stored and retrieved in any order. However, this makes the heap slower than the Stack.</td></tr><tr><td><code>Data</code></td><td>Has two parts: <code>Data</code>, which is used to hold variables, and <code>.bss</code>, which is used to hold unassigned variables (i.e., buffer memory for later allocation).</td></tr><tr><td><code>Text</code></td><td>Main assembly instructions are loaded into this segment to be fetched and executed by the CPU.</td></tr></tbody></table>
 
 Although this segmentation applies to the entire RAM, `each application is allocated its Virtual Memory when it is run`. This means that each application would have its own `stack`, `heap`, `data`, and `text` segments.
 
@@ -369,8 +346,6 @@ As we can see from the above, the further away a component is from the CPU core,
 | `Storage`   | Slowest                           | Terabytes and more  |
 
 The speed here is relative depending on the CPU clock speed. Now that we have a general idea of the computer architecture, we'll discuss Registers and the CPU architecture in the next section.
-
-
 
 ## CPU Architecture
 
@@ -448,8 +423,6 @@ This module will focus mainly on the Intel x86 64-bit assembly language (also kn
 
 If we want to know whether our Linux system supports `x86_64` architecture, we can use the `lscpu` command:
 
-&#x20; CPU Architecture
-
 ```shell-session
 root@htb[/htb]$ lscpu
 
@@ -461,8 +434,6 @@ Byte Order:                      Little Endian
 ```
 
 As we can see in the above output, the CPU architecture is `x86_64`, and supports 32-bit and 64-bit. The byte order is Little Endian. We can also use the `uname -m` command to get the CPU architecture. We will discuss the two most common Instruction Set Architectures in the next section: `CISC` and `RISC`.
-
-
 
 ## Instruction Set Architectures
 
@@ -548,8 +519,6 @@ In the past, having a longer assembly code due to a larger number of total instr
 Furthermore, with new assemblers and compilers writing extremely optimized code on the software level, RISC processors are becoming faster than CISC processors, even in executing and processing heavy applications, all while consuming much less power.
 
 All of this is making RISC processors more common in recent years. RISC may become the dominant architecture in the upcoming years. But as we speak, the overwhelming majority of computers and servers we will be pentesting are running on Intel/AMD processors with the CISC architecture, making learning CISC assembly our priority. As the basics of all Assembly language variants are pretty similar, learning ARM Assembly should be more straightforward after completing this module.
-
-
 
 ## Registers, Addresses, and Data Types
 
@@ -660,8 +629,7 @@ The following table demonstrates how endianness works:
 
 Address: 0x0011223344556677
 
-Load Address\
-
+Load Address\\
 
 You can click on the "Load Address" button to visualize how each endianness loads data/addresses into memory.
 
@@ -699,8 +667,6 @@ For example, we can't use a variable defined as `byte` with `rax`, as `rax` has 
 
 We will discuss this further in the upcoming sections. With all fundamentals of Assembly covered, we can start learning about x86 assembly instructions and writing basic Assembly code.
 
-
-
 ## Assembly File Structure
 
 ***
@@ -708,8 +674,6 @@ We will discuss this further in the upcoming sections. With all fundamentals of 
 As we learn various Assembly instructions in the coming sections, we'll constantly be writing code, assembling it, and debugging it. This is the best way to learn what each instruction does. So, we need to learn the basic structure of an Assembly code file and then assemble it and debug it.
 
 In this section, we'll go through the basic structure of an Assembly file, and in the following two sections, we will cover assembling it and debugging it. We will be working on a template `Hello World!` Assembly code as a sample, to first learn the general structure of an assembly file and then how to assemble it and debug it. Let us start by taking a look at and dissecting a sample `Hello World!` Assembly code template:
-
-Code: nasm
 
 ```nasm
          global  _start
@@ -783,8 +747,6 @@ Furthermore, we can use the `equ` instruction with the `$` token to evaluate an 
 
 For example, the following code defines a variable and then defines a constant for its length:
 
-Code: nasm
-
 ```nasm
 section .data
     message db "Hello World!", 0x0a
@@ -807,8 +769,6 @@ Tip: We can add comments to our assembly code with a semi-colon `;`. We can use 
 
 With this, we should understand the basic structure of an Assembly file.
 
-
-
 ## Assembling & Disassembling
 
 ***
@@ -826,8 +786,6 @@ First, we will copy the code below into a file called `helloWorld.s`.
 Note: assembly files usually use the `.s` or the `.asm` extensions. We will be using `.s` in this module.
 
 We don't have to keep using tabs to separate parts of an assembly file, as this was only for demonstration purposes. We can write the following code into our `helloWorld.s` file:
-
-Code: nasm
 
 ```nasm
 global _start
@@ -851,8 +809,6 @@ _start:
 
 Note how we used `equ` to dynamically calculate the length of `message`, instead of using a static `18`. This will become very handy later on. Once we do, we will assemble the file using `nasm`, with the following command:
 
-&#x20; Assembling & Disassembling
-
 ```shell-session
 root@htb[/htb]$ nasm -f elf64 helloWorld.s
 ```
@@ -869,7 +825,7 @@ The final step is to link our file using `ld`. The `helloWorld.o` object file, t
 
 This is why a Linux binary is called `ELF`, which stands for an `Executable and Linkable Format`. To link a file using `ld`, we can use the following command:
 
-&#x20; Assembling & Disassembling
+Assembling & Disassembling
 
 ```shell-session
 root@htb[/htb]$ ld -o helloWorld helloWorld.o
@@ -879,16 +835,12 @@ Note: if we were to assemble a 32-bit binary, we need to add the '`-m elf_i386`'
 
 Once we link the file with `ld`, we should have the final executable file:
 
-&#x20; Assembling & Disassembling
-
 ```shell-session
 root@htb[/htb]$ ./helloWorld
 Hello HTB Academy!
 ```
 
 We have successfully assembled and linked our first assembly file. We will be assembling, linking, and running our code frequently through this module, so let us build a simple `bash` script to make it easier:
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -901,8 +853,6 @@ ld ${fileName}".o" -o ${fileName}
 ```
 
 Now we can write this script to `assembler.sh`, `chmod +x` it, and then run it on our assembly file. It will assemble it, link it, and run it:
-
-&#x20; Assembling & Disassembling
 
 ```shell-session
 root@htb[/htb]$ ./assembler.sh helloWorld.s
@@ -920,8 +870,6 @@ To disassemble a file, we will use the `objdump` tool, which dumps machine code 
 Note: we will also use the flag `-M intel`, so that `objdump` would write the instructions in the Intel syntax, which we are using, as we discussed before.
 
 Let's start by disassembling our final `ELF` executable file:
-
-&#x20; Assembling & Disassembling
 
 ```shell-session
 root@htb[/htb]$ objdump -M intel -d helloWorld
@@ -946,8 +894,6 @@ We see that our original assembly code is highly preserved, with the only change
 
 If we wanted to only show the assembly code, without machine code or addresses, we could add the `--no-show-raw-insn --no-addresses` flags, as follows:
 
-&#x20; Assembling & Disassembling
-
 ```shell-session
 root@htb[/htb]$ objdump -M intel --no-show-raw-insn --no-addresses -d helloWorld
 
@@ -970,8 +916,6 @@ Note: Note that `objdump` has changed the third instruction into `movabs`. This 
 
 The `-d` flag will only disassemble the `.text` section of our code. To dump any strings, we can use the `-s` flag, and add `-j .data` to only examine the `.data` section. This means that we also do not need to add `-M intel`. The final command is as follows:
 
-&#x20; Assembling & Disassembling
-
 ```shell-session
 root@htb[/htb]$ objdump -sj .data helloWorld
 
@@ -983,8 +927,6 @@ Contents of section .data:
 ```
 
 As we can see, the `.data` section indeed contains the `message` variable with the string `Hello HTB Academy!`. This should give us a better idea of how our code was assembled into machine code and how it looks after we assemble it. Next, let us go through the basics of code debugging, which is a critical skill we need to learn.
-
-
 
 ## GNU Debugger (GDB)
 
@@ -1002,8 +944,6 @@ To debug our binaries, we will be using a well-known debugger for Linux programs
 
 GDB is installed in many Linux distributions, and it is also installed by default in Parrot OS and PwnBox. In case it is not installed in your VM, you can use `apt` to install it with the following commands:
 
-&#x20; GNU Debugger (GDB)
-
 ```shell-session
 root@htb[/htb]$ sudo apt-get update
 root@htb[/htb]$ sudo apt-get install gdb
@@ -1012,8 +952,6 @@ root@htb[/htb]$ sudo apt-get install gdb
 One of the great features of `GDB` is its support for third-party plugins. An excellent plugin that is well maintained and has good documentation is [GEF](https://github.com/hugsy/gef). GEF is a free and open-source GDB plugin that is built precisely for reverse engineering and binary exploitation. This fact makes it a great tool to learn.
 
 To add GEF to GDB, we can use the following commands:
-
-&#x20; GNU Debugger (GDB)
 
 ```shell-session
 root@htb[/htb]$ wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py
@@ -1026,8 +964,6 @@ root@htb[/htb]$ echo source ~/.gdbinit-gef.py >> ~/.gdbinit
 
 Now that we have both tools installed, we can run gdb to debug our `HelloWorld` binary using the following commands, and GEF will be loaded automatically:
 
-&#x20; GNU Debugger (GDB)
-
 ```shell-session
 root@htb[/htb]$ gdb -q ./helloWorld
 ...SNIP...
@@ -1037,8 +973,6 @@ gef➤
 As we can see from `gef➤`, GEF is loaded when GDB is run. If you ever run into any issues with `GEF`, you can consult with the [GEF Documentation](https://hugsy.github.io/gef/), and you will likely find a solution.
 
 Going forward, we will frequently be assembling and linking our assembly code and then running it with `gdb`. To do so quickly, we can use the `assembler.sh` script we wrote in the previous section with the `-g` flag. It will assemble and link the code, and then run it with `gdb`, as follows:
-
-&#x20; GNU Debugger (GDB)
 
 ```shell-session
 root@htb[/htb]$ ./assembler.sh helloWorld.s -g
@@ -1058,8 +992,6 @@ Tip: If we want to understand how any command runs within `GDB`, we can use the 
 
 To start, we will use the `info` command to check which `functions` are defined within the binary:
 
-&#x20; GNU Debugger (GDB)
-
 ```shell-session
 gef➤  info functions
 
@@ -1074,8 +1006,6 @@ As we can see, we found our main `_start` function.
 **Variables**
 
 We can also use the `info variables` command to view all available variables within the program:
-
-&#x20; GNU Debugger (GDB)
 
 ```shell-session
 gef➤  info variables
@@ -1096,8 +1026,6 @@ As we can see, we find the `message`, along with some other default variables th
 ### Disassemble
 
 To view the instructions within a specific function, we can use the `disassemble` or `disas` command along with the function name, as follows:
-
-&#x20; GNU Debugger (GDB)
 
 ```shell-session
 gef➤  disas _start
@@ -1122,20 +1050,13 @@ You may notice through debugging that some memory addresses are in the form of `
 
 Next, let us go through the basics of debugging with GDB by using breakpoints, examining data, and stepping through the program.
 
-
-
 ## Debugging with GDB
 
 ***
 
 Now that we have the general information about our program, we will start running it and debugging it. Debugging consists mainly of four steps:
 
-| Step      | Description                                                                                                          |
-| --------- | -------------------------------------------------------------------------------------------------------------------- |
-| `Break`   | Setting breakpoints at various points of interest                                                                    |
-| `Examine` | Running the program and examining the state of the program at these points                                           |
-| `Step`    | Moving through the program to examine how it acts with each instruction and with user input                          |
-| `Modify`  | Modify values in specific registers or addresses at specific breakpoints, to study how it would affect the execution |
+<table><thead><tr><th width="149">Step</th><th>Description</th></tr></thead><tbody><tr><td><code>Break</code></td><td>Setting breakpoints at various points of interest</td></tr><tr><td><code>Examine</code></td><td>Running the program and examining the state of the program at these points</td></tr><tr><td><code>Step</code></td><td>Moving through the program to examine how it acts with each instruction and with user input</td></tr><tr><td><code>Modify</code></td><td>Modify values in specific registers or addresses at specific breakpoints, to study how it would affect the execution</td></tr></tbody></table>
 
 We will go through these points in this section to learn the basics of debugging a program with GDB.
 
@@ -1147,8 +1068,6 @@ The first step of debugging is setting `breakpoints` to stop the execution at a 
 
 We can set a breakpoint at a specific address or for a particular function. To set a breakpoint, we can use the `break` or `b` command along with the address or function name we want to break at. For example, to follow all instructions run by our program, let's break at the `_start` function, as follows:
 
-&#x20; Debugging with GDB
-
 ```shell-session
 gef➤  b _start
 
@@ -1156,8 +1075,6 @@ Breakpoint 1 at 0x401000
 ```
 
 Now, in order to start our program, we can use the `run` or `r` command:
-
-&#x20; gdb
 
 ```
 gef➤  b _start
@@ -1201,8 +1118,6 @@ $rip   : 0x0000000000401000  →  <_start+0> mov eax, 0x1
 
 If we want to set a breakpoint at a certain address, like `_start+10`, we can either `b *_start+10` or `b *0x40100a`:
 
-&#x20; Debugging with GDB
-
 ```shell-session
 gef➤  b *0x40100a
 Breakpoint 1 at 0x40100a
@@ -1232,8 +1147,6 @@ To manually examine any of the addresses or registers or examine any other, we c
 
 For example, if we wanted to examine the next four instructions in line, we will have to examine the `$rip` register (which holds the address of the next instruction), and use `4` for the `count`, `i` for the `format`, and `g` for the `size` (for 8-bytes or 64-bits). So, the final examine command would be `x/4ig $rip`, as follows:
 
-&#x20; Debugging with GDB
-
 ```shell-session
 gef➤  x/4ig $rip
 
@@ -1251,8 +1164,6 @@ We can also examine a variable stored at a specific memory address. We know that
 
 In this case, we will not put anything for the `Count`, as we only want one address (1 is the default), and will use `s` as the format to get it in a string format rather than in hex:
 
-&#x20; Debugging with GDB
-
 ```shell-session
 gef➤  x/s 0x402000
 
@@ -1267,8 +1178,6 @@ Note: if we don't specify the `Size` or `Format`, it will default to the last on
 
 The most common format of examining is hex `x`. We often need to examine addresses and registers containing hex data, such as memory addresses, instructions, or binary data. Let us examine the same previous instruction, but in `hex` format, to see how it looks:
 
-&#x20; Debugging with GDB
-
 ```shell-session
 gef➤  x/wx 0x401000
 
@@ -1280,8 +1189,6 @@ We see instead of `mov eax,0x1`, we get `0x000001b8`, which is the hex represent
 * This is read as: `b8 01 00 00`.
 
 Try repeating the commands we used for examining strings using `x` to examine them in hex. We should see the same text but in hex format. We can also use `GEF` features to examine certain addresses. For example, at any point we can use the `registers` command to print out the current value of all registers:
-
-&#x20; gdb
 
 ```
 gef➤  registers
@@ -1303,8 +1210,6 @@ $rip   : 0x0000000000401000  →  <_start+0> mov eax, 0x1
 
 The third step of debugging is `stepping` through the program one instruction or line of code at a time. As we can see, we are currently at the very first instruction in our `helloWorld` program:
 
-&#x20; gdb
-
 ```
 ─────────────────────────────────────────────────────────────────────────────────── code:x86:64 ────
      0x400ffe                  add    BYTE PTR [rax], al
@@ -1319,8 +1224,6 @@ To move through the program, there are three different commands we can use: `ste
 **Step Instruction**
 
 The `stepi` or `si` command will step through the assembly instructions one by one, which is the smallest level of steps possible while debugging. Let us use the `si` command to see how we get to the next instruction:
-
-&#x20; gdb
 
 ```
 ─────────────────────────────────────────────────────────────────────────────────── code:x86:64 ────
@@ -1340,8 +1243,6 @@ As we can see, we took exactly one step and stopped again at the `mov edi, 0x1` 
 **Step Count**
 
 Similarly to examine, we can repeat the `si` command by adding a number after it. For example, if we wanted to move 3 steps to reach the `syscall` instruction, we can do so as follows:
-
-&#x20; gdb
 
 ```
 gef➤  si 3
@@ -1368,8 +1269,6 @@ The `step` or `s` command, on the other hand, will continue until the following 
 
 If there's a call to another function within this function, it'll break at the beginning of that function. Otherwise, it'll break after we exit this function after the program's end. Let us try using `s`, and see what happens:
 
-&#x20; Debugging with GDB
-
 ```shell-session
 gef➤  step
 
@@ -1393,8 +1292,6 @@ The final step of debugging is `modifying` values in registers and addresses at 
 
 To modify values in GDB, we can use the `set` command. However, we will utilize the `patch` command in `GEF` to make this step much easier. Let's enter `help patch` in GDB to get its help menu:
 
-&#x20; Debugging with GDB
-
 ```shell-session
 gef➤  help patch
 
@@ -1407,8 +1304,6 @@ patch string LOCATION "double-escaped string"
 As we can see, we have to provide the `type/size` of the new value, the `location` to be stored, and the `value` we want to use. So, let's try changing the string stored in the `.data` section (at address `0x402000` as we saw earlier) to the string `Patched!`.
 
 We will break at the first `syscall` at `0x401019`, and then do the patch, as follows:
-
-&#x20; Debugging with GDB
 
 ```shell-session
 gef➤  break *0x401019
@@ -1430,8 +1325,6 @@ We see that we successfully modified the string and got `Patched!\n Academy!` in
 We also note that we did not replace the entire string. This is because we only modified the characters up to the length of our string and left the remainder of the old string. Finally, the `printf` function specified a length of `0x12` of bytes to be printed.
 
 To fix this, let's modify the value stored in `$rdx` to the length of our string, which is `0x9`. We will only patch a size of one byte. We will go into details of how `syscall` works later in the module. Let us demonstrate using `set` to modify `$rdx`, as follows:
-
-&#x20; Debugging with GDB
 
 ```shell-session
 gef➤  break *0x401019
@@ -1457,8 +1350,6 @@ We see that we successfully modified the final printed string and have the progr
 Whether we want to see exactly why our program is failing or understand how a program is running and what it's doing at each point, GDB becomes very handy.
 
 For penetration testing, this process enables us to understand how a program handles input at a certain point and exactly why it's failing. This allows us to develop exploits that take advantage of such failures, as we will learn in the Binary Exploitation modules.
-
-
 
 ## Module Project
 
@@ -1504,7 +1395,7 @@ We will be developing a Fibonacci sequence calculator for this module, which all
 
 The program will first ask you for the maximum Fibonacci you want to calculate and then print all Fibonacci numbers up to this number. The following example shows us how it would look:
 
-&#x20; Module Project
+Module Project
 
 ```shell-session
 root@htb[/htb]$ ./fib 
@@ -1526,8 +1417,6 @@ Please input max Fn
 
 By the end of the module, you will have developed the above program using nothing but Assembly instructions. We can download the final program from [this link](https://academy.hackthebox.com/storage/modules/85/fib.zip) and run it to see the final project result.
 
-
-
 ## Data Movement
 
 ***
@@ -1546,8 +1435,6 @@ Let's start with data movement instructions, which are among the most fundamenta
 
 Let's use the `mov` instruction as the very first instructions in our module project `fibonacci`. We will need to load the initial values (`F0=0` and `F1=1`) to `rax` and `rbx`, such that `rax = 0` and `rbx = 1`. Let us copy the following code to a `fib.s` file:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -1558,8 +1445,6 @@ _start:
 ```
 
 Now, let's assemble this code and run it with `gdb` to see how the `mov` instruction works in action:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -1597,8 +1482,6 @@ We can load immediate data using the `mov` instruction. For example, we can load
 
 Let us take the following basic assembly code to compare the disassembly of both instructions:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -1610,8 +1493,6 @@ _start:
 ```
 
 Now let's assemble it and view its shellcode with `objdump`:
-
-&#x20; Data Movement
 
 ```shell-session
 root@htb[/htb]$ nasm -f elf64 fib.s && objdump -M intel -d fib.o
@@ -1627,8 +1508,6 @@ We can see that the shellcode of the first instruction is more than double the s
 `This understanding will become very handy when writing shellcodes.`
 
 Let us modify our code to use sub-registers to make it more efficient:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -1648,8 +1527,6 @@ The `xchg` instruction will swap the data between the two registers. Try adding 
 Another critical concept to understand is using pointers. In many cases, we would see that the register or address we are using does not immediately contain the final value but contains another address that points to the final value. This is always the case with _pointer_ registers, like `rsp`, `rbp`, and `rip`, but is also used with any other register or memory address.
 
 For example, let's assemble and run `gdb` on our assembled `fib` binary, and check the `rsp` and `rip` registers:
-
-&#x20; gdb
 
 ```
 gdb -q ./fib
@@ -1673,8 +1550,6 @@ We can use square brackets to compute an address offset relative to a register o
 
 To properly demonstrate this, let us take the following example code:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -1687,8 +1562,6 @@ _start:
 This is just a simple program to demonstrate this point and see the difference between the two instructions.
 
 Now, let's assemble the code and run the program with gdb:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh rsp.s -g
@@ -1704,8 +1577,6 @@ $rsp   : 0x00007fffffffe490  →  0x0000000000000001
 ```
 
 As we can see, the `mov rax, rsp` moved the immediate value stored at `rsp` (which is a pointer address to `rsp`) to the `rax` register.Now let's press `si` and check how `rax` will look after the second instruction:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh rsp.s -g
@@ -1740,8 +1611,6 @@ Note that if we use `mov rax, [rsp+10]`, it will actually move the value at `[rs
 
 Let's take the following example to demonstrate how `lea` works and how it can differ from `mov`:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -1752,8 +1621,6 @@ _start:
 ```
 
 Now let's assemble it and run it with `gdb`:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh lea.s -g
@@ -1780,8 +1647,6 @@ $rsp   : 0x00007fffffffe490  →  0x0000000000000001
 
 As expected, we see that `mov rax, [rsp+10]` moved the value stored there to `rax`.
 
-
-
 ## Arithmetic Instructions
 
 ***
@@ -1794,14 +1659,9 @@ The second type of basic instructions is Arithmetic Instructions. With Arithmeti
 
 The following are the main Unary Arithmetic Instructions (we will assume that `rax` starts as `1` for each instruction):
 
-| Instruction | Description    | Example                                         |
-| ----------- | -------------- | ----------------------------------------------- |
-| `inc`       | Increment by 1 | `inc rax` -> `rax++` or `rax += 1` -> `rax = 2` |
-| `dec`       | Decrement by 1 | `dec rax` -> `rax--` or `rax -= 1` -> `rax = 0` |
+<table><thead><tr><th width="143">Instruction</th><th width="160">Description</th><th>Example</th></tr></thead><tbody><tr><td><code>inc</code></td><td>Increment by 1</td><td><code>inc rax</code> -> <code>rax++</code> or <code>rax += 1</code> -> <code>rax = 2</code></td></tr><tr><td><code>dec</code></td><td>Decrement by 1</td><td><code>dec rax</code> -> <code>rax--</code> or <code>rax -= 1</code> -> <code>rax = 0</code></td></tr></tbody></table>
 
 Let's practice these instructions by going back to our `fib.s` code. So far, we have initialized `rax` and `rbx` with our initial values `0` and `1` with the `mov` instruction. Instead of moving the immediate value of `1` to `bl`, let's move `0` to it, and then use `inc` to make it `1`:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -1813,8 +1673,6 @@ _start:
 ```
 
 Remember, we used `al` instead of `rax` for efficiency. Now, let us assemble our code, and run it with `gdb`:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -1843,19 +1701,13 @@ As we can see, `rbx` started with the value `0`, and with `inc rbx`, it was incr
 
 Next, we have Binary Arithmetic Instructions, and the main ones are: We'll assume that both `rax` and `rbx` start as `1` for each instruction.
 
-| Instruction | Description                                                | Example                                 |
-| ----------- | ---------------------------------------------------------- | --------------------------------------- |
-| `add`       | Add both operands                                          | `add rax, rbx` -> `rax = 1 + 1` -> `2`  |
-| `sub`       | Subtract Source from Destination (_i.e `rax = rax - rbx`_) | `sub rax, rbx` -> `rax = 1 - 1` -> `0`  |
-| `imul`      | Multiply both operands                                     | `imul rax, rbx` -> `rax = 1 * 1` -> `1` |
+<table><thead><tr><th width="153">Instruction</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code>add</code></td><td>Add both operands</td><td><code>add rax, rbx</code> -> <code>rax = 1 + 1</code> -> <code>2</code></td></tr><tr><td><code>sub</code></td><td>Subtract Source from Destination (<em>i.e <code>rax = rax - rbx</code></em>)</td><td><code>sub rax, rbx</code> -> <code>rax = 1 - 1</code> -> <code>0</code></td></tr><tr><td><code>imul</code></td><td>Multiply both operands</td><td><code>imul rax, rbx</code> -> <code>rax = 1 * 1</code> -> <code>1</code></td></tr></tbody></table>
 
 `Note that in all of the above instructions, the result is always stored in the destination operand, while the source operand is not affected.`
 
 Let's start by discussing the `add` instruction. Adding two numbers is the core step of calculating a Fibonacci Sequence, since the current Fibonacci number (`Fn`) is the sum of the two preceding it (`Fn = Fn-1 + Fn-2`).
 
 So, let's add `add rax, rbx` to the end of our `fib.s` code:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -1869,8 +1721,6 @@ _start:
 ```
 
 Now, let's assemble our code, and run it with `gdb`:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -1912,8 +1762,6 @@ However, the instruction we will be using the most is `xor`. The `xor` instructi
 
 For example, if we want to turn the `rax` register to `0`, the most efficient way to do it is `xor rax, rax`, which will make `rax = 0`. This is simply because all bits of `rax` are similar, and so `xor` will turn all of them to `0`. Going back to our previous `fib.s` code, instead of moving `0` to both `rax` and `rbx`, we can use `xor` on each of them, as follows:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -1926,8 +1774,6 @@ _start:
 ```
 
 This code should perform the exact same operations, but now in a more efficient way. Let's assemble our code, and run it with `gdb`:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -1954,8 +1800,6 @@ $rbx   : 0x1
 
 As we can see, `xor`ing our registers with themselves turned each of them to `0`'s, and the rest of the code performed the same operations as earlier, so we ended up with the same final values for both `rax` and `rbx`.
 
-
-
 ## Loops
 
 ***
@@ -1974,8 +1818,6 @@ Other types of `Control Instructions` include:
 ### Loop Structure
 
 Let's start by discussing `Loops`. A loop in assembly is a set of instructions that repeat for `rcx` times. Let's take the following example:
-
-Code: nasm
 
 ```nasm
 exampleLoop:
@@ -1999,8 +1841,6 @@ Once the assembly code reaches `exampleLoop`, it will start executing the instru
 ### loopFib
 
 To demonstrate this, let's go back to our `fib.s` code:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -2034,8 +1874,6 @@ Let's use the `xchg` instruction to swap both numbers:
 
 Now we can simply `loop`. However, before we enter a loop, we should set `rcx` to the count of iterations we want. Let's start with `10` iterations and add it after initializing the `rax` and `rbx` to `0` and `1`:
 
-Code: nasm
-
 ```nasm
 _start:
     xor rax, rax    ; initialize rax to 0
@@ -2046,8 +1884,6 @@ _start:
 
 Now we can define our loop as discussed above:
 
-Code: nasm
-
 ```nasm
 loopFib:
     add rax, rbx    ; get the next number
@@ -2056,8 +1892,6 @@ loopFib:
 ```
 
 So, our final code is:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -2080,8 +1914,6 @@ loopFib:
 
 Let's assemble our code, and run it with `gdb`. We'll break at `b loopFib`, so that we can examine the code at each iteration of the loop. We see the following register values before the first iteration:
 
-&#x20; gdb
-
 ```
 $ ./assembler.sh fib.s -g
 gef➤  b loopFib
@@ -2094,8 +1926,6 @@ $rcx   : 0xa
 ```
 
 We see that we start with `rax = 0` and `rbx = 1`. Let's press `c` to continue to the next iteration:
-
-&#x20; gdb
 
 ```
 ───────────────────────────────────────────────────────────────────────────────────── registers ────
@@ -2149,8 +1979,6 @@ $3 = 55
 
 As we can see, we have successfully used loops to automate the calculation of the Fibonacci Sequence. Try increasing `rcx` to see what are the next numbers in the Fibonacci Sequence.
 
-
-
 ## Unconditional Branching
 
 ***
@@ -2171,8 +1999,6 @@ The basic `jmp` instruction is unconditional, which means that it will always ju
 
 Let's try using `jmp` in our `fib.s` program, and see how it would change the execution flow. Instead of looping back to `loopFib`, let's `jmp` there instead: So, our final code is:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -2189,8 +2015,6 @@ loopFib:
 ```
 
 Now, let's assemble our code, and run it with `gdb`. We'll once again `b loopFib`, and see how it changes:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -2227,8 +2051,6 @@ We press `c` a few times to let the program jump multiple times back to `loopFib
 
 Let's delete our break point with `del 1`, and press `c` to see to what end the program will run:
 
-&#x20; gdb
-
 ```
 gef➤  info break
 Num     Type           Disp Enb Address            What
@@ -2250,24 +2072,13 @@ We noticed that the program kept running until we pressed `ctrl+c` after a few s
 
 This is why unconditional Branching is usually used in cases where need always to jump, and it is not suitable for loops, as it will loop forever. To stop jumping when a specific condition is met, we will use `Conditional Branching` for our next steps.
 
-
-
 ## Conditional Branching
 
 ***
 
 Unlike Unconditional Branching Instructions, `Conditional Branching` instructions are only processed when a specific condition is met, based on the Destination and Source operands. A conditional jump instruction has multiple varieties as `Jcc`, where `cc` represents the Condition Code. The following are some of the main condition codes:
 
-| **Instruction** | **Condition** | **Description**                                    |
-| --------------- | ------------- | -------------------------------------------------- |
-| `jz`            | `D = 0`       | Destination `equal to Zero`                        |
-| `jnz`           | `D != 0`      | Destination `Not equal to Zero`                    |
-| `js`            | `D < 0`       | Destination `is Negative`                          |
-| `jns`           | `D >= 0`      | Destination `is Not Negative` (i.e. 0 or positive) |
-| `jg`            | `D > S`       | Destination `Greater than` Source                  |
-| `jge`           | `D >= S`      | Destination `Greater than or Equal` Source         |
-| `jl`            | `D < S`       | Destination `Less than` Source                     |
-| `jle`           | `D <= S`      | Destination `Less than or Equal` Source            |
+<table data-header-hidden><thead><tr><th width="163"></th><th width="133"></th><th></th></tr></thead><tbody><tr><td><strong>Instruction</strong></td><td><strong>Condition</strong></td><td><strong>Description</strong></td></tr><tr><td><code>jz</code></td><td><code>D = 0</code></td><td>Destination <code>equal to Zero</code></td></tr><tr><td><code>jnz</code></td><td><code>D != 0</code></td><td>Destination <code>Not equal to Zero</code></td></tr><tr><td><code>js</code></td><td><code>D &#x3C; 0</code></td><td>Destination <code>is Negative</code></td></tr><tr><td><code>jns</code></td><td><code>D >= 0</code></td><td>Destination <code>is Not Negative</code> (i.e. 0 or positive)</td></tr><tr><td><code>jg</code></td><td><code>D > S</code></td><td>Destination <code>Greater than</code> Source</td></tr><tr><td><code>jge</code></td><td><code>D >= S</code></td><td>Destination <code>Greater than or Equal</code> Source</td></tr><tr><td><code>jl</code></td><td><code>D &#x3C; S</code></td><td>Destination <code>Less than</code> Source</td></tr><tr><td><code>jle</code></td><td><code>D &#x3C;= S</code></td><td>Destination <code>Less than or Equal</code> Source</td></tr></tbody></table>
 
 There are many other similar conditions that we can utilize as well. For a complete list of conditions, we can refer to the latest Intel [x86\_64 manual](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf#page=585), in the `Jcc-Jump if Condition Is Met` section. Conditional instructions are not restricted to `jmp` instructions only but are also used with other assembly instructions for conditional use as well, like the `CMOVcc` and `SETcc` instructions.
 
@@ -2310,8 +2121,6 @@ The `loop loopFib` instruction we used in the last section is, in fact, a combin
 
 Though it is more efficient to use `loop`, to demonstrate the use of `jnz`, let's go back to our code and try to use the `jnz` instruction instead of `loop`:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -2329,8 +2138,6 @@ loopFib:
 ```
 
 We see that we replaced `loop loopFib` with `dec rcx` and `jnz loopFib`, so that every time the loop reaches its end, the rcx counter would decrement by 1, and the program would jump back to `loopFib` if `ZF` is not set. Once `rcx` reaches `0`, the Zero Flag `ZF` would be turned on to `1`, and so `jnz` would no longer jump (since it's `NZ`), and we would exit the loop. Let's assemble our code, and run it with `gdb`, to see this in effect:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -2359,8 +2166,6 @@ We can see that we are still correctly calculating the Fibonacci Sequence. At ea
 Note: `GEF` shows us the state of the flags in the `RFLAGS` register. The flags written in bold UPPERCASE letters are on.
 
 Let's `c`ontinue out of the loop, to see the state of the registers and RFLAGS after `rcx` reaches `0`:
-
-&#x20; gdb
 
 ```
 gef➤  
@@ -2396,8 +2201,6 @@ Note: In a `cmp` instruction, the first operand (i.e. the Destination) must be a
 
 So, let's change our code to use `cmp` and `js`, as follows:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -2416,8 +2219,6 @@ loopFib:
 Note that we removed the `mov rcx, 10` instruction since we are no longer looping with `rcx`. We could have used it in `cmp` instead of `10`, but by directly using `10` we use one less instruction, making our code shorter and more efficient.
 
 Now, let's assemble our code, and run it with `gdb`, to see how this works. We will break at `loopFib`, and then step with `si` until we reach the `js loopFib` instruction:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -2443,8 +2244,6 @@ Let's first delete the current breakpoint with `del 1`, and then set our conditi
 Remember: we can find an instruction's location with `disas loopFib`.
 
 We see the following:
-
-&#x20;&#x20;
 
 ```
 gef➤  del 1
@@ -2480,8 +2279,6 @@ Now that we have covered all basic Control Instructions, which way do you think 
 
 Modify your code to use the method you think is the best.
 
-
-
 ## Using the Stack
 
 ***
@@ -2496,10 +2293,7 @@ The stack is a segment of memory allocated for the program to store data in, and
 
 We can `push` data into the stack, and it will be at the top of the stack (i.e. `rsp`), and then we can `pop` data out of the stack into a register or a memory address, and it will be removed from the top of the stack.
 
-| **Instruction** | **Description**                                                          | **Example** |
-| --------------- | ------------------------------------------------------------------------ | ----------- |
-| `push`          | Copies the specified register/address to the top of the stack            | `push rax`  |
-| `pop`           | Moves the item at the top of the stack to the specified register/address | `pop rax`   |
+<table data-header-hidden><thead><tr><th width="166"></th><th width="442"></th><th></th></tr></thead><tbody><tr><td><strong>Instruction</strong></td><td><strong>Description</strong></td><td><strong>Example</strong></td></tr><tr><td><code>push</code></td><td>Copies the specified register/address to the top of the stack</td><td><code>push rax</code></td></tr><tr><td><code>pop</code></td><td>Moves the item at the top of the stack to the specified register/address</td><td><code>pop rax</code></td></tr></tbody></table>
 
 The stack has a `Last-in First-out` (`LIFO`) design, which means we can only `pop` out the last element `push`ed into the stack. For example, if we `push rax` into the stack, the top of the stack would now be the value of `rax` we just pushed. If we `push` anything on top of it, we would have to `pop` them out of the stack until that value of `rax` reaches the top of the stack, then we can `pop` that value back to `rax`.
 
@@ -2509,16 +2303,13 @@ We can click on `push` to push a value from `rax` to the stack, and you can clic
 
 |              |                              |
 | ------------ | ---------------------------- |
-|              |                              |
-|              |                              |
 | 0xabcdef     | <-- Top of Stack (`$rsp`)    |
 | 0x1234567890 | <-- Bottom of Stack (`$rbp`) |
 
-`rax:` \
+`rax:`\
 push pop\
 \
-Reset Stack\
-
+Reset Stack\\
 
 ***
 
@@ -2533,8 +2324,6 @@ For example, if we wanted to call a syscall to print `Hello World` to the screen
 ### PUSH/POP
 
 Our code currently looks like the following:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -2559,8 +2348,6 @@ Since the stack has a LIFO design, when we restore our registers, we have to do 
 
 So, to save our registers before entering the loop, let's push them to the stack. Luckily, we are only using `rax` and `rbx`, and so we will only need to `push` these two registers to the stack and then `pop` them after the syscall, as follows:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -2580,8 +2367,6 @@ _start:
 Note how restoring the registers with `pop` was in reverse order.
 
 Now, let's assemble our code and test it with `gdb`:
-
-&#x20; gdb
 
 ```
 $ ./assembler.sh fib.s -g
@@ -2612,8 +2397,6 @@ $rbx   : 0x1
 ```
 
 We see that before we execute `push rax`, we have `rax = 0x0` and `rbx = 0x1`. Now let's `push` both `rax` and `rbx`, and see how the stack and the registers change:
-
-&#x20; gdb
 
 ```
 ───────────────────────────────────────────────────────────────────────────────────── registers ────
@@ -2657,8 +2440,6 @@ $rbx   : 0x1
 
 We see that after we `push`ed both `rax` and `rbx`, we have the following values on the top of our stack:
 
-&#x20; Using the Stack
-
 ```shell-session
 0x00007fffffffe408│+0x0000: 0x0000000000000001	 ← $rsp
 0x00007fffffffe410│+0x0008: 0x0000000000000000
@@ -2667,8 +2448,6 @@ We see that after we `push`ed both `rax` and `rbx`, we have the following values
 We see that at the top of the stack, we have the last value we pushed, which is `rbx = 0x1`, and just below it, we have the value we pushed before it `rax = 0x0`. This is as we expected and similar to the stack exercise above. We also notice that after we pushed our values, they remained in the registers, `meaning a push is, in fact, a copy to stack`.
 
 Now let's assume that we finished executing a `print` function, and want to retrieve our values back, so we continue with the `pop` instructions:
-
-&#x20; gdb
 
 ```
 ───────────────────────────────────────────────────────────────────────────────────── registers ────
@@ -2717,8 +2496,6 @@ Using the stack is very simple. The only thing we should keep in mind is the ord
 
 We can remove the `push` and `pop` instructions from our code for now, and we will use them when we get into function calls. With that, we should be ready to use `syscall` and `function` calls. Let us discuss `syscalls` next.
 
-
-
 ## Syscalls
 
 ***
@@ -2734,8 +2511,6 @@ For example, suppose we need to write something on the screen, without syscalls.
 A `syscall` is like a globally available function written in `C`, provided by the Operating System Kernel. A syscall takes the required arguments in the registers and executes the function with the provided arguments. For example, if we wanted to write something to the screen, we can use the `write` syscall, provide the string to be printed and other required arguments, and then call the syscall to issue the print.
 
 There are many available syscalls provided by the Linux Kernel, and we can find a list of them and the `syscall number` of each one by reading the `unistd_64.h` system file:
-
-&#x20; Syscalls
 
 ```shell-session
 root@htb[/htb]$ cat /usr/include/x86_64-linux-gnu/asm/unistd_64.h
@@ -2762,8 +2537,6 @@ Let's practice using syscalls with the `write` syscall that prints to the screen
 
 To use the `write` syscall, we must first know what arguments it accepts. To find the arguments accepted by a syscall, we can use the `man -s 2` command with the syscall name from the above list:
 
-&#x20; Syscalls
-
 ```shell-session
 root@htb[/htb]$ man -s 2 write
 ...SNIP...
@@ -2771,8 +2544,6 @@ root@htb[/htb]$ man -s 2 write
 ```
 
 As we can see from the above output, the `write` function has the following syntax:
-
-Code: c
 
 ```c
 ssize_t write(int fd, const void *buf, size_t count);
@@ -2806,8 +2577,6 @@ We will discuss saving registers to the stack when we get to `Function Calls`.
 
 Let's start by moving the syscall number to the `rax` register. As we saw earlier, the `write` syscall has a number `1`, so we can start with the following command:
 
-Code: nasm
-
 ```nasm
 mov rax, 1
 ```
@@ -2818,16 +2587,7 @@ Now, if we reach the syscall instruction, the Kernel would know which syscall we
 
 Next, we should put each of the function's arguments in its corresponding register. The `x86_64` architecture's calling convention specifies in which register each argument should be placed (e.g., first arg should be in `rdi`). All functions and syscalls should follow this standard and take their arguments from the corresponding registers. We have discussed the following table in the `Registers` section:
 
-| Description                 | 64-bit Register | 8-bit Register |
-| --------------------------- | --------------- | -------------- |
-| Syscall Number/Return value | `rax`           | `al`           |
-| Callee Saved                | `rbx`           | `bl`           |
-| 1st arg                     | `rdi`           | `dil`          |
-| 2nd arg                     | `rsi`           | `sil`          |
-| 3rd arg                     | `rdx`           | `cl`           |
-| 4th arg                     | `rcx`           | `bpl`          |
-| 5th arg                     | `r8`            | `r8b`          |
-| 6th arg                     | `r9`            | `r9b`          |
+<table><thead><tr><th width="317">Description</th><th>64-bit Register</th><th>8-bit Register</th></tr></thead><tbody><tr><td>Syscall Number/Return value</td><td><code>rax</code></td><td><code>al</code></td></tr><tr><td>Callee Saved</td><td><code>rbx</code></td><td><code>bl</code></td></tr><tr><td>1st arg</td><td><code>rdi</code></td><td><code>dil</code></td></tr><tr><td>2nd arg</td><td><code>rsi</code></td><td><code>sil</code></td></tr><tr><td>3rd arg</td><td><code>rdx</code></td><td><code>cl</code></td></tr><tr><td>4th arg</td><td><code>rcx</code></td><td><code>bpl</code></td></tr><tr><td>5th arg</td><td><code>r8</code></td><td><code>r8b</code></td></tr><tr><td>6th arg</td><td><code>r9</code></td><td><code>r9b</code></td></tr></tbody></table>
 
 As we can see, we have a register for each of the first `6` arguments. Any additional arguments can be stored in the stack (though not many syscalls use more than `6` arguments.).
 
@@ -2841,8 +2601,6 @@ With that, we should know our arguments and in which register we should store th
 
 We can use `mov rcx, 'string'`. However, we can only store up to 16 characters in a register (i.e., 64 bits), so our intro string would not fit. Instead, let's create a variable with our string (as we learned in the `Assembly File Structure` section), similarly to what we did with the `Hello World` program:
 
-Code: nasm
-
 ```nasm
 global  _start
 
@@ -2853,8 +2611,6 @@ section .data
 Note how we added `0x0a` after our string, to add a new line character.
 
 The `message` label is a pointer to where our string will be stored in the memory. So, we can use it as our second argument. So, our final syscall code should be as follows:
-
-Code: nasm
 
 ```nasm
 mov rax, 1       ; rax: syscall number 1
@@ -2872,8 +2628,6 @@ We may also use a dynamically calculated `length` variable by using `equ`, simil
 ### Calling Syscall
 
 Now that we have our syscall number and arguments in place, the only thing left is to do the syscall instruction. So, let's add a syscall instruction and add the instructions to the beginning of our `fib.s` code, which should look as follows:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -2900,8 +2654,6 @@ loopFib:
 
 Let's now assemble our code and run it, and see if our intro message gets printed:
 
-&#x20; Syscalls
-
 ```shell-session
 root@htb[/htb]$ ./assembler.sh fib.s
 
@@ -2910,8 +2662,6 @@ Fibonacci Sequence:
 ```
 
 We see that indeed our string is printed to the screen. Let's run it through `gdb`, and break at the syscall to see how all arguments are setup before we call syscall, as follows:
-
-&#x20; gdb
 
 ```
 $ gdb -q ./fib
@@ -2952,8 +2702,6 @@ Finally, since we have understood how syscalls work, let's go through another es
 
 So, let's add this to the end of our code. First, we need to find the `exit syscall` number, as follows:
 
-&#x20; Syscalls
-
 ```shell-session
 root@htb[/htb]$ grep exit /usr/include/x86_64-linux-gnu/asm/unistd_64.h
 
@@ -2962,8 +2710,6 @@ root@htb[/htb]$ grep exit /usr/include/x86_64-linux-gnu/asm/unistd_64.h
 ```
 
 We need to use the first one, with a syscall number `60`. Next, let's see if the `exit syscall` needs any arguments:
-
-&#x20; Syscalls
 
 ```shell-session
 root@htb[/htb]$ man -s 2 exit
@@ -2974,8 +2720,6 @@ void _exit(int status);
 
 We see that it only needs one integer argument, `status`', which is explained to be the exit code. In Linux, whenever a program exits without any errors, it passes an exit code of `0`. Otherwise, the exit code is a different number, usually `1`. In our case, as everything went as expected, we'll pass the exit code of `0`. Our `exit syscall` code should be as follows:
 
-Code: nasm
-
 ```nasm
     mov rax, 60
     mov rdi, 0
@@ -2983,8 +2727,6 @@ Code: nasm
 ```
 
 Now, let's add it to the end of our code:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -3014,8 +2756,6 @@ loopFib:
 
 We can now assemble our code and rerun it:
 
-&#x20; Syscalls
-
 ```shell-session
 root@htb[/htb]$ ./assembler.sh fib.s
 
@@ -3023,8 +2763,6 @@ Fibonacci Sequence:
 ```
 
 Great! We see that this time our program exited properly without a `segmentation fault`. We can check the exit code that was passed as follows:
-
-&#x20; Syscalls
 
 ```shell-session
 root@htb[/htb]$ echo $?
@@ -3038,8 +2776,6 @@ Practice: To get a full grasp of how syscalls work, try to implement the `write`
 
 Spoiler: It will not work. Try to find out why, and attempt to fix it to print the first few Fibonacci numbers below `10` (hint: use `ASCII`).
 
-
-
 ## Procedures
 
 ***
@@ -3049,8 +2785,6 @@ As our code grows in complexity, we need to start refactoring our code to make m
 A `procedure` (sometimes referred to as a `subroutine`) is usually a set of instructions we want to execute at specific points in the program. So instead of reusing the same code, we define it under a procedure label and `call` it whenever we need to use it. This way, we only need to write the code once but can use it multiple times. Furthermore, we can use procedures to split a larger and more complex code into smaller, simpler segments.
 
 Let's go back to our code:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -3093,8 +2827,6 @@ Our loop is already defined under a label, so we can call it when we need it. Ho
 ### Defining Procedures
 
 As a starting point, let's add a label above each of the three parts of the code we want to turn into procedures:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -3141,14 +2873,9 @@ Once the procedure is executed, we should end it with a `ret` instruction to ret
 
 The `ret` instruction plays an essential role in [Return-Oriented Programming (ROP)](https://en.wikipedia.org/wiki/Return-oriented\_programming), an exploitation technique usually used with Binary Exploitation.
 
-| Instruction | Description                                                                                 | Example             |
-| ----------- | ------------------------------------------------------------------------------------------- | ------------------- |
-| `call`      | push the next instruction pointer `rip` to the stack, then jumps to the specified procedure | `call printMessage` |
-| `ret`       | pop the address at `rsp` into `rip`, then jump to it                                        | `ret`               |
+<table><thead><tr><th width="163">Instruction</th><th width="344">Description</th><th>Example</th></tr></thead><tbody><tr><td><code>call</code></td><td>push the next instruction pointer <code>rip</code> to the stack, then jumps to the specified procedure</td><td><code>call printMessage</code></td></tr><tr><td><code>ret</code></td><td>pop the address at <code>rsp</code> into <code>rip</code>, then jump to it</td><td><code>ret</code></td></tr></tbody></table>
 
 So with that, we can set up our calls at the beginning of our code to define the execution flow we want:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -3195,8 +2922,6 @@ This way, our code should execute the same instructions as before while having o
 Note: It is important to understand the line-based execution flow of assembly. If we don't use a `ret` at the end of a procedure it will simply execute the next line. Likewise, had we returned at the end of our `Exit` function, we would simply go back and execute the next line, which would be the first line of `printMessage`.
 
 Finally, we should also mention the `enter` and `leave` instructions, which are sometimes used with procedures to save and restore the addresses of `rsp` and `rbp` and allocate a specific stack space to be used by the procedure. We won't be needing to make use of them in this module, however.
-
-
 
 ## Functions
 
@@ -3246,8 +2971,6 @@ Luckily, there are external functions we can use to print the current number wit
 
 First, to import an external `libc` function, we can use the `extern` instruction at the beginning of our code, as follows:
 
-Code: nasm
-
 ```nasm
 global  _start
 extern  printf
@@ -3260,8 +2983,6 @@ Once this is done, we should be able to call the `printf` function. So, we can p
 ### Saving Registers
 
 Let's define a new procedure, `printFib`, to hold our function call instructions. The very first step is to save to the stack any registers we are using, which are `rax` and `rbx`, as follows:
-
-Code: nasm
 
 ```nasm
 printFib:
@@ -3283,8 +3004,6 @@ We have already discussed how to pass function arguments in the syscall section.
 
 First, we need to find out what arguments are accepted by the `printf` function by using `man -s 3` for `library functions manual` (as we can see in `man man`):
 
-&#x20; Functions
-
 ```shell-session
 root@htb[/htb]$ man -s 3 printf
 
@@ -3295,8 +3014,6 @@ root@htb[/htb]$ man -s 3 printf
 As we can see, the function takes a pointer to the print format (shown with a `*`), and then the string(s) to be printed.
 
 First, we can create a variable that contains the output format to pass it as the first argument. The `printf` man page also details various print formats. We want to print an integer, so we can use the `%d` format, as follows:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -3310,8 +3027,6 @@ section .data
 Note: We ended the format with a null character `0x00`, as this is the string terminator in `printf`, and we must terminate any string with it.
 
 This can be our first argument, and `rbx` as our second argument, which `printf` will place as `%d`. So, let's move both arguments to their respective registers, as follows:
-
-Code: nasm
 
 ```nasm
 printFib:
@@ -3331,8 +3046,6 @@ printFib:
 Whenever we want to make a `call` to a function, we must ensure that the `Top Stack Pointer (rsp)` is aligned by the `16-byte` boundary from the `_start` function stack.
 
 This means that we have to push at least 16-bytes (or a multiple of 16-bytes) to the stack before making a call to ensure functions have enough stack space to execute correctly. This requirement is mainly there for processor performance efficiency. Some functions (like in `libc`) are programed to crash if this boundary is not fixed to ensure performance efficiency. If we assemble our code and break right after the second `push`, this is what we will see:
-
-&#x20; gdb
 
 ```
 ───────────────────────────────────────────────────────────────────────────────────────── stack ────
@@ -3375,8 +3088,6 @@ This may be a bit confusing, but the critical thing to remember is that `we shou
 
 Finally, we can issue `call printf`, and it should print the current Fibonacci number in the format we specified, as follows:
 
-Code: nasm
-
 ```nasm
 printFib:
     push rax            ; push registers to stack
@@ -3391,8 +3102,6 @@ printFib:
 
 Now we should have our `printFib` procedure ready. So, we can add it to the beginning of `loopFib`, such that it prints the current Fibonacci number at the beginning of each loop:
 
-Code: nasm
-
 ```nasm
 loopFib:
     call printFib   ; print current Fib number
@@ -3404,8 +3113,6 @@ loopFib:
 ```
 
 Our final `fib.s` code should be as follows:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -3466,8 +3173,6 @@ Exit:
 
 We can now assemble our code with `nasm`. When we link our code with `ld`, we should tell it to do dynamic linking with the `libc` library. Otherwise, it would not know how to fetch the imported `printf` function. We can do so with the `-lc --dynamic-linker /lib64/ld-linux-x86-64.so.2` flags, as follows:
 
-&#x20; Functions
-
 ```shell-session
 root@htb[/htb]$ nasm -f elf64 fib.s &&  ld fib.o -o fib -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 && ./fib
 
@@ -3480,8 +3185,6 @@ root@htb[/htb]$ nasm -f elf64 fib.s &&  ld fib.o -o fib -lc --dynamic-linker /li
 ```
 
 As we can see, `printf` made it very easy to print our Fibonacci number without worrying about converting it to the proper format, like we had to with the `write` syscall. Next, we need to go through another example of using external `libc` functions to understand how to call external functions properly.
-
-
 
 ## Libc Functions
 
@@ -3502,16 +3205,12 @@ So, let's import our function and start with the calling convention steps.
 
 To do so, we can use the `scanf` function from `libc` to take user input and have it properly converted to an integer, which we will later use with `cmp`. First, we must import the `scanf`, as follows:
 
-Code: nasm
-
 ```nasm
 global  _start
 extern  printf, scanf
 ```
 
 We can now start writing a new procedure, `getInput`, so we can call it when we need to:
-
-Code: nasm
 
 ```nasm
 getInput:
@@ -3530,8 +3229,6 @@ As we are at the beginning of our program and have not yet used any register, we
 
 Next, we need to know what arguments are accepted by `scanf`, as follows:
 
-&#x20; Libc Functions
-
 ```shell-session
 root@htb[/htb]$ man -s 3 scanf
 
@@ -3540,8 +3237,6 @@ int scanf(const char *format, ...);
 ```
 
 We see that similarly to `printf`, `scanf` accepts an input format and the buffer we want to save the user input into. So, let's first add the `inFormat` variable:
-
-Code: nasm
 
 ```nasm
 section .data
@@ -3554,16 +3249,12 @@ We also changed our intro message from `Fibonacci Sequence:` to `Please input ma
 
 Next, we must set a buffer space for the input storage. As we mentioned in the `Processor Architecture` section, uninitialized buffer space must be stored in the `.bss` memory segment. So, at the beginning of our assembly code, we must add it under the `.bss` label, and use `resb 1` to tell `nasm` to reserve 1 byte of buffer space, as follows:
 
-Code: nasm
-
 ```nasm
 section .bss
     userInput resb 1
 ```
 
 We can now set our function arguments under our `getInput` procedure:
-
-Code: nasm
 
 ```nasm
 getInput:
@@ -3576,8 +3267,6 @@ getInput:
 ### Stack Alignment
 
 Next, we have to ensure that a 16-bytes boundary aligns our Stack. We are currently inside the `getInput` procedure, so we have 1 `call` instruction and no `push` instructions, so we have an `8-byte` boundary. So, we can use `sub` to fix `rsp`, as follows:
-
-Code: nasm
 
 ```nasm
 getInput:
@@ -3594,8 +3283,6 @@ We can `push rax` instead, and this will properly align the Stack as well. This 
 
 Now, we set the function arguments and `call scanf`, as follows:
 
-Code: nasm
-
 ```nasm
 getInput:
     sub rsp, 8          ; align stack to 16-bytes
@@ -3607,8 +3294,6 @@ getInput:
 ```
 
 We will also add `call getInput` at `_start`, so that we go to this procedure right after printing the intro message, as follows:
-
-Code: nasm
 
 ```nasm
 section .text
@@ -3622,8 +3307,6 @@ _start:
 
 Finally, we have to make use of the user input. To do so, instead of using a static `10` when comparing in `cmp rbx, 10`, we will change it to `cmp rbx, [userInput]`, as follows:
 
-Code: nasm
-
 ```nasm
 loopFib:
     ...SNIP...
@@ -3635,8 +3318,6 @@ loopFib:
 Note: We used `[userInput]` instead of `userInput`, as we wanted to compare with the final value, and not with the pointer address.
 
 With all of that done, our final complete code should look as follows:
-
-Code: nasm
 
 ```nasm
 global  _start
@@ -3691,8 +3372,6 @@ Exit:
 
 Let's assemble our code, link it, and try to print Fibonacci numbers up to `100`:
 
-&#x20; Libc Functions
-
 ```shell-session
 root@htb[/htb]$ nasm -f elf64 fib.s &&  ld fib.o -o fib -lc --dynamic-linker /lib64/ld-linux-x86-64.so.2 && ./fib
 
@@ -3715,8 +3394,6 @@ We see that our code worked as expected and printed Fibonacci numbers less than 
 
 Besides, we need to learn how to turn Assembly code into machine shellcode, which we can then use directly in our payloads in Binary Exploitation.
 
-
-
 ## Shellcodes
 
 ***
@@ -3728,8 +3405,6 @@ We should have a very good understanding of the computer and processor architect
 ### What is a Shellcode
 
 We know that each executable binary is made of machine instructions written in Assembly and then assembled into machine code. A `shellcode` is the hex representation of a binary's executable machine code. For example, let's take our `Hello World` program, which executes the following instructions:
-
-Code: nasm
 
 ```nasm
 global _start
@@ -3751,8 +3426,6 @@ _start:
 ```
 
 As we have seen in the first section, this `Hello World` program assembles the following shellcode:
-
-Code: shellcode
 
 ```shellcode
 48be0020400000000000bf01000000ba12000000b8010000000f05b83c000000bf000000000f05
@@ -3780,15 +3453,11 @@ Furthermore, common combinations of instructions and registers have their own ma
 
 Remember: Assembly language is made for human readability, and the processor cannot understand it without being converted into machine code. We will use `pwntools` to assemble and disassemble our machine code, as it is an essential tool for Binary Exploitation, and this is an excellent opportunity to start learning it. First, we can install `pwntools` with the following command (it should be already installed in PwnBox):
 
-&#x20; Shellcodes
-
 ```shell-session
 root@htb[/htb]$ sudo pip3 install pwntools
 ```
 
 Now, we can use `pwn asm` to assemble any assembly code into its shellcode, as follows:
-
-&#x20; Shellcodes
 
 ```shell-session
 root@htb[/htb]$ pwn asm 'push rax'  -c 'amd64'
@@ -3798,8 +3467,6 @@ root@htb[/htb]$ pwn asm 'push rax'  -c 'amd64'
 Note: We used the `-c 'amd64'` flag to ensure the tool properly interprets our assembly code for `x86_64`
 
 As we can see, we get `50`, which is the same machine code for `push rax`. Likewise, we can convert hex machine code or shellcode into its corresponding assembly code, as follows:
-
-&#x20; Shellcodes
 
 ```shell-session
 root@htb[/htb]$ pwn disasm '50' -c 'amd64'
@@ -3816,8 +3483,6 @@ Now that we understand how each assembly instruction is converted into machine c
 
 A binary's shellcode represents its executable `.text` section only, as shellcodes are meant to be directly executable. To extract the `.text` section with `pwntools`, we can use the `ELF` library to load an `elf` binary, which would allow us to run various functions on it. So, let's run the `python3` interpreter to understand better how to use it. First, we'll have to import `pwntools`, and then we can read the `elf` binary, as follows:
 
-&#x20; Shellcodes
-
 ```shell-session
 root@htb[/htb]$ python3
 
@@ -3827,8 +3492,6 @@ root@htb[/htb]$ python3
 
 Now, we can run various `pwntools` functions on it, which we can read more about [here](https://docs.pwntools.com/en/stable/elf/elf.html). We need to dump machine code from the executable `.text` section, which we can do with the `section()` function, as follows:
 
-&#x20; Shellcodes
-
 ```shell-session
 >>> file.section(".text").hex()
 '48be0020400000000000bf01000000ba12000000b8010000000f05b83c000000bf000000000f05'
@@ -3837,8 +3500,6 @@ Now, we can run various `pwntools` functions on it, which we can read more about
 Note: We added '`hex()`' to encode the shellcode in hex, instead of printing it in raw bytes.
 
 We see that we were very easily able to extract the binary's shellcode. Let's turn this into a Python script so that we can quickly use it to extract the shellcode of any binary:
-
-Code: python
 
 ```python
 #!/usr/bin/python3
@@ -3855,8 +3516,6 @@ print(shellcode.hex())
 
 We can copy the above script to `shellcoder.py`, and then pass it any binary file's name as an argument, and it'll extract it's shellcode:
 
-&#x20; Shellcodes
-
 ```shell-session
 root@htb[/htb]$ python3 shellcoder.py helloworld
 
@@ -3865,8 +3524,6 @@ root@htb[/htb]$ python3 shellcoder.py helloworld
 
 Another (somewhat less reliable) method to extract the shellcode would be through `objdump`, which we've used in a previous section. We can write the following `bash` script into `shellcoder.sh` and use it to extract the shellcode if ever we can't use the first script:
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -3874,8 +3531,6 @@ for i in $(objdump -d $1 |grep "^ " |cut -f2); do echo -n $i; done; echo;
 ```
 
 Again, we can try running it on `helloworld` to get its shellcode, as follows:
-
-&#x20; Shellcodes
 
 ```shell-session
 root@htb[/htb]$ ./shellcoder.sh helloworld
@@ -3889,15 +3544,11 @@ root@htb[/htb]$ ./shellcoder.sh helloworld
 
 Now that we have a shellcode, let's try to run it, allowing us to test any shellcode we have prepared before using it in Binary Exploitation. The shellcode we extracted above does not meet the `Shellcoding Requirements` we'll discuss in the next section, and so it won't run. To demonstrate how to run shellcodes, we'll use the following (`fixed`) shellcode, that meets all `Shellcoding Requirements`:
 
-Code: shellcode
-
 ```shellcode
 4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05
 ```
 
 To do run our shellcode with `pwntools`, we can use the `run_shellcode` function and pass it our shellcode, as follows:
-
-&#x20; Shellcodes
 
 ```shell-session
 root@htb[/htb]$ python3
@@ -3913,15 +3564,11 @@ We used `unhex()` on the shellcode to convert it back to binary.
 
 As we can see, our shellcode successfully ran and printed the string `Hello HTB Academy!`. In contrast, if we run the previous shellcode (which did not meet `Shellcoding Requirements`), it will not run:
 
-&#x20; Shellcodes
-
 ```shell-session
 >>> run_shellcode(unhex('b801000000bf0100000048be0020400000000000ba120000000f05b83c000000bf000000000f05')).interactive()
 ```
 
 Once again, to make it easy to run our shellcodes, let's turn the above into a Python script:
-
-Code: python
 
 ```python
 #!/usr/bin/python3
@@ -3935,8 +3582,6 @@ run_shellcode(unhex(sys.argv[1])).interactive()
 ```
 
 We can copy the above script to `loader.py`, pass our shellcode as an argument, and run it to execute our shellcode:
-
-&#x20; Shellcodes
 
 ```shell-session
 root@htb[/htb]$ python3 loader.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05'
@@ -3958,15 +3603,11 @@ We can always run our shellcode with `loader.py`, and then attach its process to
 
 We can use `pwntools` to build an `elf` binary from our shellcode using the `ELF` library, and then the `save` function to save it to a file:
 
-Code: python
-
 ```python
 ELF.from_bytes(unhex('4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05')).save('helloworld')
 ```
 
 To make it easier to use, we can turn the above into a script and write it to `assembler.py`:
-
-Code: python
 
 ```python
 #!/usr/bin/python3
@@ -3982,13 +3623,9 @@ os.chmod(sys.argv[2], stat.S_IEXEC)
 
 We can now run `assembler.py`, pass the shellcode as the first argument, and the file name as the second argument, and it'll assemble the shellcode into an executable:
 
-&#x20; Shellcodes
-
 ```shell-session
 root@htb[/htb]$ python assembler.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05' 'helloworld'
 ```
-
-&#x20; Shellcodes
 
 ```shell-session
 root@htb[/htb]$ ./helloworld
@@ -3997,8 +3634,6 @@ Hello HTB Academy!
 ```
 
 As we can see, it built the `helloworld` binary with the file name we specified. We can now run it with `gdb`, and use `b *0x401000` to break at the default binary entry point:
-
-&#x20; gdb
 
 ```
 $ gdb -q helloworld
@@ -4016,8 +3651,6 @@ Breakpoint 1, 0x0000000000401000 in ?? ()
 
 There are other methods to build our shellcode into an `elf` executable. We can add our shellcode to the following `C` code, write it to a `helloworld.c`, and then build it with `gcc` (hex bytes must be escaped with `\x`):
 
-Code: c
-
 ```c
 #include <stdio.h>
 
@@ -4030,16 +3663,12 @@ int main()
 
 Then, we can compile our `C` code with `gcc`, and run it with `gdb`:
 
-&#x20; Shellcodes
-
 ```shell-session
 root@htb[/htb]$ gcc helloworld.c -o helloworld
 root@htb[/htb]$ gdb -q helloworld
 ```
 
 However, this method is not very reliable for a few reasons. First, it will wrap the entire binary in `C` code, so the binary will not contain our shellcode, but will contain various other `C` functions and libraries. This method may also not always compile, depending on the existing memory protections, so we may have to add flags to bypass memory protections, as follows:
-
-&#x20; Shellcodes
 
 ```shell-session
 root@htb[/htb]$ gcc helloworld.c -o helloworld -fno-stack-protector -z execstack -Wl,--omagic -g --static
@@ -4056,8 +3685,6 @@ With this, we should have a good understanding of the basics of shellcodes. We c
 
 4831db536a0a48b86d336d307279217d5048b833645f316e37305f5048b84854427b6c303464504889e64831c0b0014831ff40b7014831d2b2190f054831c0043c4030ff0f05
 
-
-
 ## Shellcoding Techniques
 
 ***
@@ -4071,8 +3698,6 @@ As we have seen in the previous section, our `Hello World` assembly code had to 
 As we briefly mentioned in the previous section, not all binaries give working shellcodes that can be loaded directly to the memory and run. This is because there are specific requirements a shellcode must meet. Otherwise, it won't be properly disassembled on runtime into its correct assembly instructions.
 
 To better understand this, let's try to disassemble the shellcode we extracted in the previous section from the `Hello World` program, using the same `pwn disasm` tool we previously used:
-
-&#x20; pwn
 
 ```
 $ pwn disasm '48be0020400000000000bf01000000ba12000000b8010000000f05b83c000000bf000000000f05' -c 'amd64'
@@ -4096,8 +3721,6 @@ This is what will happen if our assembly code is not `shellcode compliant` and d
 3. Does not contain any NULL bytes `00`
 
 So, let's start with the `Hello World` program we saw in the previous section, and go through each of the above points and fix them:
-
-Code: nasm
 
 ```nasm
 global _start
@@ -4135,15 +3758,11 @@ There are many techniques we can use to avoid using variables, like:
 
 In the above code, we may move our string to `rsi`, as follows:
 
-Code: nasm
-
 ```nasm
     mov rsi, 'Academy!'
 ```
 
 However, a 64-bit register can only hold 8 bytes, which may not be enough for larger strings. So, our other option is to rely on the Stack by pushing our string 16-bytes at a time (in reverse order), and then using `rsp` as our string pointer, as follows:
-
-Code: nasm
 
 ```nasm
     push 'y!'
@@ -4153,8 +3772,6 @@ Code: nasm
 ```
 
 However, this would exceed the allowed bounds of immediate strings `push`, which is a `dword` (4-bytes) at a time. So, we will instead move our string to `rbx`, and then push `rbx` to the Stack, as follows:
-
-Code: nasm
 
 ```nasm
     mov rbx, 'y!'
@@ -4170,8 +3787,6 @@ Note: Whenever we push a string to the stack, we have to push a `00` before it t
 
 We can now apply these changes to our code, assemble it and run it to see if it works:
 
-&#x20; Shellcoding Techniques
-
 ```shell-session
 root@htb[/htb]$ ./assembler.sh helloworld.s
 
@@ -4179,8 +3794,6 @@ Hello HTB Academy!
 ```
 
 We see that it works as expected, without needing to use any variables. We can check it with `gdb` to see how it looks at the breakpoint:
-
-&#x20; gdb
 
 ```
 $ gdb -q ./helloworld
@@ -4227,8 +3840,6 @@ If we are efficient while writing our assembly code, we may not have to fix thes
 
 NULL characters (or `0x00`) are used as string terminators in assembly and machine code, and so if they are encountered, they will cause issues and may lead the program to terminate early. So, we must ensure that our shellcode does not contain any NULL bytes `00`.If we go back to our `Hello World` shellcode disasembly, we noticed many red `00` in it:
 
-&#x20; pwn
-
 ```
 $ pwn disasm '48be0020400000000000bf01000000ba12000000b8010000000f05b83c000000bf000000000f05' -c 'amd64'
    0:    48 be 00 20 40 00 00     movabs rsi,  0x402000
@@ -4246,8 +3857,6 @@ This commonly happens when moving a small integer into a large register, so the 
 
 For example, in our code above, when we use `mov rax, 1`, it will be moving `00 00 00 01` into `rax`, such that the number size would match the register size. We can see this when we assemble the above instruction:
 
-&#x20; Shellcoding Techniques
-
 ```shell-session
 root@htb[/htb]$ pwn asm 'mov rax, 1' -c 'amd64'
 
@@ -4255,8 +3864,6 @@ root@htb[/htb]$ pwn asm 'mov rax, 1' -c 'amd64'
 ```
 
 To avoid having these NULL bytes, `we must use registers that match our data size.` For the previous example, we can use the more efficient instruction `mov al, 1`, as we have been learning throughout the module. However, before we do so, we must first zero out the `rax` register with `xor rax, rax`, to ensure our data does not get mixed with older data. Let's see the shellcode for both of these instructions:
-
-&#x20; Shellcoding Techniques
 
 ```shell-session
 root@htb[/htb]$ pwn asm 'xor rax, rax' -c 'amd64'
@@ -4271,16 +3878,12 @@ As we can see, not only does our new shellcode not contain any NULL bytes, but i
 
 We can start with the new instruction we added earlier, `mov rbx, 'y!'`. We see that this instruction is moving 2-bytes into an 8-byte register. So, to fix it, we will first zero-out `rbx`, and then use the 2-byte (i.e. 16-bit) register `bx`, as follows:
 
-Code: nasm
-
 ```nasm
     xor rbx, rbx
     mov bx, 'y!'
 ```
 
 These new instructions should not contain any NULL bytes in their shellcode. Let's apply the same to the rest of our code, as follows:
-
-Code: nasm
 
 ```nasm
     xor rax, rax
@@ -4302,8 +3905,6 @@ We see that we applied this technique in three places and used the 8-bit registe
 Tip: If we ever need to move `0` to a register, we can zero-out that register, like we did for `rdi` above. Likewise, if we even need to `push 0` to the stack (e.g. for String Termination) we can zero-out any register, and then push that register to the stack.
 
 If we apply all of the above, we should have the following assembly code:
-
-Code: nasm
 
 ```nasm
 global _start
@@ -4334,8 +3935,6 @@ _start:
 
 Finally, We can assemble our code and run it:
 
-&#x20; Shellcoding Techniques
-
 ```shell-session
 root@htb[/htb]$ ./assembler.sh helloworld.s
 
@@ -4350,8 +3949,6 @@ As we can see, our code works as expected.
 
 We can now try to extract the shellcode of our new `helloworld` program, using our previous `shellcoder.py` script:
 
-&#x20; Shellcoding Techniques
-
 ```shell-session
 root@htb[/htb]$ python3 shellcoder.py helloworld
 
@@ -4360,15 +3957,11 @@ root@htb[/htb]$ python3 shellcoder.py helloworld
 
 This shellcode looks much better. But does it contain any NULL bytes? Difficult to tell. So, let's add the following line at the end of `shellcoder.py`, which would tell us if our code contains any NULL bytes and also tells us the size of our shellcode:
 
-Code: python
-
 ```python
     print("%d bytes - Found NULL byte" % len(shellcode)) if [i for i in shellcode if i == 0] else print("%d bytes - No NULL bytes" % len(shellcode))
 ```
 
 Let's run our updated script, to see if our shellcode contains any NULL bytes:
-
-&#x20; Shellcoding Techniques
 
 ```shell-session
 root@htb[/htb]$ python3 shellcoder.py helloworld
@@ -4381,8 +3974,6 @@ As we can see, the `No NULL bytes` tells us that our shellcode is `NULL-byte fre
 
 Try running the script on the previous `Hello World` program to see whether it did contain any NULL bytes. Finally, we reach the moment of truth, and try to run our shellcode with our `loader.py` script to see if it runs successfully:
 
-&#x20; Shellcoding Techniques
-
 ```shell-session
 root@htb[/htb]$ python3 loader.py '4831db66bb79215348bb422041636164656d5348bb48656c6c6f204854534889e64831c0b0014831ff40b7014831d2b2120f054831c0043c4030ff0f05'
 
@@ -4390,8 +3981,6 @@ Hello HTB Academy!
 ```
 
 As we can see, we have successfully created a working shellcode for our `Hello World` program.
-
-
 
 ## Shellcoding Tools
 
@@ -4411,8 +4000,6 @@ We will come across many common shellcodes through Binary Exploitation, like a `
 
 Before we continue with tools and online resources, let's try to craft our own `/bin/sh` shellcode. To do so, we can use the `execve` syscall with syscall number `59`, which allows us to execute a system application:
 
-&#x20; Shellcoding Tools
-
 ```shell-session
 root@htb[/htb]$ man -s 2 execve
 
@@ -4420,8 +4007,6 @@ int execve(const char *pathname, char *const argv[], char *const envp[]);
 ```
 
 As we can see, the `execve` syscall accepts 3 arguments. We need to execute `/bin/sh /bin/sh`, which would drop us in a `sh` shell. So, we our final function to be:
-
-Code: c
 
 ```c
 execve("/bin//sh", ["/bin//sh"], NULL)
@@ -4437,8 +4022,6 @@ So, we'll set our arguments as:
 Note: We added an extra `/` in '`/bin//sh`' so that the total character count is 8, which fills up a 64-bit register, so we don't have to worry about clearing the register beforehand or dealing with any leftovers. Any extra slashes are ignored in Linux, so this is a handy trick to even the total character count when needed, and it is used a lot in binary exploitation.
 
 Using the same concepts we learned for calling a syscall, the following assembly code should execute the syscall we need:
-
-Code: nasm
 
 ```nasm
 global _start
@@ -4459,20 +4042,7 @@ _start:
 
 As we can see, we pushed two (NULL-terminated) `'/bin//sh'` strings and then moved their pointers to `rdi` and `rsi`. We should know by now that the above assembly code will not produce a working shellcode since it contains NULL bytes.
 
-`Try to remove all NULL bytes from the above assembly code to produce a working shellcode.`
-
-<details>
-
-<summary>Click to show the answer</summary>
-
-```nasm
-```
-
-</details>
-
 Once we fix our code, we can run `shellcoder.py` on it, and have a shellcode with no NULL bytes:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ python3 shellcoder.py sh
@@ -4489,8 +4059,6 @@ Try running the above shellcode with `loader.py` to see if it works and drops us
 
 Let's start with our usual tools, `pwntools`, and use its `shellcraft` library, which generates a shellcode for various `syscalls`. We can list `syscalls` the tool accepts as follows:
 
-&#x20; Shellcoding Tools
-
 ```shell-session
 root@htb[/htb]$ pwn shellcraft -l 'amd64.linux'
 
@@ -4500,8 +4068,6 @@ amd64.linux.sh
 
 We see the `amd64.linux.sh` syscall, which would drop us into a shell like our above shellcode. We can generate its shellcode as follows:
 
-&#x20; Shellcoding Tools
-
 ```shell-session
 root@htb[/htb]$ pwn shellcraft amd64.linux.sh
 
@@ -4509,8 +4075,6 @@ root@htb[/htb]$ pwn shellcraft amd64.linux.sh
 ```
 
 Note that this shellcode is not as optimized and short as our shellcode. We can run the shellcode by adding the `-r` flag:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ pwn shellcraft amd64.linux.sh -r
@@ -4521,8 +4085,6 @@ root
 ```
 
 And it works as expected. Furthermore, we can use the `Python3` interpreter to unlock `shellcraft` fully and use advanced syscalls with arguments. First, we can list all available syscalls with `dir(shellcraft)`, as follows:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ python3
@@ -4536,8 +4098,6 @@ root@htb[/htb]$ python3
 
 Let's use the `execve` syscall like we did above to drop in a shell, as follows:
 
-&#x20; Shellcoding Tools
-
 ```shell-session
 >>> syscall = shellcraft.execve(path='/bin/sh',argv=['/bin/sh']) # syscall and args
 >>> asm(syscall).hex() # print shellcode
@@ -4546,8 +4106,6 @@ Let's use the `execve` syscall like we did above to drop in a shell, as follows:
 ```
 
 We can find a complete list of `x86_64` accepted syscalls and their arguments on [this link](https://docs.pwntools.com/en/stable/shellcraft/amd64.html). We can now try running this shellcode with `loader.py`:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ python3 loader.py '48b801010101010101015048b82e63686f2e726901483104244889e748b801010101010101015048b82e63686f2e7269014831042431f6566a085e4801e6564889e631d26a3b580f05'
@@ -4565,8 +4123,6 @@ And it works as expected.
 
 Let's try `msfvenom`, which is another common tool we can use for shellcode generation. Once again, we can list various available payloads for `Linux` and `x86_64` with:
 
-&#x20; Shellcoding Tools
-
 ```shell-session
 root@htb[/htb]$ msfvenom -l payloads | grep 'linux/x64'
 
@@ -4575,8 +4131,6 @@ linux/x64/exec                                      Execute an arbitrary command
 ```
 
 The `exec` payload allows us to execute a command we specify. Let's pass '`/bin/sh/`' for the `CMD`, and test the shellcode we get:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ msfvenom -p 'linux/x64/exec' CMD='sh' -a 'x64' --platform 'linux' -f 'hex'
@@ -4588,8 +4142,6 @@ Final size of hex file: 96 bytes
 ```
 
 Note that this shellcode is also not as optimized and short as our shellcode. Let's try running this shellcode with our `loader.py` script:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ python3 loader.py '6a3b589948bb2f62696e2f736800534889e7682d6300004889e652e80300000073680056574889e60f05'
@@ -4609,8 +4161,6 @@ Another great benefit of using these tools is to encode our shellcodes without m
 
 We can use `msfvenom` to encode our shellcodes as well. We can first list available encoders:
 
-&#x20; Shellcoding Tools
-
 ```shell-session
 root@htb[/htb]$ msfvenom -l encoders
 
@@ -4626,8 +4176,6 @@ Framework Encoders [--encoder <value>]
 
 Then we can pick one for `x64`, like `x64/xor`, and use it with the `-e` flag, as follows:
 
-&#x20; Shellcoding Tools
-
 ```shell-session
 root@htb[/htb]$ msfvenom -p 'linux/x64/exec' CMD='sh' -a 'x64' --platform 'linux' -f 'hex' -e 'x64/xor'
 
@@ -4641,8 +4189,6 @@ Final size of hex file: 174 bytes
 ```
 
 Let's try running the encoded shellcode to see if it runs:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ python3 loader.py 
@@ -4660,8 +4206,6 @@ Tip: We can encoded our shellcode multiple times with the `-i COUNT` flag, and s
 We see that the encoded shellcode is always significantly larger than the non-encoded one since encoding a shellcode adds a built-in decoder for runtime decoding. It may also encode each byte multiple times, which increases its size at every iteration.
 
 If we had a custom shellcode that we wrote, we could use `msfvenom` to encode it as well, by writing its bytes to a file and then passing it to `msfvenom` with `-p -`, as follows:
-
-&#x20; Shellcoding Tools
 
 ```shell-session
 root@htb[/htb]$ python3 -c "import sys; sys.stdout.buffer.write(bytes.fromhex('b03b4831d25248bf2f62696e2f2f7368574889e752574889e60f05'))" > shell.bin
@@ -4688,6 +4232,3 @@ Finally, we can always search online resources like [Shell-Storm](http://shell-s
 For example, if we search [Shell-Storm](http://shell-storm.org/shellcode/) for a `/bin/sh` shellcode on `Linux/x86_64`, we will find several examples of varying sizes, like this [27-bytes shellcode](http://shell-storm.org/shellcode/files/shellcode-806.php). We can search [Exploit DB](https://www.exploit-db.com/shellcodes) for the same, and we find a more optimized [22-bytes shellcode](https://www.exploit-db.com/shellcodes/47008), which can be helpful if our Binary Exploitation only had around 22-bytes of overflow space. We can also search for encoded shellcodes, which are bound to be larger.
 
 The shellcode we wrote above is 27-bytes long as well, so it looks to be a very optimized shellcode. With all of that, we should be comfortable with writing, generating, and using shellcodes.
-
-
-
