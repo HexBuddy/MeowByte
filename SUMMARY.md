@@ -43,6 +43,7 @@
   * [19. Hacking WordPress](hackthebox-academy/bug-bounty-hunter-path/hacking-wordpress.md)
   * [20. Bug Bounty Hunting Process](hackthebox-academy/bug-bounty-hunter-path/bug-bounty-hunting-process.md)
 * [Penetration Testing Specialist Path](hackthebox-academy/penetration-testing-specialist-path/README.md)
+  * [CPTS Answers](hackthebox-academy/penetration-testing-specialist-path/cpts-answers.md)
   * [1. Network Enumeration with Nmap](hackthebox-academy/penetration-testing-specialist-path/network-enumeration-with-nmap.md)
   * [2. Footprinting](hackthebox-academy/penetration-testing-specialist-path/footprinting.md)
   * [3. Information Gathering — Web Edition](hackthebox-academy/penetration-testing-specialist-path/information-gathering-web-edition.md)
