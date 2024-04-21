@@ -22,19 +22,13 @@ It is often common to automate some processes not to repeat them all the time or
 
 **Script Execution - Examples**
 
-&#x20; Bourne Again Shell
-
 ```shell-session
 root@htb[/htb]$ bash script.sh <optional arguments>
 ```
 
-&#x20; Bourne Again Shell
-
 ```shell-session
 root@htb[/htb]$ sh script.sh <optional arguments>
 ```
-
-&#x20; Bourne Again Shell
 
 ```shell-session
 root@htb[/htb]$ ./script.sh <optional arguments>
@@ -43,8 +37,6 @@ root@htb[/htb]$ ./script.sh <optional arguments>
 Let us look at such a script and see how they can be created to get specific results. If we execute this script and specify a domain, we see what information this script provides.
 
 **CIDR.sh**
-
-&#x20; Bourne Again Shell
 
 ```shell-session
 root@htb[/htb]$ ./CIDR.sh inlanefreight.com
@@ -73,8 +65,6 @@ Pinging host(s):
 Now let us look at that script in detail and read it line by line in the best possible way. In the next sections, we will look at and analyze all the parts of this script.
 
 **CIDR.sh**
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -194,8 +184,6 @@ As the first step in this script, we identify the IPv4 address of the domain ret
 
 Then we decide which functions we want to use to find out more information about the infrastructure.
 
-
-
 ## Conditional Execution
 
 ***
@@ -205,8 +193,6 @@ Conditional execution allows us to control the flow of our script by reaching di
 When defining various conditions, we specify which functions or sections of code should be executed for a specific value. If we reach a specific condition, only the code for that condition is executed, and the others are skipped. As soon as the code section is completed, the following commands will be executed outside the conditional execution. Let us look at the first part of the script again and analyze it.
 
 **Script.sh**
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -241,13 +227,9 @@ The conditions of the conditional executions can be defined using variables (`$#
 
 The shebang line is always at the top of each script and always starts with "`#!`". This line contains the path to the specified interpreter (`/bin/bash`) with which the script is executed. We can also use Shebang to define other interpreters like Python, Perl, and others.
 
-Code: python
-
 ```python
 #!/usr/bin/env python
 ```
-
-Code: perl
 
 ```perl
 #!/usr/bin/env perl
@@ -260,8 +242,6 @@ Code: perl
 One of the most fundamental programming tasks is to check different conditions to deal with these. Checking of conditions usually has two different forms in programming and scripting languages, the `if-else condition` and `case statements`. In pseudo-code, the if condition means the following:
 
 **Pseudo-Code**
-
-Code: bash
 
 ```bash
 if [ the number of given arguments equals 0 ]
@@ -280,8 +260,6 @@ By default, an `If-Else` condition can contain only a single "`If`", as shown in
 
 **If-Only.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -295,13 +273,9 @@ fi
 
 **If-Only.sh - Execution**
 
-&#x20; Conditional Execution
-
 ```shell-session
 root@htb[/htb]$ bash if-only.sh 5
 ```
-
-&#x20; Conditional Execution
 
 ```shell-session
 root@htb[/htb]$ bash if-only.sh 12
@@ -314,8 +288,6 @@ Given argument is greater than 10.
 When adding `Elif` or `Else`, we add alternatives to treat specific values or statuses. If a particular value does not apply to the first case, it will be caught by others.
 
 **If-Elif-Else.sh**
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -335,23 +307,17 @@ fi
 
 **If-Elif-Else.sh - Execution**
 
-&#x20; Conditional Execution
-
 ```shell-session
 root@htb[/htb]$ bash if-elif-else.sh 5
 
 Given argument is less than 10.
 ```
 
-&#x20; Conditional Execution
-
 ```shell-session
 root@htb[/htb]$ bash if-elif-else.sh 12
 
 Given argument is greater than 10.
 ```
-
-&#x20; Conditional Execution
 
 ```shell-session
 root@htb[/htb]$ bash if-elif-else.sh HTB
@@ -366,8 +332,6 @@ Given argument is not a number.
 We could extend our script and specify several conditions. This could look something like this:
 
 **Several Conditions - Script.sh**
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -410,8 +374,6 @@ do
 done
 ```
 
-
-
 ## Arguments, Variables, and Arrays
 
 ***
@@ -419,8 +381,6 @@ done
 ### Arguments
 
 The advantage of bash scripts is that we can always pass up to 9 arguments (`$0`-`$9`) to the script without assigning them to variables or setting the corresponding requirements for these. `9 arguments` because the first argument `$0` is reserved for the script. As we can see here, we need the dollar sign (`$`) before the name of the variable to use it at the specified position. The assignment would look like this in comparison:
-
-&#x20; Arguments, Variables, and Arrays
 
 ```shell-session
 root@htb[/htb]$ ./script.sh ARG1 ARG2 ARG3 ... ARG9
@@ -430,8 +390,6 @@ root@htb[/htb]$ ./script.sh ARG1 ARG2 ARG3 ... ARG9
 This means that we have automatically assigned the corresponding arguments to the predefined variables in this place. These variables are called special variables. These special variables serve as placeholders. If we now look at the code section again, we will see where and which arguments have been used.
 
 **CIDR.sh**
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -454,15 +412,11 @@ There are several ways how we can execute our script. However, we must first set
 
 **CIDR.sh - Set Execution Privileges**
 
-&#x20; Arguments, Variables, and Arrays
-
 ```shell-session
 root@htb[/htb]$ chmod +x cidr.sh
 ```
 
 **CIDR.sh - Execution without Arguments**
-
-&#x20; Arguments, Variables, and Arrays
 
 ```shell-session
 root@htb[/htb]$ ./cidr.sh
@@ -474,8 +428,6 @@ Usage:
 ```
 
 **CIDR.sh - Execution without Execution Permissions**
-
-&#x20; Arguments, Variables, and Arrays
 
 ```shell-session
 root@htb[/htb]$ bash cidr.sh
@@ -492,29 +444,17 @@ Usage:
 
 Special variables use the [Internal Field Separator](https://bash.cyberciti.biz/guide/$IFS) (`IFS`) to identify when an argument ends and the next begins. Bash provides various special variables that assist while scripting. Some of these variables are:
 
-| **IFS** | **Description**                                                                                                                                                         |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `$#`    | This variable holds the number of arguments passed to the script.                                                                                                       |
-| `$@`    | This variable can be used to retrieve the list of command-line arguments.                                                                                               |
-| `$n`    | Each command-line argument can be selectively retrieved using its position. For example, the first argument is found at `$1`.                                           |
-| `$$`    | The process ID of the currently executing process.                                                                                                                      |
-| `$?`    | The exit status of the script. This variable is useful to determine a command's success. The value 0 represents successful execution, while 1 is a result of a failure. |
+<table data-header-hidden><thead><tr><th width="90"></th><th></th></tr></thead><tbody><tr><td><strong>IFS</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$#</code></td><td>This variable holds the number of arguments passed to the script.</td></tr><tr><td><code>$@</code></td><td>This variable can be used to retrieve the list of command-line arguments.</td></tr><tr><td><code>$n</code></td><td>Each command-line argument can be selectively retrieved using its position. For example, the first argument is found at <code>$1</code>.</td></tr><tr><td><code>$$</code></td><td>The process ID of the currently executing process.</td></tr><tr><td><code>$?</code></td><td>The exit status of the script. This variable is useful to determine a command's success. The value 0 represents successful execution, while 1 is a result of a failure.</td></tr></tbody></table>
 
 Of the ones shown above, we have 3 such special variables in our `if-else` condition.
 
-| **IFS** | **Description**                                                                                                                                                                                                                                       |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `$#`    | In this case, we need just one variable that needs to be assigned to the `domain` variable. This variable is used to specify the target we want to work with. If we provide just an FQDN as the argument, the `$#` variable will have a value of `1`. |
-| `$0`    | This special variable is assigned the name of the executed script, which is then shown in the "`Usage:`" example.                                                                                                                                     |
-| `$1`    | Separated by a space, the first argument is assigned to that special variable.                                                                                                                                                                        |
+<table data-header-hidden><thead><tr><th width="104"></th><th></th></tr></thead><tbody><tr><td><strong>IFS</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$#</code></td><td>In this case, we need just one variable that needs to be assigned to the <code>domain</code> variable. This variable is used to specify the target we want to work with. If we provide just an FQDN as the argument, the <code>$#</code> variable will have a value of <code>1</code>.</td></tr><tr><td><code>$0</code></td><td>This special variable is assigned the name of the executed script, which is then shown in the "<code>Usage:</code>" example.</td></tr><tr><td><code>$1</code></td><td>Separated by a space, the first argument is assigned to that special variable.</td></tr></tbody></table>
 
 ***
 
 ### Variables
 
 We also see at the end of the if-else loop that we assign the value of the first argument to the variable called "`domain`". The assignment of variables takes place without the dollar sign (`$`). The dollar sign is only intended to allow this variable's corresponding value to be used in other code sections. When assigning variables, there must be no spaces between the names and values.
-
-Code: bash
 
 ```bash
 <SNIP>
@@ -528,8 +468,6 @@ In contrast to other programming languages, there is no direct differentiation a
 
 **Declaring a Variable - Error**
 
-&#x20; Arguments, Variables, and Arrays
-
 ```shell-session
 root@htb[/htb]$ variable = "this will result with an error."
 
@@ -537,8 +475,6 @@ command not found: variable
 ```
 
 **Declaring a Variable - Without an Error**
-
-&#x20; Arguments, Variables, and Arrays
 
 ```shell-session
 root@htb[/htb]$ variable="Declared without an error."
@@ -555,8 +491,6 @@ There is also the possibility of assigning several values to a single variable i
 
 **Arrays.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -566,8 +500,6 @@ echo ${domains[0]}
 ```
 
 We can also retrieve them individually using the index using the variable with the corresponding index in curly brackets. Curly brackets are used for variable expansion.
-
-&#x20; Arguments, Variables, and Arrays
 
 ```shell-session
 root@htb[/htb]$ ./Arrays.sh
@@ -579,8 +511,6 @@ It is important to note that single quotes (`'` ... `'`) and double quotes (`"` 
 
 **Arrays.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -588,15 +518,11 @@ domains=("www.inlanefreight.com ftp.inlanefreight.com vpn.inlanefreight.com" www
 echo ${domains[0]}
 ```
 
-&#x20; Arguments, Variables, and Arrays
-
 ```shell-session
 root@htb[/htb]$ ./Arrays.sh
 
 www.inlanefreight.com ftp.inlanefreight.com vpn.inlanefreight.com
 ```
-
-
 
 ## Comparison Operators
 
@@ -615,18 +541,9 @@ To compare specific values with each other, we need elements that are called [co
 
 If we compare strings, then we know what we would like to have in the corresponding value.
 
-| **Operator** | **Description**                             |
-| ------------ | ------------------------------------------- |
-| `==`         | is equal to                                 |
-| `!=`         | is not equal to                             |
-| `<`          | is less than in ASCII alphabetical order    |
-| `>`          | is greater than in ASCII alphabetical order |
-| `-z`         | if the string is empty (null)               |
-| `-n`         | if the string is not null                   |
+<table data-header-hidden><thead><tr><th width="230"></th><th></th></tr></thead><tbody><tr><td><strong>Operator</strong></td><td><strong>Description</strong></td></tr><tr><td><code>==</code></td><td>is equal to</td></tr><tr><td><code>!=</code></td><td>is not equal to</td></tr><tr><td><code>&#x3C;</code></td><td>is less than in ASCII alphabetical order</td></tr><tr><td><code>></code></td><td>is greater than in ASCII alphabetical order</td></tr><tr><td><code>-z</code></td><td>if the string is empty (null)</td></tr><tr><td><code>-n</code></td><td>if the string is not null</td></tr></tbody></table>
 
 It is important to note here that we put the variable for the given argument (`$1`) in double-quotes (`"$1"`). This tells Bash that the content of the variable should be handled as a string. Otherwise, we would get an error.
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -649,8 +566,6 @@ fi
 ```
 
 String comparison operators "`<` / `>`" works only within the double square brackets `[[ <condition> ]]`. We can find the ASCII table on the Internet or by using the following command in the terminal. We take a look at an example later.
-
-&#x20; Comparison Operators
 
 ```shell-session
 root@htb[/htb]$ man ascii
@@ -688,8 +603,6 @@ Comparing integer numbers can be very useful for us if we know what values we wa
 
 ***
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -716,21 +629,7 @@ fi
 
 The file operators are useful if we want to find out specific permissions or if they exist.
 
-| **Operator** | **Description**                                        |
-| ------------ | ------------------------------------------------------ |
-| `-e`         | if the file exist                                      |
-| `-f`         | tests if it is a file                                  |
-| `-d`         | tests if it is a directory                             |
-| `-L`         | tests if it is if a symbolic link                      |
-| `-N`         | checks if the file was modified after it was last read |
-| `-O`         | if the current user owns the file                      |
-| `-G`         | if the file’s group id matches the current user’s      |
-| `-s`         | tests if the file has a size greater than 0            |
-| `-r`         | tests if the file has read permission                  |
-| `-w`         | tests if the file has write permission                 |
-| `-x`         | tests if the file has execute permission               |
-
-Code: bash
+<table data-header-hidden><thead><tr><th width="229"></th><th></th></tr></thead><tbody><tr><td><strong>Operator</strong></td><td><strong>Description</strong></td></tr><tr><td><code>-e</code></td><td>if the file exist</td></tr><tr><td><code>-f</code></td><td>tests if it is a file</td></tr><tr><td><code>-d</code></td><td>tests if it is a directory</td></tr><tr><td><code>-L</code></td><td>tests if it is if a symbolic link</td></tr><tr><td><code>-N</code></td><td>checks if the file was modified after it was last read</td></tr><tr><td><code>-O</code></td><td>if the current user owns the file</td></tr><tr><td><code>-G</code></td><td>if the file’s group id matches the current user’s</td></tr><tr><td><code>-s</code></td><td>tests if the file has a size greater than 0</td></tr><tr><td><code>-r</code></td><td>tests if the file has read permission</td></tr><tr><td><code>-w</code></td><td>tests if the file has write permission</td></tr><tr><td><code>-x</code></td><td>tests if the file has execute permission</td></tr></tbody></table>
 
 ```bash
 #!/bin/bash
@@ -828,8 +727,6 @@ do
 done
 ```
 
-
-
 ## Arithmetic
 
 ***
@@ -851,8 +748,6 @@ In Bash, we have seven different `arithmetic operators` we can work with. These 
 We can summarize all these operators in a small script:
 
 **Arithmetic.sh**
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -877,8 +772,6 @@ The output of this script looks like this:
 
 **Arithmetic.sh - Execution**
 
-&#x20; Arithmetic
-
 ```shell-session
 root@htb[/htb]$ ./Arithmetic.sh
 
@@ -897,8 +790,6 @@ We can also calculate the length of the variable. Using this function `${#variab
 
 **VarLength.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -908,8 +799,6 @@ echo ${#htb}
 ```
 
 **VarLength.sh**
-
-&#x20; Arithmetic
 
 ```shell-session
 root@htb[/htb]$ ./VarLength.sh
@@ -922,8 +811,6 @@ root@htb[/htb]$ ./VarLength.sh
 If we look at our `CIDR.sh` script, we will see that we have used the `increase` and `decrease` operators several times. This ensures that the while loop, which we will discuss later, runs and pings the hosts while the variable "`stat`" has a value of `1`. If the ping command ends with code `0` (successful), we get a message that the `host is up` and the "`stat`" variable, as well as the variables "`hosts_up`" and "`hosts_total`" get changed.
 
 **CIDR.sh**
-
-Code: bash
 
 ```bash
 <SNIP>
@@ -949,8 +836,6 @@ Code: bash
 	done
 <SNIP>
 ```
-
-
 
 ## Input and Output
 
@@ -1020,8 +905,6 @@ NetRange:       165.22.0.0 - 165.22.255.255
 CIDR:           165.22.0.0/16
 ```
 
-
-
 ## Flow Control - Loops
 
 ***
@@ -1044,8 +927,6 @@ Let us start with the `For` loops. The `For` loop is executed on each pass for p
 
 **Syntax - Examples**
 
-Code: bash
-
 ```bash
 for variable in 1 2 3 4
 do
@@ -1053,16 +934,12 @@ do
 done
 ```
 
-Code: bash
-
 ```bash
 for variable in file1 file2 file3
 do
 	echo $variable
 done
 ```
-
-Code: bash
 
 ```bash
 for ip in "10.10.10.170 10.10.10.174 10.10.10.175"
@@ -1072,8 +949,6 @@ done
 ```
 
 Of course, we can also write these commands in a single line. Such a command would look like this:
-
-&#x20; Flow Control - Loops
 
 ```shell-session
 root@htb[/htb]$ for ip in 10.10.10.170 10.10.10.174;do ping -c 1 $ip;done
@@ -1097,8 +972,6 @@ round-trip min/avg/max/stddev = 45.700/45.700/45.700/0.000 ms
 Let us have another look at our `CIDR.sh` script. We have added several for loops to the script, but let us stick with this little code section.
 
 **CIDR.sh**
-
-Code: bash
 
 ```bash
 <SNIP>
@@ -1132,8 +1005,6 @@ We can also combine loops and merge their execution with different values. It is
 
 **CIDR.sh**
 
-Code: bash
-
 ```bash
 <SNIP>
 		stat=1
@@ -1159,8 +1030,6 @@ The `while` loops also work with conditions like `if-else`. A while loop needs s
 
 **WhileBreaker.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -1184,8 +1053,6 @@ done
 
 **WhileBreaker.sh**
 
-&#x20; Flow Control - Loops
-
 ```shell-session
 root@htb[/htb]$ ./WhileBreaker.sh
 
@@ -1207,8 +1074,6 @@ The other way is to let the loop run until the desired value is reached. The "`u
 
 **Until.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -1223,8 +1088,6 @@ done
 ```
 
 **Until.sh**
-
-&#x20; Flow Control - Loops
 
 ```shell-session
 root@htb[/htb]$ ./Until.sh
@@ -1246,8 +1109,6 @@ Counter: 10
 ***
 
 ### Exercise Script
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -1293,8 +1154,6 @@ else
 fi
 ```
 
-
-
 ## Flow Control - Branches
 
 ***
@@ -1309,8 +1168,6 @@ As we have already seen, the branches in flow control include `if-else` and the 
 
 **Syntax - Switch-Case**
 
-Code: bash
-
 ```bash
 case <expression> in
 	pattern_1 ) statements ;;
@@ -1324,8 +1181,6 @@ The definition of switch-case starts with `case`, followed by the variable or va
 In our `CIDR.sh` script, we have used such a `case` statement. Here we defined four different options that we assigned to our script, how it should proceed after our decision.
 
 **CIDR.sh**
-
-Code: bash
 
 ```bash
 <SNIP>
@@ -1349,8 +1204,6 @@ esac
 
 With the first two options, this script executes different functions that we had defined before. With the third option, both functions are executed, and with any other option, the script will be terminated.
 
-
-
 ## Functions
 
 ***
@@ -1361,8 +1214,6 @@ The bigger our scripts get, the more chaotic they become. If we use the same rou
 
 **Method 1 - Functions**
 
-Code: bash
-
 ```bash
 function name {
 	<commands>
@@ -1370,8 +1221,6 @@ function name {
 ```
 
 **Method 2 - Functions**
-
-Code: bash
 
 ```bash
 name() {
@@ -1382,8 +1231,6 @@ name() {
 We can choose the method to define a function that is most comfortable for us. In our `CIDR.sh` script, we used the first method because it is easier to read with the keyword "`function`."
 
 **CIDR.sh**
-
-Code: bash
 
 ```bash
 <SNIP>
@@ -1405,8 +1252,6 @@ The function is called only by calling the specified name of the function, as we
 
 **Function Execution - CIDR.sh**
 
-Code: bash
-
 ```bash
 <SNIP>
 case $opt in
@@ -1427,8 +1272,6 @@ An important difference between bash scripts and other programming languages is 
 
 **PrintPars.sh**
 
-Code: bash
-
 ```bash
 #!/bin/bash
 
@@ -1443,8 +1286,6 @@ three="Third parameter"
 print_pars "$one" "$two" "$three"
 ```
 
-&#x20; Functions
-
 ```shell-session
 root@htb[/htb]$ ./PrintPars.sh
 
@@ -1457,24 +1298,13 @@ First parameter Second parameter Third parameter
 
 When we start a new process, each `child process` (for example, a `function` in the executed script) returns a `return code` to the `parent process` (`bash shell` through which we executed the script) at its termination, informing it of the status of the execution. This information is used to determine whether the process ran successfully or whether specific errors occurred. Based on this information, the `parent process` can decide on further program flow.
 
-| **Return Code** | **Description**                |
-| --------------- | ------------------------------ |
-| `1`             | General errors                 |
-| `2`             | Misuse of shell builtins       |
-| `126`           | Command invoked cannot execute |
-| `127`           | Command not found              |
-| `128`           | Invalid argument to exit       |
-| `128+n`         | Fatal error signal "`n`"       |
-| `130`           | Script terminated by Control-C |
-| `255\*`         | Exit status out of range       |
+<table data-header-hidden><thead><tr><th width="305"></th><th></th></tr></thead><tbody><tr><td><strong>Return Code</strong></td><td><strong>Description</strong></td></tr><tr><td><code>1</code></td><td>General errors</td></tr><tr><td><code>2</code></td><td>Misuse of shell builtins</td></tr><tr><td><code>126</code></td><td>Command invoked cannot execute</td></tr><tr><td><code>127</code></td><td>Command not found</td></tr><tr><td><code>128</code></td><td>Invalid argument to exit</td></tr><tr><td><code>128+n</code></td><td>Fatal error signal "<code>n</code>"</td></tr><tr><td><code>130</code></td><td>Script terminated by Control-C</td></tr><tr><td><code>255\*</code></td><td>Exit status out of range</td></tr></tbody></table>
 
 ***
 
 To get the value of a function back, we can use several methods like `return`, `echo`, or a `variable`. In the next example, we will see how to use "`$?`" to read the "`return code`," how to pass the arguments to the function and how to assign the result to a variable.
 
 **Return.sh**
-
-Code: bash
 
 ```bash
 #!/bin/bash
@@ -1507,8 +1337,6 @@ echo -e "Content of the variable: \n\t$content"
 
 **Return.sh - Execution**
 
-&#x20; Functions
-
 ```shell-session
 root@htb[/htb]$ ./Return.sh
 
@@ -1522,8 +1350,6 @@ Content of the variable:
     Number of arguments: 1
 ```
 
-
-
 ## Debugging
 
 ***
@@ -1533,8 +1359,6 @@ Bash gives us an excellent opportunity to find, track, and fix errors in our cod
 This process is also used to find vulnerabilities in programs. For example, we can try to cause errors using different input types and track their handling in the CPU through the assembler, which may provide a way to manipulate the handling of these errors to insert our own code and force the system to execute it. This topic will be covered and discussed in detail in other modules. Bash allows us to debug our code by using the "`-x`" (`xtrace`) and "`-v`" options. Now let us see an example with our `CIDR.sh` script.
 
 **CIDR.sh - Debugging**
-
-&#x20; Debugging
 
 ```shell-session
 root@htb[/htb]$ bash -x CIDR.sh
@@ -1553,8 +1377,6 @@ Usage:
 Here Bash shows us precisely which function or command was executed with which values. This is indicated by the plus sign (`+`) at the beginning of the line. If we want to see all the code for a particular function, we can set the "`-v`" option that displays the output in more detail.
 
 **CIDR.sh - Verbose Debugging**
-
-&#x20; Debugging
 
 ```shell-session
 root@htb[/htb]$ bash -x -v CIDR.sh
