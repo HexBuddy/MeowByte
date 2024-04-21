@@ -534,7 +534,7 @@ Tip: Converting between permission attributes and their octal value may be diffi
 &#x20; File and Directory Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l  
+root@htb[/htb]$ ls -l  
 
 - rw- r-- r--@  1 htb-user staff 2512910 Aug 30  2019 HTB-Wallpaper-1.png
 - |_| |_| |_|   |    |       |     |      |_______|
@@ -560,7 +560,7 @@ If we were to modify these permissions, we would notice that the attributes list
 &#x20; File and Directory Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l 
+root@htb[/htb]$ ls -l 
 
 - rwx r-- r--@  1 htb-user staff 4663911 Aug 30  2019 ping-all-the-things.sh
 d rwx r-x r-x@  1 htb-user staff 6512375 Aug 30  2019 nmap-output
@@ -612,7 +612,7 @@ Let's take the following files as an example:
 &#x20; File and Directory Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -l  
+root@htb[/htb]$ ls -l  
 
 total 8256
 -rw-r--r--@ 1 htb-user  staff  2512910 Aug 30  2019 HTB-Wallpaper-1.png
@@ -624,9 +624,9 @@ Let's try to change the permission attribute for everyone to read, write, and ex
 &#x20; File and Directory Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chmod -vv 777 HTB-Wallpaper-1.png  
+root@htb[/htb]$ chmod -vv 777 HTB-Wallpaper-1.png  
 
-AbdulrahmanTamim@htb[/htb]$ ls -l  
+root@htb[/htb]$ ls -l  
   
 -rwxrwxrwx@ 1 htb-user  staff  2512910 Aug 30  2019 HTB-Wallpaper-1.png  
 ```
@@ -640,9 +640,9 @@ Using the same file from before, we will modify its ownership by replacing `htb-
 &#x20; File and Directory Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo chown htb-student HTB-Wallpaper-1.png
+root@htb[/htb]$ sudo chown htb-student HTB-Wallpaper-1.png
 
-AbdulrahmanTamim@htb[/htb]$ ls -l 
+root@htb[/htb]$ ls -l 
 -rwxrwxrwx@ 1 htb-student  staff  2512910 Aug 30  2019 HTB-Wallpaper-1.png
 ```
 
@@ -651,9 +651,9 @@ Notice the change from before? `htb-student` is now the file owner, and staff re
 &#x20; File and Directory Permissions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo chown htb-user:admins HTB-Wallpaper-1.png 
+root@htb[/htb]$ sudo chown htb-user:admins HTB-Wallpaper-1.png 
 
-AbdulrahmanTamim@htb[/htb]$ ls -l 
+root@htb[/htb]$ ls -l 
 -rwxrwxrwx@ 1 htb-user  admins  2512910 Aug 30  2019 HTB-Wallpaper-1.png  
 ```
 
@@ -730,7 +730,7 @@ We have quite a few ways to find information about our network status and settin
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ifconfig  
+root@htb[/htb]$ ifconfig  
   
 lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
 	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
@@ -754,7 +754,7 @@ We can see this command pushes out a ton of output. So to clean this up a bit, w
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ifconfig en0
+root@htb[/htb]$ ifconfig en0
 
 en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 	options=6463<RXCSUM,TXCSUM,TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
@@ -833,7 +833,7 @@ Here're a few basic examples of using networksetup:
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hostname
+root@htb[/htb]$ hostname
   
 ACADEMY-MAC-2.local
 ```
@@ -841,7 +841,7 @@ ACADEMY-MAC-2.local
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ networksetup -listallnetworkservices  
+root@htb[/htb]$ networksetup -listallnetworkservices  
   
  An asterisk (*) denotes that a network service is disabled.
  USB 10/100/1000 LAN
@@ -853,7 +853,7 @@ AbdulrahmanTamim@htb[/htb]$ networksetup -listallnetworkservices
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ networksetup -listnetworkserviceorder  
+root@htb[/htb]$ networksetup -listnetworkserviceorder  
 
  An asterisk (*) denotes that a network service is disabled.
  (1) USB 10/100/1000 LAN
@@ -872,7 +872,7 @@ AbdulrahmanTamim@htb[/htb]$ networksetup -listnetworkserviceorder
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ networksetup -getinfo Wi-Fi  
+root@htb[/htb]$ networksetup -getinfo Wi-Fi  
 
  DHCP Configuration
  IP address: 192.168.1.100
@@ -900,7 +900,7 @@ The first is the ability to check your interface's network quality using the `ne
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ networkQuality -I <interface>  
+root@htb[/htb]$ networkQuality -I <interface>  
 Downlink: capacity 104.874 Mbps, responsiveness 66 RPM - Uplink: capacity 100.708 Mbps, responsiveness 66 RPM
 ```
 
@@ -911,7 +911,7 @@ Our next tip is a quick way to find the `Password` for an `SSID` you have previo
 &#x20; Networking
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ security find-generic-password -wa Office-2.4G
+root@htb[/htb]$ security find-generic-password -wa Office-2.4G
 Sup3r$ecure  
 ```
 
@@ -1274,7 +1274,7 @@ In recent versions of macOS, Apple switched their default shell from `Bash` to `
 &#x20; MacOS Terminal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chsh -s /bin/bash
+root@htb[/htb]$ chsh -s /bin/bash
 ```
 
 If you are on an older version of macOS and would like to install ZSH, you can do so with the following command:
@@ -1282,8 +1282,8 @@ If you are on an older version of macOS and would like to install ZSH, you can d
 &#x20; MacOS Terminal
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ brew install zsh
-AbdulrahmanTamim@htb[/htb]$ chsh -s /bin/zsh
+root@htb[/htb]$ brew install zsh
+root@htb[/htb]$ chsh -s /bin/zsh
 ```
 
 While the main benefit of ZSH is its extensions, you may still find it more user-friendly than bash. For example, whenever we click on `tab` after a command to show possible options/arguments, ZSH shows all of them below our command and allows us to navigate between them by clicking `tab`: ![macos\_zsh\_tab](https://academy.hackthebox.com/storage/modules/157/macos\_zsh\_tab.jpg)
