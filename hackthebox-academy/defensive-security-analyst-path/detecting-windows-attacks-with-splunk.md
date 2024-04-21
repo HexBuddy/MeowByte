@@ -1084,7 +1084,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting RDP Brute Force Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1127,7 +1127,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Beaconing Malware
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1191,7 +1191,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Nmap Port Scanning
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1245,7 +1245,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Kerberos Brute Force Attacks
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1294,7 +1294,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Kerberoasting
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1344,7 +1344,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Golden Tickets
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1409,7 +1409,7 @@ Let's now navigate to the bottom of this section and click on "Click here to spa
 Additionally, we can access the spawned target via RDP as outlined below. All files, logs, and PCAP files related to the covered attacks can be found in the /home/htb-student and /home/htb-student/module\_files directories.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1464,7 +1464,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Zerologon
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1510,7 +1510,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Exfiltration (HTTP)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
@@ -1559,7 +1559,7 @@ Additionally, we can access the spawned target via RDP as outlined below. All fi
 &#x20; Detecting Exfiltration (DNS)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution
 ```
 
 **Related Evidence**
