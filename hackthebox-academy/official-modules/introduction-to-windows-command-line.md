@@ -7598,7 +7598,7 @@ We can perform this same action from a Linux-based attack host with PowerShell c
 &#x20; Networking Management from The CLI
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ [PS]> Enter-PSSession -ComputerName 10.129.224.248 -Credential htb-student -Authentication Negotiate
+root@htb[/htb]$ [PS]> Enter-PSSession -ComputerName 10.129.224.248 -Credential htb-student -Authentication Negotiate
 
 PowerShell credential request
 Enter your credentials.
@@ -7850,7 +7850,7 @@ If we already had PowerView.ps1 stored on our `attack host` we could use a simpl
 &#x20; Interacting With The Web
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 Dictionaries            Get-HttpStatus.ps1                    Invoke-Portscan.ps1          PowerView.ps1  Recon.psd1
 Get-ComputerDetail.ps1  Invoke-CompareAttributesForClass.ps1  Invoke-ReverseDnsLookup.ps1  README.md      Recon.psm1
@@ -7863,7 +7863,7 @@ We start a simple python web server in the directory where PowerView.ps1 is loca
 &#x20; Interacting With The Web
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 -m http.server 8000
+root@htb[/htb]$ python3 -m http.server 8000
 
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
