@@ -735,7 +735,7 @@ To validate if the package exists on our host, use the following command:
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ which tcpdump
+root@htb[/htb]$ which tcpdump
 ```
 
 Often it can be found in `/usr/sbin/tcpdump`. However, if the package does not exist, we can install it with:
@@ -745,7 +745,7 @@ Often it can be found in `/usr/sbin/tcpdump`. However, if the package does not e
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install tcpdump 
+root@htb[/htb]$ sudo apt install tcpdump 
 ```
 
 We can run the tcpdump package with the `--version` switch to check our install and current package version to validate our install.
@@ -755,7 +755,7 @@ We can run the tcpdump package with the `--version` switch to check our install 
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump --version
+root@htb[/htb]$ sudo tcpdump --version
 
 tcpdump version 4.9.3
 libpcap version 1.9.1 (with TPACKET_V3)
@@ -798,7 +798,7 @@ To see the complete list of switches, we can utilize the man pages:
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man tcpdump
+root@htb[/htb]$ man tcpdump
 ```
 
 Here are some examples of basic Tcpdump switch usage along with descriptions of what is happening:
@@ -808,7 +808,7 @@ Here are some examples of basic Tcpdump switch usage along with descriptions of 
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -D
+root@htb[/htb]$ sudo tcpdump -D
 
 1.eth0 [Up, Running, Connected]
 2.any (Pseudo-device that captures on all interfaces) [Up, Running]
@@ -828,7 +828,7 @@ The above command calls tcpdump using sudo privileges and lists the usable netwo
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0
+root@htb[/htb]$ sudo tcpdump -i eth0
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -844,7 +844,7 @@ In this terminal, we are calling tcpdump and selecting the interface eth0 to cap
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 -nn
+root@htb[/htb]$ sudo tcpdump -i eth0 -nn
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -865,7 +865,7 @@ When utilizing the `-e` switch, we are tasking tcpdump to include the ethernet h
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 -e
+root@htb[/htb]$ sudo tcpdump -i eth0 -e
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -882,7 +882,7 @@ By issuing the `-X` switch, we can see the packet a bit clearer now. We get an A
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 -X
+root@htb[/htb]$ sudo tcpdump -i eth0 -X
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -913,7 +913,7 @@ Pay attention to the level of detail in the output above. We will notice that we
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 -nnvXX
+root@htb[/htb]$ sudo tcpdump -i eth0 -nnvXX
 
 tcpdump: listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 11:13:59.149599 IP (tos 0x0, ttl 64, id 24075, offset 0, flags [DF], proto TCP (6), length 89)
@@ -988,7 +988,7 @@ Using `-w` will write our capture to a file. Keep in mind that as we capture tra
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 -w ~/output.pcap
+root@htb[/htb]$ sudo tcpdump -i eth0 -w ~/output.pcap
 
 tcpdump: listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 10 packets captured
@@ -1003,7 +1003,7 @@ This capture above will generate the output to a file called `output.pcap`. When
 &#x20; Tcpdump Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -r ~/output.pcap
+root@htb[/htb]$ sudo tcpdump -r ~/output.pcap
 
 reading from file /home/trey/output.pcap, link-type EN10MB (Ethernet), snapshot length 262144
 11:15:40.321509 IP 172.16.146.2.57236 > ec2-99-80-22-207.eu-west-1.compute.amazonaws.com.https: Flags [P.], seq 2751910362:2751910399, ack 946558143, win 501, options [nop,nop,TS val 1368866401 ecr 65790024], length 37
@@ -1058,8 +1058,8 @@ With these filters, we can filter the network traffic on most properties to faci
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: host [IP]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 host 172.16.146.2
+root@htb[/htb]$ ### Syntax: host [IP]
+root@htb[/htb]$ sudo tcpdump -i eth0 host 172.16.146.2
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -1077,8 +1077,8 @@ This filter is often used when we want to examine only a specific host or server
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: src/dst [host|net|port] [IP|Network Range|Port]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 src host 172.16.146.2
+root@htb[/htb]$ ### Syntax: src/dst [host|net|port] [IP|Network Range|Port]
+root@htb[/htb]$ sudo tcpdump -i eth0 src host 172.16.146.2
   
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -1101,7 +1101,7 @@ Source and destination allow us to work with the directions of communication. Fo
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 tcp src port 80
+root@htb[/htb]$ sudo tcpdump -i eth0 tcp src port 80
 
 06:17:08.222534 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [S.], seq 290218379, ack 951057940, win 5840, options [mss 1380,nop,nop,sackOK], length 0
 06:17:08.783340 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [.], ack 480, win 6432, length 0
@@ -1119,7 +1119,7 @@ Notice now that we only see one side of the conversation? This is because we are
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 dest net 172.16.146.0/24
+root@htb[/htb]$ sudo tcpdump -i eth0 dest net 172.16.146.0/24
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -1142,8 +1142,8 @@ This filter can utilize the common protocol name or protocol number for any IP, 
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: [tcp/udp/icmp]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 udp
+root@htb[/htb]$ ### Syntax: [tcp/udp/icmp]
+root@htb[/htb]$ sudo tcpdump -i eth0 udp
 
 06:17:09.864896 IP dialin-145-254-160-237.pools.arcor-ip.net.3009 > 145.253.2.203.domain: 35+ A? pagead2.googlesyndication.com. (47)
 06:17:10.225414 IP 145.253.2.203.domain > dialin-145-254-160-237.pools.arcor-ip.net.3009: 35 4/0/0 CNAME pagead2.google.com., CNAME pagead.google.akadns.net., A 216.239.59.104, A 216.239.59.99 (146)
@@ -1154,8 +1154,8 @@ AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 udp
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: proto [protocol number]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 proto 17
+root@htb[/htb]$ ### Syntax: proto [protocol number]
+root@htb[/htb]$ sudo tcpdump -i eth0 proto 17
 
 06:17:09.864896 IP dialin-145-254-160-237.pools.arcor-ip.net.3009 > 145.253.2.203.domain: 35+ A? pagead2.googlesyndication.com. (47)
 06:17:10.225414 IP 145.253.2.203.domain > dialin-145-254-160-237.pools.arcor-ip.net.3009: 35 4/0/0 CNAME pagead2.google.com., CNAME pagead.google.akadns.net., A 216.239.59.104, A 216.239.59.99 (146)
@@ -1170,8 +1170,8 @@ With protocols that use both TCP and UDP for different functions, such as DNS, w
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: port [port number]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 tcp port 443
+root@htb[/htb]$ ### Syntax: port [port number]
+root@htb[/htb]$ sudo tcpdump -i eth0 tcp port 443
 
 06:17:07.311224 IP dialin-145-254-160-237.pools.arcor-ip.net.3372 > 65.208.228.223.http: Flags [S], seq 951057939, win 8760, options [mss 1460,nop,nop,sackOK], length 0
 06:17:08.222534 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [S.], seq 290218379, ack 951057940, win 5840, options [mss 1380,nop,nop,sackOK], length 0
@@ -1200,8 +1200,8 @@ The `portrange` filter, as seen below, allows us to see everything from within t
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: portrange [portrange 0-65535]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 portrange 0-1024
+root@htb[/htb]$ ### Syntax: portrange [portrange 0-65535]
+root@htb[/htb]$ sudo tcpdump -i eth0 portrange 0-1024
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -1224,8 +1224,8 @@ Next, we are looking for any packet less than 64 bytes. From the following outpu
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: less/greater [size in bytes]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 less 64
+root@htb[/htb]$ ### Syntax: less/greater [size in bytes]
+root@htb[/htb]$ sudo tcpdump -i eth0 less 64
 
 06:17:07.311224 IP dialin-145-254-160-237.pools.arcor-ip.net.3372 > 65.208.228.223.http: Flags [S], seq 951057939, win 8760, options [mss 1460,nop,nop,sackOK], length 0
 06:17:08.222534 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [S.], seq 290218379, ack 951057940, win 5840, options [mss 1380,nop,nop,sackOK], length 0
@@ -1258,7 +1258,7 @@ Above was an excellent example of using `less`. We can utilize the modifier `gre
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 greater 500
+root@htb[/htb]$ sudo tcpdump -i eth0 greater 500
 
 21:12:43.548353 IP 192.168.0.1.telnet > 192.168.0.2.1550: Flags [P.], seq 401695766:401696254, ack 2579866052, win 17376, options [nop,nop,TS val 2467382 ecr 10234152], length 488
 E...;...@.................d.......C........
@@ -1281,8 +1281,8 @@ known fix for it exists, include that as well.
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: and [requirement]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 host 192.168.0.1 and port 23
+root@htb[/htb]$ ### Syntax: and [requirement]
+root@htb[/htb]$ sudo tcpdump -i eth0 host 192.168.0.1 and port 23
 
 21:12:38.387203 IP 192.168.0.2.1550 > 192.168.0.1.telnet: Flags [S], seq 2579865836, win 32120, options [mss 1460,sackOK,TS val 10233636 ecr 0,nop,wscale 0], length 0
 21:12:38.389728 IP 192.168.0.1.telnet > 192.168.0.2.1550: Flags [S.], seq 401695549, ack 2579865837, win 17376, options [mss 1448,nop,wscale 0,nop,nop,TS val 2467372 ecr 10233636], length 0
@@ -1298,7 +1298,7 @@ The other modifiers, `OR` and `NOT` provide us with a way to specify multiple co
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0
+root@htb[/htb]$ sudo tcpdump -i eth0
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -1327,8 +1327,8 @@ We have a mix of different sources and destinations along with multiple protocol
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: or/|| [requirement]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -r sus.pcap icmp or host 172.16.146.1
+root@htb[/htb]$ ### Syntax: or/|| [requirement]
+root@htb[/htb]$ sudo tcpdump -r sus.pcap icmp or host 172.16.146.1
 
 reading from file sus.pcap, link-type EN10MB (Ethernet), snapshot length 262144
 14:54:03.659163 IP 172.16.146.2 > dns.google: ICMP echo request, id 51661, seq 21, length 64
@@ -1358,8 +1358,8 @@ Our traffic looks a bit different now. That is because a lot of the packets matc
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ### Syntax: not/! [requirement]
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -r sus.pcap not icmp
+root@htb[/htb]$ ### Syntax: not/! [requirement]
+root@htb[/htb]$ sudo tcpdump -r sus.pcap not icmp
 
 14:54:03.879882 ARP, Request who-has 172.16.146.1 tell 172.16.146.2, length 28
 14:54:03.880266 ARP, Reply 172.16.146.1 is-at 8a:66:5a:11:8d:64 (oui Unknown), length 46
@@ -1400,7 +1400,7 @@ Many handy options that can be used but are not always directly valuable for eve
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$sudo tcpdump -Ar telnet.pcap
+root@htb[/htb]$sudo tcpdump -Ar telnet.pcap
 
 21:12:43.528695 IP 192.168.0.1.telnet > 192.168.0.2.1550: Flags [P.], seq 157:217, ack 216, win 17376, options [nop,nop,TS val 2467382 ecr 10234022], length 60
 E..p;...@..p..............c.......C........
@@ -1435,7 +1435,7 @@ Notice how it has the ASCII values shown below each output line because of our u
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -Ar http.cap -l | grep 'mailto:*'
+root@htb[/htb]$ sudo tcpdump -Ar http.cap -l | grep 'mailto:*'
 
 reading from file http.cap, link-type EN10MB (Ethernet), snapshot length 65535
   <a href="mailto:ethereal-web[AT]ethereal.com">ethereal-web[AT]ethereal.com</a>
@@ -1453,7 +1453,7 @@ We can dig as deep as we wish into the packets we captured. It requires a bit of
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tcpdump -i eth0 'tcp[13] &2 != 0'
+root@htb[/htb]$ tcpdump -i eth0 'tcp[13] &2 != 0'
 ```
 
 This is counting to the 13th byte in the structure and looking at the 2nd bit. If it is set to 1 or ON, the SYN flag is set.
@@ -1463,7 +1463,7 @@ This is counting to the 13th byte in the structure and looking at the 2nd bit. I
 &#x20; Tcpdump Packet Filtering
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tcpdump -i eth0 'tcp[13] &2 != 0'
+root@htb[/htb]$ sudo tcpdump -i eth0 'tcp[13] &2 != 0'
 
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
@@ -1728,7 +1728,7 @@ Wireshark requires the following for use:
 &#x20; Analysis with Wireshark
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ which wireshark
+root@htb[/htb]$ which wireshark
 ```
 
 If the package does not exist, (It can often be found in `/usr/sbin/wireshark`) you can install it with:
@@ -1738,7 +1738,7 @@ If the package does not exist, (It can often be found in `/usr/sbin/wireshark`) 
 &#x20; Analysis with Wireshark
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt install wireshark 
+root@htb[/htb]$ sudo apt install wireshark 
 ```
 
 ***
@@ -1770,7 +1770,7 @@ Both options have their merits. TShark is a purpose-built terminal tool based on
 &#x20; Analysis with Wireshark
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ tshark -h
+root@htb[/htb]$ tshark -h
 ```
 
 **TShark Basic Usage**
@@ -1782,11 +1782,11 @@ TShark can use filters for protocols, common items like hosts and ports, and eve
 &#x20; Analysis with Wireshark
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ which tshark
+root@htb[/htb]$ which tshark
 
-AbdulrahmanTamim@htb[/htb]$ tshark -D
+root@htb[/htb]$ tshark -D
 
-AbdulrahmanTamim@htb[/htb]$ tshark -i 1 -w /tmp/test.pcap
+root@htb[/htb]$ tshark -i 1 -w /tmp/test.pcap
 
 Capturing on 'Wi-Fi: en0'
 484
@@ -1799,7 +1799,7 @@ With the basic string in the command line above, we utilize TShark to capture on
 &#x20; Analysis with Wireshark
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tshark -i eth0 -w /tmp/test.pcap
+root@htb[/htb]$ sudo tshark -i eth0 -w /tmp/test.pcap
 ```
 
 **Applying Filters**
@@ -1807,7 +1807,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo tshark -i eth0 -w /tmp/test.pcap
 &#x20; Analysis with Wireshark
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo tshark -i eth0 -f "host 172.16.146.2"
+root@htb[/htb]$ sudo tshark -i eth0 -f "host 172.16.146.2"
 
 Capturing on 'eth0'
     1 0.000000000 172.16.146.2 → 172.16.146.1 DNS 70 Standard query 0x0804 A github.com
