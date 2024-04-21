@@ -4,7 +4,14 @@
 
 ## TCM Security
 
-* [Page 1](tcm-security/page-1.md)
+* [Practical Windows Forensics](tcm-security/page-1.md)
+* [Practical Ethical Hacking](tcm-security/practical-ethical-hacking.md)
+* [Windows Privilege Escalation For Beginners](tcm-security/windows-privilege-escalation-for-beginners.md)
+* [Practical Web Application Security & Testing](tcm-security/practical-web-application-security-and-testing.md)
+* [Open-Source Intelligence (OSINT) Fundamentals](tcm-security/open-source-intelligence-osint-fundamentals.md)
+* [Mobile Application Penetration Testing](tcm-security/mobile-application-penetration-testing.md)
+* [Practical API Hacking](tcm-security/practical-api-hacking.md)
+* [Beginner's Guide to IoT and Hardware Hacking](tcm-security/beginners-guide-to-iot-and-hardware-hacking.md)
 
 ## 📚 HackTheBox Academy
 
