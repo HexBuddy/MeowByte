@@ -97,7 +97,7 @@ During this process, the recursive resolver stores the received information from
 Thirteen root name servers can be reached under IPv4 and IPv6 addresses. An international non-profit organization maintains these root name servers called the Internet Corporation for Assigned Names and Numbers (`ICANN`). The zone files of these contain all domain names and IP addresses of the TLDs. Every recursive resolver knows these 13 root name servers. These are the first stations in the search for DNS entries for each recursive resolver. Each of these root name servers accepts a recursive resolver query that contains a domain name. The domains' extension answers the query and forwards the recursive resolver to the corresponding TLD name server. We find the 13 root name servers on the domain `root-servers.net` with the corresponding letter as a subdomain.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig ns root-servers.net | grep NS | sort -u                                                                          
+root@htb[/htb]$ dig ns root-servers.net | grep NS | sort -u                                                                          
 
 ; EDNS: version: 0, flags:; udp: 4096
 ;; ANSWER SECTION:
@@ -247,7 +247,7 @@ We want to automate the enumeration process for potential zone transfers on misc
 &#x20; DNS Records and Queries
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig NS inlanefreight.com
+root@htb[/htb]$ dig NS inlanefreight.com
 
 <SNIP>
 ;; ANSWER SECTION:
@@ -262,7 +262,7 @@ inlanefreight.com.	60	IN	NS	ns1.inlanefreight.com.
 &#x20; DNS Records and Queries
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig SOA inlanefreight.com
+root@htb[/htb]$ dig SOA inlanefreight.com
 
 <SNIP>
 ;; ANSWER SECTION:
@@ -274,7 +274,7 @@ inlanefreight.com.	879	IN	SOA	ns-161.awsdns-20.com. awsdns-hostmaster.amazon.com
 **NSLOOKUP - SPF**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nslookup -type=SPF inlanefreight.com
+root@htb[/htb]$ nslookup -type=SPF inlanefreight.com
 
 Non-authoritative answer:
 inlanefreight.com	rdata_99 = "v=spf1 include:_spf.google.com include:mail1.inlanefreight.com include:google.com ~all"
@@ -283,7 +283,7 @@ inlanefreight.com	rdata_99 = "v=spf1 include:_spf.google.com include:mail1.inlan
 **NSLOOKUP - DMARC**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nslookup -type=txt _dmarc.inlanefreight.com
+root@htb[/htb]$ nslookup -type=txt _dmarc.inlanefreight.com
 
 Non-authoritative answer:
 _dmarc.inlanefreight.com	text = "v=DMARC1; p=reject; rua=mailto:master@inlanefreight.com; ruf=mailto:master@inlanefreight.com; fo=1;"
@@ -370,7 +370,7 @@ Also, we can use public services such as [VirusTotal](https://www.virustotal.com
 &#x20; DNS Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 ctfr.py -d inlanefreight.com
+root@htb[/htb]$ python3 ctfr.py -d inlanefreight.com
 
           ____ _____ _____ ____  
          / ___|_   _|  ___|  _ \ 
@@ -402,7 +402,7 @@ videoconf.inlanefreight.com
 &#x20; DNS Enumeration
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ dig axfr inlanefreight.com @10.129.2.67
+root@htb[/htb]$ dig axfr inlanefreight.com @10.129.2.67
 
 ; <<>> DiG 9.16.1-Ubuntu <<>> axfr inlanefreight.com @10.129.2.67
 ;; global options: +cmd
@@ -480,7 +480,7 @@ After we have installed the module, we can import it. This module offers us the 
 &#x20; Python Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ipython
+root@htb[/htb]$ ipython
 
 In [1]: import dns.zone as dz
 
@@ -631,7 +631,7 @@ The corresponding NS servers we found by using the following code:
 &#x20; Python Modules
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3
+root@htb[/htb]$ python3
 
 >>> import dns.resolver
 >>> 
@@ -1007,8 +1007,8 @@ if __name__=="__main__":
 **Make the Script Executable & Execute**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chmod +x dns-axfr.py
-AbdulrahmanTamim@htb[/htb]$ ./dns-axfr.py
+root@htb[/htb]$ chmod +x dns-axfr.py
+root@htb[/htb]$ ./dns-axfr.py
 
 [*] Successful Zone Transfer from ns1.inlanefreight.com
 -------- Found Subdomains:
@@ -1231,8 +1231,8 @@ First of all, we can give this script the appropriate privileges necessary to ru
 &#x20; Argparse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chmod +x dns-axfr.py
-AbdulrahmanTamim@htb[/htb]$ ./dns-axfr.py
+root@htb[/htb]$ chmod +x dns-axfr.py
+root@htb[/htb]$ ./dns-axfr.py
 
 usage: dns-axfr.py [options] -d <DOMAIN>
 dns-axfr.py: error: the following arguments are required: -d
@@ -1245,7 +1245,7 @@ So when we test if we have set everything and do not give the script any argumen
 &#x20; Argparse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./dns-axfr.py -h
+root@htb[/htb]$ ./dns-axfr.py -h
 
 usage: dns-axfr.py [options] -d <DOMAIN>
 
@@ -1266,7 +1266,7 @@ Now we can also check if the `version` for this script is displayed as desired.
 &#x20; Argparse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./dns-axfr.py -v
+root@htb[/htb]$ ./dns-axfr.py -v
 
 DNS-AXFR - v1.0
 ```
@@ -1278,7 +1278,7 @@ After we have verified that our script works, we can deploy it and test it on ou
 &#x20; Argparse
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./dns-axfr.py -d inlanefreight.com -n ns1.inlanefreight.com,ns2.inlanefreight.com
+root@htb[/htb]$ ./dns-axfr.py -d inlanefreight.com -n ns1.inlanefreight.com,ns2.inlanefreight.com
 
 [*] Successful Zone Transfer from ns1.inlanefreight.com
 [*] Successful Zone Transfer from ns2.inlanefreight.com
