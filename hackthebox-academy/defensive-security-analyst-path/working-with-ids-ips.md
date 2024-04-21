@@ -72,7 +72,7 @@ Once we've accessed the deployed Suricata instance over SSH, we can get an overv
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls -lah /etc/suricata/rules/
+root@htb[/htb]$ ls -lah /etc/suricata/rules/
 total 27M
 drwxr-xr-x 2 root root 4.0K Jun 28 12:10 .
 drwxr-xr-x 3 root root 4.0K Jul  4 14:44 ..
@@ -117,7 +117,7 @@ The rules can be seen in a straightforward list format and be inspected to under
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ more /etc/suricata/rules/emerging-malware.rules
+root@htb[/htb]$ more /etc/suricata/rules/emerging-malware.rules
 # Emerging Threats
 #
 # This distribution may contain rules under two different licenses.
@@ -181,7 +181,7 @@ These variables can be defined in the `suricata.yaml` configuration file.
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ more /etc/suricata/suricata.yaml
+root@htb[/htb]$ more /etc/suricata/suricata.yaml
 %YAML 1.1
 ---
 
@@ -226,7 +226,7 @@ Finally, to configure Suricata to load signatures from a custom rules file, such
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo vim /etc/suricata/suricata.yaml
+root@htb[/htb]$ sudo vim /etc/suricata/suricata.yaml
 ```
 
 1. Add `/home/htb-student/local.rules` to `rule-files:`
@@ -244,7 +244,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ suricata -r /home/htb-student/pcaps/suspicious.pcap
+    root@htb[/htb]$ suricata -r /home/htb-student/pcaps/suspicious.pcap
     5/7/2023 -- 13:35:51 - <Notice> - This is Suricata version 6.0.13 RELEASE running in USER mode
     5/7/2023 -- 13:35:51 - <Notice> - all 3 packet processing threads, 4 management threads initialized, engine started.
     5/7/2023 -- 13:35:51 - <Notice> - Signal Received.  Stopping engine.
@@ -256,7 +256,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ suricata -r /home/htb-student/pcaps/suspicious.pcap -k none -l .
+    root@htb[/htb]$ suricata -r /home/htb-student/pcaps/suspicious.pcap -k none -l .
     5/7/2023 -- 13:37:43 - <Notice> - This is Suricata version 6.0.13 RELEASE running in USER mode
     5/7/2023 -- 13:37:43 - <Notice> - all 3 packet processing threads, 4 management threads initialized, engine started.
     5/7/2023 -- 13:37:43 - <Notice> - Signal Received.  Stopping engine.
@@ -267,7 +267,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ ifconfig
+    root@htb[/htb]$ ifconfig
     ens160: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 10.129.205.193  netmask 255.255.0.0  broadcast 10.129.255.255
         inet6 dead:beef::250:56ff:feb9:68dc  prefixlen 64  scopeid 0x0<global>
@@ -291,7 +291,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ sudo suricata --pcap=ens160 -vv
+    root@htb[/htb]$ sudo suricata --pcap=ens160 -vv
     [sudo] password for htb-student:
     5/7/2023 -- 13:44:01 - <Notice> - This is Suricata version 6.0.13 RELEASE running in SYSTEM mode
     5/7/2023 -- 13:44:01 - <Info> - CPUs/cores online: 2
@@ -347,7 +347,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ sudo iptables -I FORWARD -j NFQUEUE
+    root@htb[/htb]$ sudo iptables -I FORWARD -j NFQUEUE
     ```
 
     Then, we should be able to execute the following.
@@ -355,7 +355,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ sudo suricata -q 0
+    root@htb[/htb]$ sudo suricata -q 0
     5/7/2023 -- 13:52:38 - <Notice> - This is Suricata version 6.0.13 RELEASE running in SYSTEM mode
     5/7/2023 -- 13:52:39 - <Notice> - all 4 packet processing threads, 4 management threads initialized, engine started.
     ```
@@ -365,7 +365,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ sudo suricata -i ens160
+    root@htb[/htb]$ sudo suricata -i ens160
     5/7/2023 -- 13:53:35 - <Notice> - This is Suricata version 6.0.13 RELEASE running in SYSTEM mode
     5/7/2023 -- 13:53:35 - <Notice> - all 1 packet processing threads, 4 management threads initialized, engine started.
     ```
@@ -373,7 +373,7 @@ With Suricata inputs, we can experiment with both offline and live input:
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ sudo suricata --af-packet=ens160
+    root@htb[/htb]$ sudo suricata --af-packet=ens160
     5/7/2023 -- 13:54:34 - <Notice> - This is Suricata version 6.0.13 RELEASE running in SYSTEM mode
     5/7/2023 -- 13:54:34 - <Notice> - all 1 packet processing threads, 4 management threads initialized, engine started.
     ```
@@ -383,7 +383,7 @@ To observe Suricata dealing with "live" traffic, let's establish an additional S
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo  tcpreplay -i ens160 /home/htb-student/pcaps/suspicious.pcap
+root@htb[/htb]$ sudo  tcpreplay -i ens160 /home/htb-student/pcaps/suspicious.pcap
 ^C User interrupt...
 sendpacket_abort
 Actual: 730 packets (663801 bytes) sent in 22.84 seconds
@@ -409,7 +409,7 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ less /var/log/suricata/old_eve.json
+    root@htb[/htb]$ less /var/log/suricata/old_eve.json
     {"timestamp":"2023-07-06T08:34:24.526482+0000","event_type":"stats","stats":{"uptime":8,"capture":{"kernel_packets":4,"kernel_drops":0,"errors":0},"decoder":{"pkts":3,"bytes":212,"invalid":0,"ipv4":0,"ipv6":1,"ethernet":3,"chdlc":0,"raw":0,"null":0,"sll":0,"tcp":0,"udp":0,"sctp":0,"icmpv4":0,"icmpv6":1,"ppp":0,"pppoe":0,"geneve":0,"gre":0,"vlan":0,"vlan_qinq":0,"vxlan":0,"vntag":0,"ieee8021ah":0,"teredo":0,"ipv4_in_ipv6":0,"ipv6_in_ipv6":0,"mpls":0,"avg_pkt_size":70,"max_pkt_size":110,"max_mac_addrs_src":0,"max_mac_addrs_dst":0,"erspan":0,"event":{"ipv4":{"pkt_too_small":0,"hlen_too_small":0,"iplen_smaller_than_hlen":0,"trunc_pkt":0,"opt_invalid":0,"opt_invalid_len":0,"opt_malformed":0,"opt_pad_required":0,"opt_eol_required":0,"opt_duplicate":0,"opt_unknown":0,"wrong_ip_version":0,"icmpv6":0,"frag_pkt_too_large":0,"frag_overlap":0,"frag_ignored":0},"icmpv4":{"pkt_too_small":0,"unknown_type":0,"unknown_code":0,"ipv4_trunc_pkt":0,"ipv4_unknown_ver":0},"icmpv6":{"unknown_type":0,"unknown_code":0,"pkt_too_small":0,"ipv6_unknown_version":0,"ipv6_trunc_pkt":0,"mld_message_with_invalid_hl":0,"unassigned_type":0,"experimentation_type":0},"ipv6":{"pkt_too_small":0,"trunc_pkt":0,"trunc_exthdr":0,"exthdr_dupl_fh":0,"exthdr_useless_fh":0,"exthdr_dupl_rh":0,"exthdr_dupl_hh":0,"exthdr_dupl_dh":0,"exthdr_dupl_ah":0,"exthdr_dupl_eh":0,"exthdr_invalid_optlen":0,"wrong_ip_version":0,"exthdr_ah_res_not_null":0,"hopopts_unknown_opt":0,"hopopts_only_padding":0,"dstopts_unknown_opt":0,"dstopts_only_padding":0,"rh_type_0":0,"zero_len_padn":0,"fh_non_zero_reserved_field":0,"data_after_none_header":0,"unknown_next_header":0,"icmpv4":0,"frag_pkt_too_large":0,"frag_overlap":0,"frag_invalid_length":0,"frag_ignored":0,"ipv4_in_ipv6_too_small":0,"ipv4_in_ipv6_wrong_version":0,"ipv6_in_ipv6_too_small":0,"ipv6_in_ipv6_wrong_version":0},"tcp":{"pkt_too_small":0,"hlen_too_small":0,"invalid_optlen":0,"opt_invalid_len":0,"opt_duplicate":0},"udp":{"pkt_too_small":0,"hlen_too_small":0,"hlen_invalid":0,"len_invalid":0},"sll":{"pkt_too_small":0},"ethernet":{"pkt_too_small":0},"ppp":{"pkt_too_small":0,"vju_pkt_too_small":0,"ip4_pkt_too_small":0,"ip6_pkt_too_small":0,"wrong_type":0,"unsup_proto":0},"pppoe":{"pkt_too_small":0,"wrong_code":0,"malformed_tags":0},"gre":{"pkt_too_small":0,"wrong_version":0,"version0_recur":0,"version0_flags":0,"version0_hdr_too_big":0,"version0_malformed_sre_hdr":0,"version1_chksum":0,"version1_route":0,"version1_ssr":0,"version1_recur":0,"version1_flags":0,"version1_no_key":0,"version1_wrong_protocol":0,"version1_malformed_sre_hdr":0,"version1_hdr_too_big":0},"vlan":{"header_too_small":0,"unknown_type":0,"too_many_layers":0},"ieee8021ah":{"header_too_small":0},"vntag":{"header_too_small":0,"unknown_type":0},"ipraw":{"invalid_ip_version":0},"ltnull":{"pkt_too_small":0,"unsupported_type":0},"sctp":{"pkt_too_small":0},"mpls":{"header_too_small":0,"pkt_too_small":0,"bad_label_router_alert":0,"bad_label_implicit_null":0,"bad_label_reserved":0,"unknown_payload_type":0},"vxlan":{"unknown_payload_type":0},"geneve":{"unknown_payload_type":0},"erspan":{"header_too_small":0,"unsupported_version":0,"too_many_vlan_layers":0},"dce":{"pkt_too_small":0},"chdlc":{"pkt_too_small":0}},"too_many_layers":0},"tcp":{"syn":0,"synack":0,"rst":0,"sessions":0,"ssn_memcap_drop":0,"pseudo":0,"pseudo_failed":0,"invalid_checksum":0,"midstream_pickups":0,"pkt_on_wrong_thread":0,"segment_memcap_drop":0,"stream_depth_reached":0,"reassembly_gap":0,"overlap":0,"overlap_diff_data":0,"insert_data_normal_fail":0,"insert_data_overlap_fail":0,"insert_list_fail":0,"memuse":606208,"reassembly_memuse":98304},"flow":{"memcap":0,"tcp":0,"udp":0,"icmpv4":0,"icmpv6":1,"tcp_reuse":0,"get_used":0,"get_used_eval":0,"get_used_eval_reject":0,"get_used_eval_busy":0,"get_used_failed":0,"wrk":{"spare_sync_avg":100,"spare_sync":1,"spare_sync_incomplete":0,"spare_sync_empty":0,"flows_evicted_needs_work":0,"flows_evicted_pkt_inject":0,"flows_evicted":0,"flows_injected":0},"mgr":{"full_hash_pass":1,"closed_pruned":0,"new_pruned":0,"est_pruned":0,"bypassed_pruned":0,"rows_maxlen":0,"flows_checked":0,"flows_notimeout":0,"flows_timeout":0,"flows_timeout_inuse":0,"flows_evicted":0,"flows_evicted_needs_work":0},"spare":9900,"emerg_mode_entered":0,"emerg_mode_over":0,"memuse":7394304},"defrag":{"ipv4":{"fragments":0,"reassembled":0,"timeouts":0},"ipv6":{"fragments":0,"reassembled":0,"timeouts":0},"max_frag_hits":0},"flow_bypassed":{"local_pkts":0,"local_bytes":0,"local_capture_pkts":0,"local_capture_bytes":0,"closed":0,"pkts":0,"bytes":0},"detect":{"engines":[{"id":0,"last_reload":"2023-07-06T08:34:16.502768+0000","rules_loaded":1,"rules_failed":0}],"alert":0,"alert_queue_overflow":0,"alerts_suppressed":0},"app_layer":{"flow":{"http":0,"ftp":0,"smtp":0,"tls":0,"ssh":0,"imap":0,"smb":0,"dcerpc_tcp":0,"dns_tcp":0,"nfs_tcp":0,"ntp":0,"ftp-data":0,"tftp":0,"ikev2":0,"krb5_tcp":0,"dhcp":0,"snmp":0,"sip":0,"rfb":0,"mqtt":0,"rdp":0,"failed_tcp":0,"dcerpc_udp":0,"dns_udp":0,"nfs_udp":0,"krb5_udp":0,"failed_udp":0},"tx":{"http":0,"ftp":0,"smtp":0,"tls":0,"ssh":0,"imap":0,"smb":0,"dcerpc_tcp":0,"dns_tcp":0,"nfs_tcp":0,"ntp":0,"ftp-data":0,"tftp":0,"ikev2":0,"krb5_tcp":0,"dhcp":0,"snmp":0,"sip":0,"rfb":0,"mqtt":0,"rdp":0,"dcerpc_udp":0,"dns_udp":0,"nfs_udp":0,"krb5_udp":0},"expectations":0},"http":{"memuse":0,"memcap":0},"ftp":{"memuse":0,"memcap":0},"file_store":{"open_files":0}}}
     ---SNIP---
     ```
@@ -419,7 +419,7 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ cat /var/log/suricata/old_eve.json | jq -c 'select(.event_type == "alert")'
+    root@htb[/htb]$ cat /var/log/suricata/old_eve.json | jq -c 'select(.event_type == "alert")'
     {"timestamp":"2023-07-06T08:34:35.003163+0000","flow_id":1959965318909019,"in_iface":"ens160","event_type":"alert","src_ip":"10.9.24.101","src_port":51833,"d est_ip":"10.9.24.1","dest_port":53,"proto":"UDP","tx_id":0,"alert":{"action":"allowed","gid":1,"signature_id":1,"rev":0,"signature":"Known bad DNS lookup, possible Dridex infection","category":"","severity":3},"dns":{"query":[{"type":"query","id":6430,"rrname":"adv.epostoday.uk","rrtype":"A","tx_id":0,"opcode":0}    ]},"app_proto":"dns","flow":{"pkts_toserver":1,"pkts_toclient":0,"bytes_toserver":76,"bytes_toclient":0,"start":"2023-07-06T08:34:35.003163+0000"}}
     ```
 
@@ -428,7 +428,7 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ cat /var/log/suricata/old_eve.json | jq -c 'select(.event_type == "dns")' | head -1 | jq .
+    root@htb[/htb]$ cat /var/log/suricata/old_eve.json | jq -c 'select(.event_type == "dns")' | head -1 | jq .
     {
      "timestamp": "2023-07-06T08:34:35.003163+0000",
      "flow_id": 1959965318909019,
@@ -460,7 +460,7 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ cat /var/log/suricata/old_fast.log
+    root@htb[/htb]$ cat /var/log/suricata/old_fast.log
     07/06/2023-08:34:35.003163  [**] [1:1:0] Known bad DNS lookup, possible Dridex infection [**] [Classification: (null)] [Priority: 3] {UDP} 10.9.24.101:51833 -> 10.9.24.1:53
     ```
 3.  `stats.log`: This is a human-readable statistics log, which can be particularly useful while debugging Suricata deployments. Try inspecting the content of `old_stats.log` residing at `/var/log/suricata` as follows.
@@ -468,7 +468,7 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
     &#x20;&#x20;
 
     ```shell-session
-    AbdulrahmanTamim@htb[/htb]$ cat /var/log/suricata/old_stats.log
+    root@htb[/htb]$ cat /var/log/suricata/old_stats.log
     ------------------------------------------------------------------------------------
     Date: 7/6/2023 -- 08:34:24 (uptime: 0d, 00h 00m 08s)
     ------------------------------------------------------------------------------------
@@ -536,7 +536,7 @@ Let's run Suricata on the `/home/htb-student/pcaps/vm-2.pcap` file.
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ suricata -r /home/htb-student/pcaps/vm-2.pcap
+root@htb[/htb]$ suricata -r /home/htb-student/pcaps/vm-2.pcap
 7/7/2023 -- 06:25:57 - <Notice> - This is Suricata version 6.0.13 RELEASE running in USER mode
 7/7/2023 -- 06:25:57 - <Notice> - all 3 packet processing threads, 4 management threads initialized, engine started.
 7/7/2023 -- 06:25:57 - <Notice> - Signal Received.  Stopping engine.
@@ -548,8 +548,8 @@ We will notice that `eve.json`, `fast.log`, `stats.log`, and `suricata.log` were
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cd filestore
-AbdulrahmanTamim@htb[/htb]$ find . -type f
+root@htb[/htb]$ cd filestore
+root@htb[/htb]$ find . -type f
 ./fb/fb20d18d00c806deafe14859052072aecfb9f46be6210acfce80289740f2e20e
 ./21/214306c98a3483048d6a69eec6bf3b50497363bc2c98ed3cd954203ec52455e5
 ./21/21742fc621f83041db2e47b0899f5aea6caa00a4b67dbff0aae823e6817c5433
@@ -577,8 +577,8 @@ If we wanted to inspect, for example, the `/21/21742fc621f83041db2e47b0899f5aea6
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cd filestore
-AbdulrahmanTamim@htb[/htb]$ xxd ./21/21742fc621f83041db2e47b0899f5aea6caa00a4b67dbff0aae823e6817c5433 | head
+root@htb[/htb]$ cd filestore
+root@htb[/htb]$ xxd ./21/21742fc621f83041db2e47b0899f5aea6caa00a4b67dbff0aae823e6817c5433 | head
 00000000: 4d5a 9000 0300 0000 0400 0000 ffff 0000  MZ..............
 00000010: b800 0000 0000 0000 4000 0000 e907 0000  ........@.......
 00000020: 0000 0000 0000 0000 0000 0000 0000 0000  ................
@@ -611,7 +611,7 @@ Proceed to execute the following `kill` command, which will signal the Suricata 
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo kill -usr2 $(pidof suricata)
+root@htb[/htb]$ sudo kill -usr2 $(pidof suricata)
 ```
 
 This modification tells Suricata to check for changes in the ruleset periodically and apply them without needing to restart the service.
@@ -623,7 +623,7 @@ Updating Suricata's ruleset can be performed using the `suricata-update` tool. W
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata-update
+root@htb[/htb]$ sudo suricata-update
 6/7/2023 -- 06:46:44 - <Info> -- Using data-directory /var/lib/suricata.
 6/7/2023 -- 06:46:44 - <Info> -- Using Suricata configuration /etc/suricata/suricata.yaml
 6/7/2023 -- 06:46:44 - <Info> -- Using /etc/suricata/rules for Suricata provided rules.
@@ -675,7 +675,7 @@ Moving forward, let's execute the command provided below to generate a comprehen
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata-update list-sources
+root@htb[/htb]$ sudo suricata-update list-sources
 6/7/2023 -- 06:59:29 - <Info> -- Using data-directory /var/lib/suricata.
 6/7/2023 -- 06:59:29 - <Info> -- Using Suricata configuration /etc/suricata/suricata.yaml
 6/7/2023 -- 06:59:29 - <Info> -- Using /etc/suricata/rules for Suricata provided rules.
@@ -750,7 +750,7 @@ Next, let's proceed with executing the following command to retrieve and enable 
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata-update enable-source et/open
+root@htb[/htb]$ sudo suricata-update enable-source et/open
 6/7/2023 -- 07:02:08 - <Info> -- Using data-directory /var/lib/suricata.
 6/7/2023 -- 07:02:08 - <Info> -- Using Suricata configuration /etc/suricata/suricata.yaml
 6/7/2023 -- 07:02:08 - <Info> -- Using /etc/suricata/rules for Suricata provided rules.
@@ -764,7 +764,7 @@ Lastly, let's reissue the `suricata-update` command to load the newly acquired r
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata-update
+root@htb[/htb]$ sudo suricata-update
 ```
 
 A Suricata service restart may also be required.
@@ -772,7 +772,7 @@ A Suricata service restart may also be required.
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo systemctl restart suricata
+root@htb[/htb]$ sudo systemctl restart suricata
 ```
 
 ### Validating Suricata's Configuration
@@ -784,7 +784,7 @@ Here is how we can do this.
 &#x20; Suricata Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata -T -c /etc/suricata/suricata.yaml
+root@htb[/htb]$ sudo suricata -T -c /etc/suricata/suricata.yaml
 6/7/2023 -- 07:13:29 - <Info> - Running suricata under test mode
 6/7/2023 -- 07:13:29 - <Notice> - This is Suricata version 6.0.13 RELEASE running in SYSTEM mode
 6/7/2023 -- 07:13:29 - <Notice> - Configuration provided was successfully loaded. Exiting.
@@ -921,7 +921,7 @@ Please wait for approximately 5-6 minutes before initiating a connection using R
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution /relax-order-checks +glyph-cache
+root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution /relax-order-checks +glyph-cache
 ```
 
 Now, we will explore several examples of Suricata rule development to gain a solid understanding of the different approaches we can take and the structure of a rule.
@@ -961,7 +961,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/psempire.pcap -l . -k none
+root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/psempire.pcap -l . -k none
  15/7/2023 -- 03:57:42 - <Notice> - This is Suricata version 4.0.0-beta1 RELEASE
 15/7/2023 -- 03:57:42 - <Notice> - all 5 packet processing threads, 4 management threads initialized, engine started.
 15/7/2023 -- 03:57:42 - <Notice> - Signal Received.  Stopping engine.
@@ -971,7 +971,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/psempire.pc
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat fast.log
+root@htb[/htb]$ cat fast.log
 11/21/2017-05:04:53.950737  [**] [1:2027512:1] ET MALWARE Possible PowerShell Empire Activity Outbound [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.56.14:50447 -> 51.15.197.127:80
 11/21/2017-05:04:01.308390  [**] [1:2027512:1] ET MALWARE Possible PowerShell Empire Activity Outbound [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.56.14:50436 -> 51.15.197.127:80
 11/21/2017-05:05:20.249515  [**] [1:2027512:1] ET MALWARE Possible PowerShell Empire Activity Outbound [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.56.14:50452 -> 51.15.197.127:80
@@ -1012,7 +1012,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k none
+root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k none
 15/7/2023 -- 04:47:15 - <Notice> - This is Suricata version 4.0.0-beta1 RELEASE
 15/7/2023 -- 04:47:15 - <Notice> - all 5 packet processing threads, 4 management threads initialized, engine started.
 15/7/2023 -- 04:47:16 - <Notice> - Signal Received.  Stopping engine.
@@ -1022,7 +1022,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pc
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat fast.log
+root@htb[/htb]$ cat fast.log
 01/21/2021-06:38:51.250048  [**] [1:3000011:0] detected by body [**] [Classification: (null)] [Priority: 1] {TCP} 157.230.93.100:80 -> 10.0.0.61:50366
 01/21/2021-06:40:55.021993  [**] [1:3000011:0] detected by body [**] [Classification: (null)] [Priority: 1] {TCP} 157.230.93.100:80 -> 10.0.0.61:50375
 01/21/2021-06:36:21.280144  [**] [1:3000011:0] detected by body [**] [Classification: (null)] [Priority: 1] {TCP} 157.230.93.100:80 -> 10.0.0.61:50358
@@ -1058,7 +1058,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k none
+root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k none
 15/7/2023 -- 05:29:19 - <Notice> - This is Suricata version 4.0.0-beta1 RELEASE
 15/7/2023 -- 05:29:19 - <Notice> - all 5 packet processing threads, 4 management threads initialized, engine started.
 15/7/2023 -- 05:29:20 - <Notice> - Signal Received.  Stopping engine.
@@ -1068,7 +1068,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pc
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat fast.log
+root@htb[/htb]$ cat fast.log
 01/21/2021-06:45:21.609212  [**] [1:3000001:0] detected by size and counter [**] [Classification: (null)] [Priority: 1] {TCP} 157.230.93.100:80 -> 10.0.0.61:
 50386
 01/21/2021-06:48:49.965761  [**] [1:3000001:0] detected by size and counter [**] [Classification: (null)] [Priority: 1] {TCP} 157.230.93.100:80 -> 10.0.0.61:
@@ -1126,7 +1126,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliver.pcap -l . -k none
+root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliver.pcap -l . -k none
 16/7/2023 -- 02:27:50 - <Notice> - This is Suricata version 4.0.0-beta1 RELEASE
 16/7/2023 -- 02:27:50 - <Notice> - all 5 packet processing threads, 4 management threads initialized, engine started.
 16/7/2023 -- 02:27:50 - <Notice> - Signal Received.  Stopping engine.
@@ -1136,7 +1136,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliver.pcap
 &#x20; Suricata Rule Development Part 1
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat fast.log
+root@htb[/htb]$ cat fast.log
 01/23/2023-15:14:46.988537  [**] [1:1000002:1] Sliver C2 Implant Detected - POST [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.4.90:50681 -> 192.168.4.85:80
 01/23/2023-15:14:47.321224  [**] [1:1000002:1] Sliver C2 Implant Detected - POST [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.4.90:50684 -> 192.168.4.85:80
 01/23/2023-15:14:48.074797  [**] [1:1000002:1] Sliver C2 Implant Detected - POST [**] [Classification: (null)] [Priority: 3] {TCP} 192.168.4.90:50687 -> 192.168.4.85:80
@@ -1196,7 +1196,7 @@ The mentioned OIDs (Object Identifiers) are part of the X.509 standard for PKI a
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Suricata on the `dridex.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/dridex.pcap -l . -k none
+root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/dridex.pcap -l . -k none
 15/7/2023 -- 20:34:11 - <Notice> - This is Suricata version 6.0.13 RELEASE running in USER mode
 15/7/2023 -- 20:34:11 - <Notice> - all 3 packet processing threads, 4 management threads initialized, engine started.
 15/7/2023 -- 20:34:11 - <Notice> - Signal Received.  Stopping engine.
@@ -1204,7 +1204,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/dridex.pcap
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat fast.log
+root@htb[/htb]$ cat fast.log
 07/09/2019-18:26:31.480302  [**] [1:2023476:5] ET MALWARE ABUSE.CH SSL Blacklist Malicious SSL certificate detected (Dridex) [**] [Classification: (null)] [P             riority: 3] {TCP} 188.166.156.241:443 -> 10.7.9.101:49206
 07/09/2019-18:26:33.937036  [**] [1:2023476:5] ET MALWARE ABUSE.CH SSL Blacklist Malicious SSL certificate detected (Dridex) [**] [Classification: (null)] [P             riority: 3] {TCP} 188.166.156.241:443 -> 10.7.9.101:49207
 07/09/2019-18:26:39.373287  [**] [1:2023476:5] ET MALWARE ABUSE.CH SSL Blacklist Malicious SSL certificate detected (Dridex) [**] [Classification: (null)] [P             riority: 3] {TCP} 188.166.156.241:443 -> 10.7.9.101:49208
@@ -1228,7 +1228,7 @@ A PCAP file named `sliverenc.pcap` containing encrypted Sliver traffic is locate
 The JA3 hash can be calculated as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ja3 -a --json /home/htb-student/pcaps/sliverenc.pcap
+root@htb[/htb]$ ja3 -a --json /home/htb-student/pcaps/sliverenc.pcap
 [
     {
         "destination_ip": "23.152.0.91",
@@ -1263,7 +1263,7 @@ AbdulrahmanTamim@htb[/htb]$ ja3 -a --json /home/htb-student/pcaps/sliverenc.pcap
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Suricata on the `sliverenc.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliverenc.pcap -l . -k none
+root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliverenc.pcap -l . -k none
 15/7/2023 -- 22:30:37 - <Notice> - This is Suricata version 6.0.13 RELEASE running in USER mode
 15/7/2023 -- 22:30:37 - <Notice> - all 3 packet processing threads, 4 management threads initialized, engine started.
 15/7/2023 -- 22:30:37 - <Notice> - Signal Received.  Stopping engine.
@@ -1271,7 +1271,7 @@ AbdulrahmanTamim@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliverenc.p
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat fast.log
+root@htb[/htb]$ cat fast.log
 10/20/2021-17:04:25.166658  [**] [1:1002:1] Sliver C2 SSL [**] [Classification: (null)] [Priority: 3] {TCP} 10.10.20.101:53225 -> 23.152.0.91:443
 10/20/2021-17:07:25.315183  [**] [1:1002:1] Sliver C2 SSL [**] [Classification: (null)] [Priority: 3] {TCP} 10.10.20.101:53231 -> 23.152.0.91:443
 10/20/2021-17:04:24.700690  [**] [1:1002:1] Sliver C2 SSL [**] [Classification: (null)] [Priority: 3] {TCP} 10.10.20.101:53222 -> 23.152.0.91:443
@@ -1341,7 +1341,7 @@ Let's browse the `snort.lua` file residing in this section's target as follows.
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo more /root/snorty/etc/snort/snort.lua
+root@htb[/htb]$ sudo more /root/snorty/etc/snort/snort.lua
 ---------------------------------------------------------------------------
 -- Snort++ configuration
 ---------------------------------------------------------------------------
@@ -1400,7 +1400,7 @@ Enabling and fine-tuning Snort `modules` is a significant aspect of the configur
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ snort --help-modules
+root@htb[/htb]$ snort --help-modules
 ack (ips_option): rule option to match on TCP ack numbers
 active (basic): configure responses
 address_space_selector (policy_selector): configure traffic processing based on address space
@@ -1424,7 +1424,7 @@ These modules are enabled and configured within the `snort.lua` configuration fi
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ snort --help-config arp_spoof
+root@htb[/htb]$ snort --help-config arp_spoof
 ip4 arp_spoof.hosts[].ip: host ip address
 mac arp_spoof.hosts[].mac: host mac address
 ```
@@ -1434,7 +1434,7 @@ Passing (and validating) configuration files to Snort can be done as follows.
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq
+root@htb[/htb]$ snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
 --------------------------------------------------
@@ -1559,7 +1559,7 @@ To observe Snort in action, the easiest method is to execute it against a packet
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap
 [sudo] password for htb-student:
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
@@ -1667,7 +1667,7 @@ Snort also has the capability to listen on active network interfaces. To specify
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -i ens160
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -i ens160
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
 --------------------------------------------------
@@ -1815,7 +1815,7 @@ In Snort deployments, we have flexibility in managing rules. It's possible to pl
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo vim /root/snorty/etc/snort/snort.lua
+root@htb[/htb]$ sudo vim /root/snorty/etc/snort/snort.lua
 ```
 
 &#x20; Snort Fundamentals
@@ -1863,7 +1863,7 @@ In our Snort deployment, we may encounter a significant amount of data. To provi
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ snort --list-plugins | grep logger
+root@htb[/htb]$ snort --list-plugins | grep logger
 logger::alert_csv v0 static
 logger::alert_fast v0 static
 logger::alert_full v0 static
@@ -1884,7 +1884,7 @@ Let's see an example of the `cmg` output.
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap -A cmg
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap -A cmg
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
 --------------------------------------------------
@@ -2093,7 +2093,7 @@ The same command but using a `.rules` files that may not be "included" in `snort
 &#x20; Snort Fundamentals
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap -R /home/htb-student/local.rules -A cmg
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap -R /home/htb-student/local.rules -A cmg
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
 --------------------------------------------------
@@ -2341,7 +2341,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/ursnif.pcap -A cmg
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/ursnif.pcap -A cmg
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
 --------------------------------------------------
@@ -2580,7 +2580,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/ursnif.pcap .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/ursnif.pcap .
 ```
 
 ### Snort Rule Development Example 2: Detecting Cerber
@@ -2604,7 +2604,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/cerber.pcap -A cmg
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/cerber.pcap -A cmg
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
 --------------------------------------------------
@@ -2828,7 +2828,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/cerber.pcap .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/cerber.pcap .
 ```
 
 ### Snort Rule Development Example 3: Detecting Patchwork
@@ -2853,7 +2853,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/patchwork.pcap -A cmg
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/patchwork.pcap -A cmg
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
 --------------------------------------------------
@@ -3134,7 +3134,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/patchwork.pcap .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/patchwork.pcap .
 ```
 
 ### Snort Rule Development Example 4: Detecting Patchwork (SSL)
@@ -3156,7 +3156,7 @@ The above rule is already incorporated in the `local.rules` file found in the `/
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/patchwork.pcap -A cmg
+root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/patchwork.pcap -A cmg
 
 --------------------------------------------------
 o")~   Snort++ 3.1.64.0
@@ -3508,7 +3508,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Snort Rule Development
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/patchwork.pcap .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/patchwork.pcap .
 ```
 
 
@@ -3610,13 +3610,13 @@ By analyzing connection logs (`conn.log`), we can look for patterns in outbound 
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/psempire.pcap
+root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/psempire.pcap
 ```
 
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat conn.log
+root@htb[/htb]$ cat conn.log
 #separator \x09
 #set_separator  ,
 #empty_field    (empty)
@@ -3686,7 +3686,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/psempire.pcap .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/psempire.pcap .
 ```
 
 ### Intrusion Detection With Zeek Example 2: Detecting DNS Exfiltration
@@ -3702,13 +3702,13 @@ Furthermore, Zeek’s ability to reassemble files transferred over the network (
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/dnsexfil.pcapng
+root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/dnsexfil.pcapng
 ```
 
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat dns.log
+root@htb[/htb]$ cat dns.log
 #separator \x09
 #set_separator  ,
 #empty_field    (empty)
@@ -3745,7 +3745,7 @@ Let's focus on the requested (sub)domains by leveraging `zeek-cut` as follows.
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat dns.log | /usr/local/zeek/bin/zeek-cut query | cut -d . -f1-7
+root@htb[/htb]$ cat dns.log | /usr/local/zeek/bin/zeek-cut query | cut -d . -f1-7
 safebrowsing.google.com
 456c54f2.blue.letsgohunt.online
 456c54f2.blue.letsgohunt.online
@@ -3909,7 +3909,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/dnsexfil.pcapng .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/dnsexfil.pcapng .
 ```
 
 ### Intrusion Detection With Zeek Example 3: Detecting TLS Exfiltration
@@ -3921,13 +3921,13 @@ Let's now go over an example of detecting data exfiltration over TLS.
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/tlsexfil.pcap
+root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/tlsexfil.pcap
 ```
 
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat conn.log
+root@htb[/htb]$ cat conn.log
 #separator \x09
 #set_separator  ,
 #empty_field    (empty)
@@ -3989,7 +3989,7 @@ The output is a bit tricky to analyze. Let's narrow things down by using `zeek-c
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat conn.log | /usr/local/zeek/bin/zeek-cut id.orig_h id.resp_h orig_bytes | sort | grep -v -e '^$' | grep -v '-' | datamash -g 1,2 sum 3 | sort -k 3 -rn | head -10
+root@htb[/htb]$ cat conn.log | /usr/local/zeek/bin/zeek-cut id.orig_h id.resp_h orig_bytes | sort | grep -v -e '^$' | grep -v '-' | datamash -g 1,2 sum 3 | sort -k 3 -rn | head -10
 10.0.10.100     192.168.151.181 270775912
 10.0.10.100     10.0.10.1       0
 ```
@@ -4016,7 +4016,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/tlsexfil.pcap .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/tlsexfil.pcap .
 ```
 
 ### Intrusion Detection With Zeek Example 4: Detecting PsExec
@@ -4032,13 +4032,13 @@ We can identify SMB transfers and the typical use of `PsExec` using Zeek's `smb_
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/psexec_add_user.pcap
+root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/psexec_add_user.pcap
 ```
 
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat smb_files.log
+root@htb[/htb]$ cat smb_files.log
 #separator \x09
 #set_separator  ,
 #empty_field    (empty)
@@ -4056,7 +4056,7 @@ AbdulrahmanTamim@htb[/htb]$ cat smb_files.log
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat dce_rpc.log
+root@htb[/htb]$ cat dce_rpc.log
 #separator \x09
 #set_separator  ,
 #empty_field    (empty)
@@ -4090,7 +4090,7 @@ AbdulrahmanTamim@htb[/htb]$ cat dce_rpc.log
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat smb_mapping.log
+root@htb[/htb]$ cat smb_mapping.log
 #separator \x09
 #set_separator  ,
 #empty_field    (empty)
@@ -4116,7 +4116,7 @@ We can download the PCAP file into the current directory of either Pwnbox or our
 &#x20; Intrusion Detection With Zeek
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/psexec_add_user.pcap .
+root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/psexec_add_user.pcap .
 ```
 
 
