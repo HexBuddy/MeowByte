@@ -351,7 +351,7 @@ Volatility's `help` section and `available plugins` can be seen as follows.
 &#x20; Memory Forensics
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py --help
+root@htb[/htb]$ vol.py --help
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -598,7 +598,7 @@ Profiles are essential for Volatility v2 to interpret the memory data correctly 
 &#x20; Memory Forensics
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem imageinfo                                                                   Volatility Foundation Volatility Framework 2.6.1
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem imageinfo                                                                   Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
 INFO    : volatility.debug    : Determining profile based on KDBG search...
@@ -623,7 +623,7 @@ Let's see if the suggested `Win7SP1x64` profile is correct by trying to list run
 &#x20; Memory Forensics
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 pslist
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 pslist
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -699,7 +699,7 @@ The `netscan` plugin can be used to scan for network artifacts as follows.
 &#x20; Memory Forensics
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 netscan
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 netscan
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -768,7 +768,7 @@ To find `_TCPT_OBJECT` structures using pool tag scanning, use the `connscan` co
 The `malfind` plugin can be used to identify and extract injected code and malicious payloads from the memory of a running process as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 malfind --pid=608
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 malfind --pid=608
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -820,7 +820,7 @@ Flags: CommitCharge: 128, MemCommit: 1, PrivateMemory: 1, Protection: 6
 The `handles` plugin in Volatility is used for analyzing the handles (file and object references) held by a specific process within a memory dump. Understanding the handles associated with a process can provide valuable insights during incident response and digital forensics investigations, as it reveals the resources and objects a process is interacting with. Here's how to use the handles plugin.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 handles -p 1512 --object-type=Key
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 handles -p 1512 --object-type=Key
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -856,7 +856,7 @@ Offset(V)             Pid             Handle             Access Type            
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 handles -p 1512 --object-type=File
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 handles -p 1512 --object-type=File
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -871,7 +871,7 @@ Offset(V)             Pid             Handle             Access Type            
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 handles -p 1512 --object-type=Process
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 handles -p 1512 --object-type=Process
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -885,7 +885,7 @@ Offset(V)             Pid             Handle             Access Type            
 The `svcscan` plugin in Volatility is used for listing and analyzing Windows services running on a system within a memory dump. Here's how to use the `svcscan` plugin.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 svcscan | more
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 svcscan | more
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -936,7 +936,7 @@ Binary Path: \Driver\CSC
 The `dlllist` plugin in Volatility is used for listing the dynamic link libraries (DLLs) loaded into the address space of a specific process within a memory dump. Here's how to use the `dlllist` plugin.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 dlllist -p 1512
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 dlllist -p 1512
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -1015,7 +1015,7 @@ Base                             Size          LoadCount LoadTime               
 The `hivelist` plugin in Volatility is used for listing the hives (registry files) present in the memory dump of a Windows system. Here's how to use the hivelist plugin.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 hivelist
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/Win7-2515534d.vmem --profile=Win7SP1x64 hivelist
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -1077,7 +1077,7 @@ The below screenshot shows a graphical representation of how this unlinking actu
 The `psscan` plugin is used to enumerate running processes. It scans the memory pool tags associated with each process's `EPROCESS` structure. This technique can help identify processes that may have been hidden or unlinked by rootkits, as well as processes that have been terminated but have not been removed from memory yet. This plugin can be used as follows.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/rootkit.vmem psscan
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/rootkit.vmem psscan
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -1123,7 +1123,7 @@ Offset(P)          Name                PID   PPID PDB        Time created       
 In the output below, we can see that the `pslist` plugin could not find `test.exe` which was hidden by a rootkit, but the `psscan` plugin was able to find it.
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/rootkit.vmem pslist
+root@htb[/htb]$ vol.py -f /home/htb-student/MemoryDumps/rootkit.vmem pslist
 Volatility Foundation Volatility Framework 2.6.1
 /usr/local/lib/python2.7/dist-packages/volatility/plugins/community/YingLi/ssh_agent_key.py:12: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
   from cryptography.hazmat.backends.openssl import backend
@@ -1173,7 +1173,7 @@ Let's see some examples against a memory dump named `Win7-2515534d.vmem` that re
 **Identifying IPv4 Addresses**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strings /home/htb-student/MemoryDumps/Win7-2515534d.vmem | grep -E "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
+root@htb[/htb]$ strings /home/htb-student/MemoryDumps/Win7-2515534d.vmem | grep -E "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
 ---SNIP---
 127.192.0.0/10
 212.83.154.33
@@ -1187,7 +1187,7 @@ directory server at 10.10.10.1:52860
 **Identifying Email Addresses**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strings /home/htb-student/MemoryDumps/Win7-2515534d.vmem | grep -oE "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
+root@htb[/htb]$ strings /home/htb-student/MemoryDumps/Win7-2515534d.vmem | grep -oE "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
 CPS-requests@verisign.com
 silver-certs@saunalahti.fi
 joe@freebsd.org
@@ -1248,7 +1248,7 @@ support@hex-rays.com
 **Identifying Command Prompt or PowerShell Artifacts**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ strings /home/htb-student/MemoryDumps/Win7-2515534d.vmem | grep -E "(cmd|powershell|bash)[^\s]+"
+root@htb[/htb]$ strings /home/htb-student/MemoryDumps/Win7-2515534d.vmem | grep -E "(cmd|powershell|bash)[^\s]+"
 ---SNIP---
 ComSpec=C:\WINDOWS\system32\cmd.exe
 ComSpec=C:\WINDOWS\system32\cmd.exe
