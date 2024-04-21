@@ -25,19 +25,19 @@ It is often common to automate some processes not to repeat them all the time or
 &#x20; Bourne Again Shell
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash script.sh <optional arguments>
+root@htb[/htb]$ bash script.sh <optional arguments>
 ```
 
 &#x20; Bourne Again Shell
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ sh script.sh <optional arguments>
+root@htb[/htb]$ sh script.sh <optional arguments>
 ```
 
 &#x20; Bourne Again Shell
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./script.sh <optional arguments>
+root@htb[/htb]$ ./script.sh <optional arguments>
 ```
 
 Let us look at such a script and see how they can be created to get specific results. If we execute this script and specify a domain, we see what information this script provides.
@@ -47,7 +47,7 @@ Let us look at such a script and see how they can be created to get specific res
 &#x20; Bourne Again Shell
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./CIDR.sh inlanefreight.com
+root@htb[/htb]$ ./CIDR.sh inlanefreight.com
 
 Discovered IP address(es):
 165.22.119.202
@@ -298,13 +298,13 @@ fi
 &#x20; Conditional Execution
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash if-only.sh 5
+root@htb[/htb]$ bash if-only.sh 5
 ```
 
 &#x20; Conditional Execution
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash if-only.sh 12
+root@htb[/htb]$ bash if-only.sh 12
 
 Given argument is greater than 10.
 ```
@@ -338,7 +338,7 @@ fi
 &#x20; Conditional Execution
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash if-elif-else.sh 5
+root@htb[/htb]$ bash if-elif-else.sh 5
 
 Given argument is less than 10.
 ```
@@ -346,7 +346,7 @@ Given argument is less than 10.
 &#x20; Conditional Execution
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash if-elif-else.sh 12
+root@htb[/htb]$ bash if-elif-else.sh 12
 
 Given argument is greater than 10.
 ```
@@ -354,7 +354,7 @@ Given argument is greater than 10.
 &#x20; Conditional Execution
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash if-elif-else.sh HTB
+root@htb[/htb]$ bash if-elif-else.sh HTB
 
 if-elif-else.sh: line 5: [: HTB: integer expression expected
 if-elif-else.sh: line 8: [: HTB: integer expression expected
@@ -423,7 +423,7 @@ The advantage of bash scripts is that we can always pass up to 9 arguments (`$0`
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./script.sh ARG1 ARG2 ARG3 ... ARG9
+root@htb[/htb]$ ./script.sh ARG1 ARG2 ARG3 ... ARG9
        ASSIGNMENTS:       $0      $1   $2   $3 ...   $9
 ```
 
@@ -457,7 +457,7 @@ There are several ways how we can execute our script. However, we must first set
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ chmod +x cidr.sh
+root@htb[/htb]$ chmod +x cidr.sh
 ```
 
 **CIDR.sh - Execution without Arguments**
@@ -465,7 +465,7 @@ AbdulrahmanTamim@htb[/htb]$ chmod +x cidr.sh
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./cidr.sh
+root@htb[/htb]$ ./cidr.sh
 
 You need to specify the target domain.
 
@@ -478,7 +478,7 @@ Usage:
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash cidr.sh
+root@htb[/htb]$ bash cidr.sh
 
 You need to specify the target domain.
 
@@ -531,7 +531,7 @@ In contrast to other programming languages, there is no direct differentiation a
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ variable = "this will result with an error."
+root@htb[/htb]$ variable = "this will result with an error."
 
 command not found: variable
 ```
@@ -541,8 +541,8 @@ command not found: variable
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ variable="Declared without an error."
-AbdulrahmanTamim@htb[/htb]$ echo $variable
+root@htb[/htb]$ variable="Declared without an error."
+root@htb[/htb]$ echo $variable
 
 Declared without an error.
 ```
@@ -570,7 +570,7 @@ We can also retrieve them individually using the index using the variable with t
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./Arrays.sh
+root@htb[/htb]$ ./Arrays.sh
 
 www.inlanefreight.com
 ```
@@ -591,7 +591,7 @@ echo ${domains[0]}
 &#x20; Arguments, Variables, and Arrays
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./Arrays.sh
+root@htb[/htb]$ ./Arrays.sh
 
 www.inlanefreight.com ftp.inlanefreight.com vpn.inlanefreight.com
 ```
@@ -653,7 +653,7 @@ String comparison operators "`<` / `>`" works only within the double square brac
 &#x20; Comparison Operators
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ man ascii
+root@htb[/htb]$ man ascii
 ```
 
 **ASCII Table**
@@ -880,7 +880,7 @@ The output of this script looks like this:
 &#x20; Arithmetic
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./Arithmetic.sh
+root@htb[/htb]$ ./Arithmetic.sh
 
 Addition: 10 + 10 = 20
 Substraction: 10 - 10 = 0
@@ -912,7 +912,7 @@ echo ${#htb}
 &#x20; Arithmetic
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./VarLength.sh
+root@htb[/htb]$ ./VarLength.sh
 
 10
 ```
@@ -1076,7 +1076,7 @@ Of course, we can also write these commands in a single line. Such a command wou
 &#x20; Flow Control - Loops
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ for ip in 10.10.10.170 10.10.10.174;do ping -c 1 $ip;done
+root@htb[/htb]$ for ip in 10.10.10.170 10.10.10.174;do ping -c 1 $ip;done
 
 PING 10.10.10.170 (10.10.10.170): 56 data bytes
 64 bytes from 10.10.10.170: icmp_seq=0 ttl=63 time=42.106 ms
@@ -1187,7 +1187,7 @@ done
 &#x20; Flow Control - Loops
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./WhileBreaker.sh
+root@htb[/htb]$ ./WhileBreaker.sh
 
 Counter: 1
 Counter: 2
@@ -1227,7 +1227,7 @@ done
 &#x20; Flow Control - Loops
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./Until.sh
+root@htb[/htb]$ ./Until.sh
 
 Counter: 1
 Counter: 2
@@ -1446,7 +1446,7 @@ print_pars "$one" "$two" "$three"
 &#x20; Functions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./PrintPars.sh
+root@htb[/htb]$ ./PrintPars.sh
 
 First parameter Second parameter Third parameter
 ```
@@ -1510,7 +1510,7 @@ echo -e "Content of the variable: \n\t$content"
 &#x20; Functions
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ ./Return.sh
+root@htb[/htb]$ ./Return.sh
 
 Number of arguments: 0
 Function status code: 1
@@ -1537,7 +1537,7 @@ This process is also used to find vulnerabilities in programs. For example, we c
 &#x20; Debugging
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash -x CIDR.sh
+root@htb[/htb]$ bash -x CIDR.sh
 
 + '[' 0 -eq 0 ']'
 + echo -e 'You need to specify the target domain.\n'
@@ -1557,7 +1557,7 @@ Here Bash shows us precisely which function or command was executed with which v
 &#x20; Debugging
 
 ```shell-session
-AbdulrahmanTamim@htb[/htb]$ bash -x -v CIDR.sh
+root@htb[/htb]$ bash -x -v CIDR.sh
 
 #!/bin/bash
 
