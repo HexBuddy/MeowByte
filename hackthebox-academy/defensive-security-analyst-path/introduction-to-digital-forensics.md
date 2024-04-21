@@ -1301,7 +1301,7 @@ Once you've loaded a forensic image and processed the data, you'll see the foren
 * Undertake `Timeline Analysis` to map out events.&#x20;
 *
 
-    <figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
