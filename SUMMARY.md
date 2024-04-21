@@ -9,6 +9,7 @@
 ## 📚 HackTheBox Academy
 
 * [Fundamentals](hackthebox-academy/official-modules/README.md)
+  * [Setting Up](hackthebox-academy/official-modules/setting-up.md)
   * [Linux Fundamentals](hackthebox-academy/official-modules/linux-fundamentals.md)
   * [Intro to Assembly Language](hackthebox-academy/official-modules/intro-to-assembly-language.md)
   * [Introduction to Bash Scripting](hackthebox-academy/official-modules/introduction-to-bash-scripting.md)
