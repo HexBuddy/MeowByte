@@ -31,8 +31,6 @@ It's also important to mention the role of Security Information and Event Manage
 
 In this module, we will explore the fundamentals of `Suricata`, `Snort`, and `Zeek`, along with providing insights into signature development and intrusion detection for each of these systems.
 
-
-
 ## Suricata Fundamentals
 
 Regarded as a potent instrument for Network Intrusion Detection Systems (IDS), Intrusion Prevention Systems (IPS), and Network Security Monitoring (NSM), Suricata represents a cornerstone of network security. This open-source powerhouse, managed and developed by the Open Information Security Foundation (OISF), is a testament to the strength of a community-led, non-profit initiative.
@@ -69,7 +67,7 @@ Let's now navigate to the bottom of this section and click on "Click here to spa
 
 Once we've accessed the deployed Suricata instance over SSH, we can get an overview of all the rule files with a simple execution command.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ ls -lah /etc/suricata/rules/
@@ -114,7 +112,7 @@ drwxr-xr-x 3 root root 4.0K Jul  4 14:44 ..
 
 The rules can be seen in a straightforward list format and be inspected to understand their functionality, as follows.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ more /etc/suricata/rules/emerging-malware.rules
@@ -178,7 +176,7 @@ Each rule usually involves specific variables, such as `$HOME_NET` and `$EXTERNA
 
 These variables can be defined in the `suricata.yaml` configuration file.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ more /etc/suricata/suricata.yaml
@@ -223,7 +221,7 @@ This allows us to customize these variables according to our specific network en
 
 Finally, to configure Suricata to load signatures from a custom rules file, such as `local.rules` in the `/home/htb-student` directory, we would execute the below.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo vim /etc/suricata/suricata.yaml
@@ -241,8 +239,6 @@ With Suricata inputs, we can experiment with both offline and live input:
 
 1.  For offline input (reading PCAP files - [suspicious.pcap](https://dingtoffee.medium.com/holiday-hack-challenge-2022-writeup-stage-2-recover-the-tolkien-ring-3f76fcd7dab9) in this case), the following command needs to be executed, and Suricata will create various logs (mainly `eve.json`, `fast.log`, and `stats.log`).
 
-    &#x20;&#x20;
-
     ```shell-session
     root@htb[/htb]$ suricata -r /home/htb-student/pcaps/suspicious.pcap
     5/7/2023 -- 13:35:51 - <Notice> - This is Suricata version 6.0.13 RELEASE running in USER mode
@@ -253,8 +249,6 @@ With Suricata inputs, we can experiment with both offline and live input:
 
     An alternative command can be executed to bypass checksums (`-k` flag) and log in a different directory (`-l` flag).
 
-    &#x20;&#x20;
-
     ```shell-session
     root@htb[/htb]$ suricata -r /home/htb-student/pcaps/suspicious.pcap -k none -l .
     5/7/2023 -- 13:37:43 - <Notice> - This is Suricata version 6.0.13 RELEASE running in USER mode
@@ -263,8 +257,6 @@ With Suricata inputs, we can experiment with both offline and live input:
     5/7/2023 -- 13:37:43 - <Notice> - Pcap-file module read 1 files, 5172 packets, 3941260 bytes
     ```
 2.  For live input, we can try Suricata’s (Live) `LibPCAP` mode as follows.
-
-    &#x20;&#x20;
 
     ```shell-session
     root@htb[/htb]$ ifconfig
@@ -287,8 +279,6 @@ With Suricata inputs, we can experiment with both offline and live input:
         TX packets 888  bytes 64466 (64.4 KB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
     ```
-
-    &#x20;&#x20;
 
     ```shell-session
     root@htb[/htb]$ sudo suricata --pcap=ens160 -vv
@@ -344,15 +334,11 @@ With Suricata inputs, we can experiment with both offline and live input:
     ```
 3.  For Suricata in Inline (`NFQ`) mode, the following command should be executed first.
 
-    &#x20;&#x20;
-
     ```shell-session
     root@htb[/htb]$ sudo iptables -I FORWARD -j NFQUEUE
     ```
 
     Then, we should be able to execute the following.
-
-    &#x20;&#x20;
 
     ```shell-session
     root@htb[/htb]$ sudo suricata -q 0
@@ -362,15 +348,11 @@ With Suricata inputs, we can experiment with both offline and live input:
 
     Moreover, to try Suricata in `IDS` mode with `AF_PACKET` input, execute one of the below.
 
-    &#x20;&#x20;
-
     ```shell-session
     root@htb[/htb]$ sudo suricata -i ens160
     5/7/2023 -- 13:53:35 - <Notice> - This is Suricata version 6.0.13 RELEASE running in SYSTEM mode
     5/7/2023 -- 13:53:35 - <Notice> - all 1 packet processing threads, 4 management threads initialized, engine started.
     ```
-
-    &#x20;&#x20;
 
     ```shell-session
     root@htb[/htb]$ sudo suricata --af-packet=ens160
@@ -380,7 +362,7 @@ With Suricata inputs, we can experiment with both offline and live input:
 
 To observe Suricata dealing with "live" traffic, let's establish an additional SSH connection and utilize `tcpreplay` to replay network traffic from a PCAP file (`suspicious.pcap` in this case).
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo  tcpreplay -i ens160 /home/htb-student/pcaps/suspicious.pcap
@@ -406,8 +388,6 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
 
 1.  `eve.json`: This file is Suricata's recommended output and contains JSON objects, each carrying diverse information such as timestamps, flow\_id, event\_type, and more. Try inspecting the content of `old_eve.json` residing at `/var/log/suricata` as follows.
 
-    &#x20;&#x20;
-
     ```shell-session
     root@htb[/htb]$ less /var/log/suricata/old_eve.json
     {"timestamp":"2023-07-06T08:34:24.526482+0000","event_type":"stats","stats":{"uptime":8,"capture":{"kernel_packets":4,"kernel_drops":0,"errors":0},"decoder":{"pkts":3,"bytes":212,"invalid":0,"ipv4":0,"ipv6":1,"ethernet":3,"chdlc":0,"raw":0,"null":0,"sll":0,"tcp":0,"udp":0,"sctp":0,"icmpv4":0,"icmpv6":1,"ppp":0,"pppoe":0,"geneve":0,"gre":0,"vlan":0,"vlan_qinq":0,"vxlan":0,"vntag":0,"ieee8021ah":0,"teredo":0,"ipv4_in_ipv6":0,"ipv6_in_ipv6":0,"mpls":0,"avg_pkt_size":70,"max_pkt_size":110,"max_mac_addrs_src":0,"max_mac_addrs_dst":0,"erspan":0,"event":{"ipv4":{"pkt_too_small":0,"hlen_too_small":0,"iplen_smaller_than_hlen":0,"trunc_pkt":0,"opt_invalid":0,"opt_invalid_len":0,"opt_malformed":0,"opt_pad_required":0,"opt_eol_required":0,"opt_duplicate":0,"opt_unknown":0,"wrong_ip_version":0,"icmpv6":0,"frag_pkt_too_large":0,"frag_overlap":0,"frag_ignored":0},"icmpv4":{"pkt_too_small":0,"unknown_type":0,"unknown_code":0,"ipv4_trunc_pkt":0,"ipv4_unknown_ver":0},"icmpv6":{"unknown_type":0,"unknown_code":0,"pkt_too_small":0,"ipv6_unknown_version":0,"ipv6_trunc_pkt":0,"mld_message_with_invalid_hl":0,"unassigned_type":0,"experimentation_type":0},"ipv6":{"pkt_too_small":0,"trunc_pkt":0,"trunc_exthdr":0,"exthdr_dupl_fh":0,"exthdr_useless_fh":0,"exthdr_dupl_rh":0,"exthdr_dupl_hh":0,"exthdr_dupl_dh":0,"exthdr_dupl_ah":0,"exthdr_dupl_eh":0,"exthdr_invalid_optlen":0,"wrong_ip_version":0,"exthdr_ah_res_not_null":0,"hopopts_unknown_opt":0,"hopopts_only_padding":0,"dstopts_unknown_opt":0,"dstopts_only_padding":0,"rh_type_0":0,"zero_len_padn":0,"fh_non_zero_reserved_field":0,"data_after_none_header":0,"unknown_next_header":0,"icmpv4":0,"frag_pkt_too_large":0,"frag_overlap":0,"frag_invalid_length":0,"frag_ignored":0,"ipv4_in_ipv6_too_small":0,"ipv4_in_ipv6_wrong_version":0,"ipv6_in_ipv6_too_small":0,"ipv6_in_ipv6_wrong_version":0},"tcp":{"pkt_too_small":0,"hlen_too_small":0,"invalid_optlen":0,"opt_invalid_len":0,"opt_duplicate":0},"udp":{"pkt_too_small":0,"hlen_too_small":0,"hlen_invalid":0,"len_invalid":0},"sll":{"pkt_too_small":0},"ethernet":{"pkt_too_small":0},"ppp":{"pkt_too_small":0,"vju_pkt_too_small":0,"ip4_pkt_too_small":0,"ip6_pkt_too_small":0,"wrong_type":0,"unsup_proto":0},"pppoe":{"pkt_too_small":0,"wrong_code":0,"malformed_tags":0},"gre":{"pkt_too_small":0,"wrong_version":0,"version0_recur":0,"version0_flags":0,"version0_hdr_too_big":0,"version0_malformed_sre_hdr":0,"version1_chksum":0,"version1_route":0,"version1_ssr":0,"version1_recur":0,"version1_flags":0,"version1_no_key":0,"version1_wrong_protocol":0,"version1_malformed_sre_hdr":0,"version1_hdr_too_big":0},"vlan":{"header_too_small":0,"unknown_type":0,"too_many_layers":0},"ieee8021ah":{"header_too_small":0},"vntag":{"header_too_small":0,"unknown_type":0},"ipraw":{"invalid_ip_version":0},"ltnull":{"pkt_too_small":0,"unsupported_type":0},"sctp":{"pkt_too_small":0},"mpls":{"header_too_small":0,"pkt_too_small":0,"bad_label_router_alert":0,"bad_label_implicit_null":0,"bad_label_reserved":0,"unknown_payload_type":0},"vxlan":{"unknown_payload_type":0},"geneve":{"unknown_payload_type":0},"erspan":{"header_too_small":0,"unsupported_version":0,"too_many_vlan_layers":0},"dce":{"pkt_too_small":0},"chdlc":{"pkt_too_small":0}},"too_many_layers":0},"tcp":{"syn":0,"synack":0,"rst":0,"sessions":0,"ssn_memcap_drop":0,"pseudo":0,"pseudo_failed":0,"invalid_checksum":0,"midstream_pickups":0,"pkt_on_wrong_thread":0,"segment_memcap_drop":0,"stream_depth_reached":0,"reassembly_gap":0,"overlap":0,"overlap_diff_data":0,"insert_data_normal_fail":0,"insert_data_overlap_fail":0,"insert_list_fail":0,"memuse":606208,"reassembly_memuse":98304},"flow":{"memcap":0,"tcp":0,"udp":0,"icmpv4":0,"icmpv6":1,"tcp_reuse":0,"get_used":0,"get_used_eval":0,"get_used_eval_reject":0,"get_used_eval_busy":0,"get_used_failed":0,"wrk":{"spare_sync_avg":100,"spare_sync":1,"spare_sync_incomplete":0,"spare_sync_empty":0,"flows_evicted_needs_work":0,"flows_evicted_pkt_inject":0,"flows_evicted":0,"flows_injected":0},"mgr":{"full_hash_pass":1,"closed_pruned":0,"new_pruned":0,"est_pruned":0,"bypassed_pruned":0,"rows_maxlen":0,"flows_checked":0,"flows_notimeout":0,"flows_timeout":0,"flows_timeout_inuse":0,"flows_evicted":0,"flows_evicted_needs_work":0},"spare":9900,"emerg_mode_entered":0,"emerg_mode_over":0,"memuse":7394304},"defrag":{"ipv4":{"fragments":0,"reassembled":0,"timeouts":0},"ipv6":{"fragments":0,"reassembled":0,"timeouts":0},"max_frag_hits":0},"flow_bypassed":{"local_pkts":0,"local_bytes":0,"local_capture_pkts":0,"local_capture_bytes":0,"closed":0,"pkts":0,"bytes":0},"detect":{"engines":[{"id":0,"last_reload":"2023-07-06T08:34:16.502768+0000","rules_loaded":1,"rules_failed":0}],"alert":0,"alert_queue_overflow":0,"alerts_suppressed":0},"app_layer":{"flow":{"http":0,"ftp":0,"smtp":0,"tls":0,"ssh":0,"imap":0,"smb":0,"dcerpc_tcp":0,"dns_tcp":0,"nfs_tcp":0,"ntp":0,"ftp-data":0,"tftp":0,"ikev2":0,"krb5_tcp":0,"dhcp":0,"snmp":0,"sip":0,"rfb":0,"mqtt":0,"rdp":0,"failed_tcp":0,"dcerpc_udp":0,"dns_udp":0,"nfs_udp":0,"krb5_udp":0,"failed_udp":0},"tx":{"http":0,"ftp":0,"smtp":0,"tls":0,"ssh":0,"imap":0,"smb":0,"dcerpc_tcp":0,"dns_tcp":0,"nfs_tcp":0,"ntp":0,"ftp-data":0,"tftp":0,"ikev2":0,"krb5_tcp":0,"dhcp":0,"snmp":0,"sip":0,"rfb":0,"mqtt":0,"rdp":0,"dcerpc_udp":0,"dns_udp":0,"nfs_udp":0,"krb5_udp":0},"expectations":0},"http":{"memuse":0,"memcap":0},"ftp":{"memuse":0,"memcap":0},"file_store":{"open_files":0}}}
@@ -416,16 +396,12 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
 
     If we wish to filter out only alert events, for example, we can utilize the `jq` command-line JSON processor as follows.
 
-    &#x20;&#x20;
-
     ```shell-session
     root@htb[/htb]$ cat /var/log/suricata/old_eve.json | jq -c 'select(.event_type == "alert")'
     {"timestamp":"2023-07-06T08:34:35.003163+0000","flow_id":1959965318909019,"in_iface":"ens160","event_type":"alert","src_ip":"10.9.24.101","src_port":51833,"d est_ip":"10.9.24.1","dest_port":53,"proto":"UDP","tx_id":0,"alert":{"action":"allowed","gid":1,"signature_id":1,"rev":0,"signature":"Known bad DNS lookup, possible Dridex infection","category":"","severity":3},"dns":{"query":[{"type":"query","id":6430,"rrname":"adv.epostoday.uk","rrtype":"A","tx_id":0,"opcode":0}    ]},"app_proto":"dns","flow":{"pkts_toserver":1,"pkts_toclient":0,"bytes_toserver":76,"bytes_toclient":0,"start":"2023-07-06T08:34:35.003163+0000"}}
     ```
 
     If we wish to identify the earliest DNS event, for example, we can utilize the `jq` command-line JSON processor as follows.
-
-    &#x20;&#x20;
 
     ```shell-session
     root@htb[/htb]$ cat /var/log/suricata/old_eve.json | jq -c 'select(.event_type == "dns")' | head -1 | jq .
@@ -457,15 +433,11 @@ Suricata records a variety of data into logs that reside in the `/var/log/surica
     `pcap_cnt`: This is a counter that Suricata increments for each packet it processes from the network traffic or from a PCAP file (in offline mode). `pcap_cnt` allows us to trace a packet back to its original order in the PCAP file or network stream. This is beneficial in understanding the sequence of network events as they occurred. It can help to precisely pinpoint when an alert was triggered in relation to other packets, which can provide valuable context in an investigation.
 2.  `fast.log`: This is a text-based log format that records alerts only and is enabled by default. Try inspecting the content of `old_fast.log` residing at `/var/log/suricata` as follows.
 
-    &#x20;&#x20;
-
     ```shell-session
     root@htb[/htb]$ cat /var/log/suricata/old_fast.log
     07/06/2023-08:34:35.003163  [**] [1:1:0] Known bad DNS lookup, possible Dridex infection [**] [Classification: (null)] [Priority: 3] {UDP} 10.9.24.101:51833 -> 10.9.24.1:53
     ```
 3.  `stats.log`: This is a human-readable statistics log, which can be particularly useful while debugging Suricata deployments. Try inspecting the content of `old_stats.log` residing at `/var/log/suricata` as follows.
-
-    &#x20;&#x20;
 
     ```shell-session
     root@htb[/htb]$ cat /var/log/suricata/old_stats.log
@@ -506,7 +478,7 @@ Here's how we go about enabling file extraction in Suricata.
 
 We start by making changes to the Suricata configuration file (`suricata.yaml`). In this file, we'll find a section named `file-store`. This is where we tell Suricata how to handle the files it extracts. Specifically, we need to set `version` to `2`, enabled to `yes`, and the `force-filestore` option also to `yes`. The resulting section should look something like this.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 file-store:
@@ -523,7 +495,7 @@ In accordance with the guidelines put forth in Suricata's documentation, file ex
 
 The simplest rule we can add to our `local.rules` file to experiment with file extraction is the following.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 alert http any any -> any any (msg:"FILE store all"; filestore; sid:2; rev:1;)
@@ -533,7 +505,7 @@ If we configured Suricata correctly, multiple files will be stored inside the `f
 
 Let's run Suricata on the `/home/htb-student/pcaps/vm-2.pcap` file.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ suricata -r /home/htb-student/pcaps/vm-2.pcap
@@ -545,7 +517,7 @@ root@htb[/htb]$ suricata -r /home/htb-student/pcaps/vm-2.pcap
 
 We will notice that `eve.json`, `fast.log`, `stats.log`, and `suricata.log` were created, alongside a new directory called `filestore`. `filestore`'s content in terms of the files it contains can be inspected as follows.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ cd filestore
@@ -574,7 +546,7 @@ Again in accordance with the guidelines put forth in Suricata's documentation th
 
 If we wanted to inspect, for example, the `/21/21742fc621f83041db2e47b0899f5aea6caa00a4b67dbff0aae823e6817c5433` file inside the `filestore` directory, we could use the `xxd` tool as follows.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ cd filestore
@@ -599,7 +571,7 @@ Live rule reloading is a crucial feature in Suricata that allows us to update ou
 
 To enable live rule reloading in Suricata, we need to configure our Suricata configuration file (`suricata.yaml`). In the `suricata.yaml` file, we should locate the `detect-engine` section and set the value of the `reload` parameter to `true`. It looks something like this:
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 detect-engine:
@@ -608,7 +580,7 @@ detect-engine:
 
 Proceed to execute the following `kill` command, which will signal the Suricata process (determined by `$(pidof suricata)`) to refresh its rule set without necessitating a complete restart.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo kill -usr2 $(pidof suricata)
@@ -620,7 +592,7 @@ Most of the commands below cannot be replicated inside this section's target sin
 
 Updating Suricata's ruleset can be performed using the `suricata-update` tool. We can perform a simple update to the Suricata ruleset using the following command.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo suricata-update
@@ -672,7 +644,7 @@ As displayed in the example above, the output indicates that the `suricata-updat
 
 Moving forward, let's execute the command provided below to generate a comprehensive list of all ruleset providers.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo suricata-update list-sources
@@ -747,7 +719,7 @@ Let's make a note from the output above of a specific ruleset name from which we
 
 Next, let's proceed with executing the following command to retrieve and enable the `et/open` rulesets within our Suricata rules.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo suricata-update enable-source et/open
@@ -761,7 +733,7 @@ root@htb[/htb]$ sudo suricata-update enable-source et/open
 
 Lastly, let's reissue the `suricata-update` command to load the newly acquired ruleset.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo suricata-update
@@ -769,7 +741,7 @@ root@htb[/htb]$ sudo suricata-update
 
 A Suricata service restart may also be required.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo systemctl restart suricata
@@ -781,7 +753,7 @@ Validation of Suricata's configuration is also an essential part of maintaining 
 
 Here is how we can do this.
 
-&#x20; Suricata Fundamentals
+Suricata Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo suricata -T -c /etc/suricata/suricata.yaml
@@ -811,8 +783,6 @@ Key features that bolster Suricata's effectiveness include:
 
 **Note**: Suricata can also be used to detect "non-standard/anomalous" traffic. We can leverage strategies outlined in Suricata's [Protocol Anomalies Detection page](https://redmine.openinfosecfoundation.org/projects/suricata/wiki/Protocol\_Anomalies\_Detection). This approach enhances our visibility into unusual or non-compliant behavior within our network, thus augmenting our security posture.
 
-
-
 ## Suricata Rule Development Part 1
 
 At its core, a rule in Suricata serves as a directive, instructing the engine to actively watch for certain markers in the network traffic. When such specific markers appear, we will receive a notification.
@@ -827,7 +797,7 @@ The development of these rules often leverages crucial information provided by t
 
 A sample Suricata rule can be found below. Let's break it down.
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 action protocol from_ip port -> to_ip port (msg:"Known malicious behavior, possible X malware infection"; content:"some thing"; content:"some other thing"; sid:10000001; rev:1;)
@@ -862,7 +832,7 @@ action protocol from_ip port -> to_ip port (msg:"Known malicious behavior, possi
       * `|0d 0a|`: This represents the hexadecimal representation of the characters "\r\n", which signifies the end of a line in HTTP headers.
     * By using `Rule Buffers`, we don't have to search the entire packet for every content match. This saves time and resources. More details can be found here: [https://suricata.readthedocs.io/en/latest/rules/http-keywords.html](https://suricata.readthedocs.io/en/latest/rules/http-keywords.html)
       * Example: `alert http any any -> any any (http.accept; content:"image/gif"; sid:1;)`
-        * `http.accept`: Sticky buffer to match on the HTTP Accept header. Only contains the header value. The `\r` after the header are not part of the buffer.
+        * `http.accept`: Sticky buffer to match on the HTTP Accept header. Only contains the header value. The  after the header are not part of the buffer.
     * `Rule options` act as additional modifiers to aid detection, helping Suricata locate the exact location of contents.
       * `nocase` ensures rules are not bypassed through case changes.
         * Example: `alert tcp any any -> any any (msg:"Detect HTTP traffic with user agent Mozilla"; content:"User-Agent: Mozilla"; nocase; sid:8001;)`
@@ -918,7 +888,7 @@ Let's now navigate to the bottom of this section and click on "Click here to spa
 
 Please wait for approximately 5-6 minutes before initiating a connection using Remote Desktop Protocol (RDP). You may have to try 2-3 times before a successful RDP connection is established!
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ xfreerdp /u:htb-student /p:'HTB_@cademy_stdnt!' /v:[Target IP] /dynamic-resolution /relax-order-checks +glyph-cache
@@ -928,7 +898,7 @@ Now, we will explore several examples of Suricata rule development to gain a sol
 
 ### Suricata Rule Development Example 1: Detecting PowerShell Empire
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"ET MALWARE Possible PowerShell Empire Activity Outbound"; flow:established,to_server; content:"GET"; http_method; content:"/"; http_uri; depth:1; pcre:"/^(?:login\/process|admin\/get|news)\.php$/RU"; content:"session="; http_cookie; pcre:"/^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=|[A-Z0-9+/]{4})$/CRi"; content:"Mozilla|2f|5.0|20 28|Windows|20|NT|20|6.1"; http_user_agent; http_start; content:".php|20|HTTP|2f|1.1|0d 0a|Cookie|3a 20|session="; fast_pattern; http_header_names; content:!"Referer"; content:!"Cache"; content:!"Accept"; sid:2027512; rev:1;)
@@ -958,7 +928,7 @@ This Suricata rule triggers an alert when it detects an established HTTP GET req
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Suricata on the `psempire.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/psempire.pcap -l . -k none
@@ -968,7 +938,7 @@ root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/psempire.pcap -l . -k n
 15/7/2023 -- 03:57:42 - <Notice> - Pcap-file module read 511 packets, 101523 bytes
 ```
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ cat fast.log
@@ -986,7 +956,7 @@ The `local.rules` file contains another rule for detecting `PowerShell Empire`, 
 
 ### Suricata Rule Development Example 2: Detecting Covenant
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 alert tcp any any -> $HOME_NET any (msg:"detected by body"; content:"<title>Hello World!</title>"; detection_filter: track by_src, count 4 , seconds 10; priority:1; sid:3000011;)
@@ -1009,7 +979,7 @@ This Suricata rule is designed to generate a high-priority alert if it detects a
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Suricata on the `covenant.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k none
@@ -1019,7 +989,7 @@ root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k n
 15/7/2023 -- 04:47:16 - <Notice> - Pcap-file module read 27384 packets, 3125549 bytes
 ```
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ cat fast.log
@@ -1040,7 +1010,7 @@ The `local.rules` file contains three (3) other rules for detecting `Covenant`, 
 
 ### Suricata Rule Development Example 3: Detecting Covenant (Using Analytics)
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 alert tcp $HOME_NET any -> any any (msg:"detected by size and counter"; dsize:312; detection_filter: track by_src, count 3 , seconds 10; priority:1; sid:3000001;)
@@ -1055,7 +1025,7 @@ This Suricata rule is designed to generate a high-priority alert if it detects a
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Suricata on the `covenant.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k none
@@ -1065,7 +1035,7 @@ root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/covenant.pcap -l . -k n
 15/7/2023 -- 05:29:20 - <Notice> - Pcap-file module read 27384 packets, 3125549 bytes
 ```
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ cat fast.log
@@ -1106,7 +1076,7 @@ Invest some time in scrutinizing both the `covenant.pcap` file using `Wireshark`
 
 ### Suricata Rule Development Example 4: Detecting Sliver
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 alert tcp any any -> any any (msg:"Sliver C2 Implant Detected"; content:"POST"; pcre:"/\/(php|api|upload|actions|rest|v1|oauth2callback|authenticate|oauth2|oauth|auth|database|db|namespaces)(.*?)((login|signin|api|samples|rpc|index|admin|register|sign-up)\.php)\?[a-z_]{1,2}=[a-z0-9]{1,10}/i"; sid:1000007; rev:1;)
@@ -1123,7 +1093,7 @@ The Suricata rule above is designed to detect certain variations of [Sliver](htt
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Suricata on the `sliver.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliver.pcap -l . -k none
@@ -1133,7 +1103,7 @@ root@htb[/htb]$ sudo suricata -r /home/htb-student/pcaps/sliver.pcap -l . -k non
 16/7/2023 -- 02:27:50 - <Notice> - Pcap-file module read 36 packets, 18851 bytes
 ```
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 root@htb[/htb]$ cat fast.log
@@ -1144,7 +1114,7 @@ root@htb[/htb]$ cat fast.log
 
 The `local.rules` file contains another rule for detecting `Sliver`, located directly below the rule we just examined.
 
-&#x20; Suricata Rule Development Part 1
+Suricata Rule Development Part 1
 
 ```shell-session
 alert tcp any any -> any any (msg:"Sliver C2 Implant Detected - Cookie"; content:"Set-Cookie"; pcre:"/(PHPSESSID|SID|SSID|APISID|csrf-state|AWSALBCORS)\=[a-z0-9]{32}\;/"; sid:1000003; rev:1;)
@@ -1156,8 +1126,6 @@ Let's break down the important parts of this rule to understand its workings.
 * `pcre:"/(PHPSESSID|SID|SSID|APISID|csrf-state|AWSALBCORS)\=[a-z0-9]{32}\;/";`: This is a regular expression used to identify specific cookie-setting patterns in the traffic. It matches the `Set-Cookie` header when it's setting specific cookie names (PHPSESSID, SID, SSID, APISID, csrf-state, AWSALBCORS) with a value that's a 32-character alphanumeric string.
 
 Invest some time in scrutinizing the `sliver.pcap` file using `Wireshark` to identify the related requests.
-
-
 
 ## Suricata Rule Development Part 2 (Encrypted Traffic)
 
@@ -1173,7 +1141,7 @@ Let's now navigate to the bottom of this section and click on "Click here to spa
 
 ### Suricata Rule Development Example 5: Detecting Dridex (TLS Encrypted)
 
-&#x20; Suricata Rule Development Part 2 (Encrypted Traffic)
+Suricata Rule Development Part 2 (Encrypted Traffic)
 
 ```shell-session
 alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET MALWARE ABUSE.CH SSL Blacklist Malicious SSL certificate detected (Dridex)"; flow:established,from_server; content:"|16|"; content:"|0b|"; within:8; byte_test:3,<,1200,0,relative; content:"|03 02 01 02 02 09 00|"; fast_pattern; content:"|30 09 06 03 55 04 06 13 02|"; distance:0; pcre:"/^[A-Z]{2}/R"; content:"|55 04 07|"; distance:0; content:"|55 04 0a|"; distance:0; pcre:"/^.{2}[A-Z][a-z]{3,}\s(?:[A-Z][a-z]{3,}\s)?(?:[A-Z](?:[A-Za-z]{0,4}?[A-Z]|(?:\.[A-Za-z]){1,3})|[A-Z]?[a-z]+|[a-z](?:\.[A-Za-z]){1,3})\.?[01]/Rs"; content:"|55 04 03|"; distance:0; byte_test:1,>,13,1,relative; content:!"www."; distance:2; within:4; pcre:"/^.{2}(?P<CN>(?:(?:\d?[A-Z]?|[A-Z]?\d?)(?:[a-z]{3,20}|[a-z]{3,6}[0-9_][a-z]{3,6})\.){0,2}?(?:\d?[A-Z]?|[A-Z]?\d?)[a-z]{3,}(?:[0-9_-][a-z]{3,})?\.(?!com|org|net|tv)[a-z]{2,9})[01].*?(?P=CN)[01]/Rs"; content:!"|2a 86 48 86 f7 0d 01 09 01|"; content:!"GoDaddy"; sid:2023476; rev:5;)
@@ -1215,7 +1183,7 @@ root@htb[/htb]$ cat fast.log
 
 ### Suricata Rule Development Example 6: Detecting Sliver (TLS Encrypted)
 
-&#x20; Suricata Rule Development Part 2 (Encrypted Traffic)
+Suricata Rule Development Part 2 (Encrypted Traffic)
 
 ```shell-session
 alert tls any any -> any any (msg:"Sliver C2 SSL"; ja3.hash; content:"473cd7cb9faa642487833865d516e578"; sid:1002; rev:1;)
@@ -1286,8 +1254,6 @@ root@htb[/htb]$ cat fast.log
 ---SNIP---
 ```
 
-
-
 ## Snort Fundamentals
 
 Snort is an open-source tool, which serves as both an Intrusion Detection System (IDS) and Intrusion Prevention System (IPS), but can also function as a packet logger or sniffer, akin to Suricata. By thoroughly inspecting all network traffic, Snort has the capability to identify and log all activity within that traffic, providing a comprehensive view of the situation and detailed logs of all application layer transactions. We require specific rule sets to instruct Snort on how to perform its inspection and what exactly it needs to identify. Snort was created to operate efficiently on both general-purpose and custom hardware.
@@ -1338,7 +1304,7 @@ The `snort.lua` file serves as the principal configuration file for Snort. This 
 
 Let's browse the `snort.lua` file residing in this section's target as follows.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo more /root/snorty/etc/snort/snort.lua
@@ -1397,7 +1363,7 @@ stream_file = { }
 
 Enabling and fine-tuning Snort `modules` is a significant aspect of the configuration process. To explore the complete list and get a brief description of all Snort 3 modules, you can use the following command.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ snort --help-modules
@@ -1421,7 +1387,7 @@ arp_spoof (inspector): detect ARP attacks and anomalies
 
 These modules are enabled and configured within the `snort.lua` configuration file as Lua table literals. If a module is initialized as an empty table, it implies that it is utilizing its predefined "default" settings. To view these default settings, you can utilize the following command.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ snort --help-config arp_spoof
@@ -1431,7 +1397,7 @@ mac arp_spoof.hosts[].mac: host mac address
 
 Passing (and validating) configuration files to Snort can be done as follows.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq
@@ -1556,7 +1522,7 @@ We highly recommend taking the time to read the comments inside the `snort.lua` 
 
 To observe Snort in action, the easiest method is to execute it against a packet capture file. By providing the name of the pcap file as an argument to the `-r` option in the command line, Snort will process the file accordingly.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap
@@ -1664,7 +1630,7 @@ o")~   Snort exiting
 
 Snort also has the capability to listen on active network interfaces. To specify this behavior, you can utilize the `-i` option followed by the names of the interfaces on which Snort should run.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -i ens160
@@ -1812,13 +1778,13 @@ Snort rules, which resemble Suricata rules, are composed of a `rule header` and 
 
 In Snort deployments, we have flexibility in managing rules. It's possible to place rules (for example, `local.rules` residing at `/home/htb-student`) directly within the `snort.lua` configuration file using the `ips` module as follows.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo vim /root/snorty/etc/snort/snort.lua
 ```
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 ---SNIP---
@@ -1860,7 +1826,7 @@ In our Snort deployment, we may encounter a significant amount of data. To provi
 
     To discover the available alert types, we can execute the following command.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ snort --list-plugins | grep logger
@@ -1881,7 +1847,7 @@ logger::unified2 v0 static
 
 Let's see an example of the `cmg` output.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap -A cmg
@@ -2090,7 +2056,7 @@ o")~   Snort exiting
 
 The same command but using a `.rules` files that may not be "included" in `snort.lua` is the following.
 
-&#x20; Snort Fundamentals
+Snort Fundamentals
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -r /home/htb-student/pcaps/icmp.pcap -R /home/htb-student/local.rules -A cmg
@@ -2308,8 +2274,6 @@ Key features that bolster Snort's effectiveness include:
 * Support for multiple tenants
 * Both IPv6 and IPv4 are supported
 
-
-
 ## Snort Rule Development
 
 A Snort rule, at its core, is a powerful tool that we use to identify and flag potential malicious activity in network traffic.
@@ -2322,7 +2286,7 @@ Let's move forward and explore some examples of crafting Snort rules to counter 
 
 ### Snort Rule Development Example 1: Detecting Ursnif (Inefficiently)
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 alert tcp any any -> any any (msg:"Possible Ursnif C2 Activity"; flow:established,to_server; content:"/images/", depth 12; content:"_2F"; content:"_2B"; content:"User-Agent|3a 20|Mozilla/4.0 (compatible|3b| MSIE 8.0|3b| Windows NT"; content:!"Accept"; content:!"Cookie|3a|"; content:!"Referer|3a|"; sid:1000002; rev:1;)
@@ -2338,7 +2302,7 @@ The Snort rule above is designed to detect certain variations of [Ursnif](https:
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Snort on the `ursnif.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/ursnif.pcap -A cmg
@@ -2577,7 +2541,7 @@ Invest some time in scrutinizing both the `ursnif.pcap` file using `Wireshark` a
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/ursnif.pcap .
@@ -2585,7 +2549,7 @@ root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/ursnif.pcap 
 
 ### Snort Rule Development Example 2: Detecting Cerber
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 alert udp $HOME_NET any -> $EXTERNAL_NET any (msg:"Possible Cerber Check-in"; dsize:9; content:"hi", depth 2, fast_pattern; pcre:"/^[af0-9]{7}$/R"; detection_filter:track by_src, count 1, seconds 60; sid:2816763; rev:4;)
@@ -2601,7 +2565,7 @@ The Snort rule above is designed to detect certain variations of [Cerber](https:
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Snort on the `cerber.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/cerber.pcap -A cmg
@@ -2825,7 +2789,7 @@ Invest some time in scrutinizing both the `cerber.pcap` file using `Wireshark` a
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/cerber.pcap .
@@ -2833,7 +2797,7 @@ root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/cerber.pcap 
 
 ### Snort Rule Development Example 3: Detecting Patchwork
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"OISF TROJAN Targeted AutoIt FileStealer/Downloader CnC Beacon"; flow:established,to_server; http_method; content:"POST"; http_uri; content:".php?profile="; http_client_body; content:"ddager=", depth 7; http_client_body; content:"&r1=", distance 0; http_header; content:!"Accept"; http_header; content:!"Referer|3a|"; sid:10000006; rev:1;)
@@ -2850,7 +2814,7 @@ The Snort rule above is designed to detect certain variations of malware used by
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Snort on the `patchwork.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/patchwork.pcap -A cmg
@@ -3131,7 +3095,7 @@ Invest some time in scrutinizing both the `patchwork.pcap` file using `Wireshark
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/patchwork.pcap .
@@ -3139,7 +3103,7 @@ root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/patchwork.pc
 
 ### Snort Rule Development Example 4: Detecting Patchwork (SSL)
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"Patchwork SSL Cert Detected"; flow:established,from_server; content:"|55 04 03|"; content:"|08|toigetgf", distance 1, within 9; classtype:trojan-activity; sid:10000008; rev:1;)
@@ -3153,7 +3117,7 @@ The Snort rule above is designed to detect certain variations of malware used by
 
 The above rule is already incorporated in the `local.rules` file found in the `/home/htb-student` directory of this section's target. To test it, first, you need to uncomment the rule. Then, execute Snort on the `patchwork.pcap` file, which is located in the `/home/htb-student/pcaps` directory.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ sudo snort -c /root/snorty/etc/snort/snort.lua --daq-dir /usr/local/lib/daq -R /home/htb-student/local.rules -r /home/htb-student/pcaps/patchwork.pcap -A cmg
@@ -3505,13 +3469,11 @@ Invest some time in scrutinizing both the `patchwork.pcap` file using `Wireshark
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Snort Rule Development
+Snort Rule Development
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/patchwork.pcap .
 ```
-
-
 
 ## Zeek Fundamentals
 
@@ -3589,8 +3551,6 @@ Key features that bolster Zeek's effectiveness include:
 * External C library for sharing Zeek events with external programs
 * Capability to trigger arbitrary external processes from within the scripting language
 
-
-
 ## Intrusion Detection With Zeek
 
 As already discussed, Zeek, formerly known as Bro, is a powerful network security monitoring tool that allows us to delve deep into our network traffic and extract useful insights.
@@ -3607,13 +3567,13 @@ Beaconing is a process by which malware communicates with its command and contro
 
 By analyzing connection logs (`conn.log`), we can look for patterns in outbound traffic. These patterns can include repetitive connections to the same destination IP or domain, constant data size in the sent data, or the connection timing. These are all indicative of potential beaconing behavior. Anomalies can be further explored using Zeek scripts specifically designed to spot beaconing patterns.
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/psempire.pcap
 ```
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat conn.log
@@ -3683,7 +3643,7 @@ Invest some time in scrutinizing the `psempire.pcap` file using `Wireshark`.
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/psempire.pcap .
@@ -3699,13 +3659,13 @@ Furthermore, Zeek’s ability to reassemble files transferred over the network (
 
 **PCAP credits to**: [Oleh Levytskyi](https://twitter.com/LeOleg97) and [Bogdan Vennyk](https://twitter.com/bogdanvennyk)
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/dnsexfil.pcapng
 ```
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat dns.log
@@ -3742,7 +3702,7 @@ e.letsgohunt.online     1       C_INTERNET      1       A       0       NOERROR 
 
 Let's focus on the requested (sub)domains by leveraging `zeek-cut` as follows.
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat dns.log | /usr/local/zeek/bin/zeek-cut query | cut -d . -f1-7
@@ -3906,7 +3866,7 @@ Invest some time in scrutinizing the `dnsexfil.pcapng` file using `Wireshark`.
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/dnsexfil.pcapng .
@@ -3918,13 +3878,13 @@ root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/dnsexfil.pca
 
 Let's now go over an example of detecting data exfiltration over TLS.
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/tlsexfil.pcap
 ```
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat conn.log
@@ -3986,7 +3946,7 @@ The output is a bit tricky to analyze. Let's narrow things down by using `zeek-c
 
 **One-liner source**: [activecountermeasures](https://www.activecountermeasures.com/)
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat conn.log | /usr/local/zeek/bin/zeek-cut id.orig_h id.resp_h orig_bytes | sort | grep -v -e '^$' | grep -v '-' | datamash -g 1,2 sum 3 | sort -k 3 -rn | head -10
@@ -4013,7 +3973,7 @@ Invest some time in scrutinizing the `tlsexfil.pcap` file using `Wireshark`.
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/tlsexfil.pcap .
@@ -4029,13 +3989,13 @@ We can identify SMB transfers and the typical use of `PsExec` using Zeek's `smb_
 
 **PCAP source**: [401TRG](https://github.com/401TRG/detections/raw/master/pcaps/20171220\_smb\_psexec\_add\_user.pcap)
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ /usr/local/zeek/bin/zeek -C -r /home/htb-student/pcaps/psexec_add_user.pcap
 ```
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat smb_files.log
@@ -4053,7 +4013,7 @@ root@htb[/htb]$ cat smb_files.log
 #close  2023-07-16-17-39-49
 ```
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat dce_rpc.log
@@ -4087,7 +4047,7 @@ root@htb[/htb]$ cat dce_rpc.log
 #close  2023-07-16-17-39-49
 ```
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ cat smb_mapping.log
@@ -4113,11 +4073,8 @@ Invest some time in scrutinizing the `psexec_add_user.pcap` file using `Wireshar
 
 We can download the PCAP file into the current directory of either Pwnbox or our own VM as follows.
 
-&#x20; Intrusion Detection With Zeek
+Intrusion Detection With Zeek
 
 ```shell-session
 root@htb[/htb]$ scp htb-student@[TARGET IP]:/home/htb-student/pcaps/psexec_add_user.pcap .
 ```
-
-
-
