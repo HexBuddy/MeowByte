@@ -93,3 +93,7 @@
   * [Introduction to Digital Forensics](hackthebox-academy/defensive-security-analyst-path/introduction-to-digital-forensics.md)
   * [Detecting Windows Attacks with Splunk](hackthebox-academy/defensive-security-analyst-path/detecting-windows-attacks-with-splunk.md)
   * [Security Incident Reporting](hackthebox-academy/defensive-security-analyst-path/security-incident-reporting.md)
+
+## 🥰 Nerds Researches
+
+* [How Analog Circumstances Becomes Digital Events](nerds-researches/how-analog-circumstances-becomes-digital-events.md)
