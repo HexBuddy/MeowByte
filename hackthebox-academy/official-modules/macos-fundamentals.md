@@ -195,14 +195,7 @@ Like most common operating systems, macOS has a powerful `Graphical User Interfa
 
 Here's a quick glance at the main components that make up macOS:
 
-| **Component**    | **Description**                                                                                                                                       |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Apple Menu`     | This is our main point of reference for critical host operations such as System Settings, locking our screen, shutting down the host, etc.            |
-| `Finder`         | Finder is the component of macOS that provides the Desktop experience and File management functions within the OS.                                    |
-| `Spotlight`      | Spotlight serves as a helper of sorts on your system. It can search the filesystem and your iCloud, perform mathematical conversions, and more.       |
-| `Dock`           | The Dock at the bottom of your screen, by default, acts as the holder for any apps you frequently use and where your currently open apps will appear. |
-| `Launchpad`      | This is the application menu where you can search for and launch applications.                                                                        |
-| `Control Center` | Control Center is where we can manage our network settings, sound and display options, notification, and more at a glance.                            |
+<table data-header-hidden><thead><tr><th width="214"></th><th></th></tr></thead><tbody><tr><td><strong>Component</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Apple Menu</code></td><td>This is our main point of reference for critical host operations such as System Settings, locking our screen, shutting down the host, etc.</td></tr><tr><td><code>Finder</code></td><td>Finder is the component of macOS that provides the Desktop experience and File management functions within the OS.</td></tr><tr><td><code>Spotlight</code></td><td>Spotlight serves as a helper of sorts on your system. It can search the filesystem and your iCloud, perform mathematical conversions, and more.</td></tr><tr><td><code>Dock</code></td><td>The Dock at the bottom of your screen, by default, acts as the holder for any apps you frequently use and where your currently open apps will appear.</td></tr><tr><td><code>Launchpad</code></td><td>This is the application menu where you can search for and launch applications.</td></tr><tr><td><code>Control Center</code></td><td>Control Center is where we can manage our network settings, sound and display options, notification, and more at a glance.</td></tr></tbody></table>
 
 Now, let's take a look at them in detail.
 
@@ -301,8 +294,6 @@ MacOS does not offer a direct GUI feature to cut and paste files & folders using
 
 Another way to move files in macOS is using the `mv` command in the `terminal`, which must be used with caution as it is an irreversible command. To do so, open a terminal from Dock & run the following command to move the `Test` folder from the Users `Document directory` into the Users `Desktop directory`.
 
-Navigating Around The OS
-
 ```shell-session
 [root@htb]/Users$ mv /Users/htb-student/Documents/Test /Users/htb-student/Desktop/Test
 ```
@@ -326,8 +317,6 @@ To view hidden files and folders using the GUI:
 You may also change the default view of Finder to show hidden files, as follows:
 
 1. Open a terminal from `Dock` & run the following commands in Terminal
-
-Navigating Around The OS
 
 ```shell-session
 [root@htb]/Users$ defaults write com.apple.Finder AppleShowAllFiles true
@@ -418,12 +407,7 @@ Note: As macOS is essentially unix-based, many of the things and commands covere
 
 In macOS, a file system is divided into multiple domains that separate files and resources depending on their intended usage. Domains apply `access privilege` to the files and resources in that domain, preventing unauthorized users from changing files.
 
-| **Domain**       | **Description**                                                                                                                            |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `Local Domain`   | Contains resources such as apps that are local to the current computer and shared among all computer users.                                |
-| `System Domain`  | Contains the system software installed by Apple.                                                                                           |
-| `User Domain`    | Contains resources specific to the users who log in to the system. This domain reflects the home directory of the current user at runtime. |
-| `Network Domain` | Contains resources such as apps and documents that are shared among users of a local area network.                                         |
+<table data-header-hidden><thead><tr><th width="269"></th><th></th></tr></thead><tbody><tr><td><strong>Domain</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Local Domain</code></td><td>Contains resources such as apps that are local to the current computer and shared among all computer users.</td></tr><tr><td><code>System Domain</code></td><td>Contains the system software installed by Apple.</td></tr><tr><td><code>User Domain</code></td><td>Contains resources specific to the users who log in to the system. This domain reflects the home directory of the current user at runtime.</td></tr><tr><td><code>Network Domain</code></td><td>Contains resources such as apps and documents that are shared among users of a local area network.</td></tr></tbody></table>
 
 ### macOS File System Structure
 
@@ -435,19 +419,13 @@ In macOS, a file system is divided into multiple domains that separate files and
 
 The `Applications` directory contains applications that users would commonly use. There are multiple `/Applications` folders, each belonging to a different domain.
 
-| **Domain**      | **Description**                                                                                                                                              |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `User Domain`   | Applications that are installed and related to a particular user are saved under `/Users/username/Applications`                                              |
-| `Local Domain`  | Applications which are installed by a user, installed by `Apple`, and which can be used by `all` users present in a computer are saved under `/Applications` |
-| `System Domain` | Applications which are related to the system or installed by `Apple` are saved under `/System/Applications`                                                  |
+<table data-header-hidden><thead><tr><th width="242"></th><th></th></tr></thead><tbody><tr><td><strong>Domain</strong></td><td><strong>Description</strong></td></tr><tr><td><code>User Domain</code></td><td>Applications that are installed and related to a particular user are saved under <code>/Users/username/Applications</code></td></tr><tr><td><code>Local Domain</code></td><td>Applications which are installed by a user, installed by <code>Apple</code>, and which can be used by <code>all</code> users present in a computer are saved under <code>/Applications</code></td></tr><tr><td><code>System Domain</code></td><td>Applications which are related to the system or installed by <code>Apple</code> are saved under <code>/System/Applications</code></td></tr></tbody></table>
 
 **/Users**
 
 The `Users` directory belongs to the `User Domain`. It contains user-related applications, files, and resources. Each user account has its own user folder, located under `/Users/username`. Each user has access `only` to their user directory and `cannot` access items on another user's directory.
 
 For example, if two users, `htb-student` and `htb-dev`, are present in the system, then the `/Users` directory would consist of two directories, with each user account having its own directory.
-
-System Hierarchy
 
 ```shell-session
 [root@htb]/Users$ ls
@@ -521,8 +499,6 @@ Tip: Converting between permission attributes and their octal value may be diffi
 
 **Basic File Permissions**
 
-File and Directory Permissions
-
 ```shell-session
 root@htb[/htb]$ ls -l  
 
@@ -546,8 +522,6 @@ From this output, we can see that the User owner is the user `htb-user` and the 
 Tip: To make it easier to remember when reading the attributes from left to right, remember the acronym \`UGO\`, which stands for User/Group/Others.
 
 If we were to modify these permissions, we would notice that the attributes listed to the left would change to reflect the new permission set. For example, below, we can see a script with the execute attribute set for the User owner. Notice the difference?
-
-File and Directory Permissions
 
 ```shell-session
 root@htb[/htb]$ ls -l 
@@ -599,8 +573,6 @@ Next, let's take a bit to look at permissions from within the terminal. We will 
 
 Let's take the following files as an example:
 
-File and Directory Permissions
-
 ```shell-session
 root@htb[/htb]$ ls -l  
 
@@ -610,8 +582,6 @@ total 8256
 ```
 
 Let's try to change the permission attribute for everyone to read, write, and execute. In octal format, this will equal `777`, which we can do as follows:
-
-File and Directory Permissions
 
 ```shell-session
 root@htb[/htb]$ chmod -vv 777 HTB-Wallpaper-1.png  
@@ -627,8 +597,6 @@ We can see in the output that `chmod -vv 777 <file>` changed the old permissions
 
 Using the same file from before, we will modify its ownership by replacing `htb-user` as the owner with `htb-student`. We can do so as follows:
 
-File and Directory Permissions
-
 ```shell-session
 root@htb[/htb]$ sudo chown htb-student HTB-Wallpaper-1.png
 
@@ -637,8 +605,6 @@ root@htb[/htb]$ ls -l
 ```
 
 Notice the change from before? `htb-student` is now the file owner, and staff retained access to it as the group owner. `chown` is handy because we can also change the group ownership if we wish. To do so, we would specify ownership with `chown` like so:
-
-File and Directory Permissions
 
 ```shell-session
 root@htb[/htb]$ sudo chown htb-user:admins HTB-Wallpaper-1.png 
@@ -715,8 +681,6 @@ Even though managing interface settings via the CLI is not the preferred method,
 
 We have quite a few ways to find information about our network status and settings from the CLI. We are going to start with the easiest first, `ifconfig`. By typing `ifconfig` into the terminal, we can see a printout of our network interfaces and their configurations. Below we can see an example of the output we get back.
 
-Networking
-
 ```shell-session
 root@htb[/htb]$ ifconfig  
   
@@ -739,8 +703,6 @@ en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
 
 We can see this command pushes out a ton of output. So to clean this up a bit, we can single out an interface we wish to see information about specifically by inputting `ifconfig <interface name>`.
 
-Networking
-
 ```shell-session
 root@htb[/htb]$ ifconfig en0
 
@@ -759,8 +721,6 @@ Looking at our output now, it's much easier to discern what we need instead of s
 
 **Setting a Manual IP with ifconfig**
 
-Code: bash
-
 ```bash
 ifconfig en0 inet <192.168.1.1> netmask < 255.255.255.0 >  
 ```
@@ -772,8 +732,6 @@ Note: Changes made with `ifconfig` are temporary and will be overwritten by the 
 **lsof**
 
 Another common task you may find yourself doing is checking the state of ports on your host. We can use [lsof](https://linux.die.net/man/8/lsof) to see port states and what files have them bound.
-
-Code: bash
 
 ```bash
 lsof -n -i4TCP -P  
@@ -818,15 +776,11 @@ Along with the basic networking commands found on most Unix/Linux distros, like 
 
 Here're a few basic examples of using networksetup:
 
-Networking
-
 ```shell-session
 root@htb[/htb]$ hostname
   
 ACADEMY-MAC-2.local
 ```
-
-Networking
 
 ```shell-session
 root@htb[/htb]$ networksetup -listallnetworkservices  
@@ -837,8 +791,6 @@ root@htb[/htb]$ networksetup -listallnetworkservices
  Thunderbolt Bridge
  Thunderbolt Bridge 2
 ```
-
-Networking
 
 ```shell-session
 root@htb[/htb]$ networksetup -listnetworkserviceorder  
@@ -856,8 +808,6 @@ root@htb[/htb]$ networksetup -listnetworkserviceorder
  (4) Thunderbolt Bridge 2
  (Hardware Port: Thunderbolt Bridge, Device: bridge0)
 ```
-
-Networking
 
 ```shell-session
 root@htb[/htb]$ networksetup -getinfo Wi-Fi  
@@ -885,8 +835,6 @@ There are a couple of handy macOS networking tricks we can utilize, which we oft
 
 The first is the ability to check your interface's network quality using the `networkQuality` command. We can input this into our shell to see live feedback about our network:
 
-Networking
-
 ```shell-session
 root@htb[/htb]$ networkQuality -I <interface>  
 Downlink: capacity 104.874 Mbps, responsiveness 66 RPM - Uplink: capacity 100.708 Mbps, responsiveness 66 RPM
@@ -895,8 +843,6 @@ Downlink: capacity 104.874 Mbps, responsiveness 66 RPM - Uplink: capacity 100.70
 **Find Wi-Fi Password**
 
 Our next tip is a quick way to find the `Password` for an `SSID` you have previously connected to. We will do this using the [security](https://www.unix.com/man-page/osx/1/security/) command. Security allows us to list and manage our passwords, keychains, certificates, and more via the CLI. The command below will print our requested password:
-
-Networking
 
 ```shell-session
 root@htb[/htb]$ security find-generic-password -wa Office-2.4G
@@ -1253,15 +1199,11 @@ Tip: In a macOS terminal, you can use the `open` command to open any file with i
 
 In recent versions of macOS, Apple switched their default shell from `Bash` to `ZSH`, which is more versatile, user-friendly, and allows shell extensibility. ZSH is quite similar to Bash, but if you want to change the default shell to `bash` you can do so with the following command:
 
-MacOS Terminal
-
 ```shell-session
 root@htb[/htb]$ chsh -s /bin/bash
 ```
 
 If you are on an older version of macOS and would like to install ZSH, you can do so with the following command:
-
-MacOS Terminal
 
 ```shell-session
 root@htb[/htb]$ brew install zsh
@@ -1278,8 +1220,6 @@ When we start a new terminal session, the default shell gets loaded with its def
 
 If you want to apply some default configurations, you can set up a few custom `aliases` that make it easier for you to use the shell. For example, I have the following `ls` aliases:
 
-Code: bash
-
 ```bash
 # Aliases
 alias ll='ls -l'
@@ -1288,8 +1228,6 @@ alias l='ls -CF'
 ```
 
 This makes it easy for me to execute the frequently used `ls -la` command with `la`. Similarly, I have an `archiving` function set up that allows me to easily extract any archive files through my terminal without needing to remember the different archive commands for each extension:
-
-Code: bash
 
 ```bash
 # Archives
@@ -1328,8 +1266,6 @@ Whenever I need to extract an archive, I can use the `extract FILENAME` command,
 **Plugins**
 
 As mentioned earlier, the main benefit of ZSH is the ability to install plugins and extensions to extend the default shell. One tool that makes it super easy to install and manage ZSH plugins and themes is [Oh My Zsh](https://ohmyz.sh/), which we can install as follows:
-
-Code: bash
 
 ```bash
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

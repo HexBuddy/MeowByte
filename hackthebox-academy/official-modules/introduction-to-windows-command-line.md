@@ -438,8 +438,6 @@ Local access is synonymous with having direct physical access ( or virtual in th
 
 **cmd.exe Initial Access**
 
-Command Prompt Basics
-
 ```cmd-session
 Microsoft Windows [Version 10.0.19044.2006]
 (c) Microsoft Corporation. All rights reserved.
@@ -462,8 +460,6 @@ Looking at the Command Prompt, what we see now is similar to what it was decades
 **Using the dir Command**
 
 #### CMD Prompt
-
-Command Prompt Basics
 
 ```cmd-session
 C:\Users\htb\Desktop> dir
@@ -529,8 +525,6 @@ Let's work on answering the initial question first. While utilizing the Command 
 
 **Default Help Usage**
 
-Getting Help
-
 ```cmd-session
 C:\htb> help
 
@@ -553,8 +547,6 @@ From this output, we can see that it prints out a list of system commands (`buil
 
 **Help with Commands**
 
-Getting Help
-
 ```cmd-session
 C:\htb> help time
 
@@ -573,8 +565,6 @@ current time, without prompting for a new time.
 As we can see from the output above, when we issued the command `help time`, it printed the help details for time. This will work for any system command built-in but not for every command accessible on the system. Certain commands do not have a help page associated with them. However, they will redirect you to running the proper command to retrieve the desired information. For example, running `help ipconfig` will give us the following output.
 
 **Detailed Output**
-
-Getting Help
 
 ```cmd-session
 C:\htb> help ipconfig
@@ -640,8 +630,6 @@ Command history is a dynamic thing. It allows us to `view previously ran command
 
 **doskey /history**
 
-Getting Help
-
 ```cmd-session
 C:\htb> doskey /history
 
@@ -665,27 +653,13 @@ From the output provided above, we can view a list of `commands` that were run b
 
 It would be helpful to have some way of remembering some of the key functionality provided by our terminal history. With this in mind, the table below shows a list of some of the most valuable functions and commands that can be run to interact with our session history. This list is not exhaustive. For example, the function keys F1 - F9 all serve a purpose when working with history.
 
-| **Key/Command** | **Description**                                                                                                            |
-| :-------------: | -------------------------------------------------------------------------------------------------------------------------- |
-| doskey /history | doskey /history will print the session's command history to the terminal or output it to a file when specified.            |
-|     page up     | Places the first command in our session history to the prompt.                                                             |
-|    page down    | Places the last command in history to the prompt.                                                                          |
-|        ⇧        | Allows us to scroll up through our command history to view previously run commands.                                        |
-|        ⇩        | Allows us to scroll down to our most recent commands run.                                                                  |
-|        ⇨        | Types the previous command to prompt one character at a time.                                                              |
-|        ⇦        | N/A                                                                                                                        |
-|        F3       | Will retype the entire previous entry to our prompt.                                                                       |
-|        F5       | Pressing F5 multiple times will allow you to cycle through previous commands.                                              |
-|        F7       | Opens an interactive list of previous commands.                                                                            |
-|        F9       | Enters a command to our prompt based on the number specified. The number corresponds to the commands place in our history. |
+<table data-header-hidden><thead><tr><th width="217" align="center"></th><th></th></tr></thead><tbody><tr><td align="center"><strong>Key/Command</strong></td><td><strong>Description</strong></td></tr><tr><td align="center">doskey /history</td><td>doskey /history will print the session's command history to the terminal or output it to a file when specified.</td></tr><tr><td align="center">page up</td><td>Places the first command in our session history to the prompt.</td></tr><tr><td align="center">page down</td><td>Places the last command in history to the prompt.</td></tr><tr><td align="center">⇧</td><td>Allows us to scroll up through our command history to view previously run commands.</td></tr><tr><td align="center">⇩</td><td>Allows us to scroll down to our most recent commands run.</td></tr><tr><td align="center">⇨</td><td>Types the previous command to prompt one character at a time.</td></tr><tr><td align="center">⇦</td><td>N/A</td></tr><tr><td align="center">F3</td><td>Will retype the entire previous entry to our prompt.</td></tr><tr><td align="center">F5</td><td>Pressing F5 multiple times will allow you to cycle through previous commands.</td></tr><tr><td align="center">F7</td><td>Opens an interactive list of previous commands.</td></tr><tr><td align="center">F9</td><td>Enters a command to our prompt based on the number specified. The number corresponds to the commands place in our history.</td></tr></tbody></table>
 
 One thing to remember is that unlike Bash or other shells, CMD does not keep a persistent record of the commands you issue through sessions. So once you close that instance, that history is gone. To save a copy of our issued commands, we can use `doskey` again to output the history to a file, show it on screen, and then copy it.
 
 **Exit a Running Process**
 
 At some point in our journey working with the `Command Prompt`, there will be times when we will need to be able to `interrupt` an actively running process, effectively killing it. This can be due to many different factors. However, a lot of the time, we might have the information that we need from a currently running command or find ourselves dealing with an application that's locking up unexpectedly. Thus, we need some way of interrupting our current session and any process running in it. Take the following as an example:
-
-Getting Help
 
 ```cmd-session
 C:\htb> ping 8.8.8.8
@@ -726,8 +700,6 @@ Additionally, at the end of the section, we will briefly look into certain direc
 
 One of the easiest things we can do when initially poking around on a Windows host is to get a listing of the directory we are currently working in. We do that with the `dir` command.
 
-System Navigation
-
 ```cmd-session
 C:\Users\htb\Desktop> dir
   
@@ -757,8 +729,6 @@ As seen through the example above, `dir` is an easy-to-use and surprisingly vers
 
 Before doing anything on a host, it is helpful to know where we are in the filesystem. We can determine that by utilizing the `cd` or `chdir` commands.
 
-System Navigation
-
 ```cmd-session
 C:\htb> cd 
 
@@ -778,8 +748,6 @@ Those familiar with `Linux` should begin to recognize this structure and be fami
 
 **Current Working Directory**
 
-System Navigation
-
 ```cmd-session
 C:\htb> cd 
 
@@ -793,8 +761,6 @@ Note: `C:\` is the root directory of all Windows machines and has been determine
 
 **Absolute Path**
 
-System Navigation
-
 ```cmd-session
 C:\htb> cd C:\Users\htb\Pictures
 
@@ -805,8 +771,6 @@ C:\Users\htb\Pictures>
 In this example, we can see that our initial working directory is located in `C:\htb`. We used `cd` and provided the path as our argument to move ourselves to the `C:\Users\htb\Pictures` directory. As we can see, the provided path starts with `C:\` as it is the root directory and follows the structure until it reaches its destination, being the `\Pictures` directory. Putting the pieces together, we can conclude that `C:\Users\htb\Pictures` would be considered the `absolute path` in this case as it follows the complete structure of the file system starting from the `root` directory and ending at the destination directory.
 
 **Relative Path**
-
-System Navigation
 
 ```cmd-session
 C:\htb> cd .\Pictures
@@ -820,8 +784,6 @@ On the other hand, following this example, we can see that something is slightly
 Understanding both of these terms is imperative as we can effectively use this knowledge of the file system's hierarchy to move up and down the file structure with ease. We can piece everything together through one last example to show how quickly we can use what we have learned so far to move about the system.
 
 We are currently in the `C:\Users\htb\Pictures` directory provided in our previous example. However, we wish to quickly move all the way back to the root of the file system in just one command. To do so, we can perform the following:
-
-System Navigation
 
 ```cmd-session
 C:\Users\htb\Pictures>  cd ..\..\..\
@@ -839,8 +801,6 @@ This one command lets us move up the directory structure, starting from the `\Pi
 Using our newfound skills, we should branch out and explore the system earnestly. Thorough exploration is essential, as it can help us gain a considerable advantage in understanding the layout of the system we are interacting with and the files contained within. However, when looking around the filesystem of a Windows host, it can get tedious to change our directory back and forth or to issue the `dir` command for each sub-directory. To save us a bit of time and gain some efficiency, we can get a printout of the entire path we specify and its subdirectories by utilizing the `tree` command.
 
 **Listing the Contents of the File System**
-
-System Navigation
 
 ```cmd-session
 C:\htb\student\> tree

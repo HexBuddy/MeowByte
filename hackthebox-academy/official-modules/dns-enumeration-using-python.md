@@ -35,8 +35,6 @@ Let us take the following fully qualified domain name (`FQDN`) as an example:
 
 A domain is used to give real names to computer's IP addresses and, at the same time, to divide them into a hierarchical structure. This hierarchical structure looks like a directory tree of an operating system.
 
-DNS Structure
-
 ```shell-session
 .
 ├── com.
@@ -238,8 +236,6 @@ We want to automate the enumeration process for potential zone transfers on misc
 
 **DIG - NS Queries**
 
-DNS Records and Queries
-
 ```shell-session
 root@htb[/htb]$ dig NS inlanefreight.com
 
@@ -252,8 +248,6 @@ inlanefreight.com.	60	IN	NS	ns1.inlanefreight.com.
 ```
 
 **DIG - SOA Queries**
-
-DNS Records and Queries
 
 ```shell-session
 root@htb[/htb]$ dig SOA inlanefreight.com
@@ -357,8 +351,6 @@ Also, we can use public services such as [VirusTotal](https://www.virustotal.com
 
 **CTFR.py**
 
-DNS Enumeration
-
 ```shell-session
 root@htb[/htb]$ python3 ctfr.py -d inlanefreight.com
 
@@ -388,8 +380,6 @@ videoconf.inlanefreight.com
 `Zone transfer` in DNS refers to the transfer of zones to other DNS servers. This procedure is called the `Asynchronous Full Transfer Zone` (`AXFR`), as we have already learned. Since a DNS failure usually has severe consequences for a company, the `zone files` are almost without exception kept identical on several name servers. In the event of changes, it must be ensured that all servers have the same data stock. `Zone transfer` involves the mere transfer of files or records and the detection of discrepancies in the databases of the servers involved. DNS servers' configuration requires a great deal of attention because many administrators cannot always fully understand the operating principle from the technical configuration and troubleshooting. This leads to error rate and vulnerability, leading to misconfigurations and endanger the system or even the entire infrastructure by allowing the entire content of the zones to be viewed.
 
 **Performing DNS Zone Transfer**
-
-DNS Enumeration
 
 ```shell-session
 root@htb[/htb]$ dig axfr inlanefreight.com @10.129.2.67
@@ -463,8 +453,6 @@ After we have installed the module, we can import it. This module offers us the 
 
 **Python Help()**
 
-Python Modules
-
 ```shell-session
 root@htb[/htb]$ ipython
 
@@ -478,15 +466,11 @@ In [2]: help(dz.  #[1x Tab]
 
 **Dns.Zone.From\_XFR()**
 
-Python Modules
-
 ```shell-session
 In [2]: help(dz.from_xfr) 
 ```
 
 **From\_XFR() - Documentation**
-
-Python Modules
 
 ```shell-session
 from_xfr(xfr, zone_factory=<class 'dns.zone.Zone'>, relativize=True, check_origin=True)
@@ -510,8 +494,6 @@ We can also find the documentation for this on the [documentation page](https://
 
 **Notes**
 
-Code: python
-
 ```python
 # Notes
 import dns.zone as dz
@@ -524,15 +506,11 @@ We need to take a closer look at the `dns.query.xfr()` function to determine whi
 
 **Dns.Query.XFR()**
 
-Python Modules
-
 ```shell-session
 In [3]: help(dq.xfr) 
 ```
 
 **XFR() - Documentation**
-
-Python Modules
 
 ```shell-session
 Help on function xfr in module dns.query:
@@ -554,8 +532,6 @@ We can also find out the required parameters by executing the function. Because 
 
 **Required Parameters**
 
-Python Modules
-
 ```shell-session
 In [4]: dq.xfr()
 
@@ -570,8 +546,6 @@ TypeError: xfr() missing 2 required positional arguments: 'where' and 'zone'
 In this case, the variable "`where`" stands for the DNS server and the variable "`zone`" for the domain. We note this as well.
 
 **Notes**
-
-Code: python
 
 ```python
 # Notes
@@ -588,8 +562,6 @@ import dns.query as dq
 We have to find out how to resolve our requests by using specific DNS servers. The easiest way with the necessary class would be "`dns.resolver`". In the [documentation](https://dnspython.readthedocs.io/en/latest/resolver-class.html), we can find the class "`Resolver`" which allows us to specify the DNS servers we want to send our requests to. Of course, we can also automatically find these DNS servers, so we do not have to change them manually. Nevertheless, we have to be careful because companies often use DNS servers from third party providers for which we usually do not have the permissions to test them. Therefore, we recommend that we specify them manually and preferably in the command line rather than in our code. To make this possible, we import another module called "`argparse`". Accordingly, we also add this information to our notes.
 
 **Notes**
-
-Code: python
 
 ```python
 # Notes
@@ -614,8 +586,6 @@ The corresponding NS servers we found by using the following code:
 
 **NS Records - DNS.Resolver**
 
-Python Modules
-
 ```shell-session
 root@htb[/htb]$ python3
 
@@ -631,8 +601,6 @@ NS: ns2.inlanefreight.com.
 
 In summary, we have the following information now:
 
-Code: python
-
 ```python
 Domain = 'inlanefreight.com'
 DNS Servers = ['ns1.inlanefreight.com', 'ns2.inlanefreight.com']
@@ -641,8 +609,6 @@ DNS Servers = ['ns1.inlanefreight.com', 'ns2.inlanefreight.com']
 Now we can summarize all our information and write the first lines of our code.
 
 **DNS-AXFR.py**
-
-Code: python
 
 ```python
 #!/usr/bin/env python3
@@ -689,8 +655,6 @@ Again, we should determine how we define the `functions` and keep this standard.
 
 **DNS-AXFR.py - Functions**
 
-Code: python
-
 ```python
 <SNIP>
 # List of found subdomains
@@ -722,8 +686,6 @@ If a statement or an expression is written correctly in terms of its syntax, err
 
 **DNS-AXFR.py - Try-Except**
 
-Code: python
-
 ```python
 <SNIP>
 # List of found subdomains
@@ -754,8 +716,6 @@ With `if-else` statements, it depends on how many arguments or values we want to
 
 **If-Else - Few Arguments**
 
-Code: python
-
 ```python
 # Few arguments
 if (arg1 and arg2):
@@ -765,8 +725,6 @@ else:
 ```
 
 **If-Else - Many Arguments**
-
-Code: python
 
 ```python
 # Many arguments
@@ -783,8 +741,6 @@ else:
 In our `DNS.py` script, we use only one tested value, and therefore we don't need multiple lines.
 
 **DNS-AXFR.py - If-Else**
-
-Code: python
 
 ```python
 <SNIP>
@@ -818,8 +774,6 @@ def AXFR(domain, nameserver):
 The `For` loops should always be kept as simple as possible, as they can cause errors with the number of passes, which we then have to debug manually for each entry to understand what went wrong in the loop. Therefore, we will now append each "`record`" to our predefined "`Subdomains`" list to store the subdomains we found.
 
 **DNS-AXFR.py**
-
-Code: python
 
 ```python
 <SNIP>
@@ -864,8 +818,6 @@ If we start a Python program by calling a py file, and there we call `"__name__"
 
 **DNS-AXFR.py**
 
-Code: python
-
 ```python
 <SNIP>
 # Main
@@ -884,8 +836,6 @@ if __name__=="__main__":
 Since our `AXFR` function requires the two parameters, "domain" and "nameserver," we create a `For-loop` that executes the `AXFR` function for each nameserver specified. We use another `For-loop` combined with the `If-Else` statement in the area that will output the found subdomains. If the subdomain list, in which the `AXFR` function stores the found subdomains, is not empty, then every subdomain entry from the subdomain list should be printed.
 
 **DNS-AXFR.py**
-
-Code: python
 
 ```python
 <SNIP>
@@ -1011,8 +961,6 @@ Next, we define the arguments with the desired names in the Main function that o
 
 **DNS-AXFR.py**
 
-Code: python
-
 ```python
 <SNIP>
 # Main
@@ -1028,27 +976,13 @@ The passed arguments to the class `argparse` for the function "`ArgumentParser`"
 
 After initializing the parser, we can define the corresponding parameters, which we will define with our script's respective options. For this, we use the `add_argument()` method of the `ArgumentParser`. This method provides us with some parameters that we can use to define the option.
 
-| **Parameter**                                                                 | **Description**                                                                             |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| [name or flag](https://docs.python.org/3/library/argparse.html#name-or-flags) | Either a name or a list of option strings.                                                  |
-| [action](https://docs.python.org/3/library/argparse.html#action)              | The basic type of action to be taken when this argument is encountered at the command line. |
-| [nargs](https://docs.python.org/3/library/argparse.html#nargs)                | The number of command-line arguments that should be consumed.                               |
-| [const](https://docs.python.org/3/library/argparse.html#const)                | A constant value required by some `action` and `nargs` selections.                          |
-| [default](https://docs.python.org/3/library/argparse.html#default)            | The value produced if the argument is absent from the command line.                         |
-| [type](https://docs.python.org/3/library/argparse.html#type)                  | The type to which the command-line argument should be converted.                            |
-| [choices](https://docs.python.org/3/library/argparse.html#choices)            | A container of the allowable values for the argument.                                       |
-| [required](https://docs.python.org/3/library/argparse.html#required)          | Whether or not the command-line option may be omitted (optionals only).                     |
-| [help](https://docs.python.org/3/library/argparse.html#help)                  | A brief description of what the argument does.                                              |
-| [metavar](https://docs.python.org/3/library/argparse.html#metavar)            | A name for the argument in usage messages.                                                  |
-| [dest](https://docs.python.org/3/library/argparse.html#dest)                  | The name of the attribute to be added to the object returned by `parse_args()`.             |
+<table data-header-hidden><thead><tr><th width="165"></th><th></th></tr></thead><tbody><tr><td><strong>Parameter</strong></td><td><strong>Description</strong></td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#name-or-flags">name or flag</a></td><td>Either a name or a list of option strings.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#action">action</a></td><td>The basic type of action to be taken when this argument is encountered at the command line.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#nargs">nargs</a></td><td>The number of command-line arguments that should be consumed.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#const">const</a></td><td>A constant value required by some <code>action</code> and <code>nargs</code> selections.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#default">default</a></td><td>The value produced if the argument is absent from the command line.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#type">type</a></td><td>The type to which the command-line argument should be converted.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#choices">choices</a></td><td>A container of the allowable values for the argument.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#required">required</a></td><td>Whether or not the command-line option may be omitted (optionals only).</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#help">help</a></td><td>A brief description of what the argument does.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#metavar">metavar</a></td><td>A name for the argument in usage messages.</td></tr><tr><td><a href="https://docs.python.org/3/library/argparse.html#dest">dest</a></td><td>The name of the attribute to be added to the object returned by <code>parse_args()</code>.</td></tr></tbody></table>
 
 Source : [https://docs.python.org/3/library/argparse.html#the-add-argument-method](https://docs.python.org/3/library/argparse.html#the-add-argument-method)
 
 Next, we define the target `domain` parameters and the `nameservers` on which we want to test the zone transfer. Since we can create another function later, which finds out the `nameservers` for the corresponding domain by itself, we define only the `domain` specification as `required`. Additionally, we add the script `version` to track later which version of the script we are using or editing. Finally, we assign the given arguments in the variable `args`.
 
 **DNS-AXFR.py**
-
-Code: python
 
 ```python
 <SNIP>
@@ -1074,8 +1008,6 @@ Since we have replaced and extended the static definition of variables using `ar
 The `NS.nameservers` variable can have several arguments, which we will separate with a comma (`,`). Therefore we create a `list`, which contains the arguments from `args.n` (nameservers) and separate them using the comma (`,`), if available.
 
 **DNS-AXFR.py**
-
-Code: python
 
 ```python
 <SNIP>
@@ -1114,8 +1046,6 @@ if __name__ == "__main__":
 The complete code would look like this.
 
 **DNS-AXFR.py - Complete Code**
-
-Code: python
 
 ```python
 #!/usr/bin/env python3
@@ -1208,8 +1138,6 @@ First of all, we can give this script the appropriate privileges necessary to ru
 
 **DNS-AXFR.py - Execution without arguments**
 
-Argparse
-
 ```shell-session
 root@htb[/htb]$ chmod +x dns-axfr.py
 root@htb[/htb]$ ./dns-axfr.py
@@ -1221,8 +1149,6 @@ dns-axfr.py: error: the following arguments are required: -d
 So when we test if we have set everything and do not give the script any arguments, we should get the error message as we expected. Next, we can check the `help` function by using "`-h`" as an argument.
 
 **DNS-AXFR.py - Help Message**
-
-Argparse
 
 ```shell-session
 root@htb[/htb]$ ./dns-axfr.py -h
@@ -1243,8 +1169,6 @@ Now we can also check if the `version` for this script is displayed as desired.
 
 **DNS-AXFR.py - Version**
 
-Argparse
-
 ```shell-session
 root@htb[/htb]$ ./dns-axfr.py -v
 
@@ -1254,8 +1178,6 @@ DNS-AXFR - v1.0
 After we have verified that our script works, we can deploy it and test it on our target domain. In this example, our target domain is "inlanefreight.com."
 
 **DNS-AXFR.py - Example**
-
-Argparse
 
 ```shell-session
 root@htb[/htb]$ ./dns-axfr.py -d inlanefreight.com -n ns1.inlanefreight.com,ns2.inlanefreight.com

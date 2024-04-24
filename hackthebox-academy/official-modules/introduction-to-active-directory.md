@@ -150,39 +150,39 @@ This is by no means a comprehensive list of all the excellent research and tools
 
 ### AD Attacks & Tools Timeline
 
-### 2021
+#### 2021
 
 The [PrintNightmare](https://en.wikipedia.org/wiki/PrintNightmare) vulnerability was released. This was a remote code execution flaw in the Windows Print Spooler that could be used to take over hosts in an AD environment. The [Shadow Credentials](https://posts.specterops.io/shadow-credentials-abusing-key-trust-account-mapping-for-takeover-8ee1a53566ab) attack was released which allows for low privileged users to impersonate other user and computer accounts if conditions are right, and can be used to escalate privileges in a domain. The [noPac](https://www.secureworks.com/blog/nopac-a-tale-of-two-vulnerabilities-that-could-end-in-ransomware) attack was released in mid-December of 2021 when much of the security world was focused on the Log4j vulnerabilities. This attack allows an attacker to gain full control over a domain from a standard domain user account if the right conditions exist.
 
-### 2020
+#### 2020
 
 The [ZeroLogon](https://blog.malwarebytes.com/exploits-and-vulnerabilities/2021/01/the-story-of-zerologon/) attack debuted late in 2020. This was a critical flaw that allowed an attacker to impersonate any unpatched domain controller in a network.
 
-### 2019
+#### 2019
 
 harmj0y delivered the talk ["Kerberoasting Revisited"](https://www.slideshare.net/harmj0y/derbycon-2019-kerberoasting-revisited) at DerbyCon which laid out new approaches to Kerberoasting. Elad Shamir released a [blog post](https://shenaniganslabs.io/2019/01/28/Wagging-the-Dog.html) outlining techniques for abusing resource-based constrained delegation (RBCD) in Active Directory. The company BC Security released [Empire 3.0](https://github.com/BC-SECURITY/Empire) (now version 4) which was a re-release of the PowerShell Empire framework written in Python3 with many additions and changes.
 
-### 2018
+#### 2018
 
 The "Printer Bug" bug was discovered by Lee Christensen and the [SpoolSample](https://github.com/leechristensen/SpoolSample) PoC tool was released which leverages this bug to coerce Windows hosts to authenticate to other machines via the MS-RPRN RPC interface. harmj0y released the [Rubeus toolkit](http://www.harmj0y.net/blog/redteaming/from-kekeo-to-rubeus/) for attacking Kerberos. Late in 2018 harmj0y also released the blog ["Not A Security Boundary: Breaking Forest Trusts"](http://www.harmj0y.net/blog/redteaming/not-a-security-boundary-breaking-forest-trusts/) which presented key research on performing attacks across forest trusts. The [DCShadow](https://www.dcshadow.com/) attack technique was also released by Vincent LE TOUX and Benjamin Delpy at the Bluehat IL 2018 conference. The [Ping Castle](https://github.com/vletoux/pingcastle/commits/master?after=f128d84e86e675f1ad65c4b9b05bd529e1f9dc7c+34\&branch=master) tool was released by Vincent LE TOUX for performing security audits of Active Directory by looking for misconfigurations and other flaws that can raise the risk level of a domain and producing a report that can be used to identify ways to further harden the environment.
 
-### 2017
+#### 2017
 
 The [ASREPRoast](http://www.harmj0y.net/blog/activedirectory/roasting-as-reps/) technique was introduced for attacking user accounts that don't require Kerberos preauthentication. \_wald0 and harmj0y delivered the pivotal talk on Active Directory ACL attacks ["ACE Up the Sleeve"](https://www.slideshare.net/harmj0y/ace-up-the-sleeve) at Black Hat and DEF CON. harmj0y released his ["A Guide to Attacking Domain Trusts"](https://www.harmj0y.net/blog/redteaming/a-guide-to-attacking-domain-trusts/) blog post on enumerating and attacking domain trusts.
 
-### 2016
+#### 2016
 
 [BloodHound](https://wald0.com/?p=68) was released as a game changing tool for visualizing attack paths in AD at [DEF CON 24](https://www.youtube.com/watch?v=wP8ZCczC1OU).
 
-### 2015
+#### 2015
 
 2015 saw the release of some of the most impactful Active Directory tools of all time. The [PowerShell Empire framework](https://github.com/EmpireProject/Empire) was released. [PowerView 2.0](http://www.harmj0y.net/blog/redteaming/powerview-2-0/) released as part of the (now deprecated) [PowerTools](https://github.com/PowerShellEmpire/PowerTools/) repository, which was a part of the PowerShellEmpire GitHub account. The DCSync attack was first released by Benjamin Delpy and Vincent Le Toux as part of the [mimikatz](https://github.com/gentilkiwi/mimikatz/) tool. It has since been included in other tools. The first stable release of CrackMapExec ([(v1.0.0)](https://github.com/byt3bl33d3r/CrackMapExec/releases?page=3) was introduced. Sean Metcalf gave a talk at Black Hat USA about the dangers of Kerberos Unconstrained Delegation and released an excellent [blog post](https://adsecurity.org/?p=1667) on the topic. The [Impacket](https://github.com/SecureAuthCorp/impacket/releases?page=2) toolkit was also released in 2015. This is a collection of Python tools, many of which can be used to perform Active Directory attacks. It is still actively maintained as of January 2022 and is a key part of most every penetration tester's toolkit.
 
-### 2014
+#### 2014
 
 Veil-PowerView first [released](https://github.com/darkoperator/Veil-PowerView/commit/fdfd47c0a1e06e529bf31c93da7caed3479d08e1#diff-1695122ff2b5844b625f6d05c9274ce0a8b75b9b7cde84386df07e24ae98181b). This project later became part of the [PowerSploit](https://github.com/PowerShellMafia/PowerSploit) framework as the (no longer supported) [PowerView.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1) AD recon tool. The Kerberoasting attack was first presented at a conference by [Tim Medin](https://twitter.com/timmedin) at SANS Hackfest 2014.
 
-### 2013
+#### 2013
 
 The [Responder](https://github.com/SpiderLabs/Responder/commits/master?after=c02c74853298ea52a2bfaa4d250c3898886a44ac+174\&branch=master) tool was released by Laurent Gaffie. Responder is a tool used for poisoning LLMNR, NBT-NS, and MDNS on an Active Directory network. It can be used to obtain password hashes and also perform SMB Relay attacks (when combined with other tools) to move laterally and vertically in an AD environment. It has evolved considerably over the years and is still actively supported (with new features added) as of January 2022.
 
@@ -209,8 +209,6 @@ For this reason, we must understand how Active Directory is set up and the basic
 Active Directory is arranged in a hierarchical tree structure, with a forest at the top containing one or more domains, which can themselves have nested subdomains. A forest is the security boundary within which all objects are under administrative control. A forest may contain multiple domains, and a domain may include further child or sub-domains. A domain is a structure within which contained objects (users, computers, and groups) are accessible. It has many built-in Organizational Units (OUs), such as `Domain Controllers`, `Users`, `Computers`, and new OUs can be created as required. OUs may contain objects and sub-OUs, allowing for the assignment of different group policies.
 
 At a very (simplistic) high level, an AD structure may look as follows:
-
-Active Directory Structure
 
 ```shell-session
 INLANEFREIGHT.LOCAL/
@@ -489,7 +487,7 @@ A new functional level was not added with the release of Windows Server 2019. Ho
 
 Forest functional levels have introduced a few key capabilities over the years:
 
-<table data-header-hidden><thead><tr><th width="339"></th><th></th></tr></thead><tbody><tr><td><strong>Version</strong></td><td><strong>Capabilities</strong></td></tr><tr><td><code>Windows Server 2003</code></td><td>saw the introduction of the forest trust, domain renaming, read-only domain controllers (RODC), and more.</td></tr><tr><td><code>Windows Server 2008</code></td><td>All new domains added to the forest default to the Server 2008 domain functional level. No additional new features.</td></tr><tr><td><code>Windows Server 2008 R2</code></td><td>Active Directory Recycle Bin provides the ability to restore deleted objects when AD DS is running.</td></tr><tr><td><code>Windows Server 2012</code></td><td>All new domains added to the forest default to the Server 2012 domain functional level. No additional new features.</td></tr><tr><td><code>Windows Server 2012 R2</code></td><td>All new domains added to the forest default to the Server 2012 R2 domain functional level. No additional new features.</td></tr><tr><td><code>Windows Server 2016</code></td><td><a href="https://docs.microsoft.com/en-us/windows-server/identity/whats-new-active-directory-domain-services#privileged-access-management">Privileged access management (PAM) using Microsoft Identity Manager (MIM).</a></td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="295"></th><th></th></tr></thead><tbody><tr><td><strong>Version</strong></td><td><strong>Capabilities</strong></td></tr><tr><td><code>Windows Server 2003</code></td><td>saw the introduction of the forest trust, domain renaming, read-only domain controllers (RODC), and more.</td></tr><tr><td><code>Windows Server 2008</code></td><td>All new domains added to the forest default to the Server 2008 domain functional level. No additional new features.</td></tr><tr><td><code>Windows Server 2008 R2</code></td><td>Active Directory Recycle Bin provides the ability to restore deleted objects when AD DS is running.</td></tr><tr><td><code>Windows Server 2012</code></td><td>All new domains added to the forest default to the Server 2012 domain functional level. No additional new features.</td></tr><tr><td><code>Windows Server 2012 R2</code></td><td>All new domains added to the forest default to the Server 2012 R2 domain functional level. No additional new features.</td></tr><tr><td><code>Windows Server 2016</code></td><td><a href="https://docs.microsoft.com/en-us/windows-server/identity/whats-new-active-directory-domain-services#privileged-access-management">Privileged access management (PAM) using Microsoft Identity Manager (MIM).</a></td></tr></tbody></table>
 
 ***
 
@@ -499,7 +497,7 @@ A trust is used to establish `forest-forest` or `domain-domain` authentication, 
 
 There are several trust types.
 
-<table data-header-hidden><thead><tr><th width="215"></th><th></th></tr></thead><tbody><tr><td><strong>Trust Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Parent-child</code></td><td>Domains within the same forest. The child domain has a two-way transitive trust with the parent domain.</td></tr><tr><td><code>Cross-link</code></td><td>a trust between child domains to speed up authentication.</td></tr><tr><td><code>External</code></td><td>A non-transitive trust between two separate domains in separate forests which are not already joined by a forest trust. This type of trust utilizes SID filtering.</td></tr><tr><td><code>Tree-root</code></td><td>a two-way transitive trust between a forest root domain and a new tree root domain. They are created by design when you set up a new tree root domain within a forest.</td></tr><tr><td><code>Forest</code></td><td>a transitive trust between two forest root domains.</td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="194"></th><th></th></tr></thead><tbody><tr><td><strong>Trust Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Parent-child</code></td><td>Domains within the same forest. The child domain has a two-way transitive trust with the parent domain.</td></tr><tr><td><code>Cross-link</code></td><td>a trust between child domains to speed up authentication.</td></tr><tr><td><code>External</code></td><td>A non-transitive trust between two separate domains in separate forests which are not already joined by a forest trust. This type of trust utilizes SID filtering.</td></tr><tr><td><code>Tree-root</code></td><td>a two-way transitive trust between a forest root domain and a new tree root domain. They are created by design when you set up a new tree root domain within a forest.</td></tr><tr><td><code>Forest</code></td><td>a transitive trust between two forest root domains.</td></tr></tbody></table>
 
 **Trust Example**
 
@@ -556,8 +554,6 @@ Even though they are considerably stronger than LM hashes (supporting the entire
 
 An NT hash takes the form of `b4b9b02e6f09a9bd760f388b67351e2b`, which is the second half of the full NTLM hash. An NTLM hash looks like this:
 
-NTLM Authentication
-
 ```shell-session
 Rachel:500:aad3c435b514a4eeaad3b935b51304fe:e46b9e548fa0d122de7f59fb6d48eaa2:::
 ```
@@ -568,8 +564,6 @@ Looking at the hash above, we can break the NTLM hash down into its individual p
 * `500` is the Relative Identifier (RID). 500 is the known RID for the `administrator` account
 * `aad3c435b514a4eeaad3b935b51304fe` is the LM hash and, if LM hashes are disabled on the system, can not be used for anything
 * `e46b9e548fa0d122de7f59fb6d48eaa2` is the NT hash. This hash can either be cracked offline to reveal the cleartext value (depending on the length/strength of the password) or used for a pass-the-hash attack. Below is an example of a successful pass-the-hash attack using the [CrackMapExec](https://github.com/byt3bl33d3r/CrackMapExec) tool:
-
-NTLM Authentication
 
 ```shell-session
 root@htb[/htb]$ crackmapexec smb 10.129.41.19 -u rachel -H e46b9e548fa0d122de7f59fb6d48eaa2
@@ -590,8 +584,6 @@ The NTLM protocol performs a challenge/response between a server and client usin
 
 **V1 Challenge & Response Algorithm**
 
-NTLM Authentication
-
 ```shell-session
 C = 8-byte server challenge, random
 K1 | K2 | K3 = LM/NT-hash | 5-bytes-0
@@ -601,8 +593,6 @@ response = DES(K1,C) | DES(K2,C) | DES(K3,C)
 An example of a full NTLMv1 hash looks like:
 
 **NTLMv1 Hash Example**
-
-NTLM Authentication
 
 ```shell-session
 u4-netntlm::kNS:338d08f8e26de93300000000000000000000000000000000:9526fb8c23a90751cdd619b6cea564742e1e4bf33006ba41:cb8086049ec4736c
@@ -618,8 +608,6 @@ The NTLMv2 protocol was first introduced in Windows NT 4.0 SP4 and was created a
 
 **V2 Challenge & Response Algorithm**
 
-NTLM Authentication
-
 ```shell-session
 SC = 8-byte server challenge, random
 CC = 8-byte client challenge, random
@@ -633,8 +621,6 @@ response = LMv2 | CC | NTv2 | CC*
 An example of an NTLMv2 hash is:
 
 **NTLMv2 Hash Example**
-
-NTLM Authentication
 
 ```shell-session
 admin::N46iSNekpT:08ca45b7d7ea58ee:88dcbe4446168966a153a0064958dac6:5c7830315c7830310000000000000b45c67103d07d7b95acd12ffa11230e0000000052920b85f78d013c31cdb3b92f5d765c783030
@@ -694,17 +680,9 @@ Domain users differ from local users in that they are granted rights from the do
 
 Security in Active Directory can be improved using a set of user naming attributes to help identify user objects like logon name or ID. The following are a few important Naming Attributes in AD:
 
-|                           |                                                                                                                                                                                                                                                                                  |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `UserPrincipalName` (UPN) | This is the primary logon name for the user. By convention, the UPN uses the email address of the user.                                                                                                                                                                          |
-| `ObjectGUID`              | This is a unique identifier of the user. In AD, the ObjectGUID attribute name never changes and remains unique even if the user is removed.                                                                                                                                      |
-| `SAMAccountName`          | This is a logon name that supports the previous version of Windows clients and servers.                                                                                                                                                                                          |
-| `objectSID`               | The user's Security Identifier (SID). This attribute identifies a user and its group memberships during security interactions with the server.                                                                                                                                   |
-| `sIDHistory`              | This contains previous SIDs for the user object if moved from another domain and is typically seen in migration scenarios from domain to domain. After a migration occurs, the last SID will be added to the `sIDHistory` property, and the new SID will become its `objectSID`. |
+<table><thead><tr><th width="286"></th><th></th></tr></thead><tbody><tr><td><code>UserPrincipalName</code> (UPN)</td><td>This is the primary logon name for the user. By convention, the UPN uses the email address of the user.</td></tr><tr><td><code>ObjectGUID</code></td><td>This is a unique identifier of the user. In AD, the ObjectGUID attribute name never changes and remains unique even if the user is removed.</td></tr><tr><td><code>SAMAccountName</code></td><td>This is a logon name that supports the previous version of Windows clients and servers.</td></tr><tr><td><code>objectSID</code></td><td>The user's Security Identifier (SID). This attribute identifies a user and its group memberships during security interactions with the server.</td></tr><tr><td><code>sIDHistory</code></td><td>This contains previous SIDs for the user object if moved from another domain and is typically seen in migration scenarios from domain to domain. After a migration occurs, the last SID will be added to the <code>sIDHistory</code> property, and the new SID will become its <code>objectSID</code>.</td></tr></tbody></table>
 
 **Common User Attributes**
-
-User and Machine Accounts
 
 ```powershell-session
 PS C:\htb Get-ADUser -Identity htb-student
@@ -786,8 +764,6 @@ Global groups can be used to grant access to resources in `another domain`. A gl
 The universal group scope can be used to manage resources distributed across multiple domains and can be given permissions to any object within the same `forest`. They are available to all domains within an organization and can contain users from any domain. Unlike domain local and global groups, universal groups are stored in the Global Catalog (GC), and adding or removing objects from a universal group triggers forest-wide replication. It is recommended that administrators maintain other groups (such as global groups) as members of universal groups because global group membership within universal groups is less likely to change than individual user membership in global groups. Replication is only triggered at the individual domain level when a user is removed from a global group. If individual users and computers (instead of global groups) are maintained within universal groups, it will trigger forest-wide replication each time a change is made. This can create a lot of network overhead and potential for issues. Below is an example of the groups in AD and their scope settings. Please pay attention to some of the critical groups and their scope. ( Enterprise and Schema admins compared to Domain admins, for example.)
 
 **AD Group Scope Examples**
-
-Active Directory Groups
 
 ```powershell-session
 PS C:\htb> Get-ADGroup  -Filter * |select samaccountname,groupscope
@@ -877,36 +853,11 @@ Rights and privileges are the cornerstones of AD management and, if mismanaged, 
 
 AD contains many [default or built-in security groups](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups), some of which grant their members powerful rights and privileges which can be abused to escalate privileges within a domain and ultimately gain Domain Admin or SYSTEM privileges on a Domain Controller (DC). Membership in many of these groups should be tightly managed as excessive group membership/privileges is a common flaw in many AD networks that attackers look to abuse. Some of the most common built-in groups are listed below.
 
-| Group Name                           | Description                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Account Operators`                  | Members can create and modify most types of accounts, including those of users, local groups, and global groups, and members can log in locally to domain controllers. They cannot manage the Administrator account, administrative user accounts, or members of the Administrators, Server Operators, Account Operators, Backup Operators, or Print Operators groups.            |
-| `Administrators`                     | Members have full and unrestricted access to a computer or an entire domain if they are in this group on a Domain Controller.                                                                                                                                                                                                                                                     |
-| `Backup Operators`                   | Members can back up and restore all files on a computer, regardless of the permissions set on the files. Backup Operators can also log on to and shut down the computer. Members can log onto DCs locally and should be considered Domain Admins. They can make shadow copies of the SAM/NTDS database, which, if taken, can be used to extract credentials and other juicy info. |
-| `DnsAdmins`                          | Members have access to network DNS information. The group will only be created if the DNS server role is or was at one time installed on a domain controller in the domain.                                                                                                                                                                                                       |
-| `Domain Admins`                      | Members have full access to administer the domain and are members of the local administrator's group on all domain-joined machines.                                                                                                                                                                                                                                               |
-| `Domain Computers`                   | Any computers created in the domain (aside from domain controllers) are added to this group.                                                                                                                                                                                                                                                                                      |
-| `Domain Controllers`                 | Contains all DCs within a domain. New DCs are added to this group automatically.                                                                                                                                                                                                                                                                                                  |
-| `Domain Guests`                      | This group includes the domain's built-in Guest account. Members of this group have a domain profile created when signing onto a domain-joined computer as a local guest.                                                                                                                                                                                                         |
-| `Domain Users`                       | This group contains all user accounts in a domain. A new user account created in the domain is automatically added to this group.                                                                                                                                                                                                                                                 |
-| `Enterprise Admins`                  | Membership in this group provides complete configuration access within the domain. The group only exists in the root domain of an AD forest. Members in this group are granted the ability to make forest-wide changes such as adding a child domain or creating a trust. The Administrator account for the forest root domain is the only member of this group by default.       |
-| `Event Log Readers`                  | Members can read event logs on local computers. The group is only created when a host is promoted to a domain controller.                                                                                                                                                                                                                                                         |
-| `Group Policy Creator Owners`        | Members create, edit, or delete Group Policy Objects in the domain.                                                                                                                                                                                                                                                                                                               |
-| `Hyper-V Administrators`             | Members have complete and unrestricted access to all the features in Hyper-V. If there are virtual DCs in the domain, any virtualization admins, such as members of Hyper-V Administrators, should be considered Domain Admins.                                                                                                                                                   |
-| `IIS_IUSRS`                          | This is a built-in group used by Internet Information Services (IIS), beginning with IIS 7.0.                                                                                                                                                                                                                                                                                     |
-| `Pre–Windows 2000 Compatible Access` | This group exists for backward compatibility for computers running Windows NT 4.0 and earlier. Membership in this group is often a leftover legacy configuration. It can lead to flaws where anyone on the network can read information from AD without requiring a valid AD username and password.                                                                               |
-| `Print Operators`                    | Members can manage, create, share, and delete printers that are connected to domain controllers in the domain along with any printer objects in AD. Members are allowed to log on to DCs locally and may be used to load a malicious printer driver and escalate privileges within the domain.                                                                                    |
-| `Protected Users`                    | Members of this [group](https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#protected-users) are provided additional protections against credential theft and tactics such as Kerberos abuse.                                                                                                                   |
-| `Read-only Domain Controllers`       | Contains all Read-only domain controllers in the domain.                                                                                                                                                                                                                                                                                                                          |
-| `Remote Desktop Users`               | This group is used to grant users and groups permission to connect to a host via Remote Desktop (RDP). This group cannot be renamed, deleted, or moved.                                                                                                                                                                                                                           |
-| `Remote Management Users`            | This group can be used to grant users remote access to computers via [Windows Remote Management (WinRM)](https://docs.microsoft.com/en-us/windows/win32/winrm/portal)                                                                                                                                                                                                             |
-| `Schema Admins`                      | Members can modify the Active Directory schema, which is the way all objects with AD are defined. This group only exists in the root domain of an AD forest. The Administrator account for the forest root domain is the only member of this group by default.                                                                                                                    |
-| `Server Operators`                   | This group only exists on domain controllers. Members can modify services, access SMB shares, and backup files on domain controllers. By default, this group has no members.                                                                                                                                                                                                      |
+<table><thead><tr><th width="262">Group Name</th><th>Description</th></tr></thead><tbody><tr><td><code>Account Operators</code></td><td>Members can create and modify most types of accounts, including those of users, local groups, and global groups, and members can log in locally to domain controllers. They cannot manage the Administrator account, administrative user accounts, or members of the Administrators, Server Operators, Account Operators, Backup Operators, or Print Operators groups.</td></tr><tr><td><code>Administrators</code></td><td>Members have full and unrestricted access to a computer or an entire domain if they are in this group on a Domain Controller.</td></tr><tr><td><code>Backup Operators</code></td><td>Members can back up and restore all files on a computer, regardless of the permissions set on the files. Backup Operators can also log on to and shut down the computer. Members can log onto DCs locally and should be considered Domain Admins. They can make shadow copies of the SAM/NTDS database, which, if taken, can be used to extract credentials and other juicy info.</td></tr><tr><td><code>DnsAdmins</code></td><td>Members have access to network DNS information. The group will only be created if the DNS server role is or was at one time installed on a domain controller in the domain.</td></tr><tr><td><code>Domain Admins</code></td><td>Members have full access to administer the domain and are members of the local administrator's group on all domain-joined machines.</td></tr><tr><td><code>Domain Computers</code></td><td>Any computers created in the domain (aside from domain controllers) are added to this group.</td></tr><tr><td><code>Domain Controllers</code></td><td>Contains all DCs within a domain. New DCs are added to this group automatically.</td></tr><tr><td><code>Domain Guests</code></td><td>This group includes the domain's built-in Guest account. Members of this group have a domain profile created when signing onto a domain-joined computer as a local guest.</td></tr><tr><td><code>Domain Users</code></td><td>This group contains all user accounts in a domain. A new user account created in the domain is automatically added to this group.</td></tr><tr><td><code>Enterprise Admins</code></td><td>Membership in this group provides complete configuration access within the domain. The group only exists in the root domain of an AD forest. Members in this group are granted the ability to make forest-wide changes such as adding a child domain or creating a trust. The Administrator account for the forest root domain is the only member of this group by default.</td></tr><tr><td><code>Event Log Readers</code></td><td>Members can read event logs on local computers. The group is only created when a host is promoted to a domain controller.</td></tr><tr><td><code>Group Policy Creator Owners</code></td><td>Members create, edit, or delete Group Policy Objects in the domain.</td></tr><tr><td><code>Hyper-V Administrators</code></td><td>Members have complete and unrestricted access to all the features in Hyper-V. If there are virtual DCs in the domain, any virtualization admins, such as members of Hyper-V Administrators, should be considered Domain Admins.</td></tr><tr><td><code>IIS_IUSRS</code></td><td>This is a built-in group used by Internet Information Services (IIS), beginning with IIS 7.0.</td></tr><tr><td><code>Pre–Windows 2000 Compatible Access</code></td><td>This group exists for backward compatibility for computers running Windows NT 4.0 and earlier. Membership in this group is often a leftover legacy configuration. It can lead to flaws where anyone on the network can read information from AD without requiring a valid AD username and password.</td></tr><tr><td><code>Print Operators</code></td><td>Members can manage, create, share, and delete printers that are connected to domain controllers in the domain along with any printer objects in AD. Members are allowed to log on to DCs locally and may be used to load a malicious printer driver and escalate privileges within the domain.</td></tr><tr><td><code>Protected Users</code></td><td>Members of this <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/active-directory-security-groups#protected-users">group</a> are provided additional protections against credential theft and tactics such as Kerberos abuse.</td></tr><tr><td><code>Read-only Domain Controllers</code></td><td>Contains all Read-only domain controllers in the domain.</td></tr><tr><td><code>Remote Desktop Users</code></td><td>This group is used to grant users and groups permission to connect to a host via Remote Desktop (RDP). This group cannot be renamed, deleted, or moved.</td></tr><tr><td><code>Remote Management Users</code></td><td>This group can be used to grant users remote access to computers via <a href="https://docs.microsoft.com/en-us/windows/win32/winrm/portal">Windows Remote Management (WinRM)</a></td></tr><tr><td><code>Schema Admins</code></td><td>Members can modify the Active Directory schema, which is the way all objects with AD are defined. This group only exists in the root domain of an AD forest. The Administrator account for the forest root domain is the only member of this group by default.</td></tr><tr><td><code>Server Operators</code></td><td>This group only exists on domain controllers. Members can modify services, access SMB shares, and backup files on domain controllers. By default, this group has no members.</td></tr></tbody></table>
 
 Below we have provided some output regarding domain admins and server operators.
 
 **Server Operators Group Details**
-
-Active Directory Rights and Privileges
 
 ```powershell-session
 PS C:\htb>  Get-ADGroup -Identity "Server Operators" -Properties *
@@ -958,8 +909,6 @@ As we can see above, the default state of the `Server Operators` group is to hav
 
 **Domain Admins Group Membership**
 
-Active Directory Rights and Privileges
-
 ```powershell-session
 PS C:\htb>  Get-ADGroup -Identity "Domain Admins" -Properties * | select DistinguishedName,GroupCategory,GroupScope,Name,Members
 
@@ -998,8 +947,6 @@ After logging into a host, typing the command `whoami /priv` will give us a list
 
 **Standard Domain User's Rights**
 
-Active Directory Rights and Privileges
-
 ```powershell-session
 PS C:\htb> whoami /priv
 
@@ -1017,8 +964,6 @@ We can see that the rights are very `limited`, and none of the "dangerous" right
 **Domain Admin Rights Non-Elevated**
 
 We can see the following in a `non-elevated` console which does not appear to be anything more than available to the standard domain user. This is because, by default, Windows systems do not enable all rights to us unless we run the CMD or PowerShell console in an elevated context. This is to prevent every application from running with the highest possible privileges. This is controlled by something called [User Account Control (UAC)](https://docs.microsoft.com/en-us/windows/security/identity-protection/user-account-control/how-user-account-control-works) which is covered in-depth in the [Windows Privilege Escalation](https://academy.hackthebox.com/course/preview/windows-privilege-escalation) module.
-
-Active Directory Rights and Privileges
 
 ```powershell-session
 PS C:\htb> whoami /priv
@@ -1038,8 +983,6 @@ SeTimeZonePrivilege           Change the time zone                 Disabled
 **Domain Admin Rights Elevated**
 
 If we enter the same command from an elevated PowerShell console, we can see the complete listing of rights available to us:
-
-Active Directory Rights and Privileges
 
 ```powershell-session
 PS C:\htb> whoami /priv
@@ -1080,8 +1023,6 @@ SeDelegateSessionUserImpersonatePrivilege Obtain an impersonation token for anot
 User rights increase based on the groups they are placed in or their assigned privileges. Below is an example of the rights granted to a `Backup Operators` group member. Users in this group have other rights currently restricted by UAC (additional rights such as the powerful `SeBackupPrivilege` are not enabled by default in a standard console session). Still, we can see from this command that they have the `SeShutdownPrivilege`, which means they can shut down a domain controller. This privilege on its own could not be used to gain access to sensitive data but could cause a massive service interruption should they log onto a domain controller locally (not remotely via RDP or WinRM).
 
 **Backup Operator Rights**
-
-Active Directory Rights and Privileges
 
 ```powershell-session
 PS C:\htb> whoami /priv
@@ -1320,5 +1261,3 @@ Below is an example of a GPO attack path identified using the [BloodHound](https
 ![image](https://academy.hackthebox.com/storage/modules/74/bh\_gpo.png)
 
 ***
-
-We have covered a lot of information up to this point. `Active Directory` is a vast topic, and we have just scratched the surface. We have covered the foundational theory now; let's get our hands dirty and play around with Active Directory objects, Group Policy, and more in the next section.
