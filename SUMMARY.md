@@ -4,14 +4,15 @@
 
 ## TCM Security
 
-* [Practical Windows Forensics](tcm-security/page-1.md)
-* [Practical Ethical Hacking](tcm-security/practical-ethical-hacking.md)
-* [Windows Privilege Escalation For Beginners](tcm-security/windows-privilege-escalation-for-beginners.md)
-* [Practical Web Application Security & Testing](tcm-security/practical-web-application-security-and-testing.md)
-* [Open-Source Intelligence (OSINT) Fundamentals](tcm-security/open-source-intelligence-osint-fundamentals.md)
-* [Mobile Application Penetration Testing](tcm-security/mobile-application-penetration-testing.md)
-* [Practical API Hacking](tcm-security/practical-api-hacking.md)
-* [Beginner's Guide to IoT and Hardware Hacking](tcm-security/beginners-guide-to-iot-and-hardware-hacking.md)
+* [Courses Notes](tcm-security/courses-notes/README.md)
+  * [Practical Windows Forensics](tcm-security/courses-notes/page-1.md)
+  * [Practical Ethical Hacking](tcm-security/courses-notes/practical-ethical-hacking.md)
+  * [Windows Privilege Escalation For Beginners](tcm-security/courses-notes/windows-privilege-escalation-for-beginners.md)
+  * [Practical Web Application Security & Testing](tcm-security/courses-notes/practical-web-application-security-and-testing.md)
+  * [Open-Source Intelligence (OSINT) Fundamentals](tcm-security/courses-notes/open-source-intelligence-osint-fundamentals.md)
+  * [Mobile Application Penetration Testing](tcm-security/courses-notes/mobile-application-penetration-testing.md)
+  * [Practical API Hacking](tcm-security/courses-notes/practical-api-hacking.md)
+  * [Beginner's Guide to IoT and Hardware Hacking](tcm-security/courses-notes/beginners-guide-to-iot-and-hardware-hacking.md)
 
 ## 📚 HTB Academy
 
@@ -97,3 +98,13 @@
 ## 🥰 Nerds Researches
 
 * [How Analog Circumstances Becomes Digital Events](nerds-researches/how-analog-circumstances-becomes-digital-events.md)
+
+## ⏫ BlueScapeSecurity
+
+* [C2 Attack and Defend](bluescapesecurity/c2-attack-and-defend/README.md)
+  * [Lab and Scenario Overview](bluescapesecurity/c2-attack-and-defend/lab-and-scenario-overview.md)
+  * [Page](bluescapesecurity/c2-attack-and-defend/page.md)
+
+## 🐲 OSCP Prep
+
+* [Page 1](oscp-prep/page-1.md)
