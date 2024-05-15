@@ -108,3 +108,16 @@
 ## 🐲 OSCP Prep
 
 * [Page 1](oscp-prep/page-1.md)
+
+## IT Job Interview
+
+* [Linux Administration](it-job-interview/linux-administration.md)
+* [Hardware Troubleshooting](it-job-interview/hardware-troubleshooting.md)
+* [Scripting & Automation](it-job-interview/scripting-and-automation.md)
+* [Backup and Recovery](it-job-interview/backup-and-recovery.md)
+* [Virtualization](it-job-interview/virtualization.md)
+* [Cloud Computing](it-job-interview/cloud-computing.md)
+* [Active Directory Managment](it-job-interview/active-directory-managment.md)
+* [Penetration Testing](it-job-interview/penetration-testing.md)
+* [Network Security / Managment](it-job-interview/network-security-managment.md)
+* [Windows Internals](it-job-interview/windows-internals.md)
