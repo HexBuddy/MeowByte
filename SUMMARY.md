@@ -107,7 +107,9 @@
 
 ## 🐲 OSCP Prep
 
-* [Page 1](oscp-prep/page-1.md)
+* [Modules Notes](oscp-prep/modules-notes/README.md)
+  * [Information Gathering](oscp-prep/modules-notes/information-gathering.md)
+  * [Vulnerability Scanning](oscp-prep/modules-notes/vulnerability-scanning.md)
 
 ## IT Job Interview
 
