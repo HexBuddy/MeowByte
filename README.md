@@ -6,7 +6,7 @@ description: Our Note Taking Corner...
 
 <3&#x20;
 
-## I will write all shit i know in this book because why not ?
+## I will write all the shit i know in this book because why not ?
 
 ### this book will cover all the range of knowledge i gain about the modern age of computing because i am smart and you are not.
 
