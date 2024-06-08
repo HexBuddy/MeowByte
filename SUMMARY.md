@@ -107,7 +107,7 @@
 
 ## 🐲 OSCP Prep
 
-* [Modules Notes](oscp-prep/modules-notes/README.md)
+* [Modules Notes](oscp-prep/page-1.md)
   * [Information Gathering](oscp-prep/modules-notes/information-gathering.md)
   * [Vulnerability Scanning](oscp-prep/modules-notes/vulnerability-scanning.md)
 
@@ -123,3 +123,7 @@
 * [Penetration Testing](it-job-interview/penetration-testing.md)
 * [Network Security / Managment](it-job-interview/network-security-managment.md)
 * [Windows Internals](it-job-interview/windows-internals.md)
+
+## Elements Of Computing
+
+* [The Elements of Computing Systems](elements-of-computing/the-elements-of-computing-systems.md)
