@@ -12,11 +12,9 @@ description: Our Note Taking Corner...
 
 ## Whoami ?
 
-Honestly I still dont know who is this person writing and still didn't discover if am living in a simulation controlled and commanded by a big power that controlled my spirit since- .... Nvm, i overthink a lot
+i am defined in this simulation to be an 18 years old computer addict and personalized with ADHD, that have mental and social problems, also a gym rat. Dropped off college because ... non of your businesses , also love religion, philosophy and abstract mathematics. because again, am smart and you are not.
 
-anyways i am defined in this simulation to be an 18 years old computer addict and personalized with ADHD, that have mental and social problems, also a gym rat. Dropped off college because me = no money, also love religion and philosophy and abstract mathematics. because again, am smart and you are not.
-
-#### my social if you had the balls to talk to me you suckers:
+#### my social if you wanna talk to me or have any suggestions:
 
 Telegram: HexBuddy127001
 
