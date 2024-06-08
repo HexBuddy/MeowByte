@@ -376,8 +376,6 @@ Installation was successful.
 
 An excellent and free alternative to VMware Workstation is [VirtualBox](https://www.virtualbox.org/). With VirtualBox, hard disks are emulated in container files, called Virtual Disk Images (`VDI`). Aside from VDI format, VirtualBox can also handle hard disk files from VMware virtualization products (`.vmdk`), the `Virtual Hard Disk` format (`.vhd`), and others. We can also convert these external formats using the VBoxManager command-line tool that is part of VirtualBox. We can install VirtualBox from the command line or download the installation file from the [official website](https://www.virtualbox.org/wiki/Downloads) and install it manually.
 
-**VirtualBox Installation**
-
 ```shell-session
 root@htb[/htb]$ sudo apt install virtualbox virtualbox-ext-pack -y
 ```
@@ -414,8 +412,6 @@ An image of the file system forms the basis of each container. We can choose whe
 
 [Docker Engine](https://docs.docker.com/engine/) is the main component of container virtualization. The software provides the interface between host resources and running containers. Any system that has Docker Engine installed can use Docker containers. Originally, Docker was designed to be used on Linux systems. However, with virtualization via VMware or Hyper-V, the engine also works on Windows or Mac OS devices. Docker can therefore be used in virtually all common scenarios.
 
-**Docker Installation**
-
 ```shell-session
 root@htb[/htb]$ sudo apt update -y 
 root@htb[/htb]$ sudo apt install docker.io -y
@@ -434,8 +430,6 @@ C:\> choco install docker-desktop
 [Vagrant](https://www.vagrantup.com/) is a tool that can create, configure and manage virtual machines or virtual machine environments. The VMs are not created and configured manually but are described in code in a `Vagrantfile`. To better structure the program code, the Vagrant file can include additional code files. The code can then be processed using the Vagrant CLI. In this way, we can create, provision, and start our own VMs. Moreover, if the VMs are no longer needed, they can be destroyed just as quickly and easily. Out of the box, Vagrant offers providers for VMware and Docker.
 
 ![](https://stefanscherer.github.io/content/images/2016/03/windows\_swarm\_demo.png) Resource: [https://stefanscherer.github.io/content/images/2016/03/windows\_swarm\_demo.png](https://stefanscherer.github.io/content/images/2016/03/windows\_swarm\_demo.png)
-
-**Vagrant Installation**
 
 ```shell-session
 root@htb[/htb]$ sudo apt update -y 
@@ -555,8 +549,6 @@ If we have entered the passphrase correctly, then the operating system will boot
 
 Now that we have installed the operating system, we need to bring it up to date. For this, we will use the `APT` package management tool. The `Advanced Packaging Tool` (`APT`) is a package management system that originated in the Debian operating system that uses `dpkg` for actual package management. The package manager is used for package management. This means that we can search, update, and install program packages. APT uses repositories (thus package sources), which are deposited in the directory `/etc/apt/sources.list` (in our case for ParrotOS: `/etc/apt.sources.list.d/parrot.list`).
 
-**ParrotOS Sources List**
-
 ```shell-session
 ┌─[cry0l1t3@parrot]─[~]
 └──╼ $ cat /etc/apt/sources.list.d/parrot.list
@@ -570,8 +562,6 @@ deb https://deb.parrot.sh/parrot/ rolling-security main contrib non-free
 ```
 
 Here the package manager can access a list of HTTP and FTP servers and obtain and install the corresponding packages from there. If packages are searched for, they are automatically loaded from the list of available repositories. Since program versions can be compared quickly under APT and can be loaded automatically from the repositories list, updating existing program packages under APT is relatively easy and comfortable.
-
-**Updating ParrotOS**
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -592,8 +582,6 @@ The following packages were automatically installed and are no longer required:
   cryptsetup-nuke-password dwarfdump
   ...SNIP...
 ```
-
-**Tools List**
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -632,8 +620,6 @@ tmux
 
 If there are only a few packages that we want to install, we can enter them manually in the following command.
 
-**Installing Additional Tools**
-
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
 └──╼ $ sudo apt install netcat ncat nmap wireshark tcpdump ...SNIP... git vim tmux -y
@@ -648,8 +634,6 @@ The following packages were automatically installed and are no longer required:
 ```
 
 However, if the list contains more than just five packages, we should always create a list and keep it updated. With the following command, we will install all the tools from the list at once using APT.
-
-**Installing Additional Tools from a List**
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -670,8 +654,6 @@ The following packages were automatically installed and are no longer required:
 
 We will also come across tools that are not found in the repositories and therefore have to download them manually from Github. For example, we are still missing specific tools for Privilege Escalation and want to download the [Privilege-Escalation-Awesome-Scripts-Suite](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite). We can do that using the following command:
 
-**Clone Github Repository**
-
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
 └──╼ $ git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
@@ -684,8 +666,6 @@ remote: Total 5242 (delta 18), reused 22 (delta 11), pack-reused 5213
 Receiving objects: 100% (5242/5242), 18.65 MiB | 5.11 MiB/s, done.
 Resolving deltas: 100% (3129/3129), done.
 ```
-
-**List Contents**
 
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
@@ -733,16 +713,12 @@ A very efficient alternative, which can also be used as an extension, is [Tmux](
 
 Another handy component that we should adapt to our needs is the Bash prompt. The [Bash Prompt Generator](https://bash-prompt-generator.org/) makes it very easy for us to design our bash prompt the way we want it to be displayed. For our penetration tests, it is crucial to have the order of the given commands to configure our Bash prompt to display timestamps.
 
-**Customize Bash Prompt**
-
 ```shell-session
 ┌─[cry0l1t3@parrotos]─[~]
 └──╼ $ cp .bashrc .bashrc.bak
 ┌─[cry0l1t3@parrotos]─[~]
 └──╼ $ echo 'export PS1="-[\[$(tput sgr0)\]\[\033[38;5;10m\]\d\[$(tput sgr0)\]-\[$(tput sgr0)\]\[\033[38;5;10m\]\t\[$(tput sgr0)\]]-[\[$(tput sgr0)\]\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;196m\]\h\[$(tput sgr0)\]]-\n-[\[$(tput sgr0)\]\[\033[38;5;33m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"' >> .bashrc
 ```
-
-**Customized Bash Prompt**
 
 ```shell-session
 -[Tue Mar 23-00:39:51]-[cry0l1t3@parrotos]-
