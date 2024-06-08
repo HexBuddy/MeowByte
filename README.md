@@ -1,7 +1,5 @@
 ---
 description: Our Note Taking Corner...
-cover: .gitbook/assets/photo_2024-06-09_00-18-52.jpg
-coverY: 0
 ---
 
 # Introduction
