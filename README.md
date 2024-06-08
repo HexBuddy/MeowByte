@@ -1,5 +1,8 @@
 ---
 description: Our Note Taking Corner...
+cover: >-
+  https://images.unsplash.com/photo-1576678927484-cc907957088c?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw5fHxneW18ZW58MHx8fHwxNzE3ODc3MjA2fDA&ixlib=rb-4.0.3&q=85
+coverY: 0
 ---
 
 # Introduction
@@ -14,11 +17,9 @@ description: Our Note Taking Corner...
 
 ## Whoami ?
 
-Honestly I still dont know who is this person writing and still didnt discover if am living in a simulation controlled and commanded by a big power that controlled my spirit since- .... Nvm, i overthink a lot
+Honestly I still dont know who is this person writing and still didn't discover if am living in a simulation controlled and commanded by a big power that controlled my spirit since- .... Nvm, i overthink a lot
 
-anyways i am defined in this simulation to be an 18 years old computer addict that have mental and social problems, dropped off college because me = no money, also love relegion and philisophy and abstract mathmatics. because again, am smart and you are not.
-
-
+anyways i am defined in this simulation to be an 18 years old computer addict and personalized with ADHD, that have mental and social problems, dropped off college because me = no money, also love religion and philosophy and abstract mathematics. because again, am smart and you are not.
 
 #### my social if you had the balls to talk to me you suckers:
 
