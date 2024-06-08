@@ -7,3 +7,7 @@ coverY: 0
 
 # The Elements of Computing Systems
 
+### In these notes I will be summarizing all the experience and thoughts i learned/gained from this amazing book suggested by a friend
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p><strong>Book Cover</strong></p></figcaption></figure>
+

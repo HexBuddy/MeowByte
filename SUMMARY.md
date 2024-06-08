@@ -2,18 +2,6 @@
 
 * [Introduction](README.md)
 
-## TCM Security
-
-* [Courses Notes](tcm-security/courses-notes/README.md)
-  * [Practical Windows Forensics](tcm-security/courses-notes/page-1.md)
-  * [Practical Ethical Hacking](tcm-security/courses-notes/practical-ethical-hacking.md)
-  * [Windows Privilege Escalation For Beginners](tcm-security/courses-notes/windows-privilege-escalation-for-beginners.md)
-  * [Practical Web Application Security & Testing](tcm-security/courses-notes/practical-web-application-security-and-testing.md)
-  * [Open-Source Intelligence (OSINT) Fundamentals](tcm-security/courses-notes/open-source-intelligence-osint-fundamentals.md)
-  * [Mobile Application Penetration Testing](tcm-security/courses-notes/mobile-application-penetration-testing.md)
-  * [Practical API Hacking](tcm-security/courses-notes/practical-api-hacking.md)
-  * [Beginner's Guide to IoT and Hardware Hacking](tcm-security/courses-notes/beginners-guide-to-iot-and-hardware-hacking.md)
-
 ## 📚 HTB Academy
 
 * [Fundamentals](hackthebox-academy/official-modules/README.md)
@@ -95,15 +83,34 @@
   * [Detecting Windows Attacks with Splunk](hackthebox-academy/defensive-security-analyst-path/detecting-windows-attacks-with-splunk.md)
   * [Security Incident Reporting](hackthebox-academy/defensive-security-analyst-path/security-incident-reporting.md)
 
+## Elements Of Computing
+
+* [The Elements of Computing Systems](elements-of-computing/the-elements-of-computing-systems.md)
+* [Hardware](elements-of-computing/hardware/README.md)
+  * [Boolean Logic](elements-of-computing/hardware/boolean-logic.md)
+  * [Boolean Arithmetic](elements-of-computing/hardware/boolean-arithmetic.md)
+  * [Memory](elements-of-computing/hardware/memory.md)
+  * [Machine Language](elements-of-computing/hardware/machine-language.md)
+  * [Computer Architecture](elements-of-computing/hardware/computer-architecture.md)
+  * [Assembler](elements-of-computing/hardware/assembler.md)
+* [Software](elements-of-computing/software/README.md)
+  * [Virtual Machine I: Processing](elements-of-computing/software/virtual-machine-i-processing.md)
+  * [Virtual Machine II: Control](elements-of-computing/software/virtual-machine-ii-control.md)
+  * [High-Level Language](elements-of-computing/software/high-level-language.md)
+  * [Compiler I: Syntax Analysis](elements-of-computing/software/compiler-i-syntax-analysis.md)
+  * [Compiler II: Code Generation](elements-of-computing/software/compiler-ii-code-generation.md)
+  * [Operating System](elements-of-computing/software/operating-system.md)
+  * [More Fun to Go](elements-of-computing/software/more-fun-to-go.md)
+* [Appendices](elements-of-computing/appendices/README.md)
+  * [Boolean Function Synthesis](elements-of-computing/appendices/boolean-function-synthesis.md)
+  * [Hardware Description Language](elements-of-computing/appendices/hardware-description-language.md)
+  * [Test Description Language](elements-of-computing/appendices/test-description-language.md)
+  * [The Hack Chip Set](elements-of-computing/appendices/the-hack-chip-set.md)
+  * [The Jack OS API](elements-of-computing/appendices/the-jack-os-api.md)
+
 ## 🥰 Nerds Researches
 
 * [How Analog Circumstances Becomes Digital Events](nerds-researches/how-analog-circumstances-becomes-digital-events.md)
-
-## ⏫ BlueScapeSecurity
-
-* [C2 Attack and Defend](bluescapesecurity/c2-attack-and-defend/README.md)
-  * [Lab and Scenario Overview](bluescapesecurity/c2-attack-and-defend/lab-and-scenario-overview.md)
-  * [Page](bluescapesecurity/c2-attack-and-defend/page.md)
 
 ## 🐲 OSCP Prep
 
@@ -113,17 +120,14 @@
 
 ## IT Job Interview
 
-* [Linux Administration](it-job-interview/linux-administration.md)
-* [Hardware Troubleshooting](it-job-interview/hardware-troubleshooting.md)
-* [Scripting & Automation](it-job-interview/scripting-and-automation.md)
-* [Backup and Recovery](it-job-interview/backup-and-recovery.md)
-* [Virtualization](it-job-interview/virtualization.md)
-* [Cloud Computing](it-job-interview/cloud-computing.md)
-* [Active Directory Managment](it-job-interview/active-directory-managment.md)
-* [Penetration Testing](it-job-interview/penetration-testing.md)
-* [Network Security / Managment](it-job-interview/network-security-managment.md)
-* [Windows Internals](it-job-interview/windows-internals.md)
-
-## Elements Of Computing
-
-* [The Elements of Computing Systems](elements-of-computing/the-elements-of-computing-systems.md)
+* [Modules](it-job-interview/modules/README.md)
+  * [Windows Internals](it-job-interview/modules/windows-internals.md)
+  * [Network Security / Managment](it-job-interview/modules/network-security-managment.md)
+  * [Penetration Testing](it-job-interview/modules/penetration-testing.md)
+  * [Active Directory Managment](it-job-interview/modules/active-directory-managment.md)
+  * [Cloud Computing](it-job-interview/modules/cloud-computing.md)
+  * [Virtualization](it-job-interview/modules/virtualization.md)
+  * [Backup and Recovery](it-job-interview/modules/backup-and-recovery.md)
+  * [Scripting & Automation](it-job-interview/modules/scripting-and-automation.md)
+  * [Hardware Troubleshooting](it-job-interview/modules/hardware-troubleshooting.md)
+  * [Linux Administration](it-job-interview/modules/linux-administration.md)
