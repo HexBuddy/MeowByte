@@ -131,3 +131,7 @@
   * [Scripting & Automation](it-job-interview/modules/scripting-and-automation.md)
   * [Hardware Troubleshooting](it-job-interview/modules/hardware-troubleshooting.md)
   * [Linux Administration](it-job-interview/modules/linux-administration.md)
+
+## Windows Forensics Notes
+
+* [Practical Windows Forensics - TCM Security](windows-forensics-notes/practical-windows-forensics-tcm-security.md)
