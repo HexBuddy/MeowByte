@@ -2,6 +2,31 @@
 
 * [Introduction](README.md)
 
+## Elements Of Computing
+
+* [The Elements of Computing Systems](elements-of-computing/the-elements-of-computing-systems.md)
+* [Hardware](elements-of-computing/hardware/README.md)
+  * [Boolean Logic](elements-of-computing/hardware/boolean-logic.md)
+  * [Boolean Arithmetic](elements-of-computing/hardware/boolean-arithmetic.md)
+  * [Memory](elements-of-computing/hardware/memory.md)
+  * [Machine Language](elements-of-computing/hardware/machine-language.md)
+  * [Computer Architecture](elements-of-computing/hardware/computer-architecture.md)
+  * [Assembler](elements-of-computing/hardware/assembler.md)
+* [Software](elements-of-computing/software/README.md)
+  * [Virtual Machine I: Processing](elements-of-computing/software/virtual-machine-i-processing.md)
+  * [Virtual Machine II: Control](elements-of-computing/software/virtual-machine-ii-control.md)
+  * [High-Level Language](elements-of-computing/software/high-level-language.md)
+  * [Compiler I: Syntax Analysis](elements-of-computing/software/compiler-i-syntax-analysis.md)
+  * [Compiler II: Code Generation](elements-of-computing/software/compiler-ii-code-generation.md)
+  * [Operating System](elements-of-computing/software/operating-system.md)
+  * [More Fun to Go](elements-of-computing/software/more-fun-to-go.md)
+* [Appendices](elements-of-computing/appendices/README.md)
+  * [Boolean Function Synthesis](elements-of-computing/appendices/boolean-function-synthesis.md)
+  * [Hardware Description Language](elements-of-computing/appendices/hardware-description-language.md)
+  * [Test Description Language](elements-of-computing/appendices/test-description-language.md)
+  * [The Hack Chip Set](elements-of-computing/appendices/the-hack-chip-set.md)
+  * [The Jack OS API](elements-of-computing/appendices/the-jack-os-api.md)
+
 ## 📚 HTB Academy
 
 * [Fundamentals](hackthebox-academy/official-modules/README.md)
@@ -83,54 +108,11 @@
   * [Detecting Windows Attacks with Splunk](hackthebox-academy/defensive-security-analyst-path/detecting-windows-attacks-with-splunk.md)
   * [Security Incident Reporting](hackthebox-academy/defensive-security-analyst-path/security-incident-reporting.md)
 
-## Elements Of Computing
-
-* [The Elements of Computing Systems](elements-of-computing/the-elements-of-computing-systems.md)
-* [Hardware](elements-of-computing/hardware/README.md)
-  * [Boolean Logic](elements-of-computing/hardware/boolean-logic.md)
-  * [Boolean Arithmetic](elements-of-computing/hardware/boolean-arithmetic.md)
-  * [Memory](elements-of-computing/hardware/memory.md)
-  * [Machine Language](elements-of-computing/hardware/machine-language.md)
-  * [Computer Architecture](elements-of-computing/hardware/computer-architecture.md)
-  * [Assembler](elements-of-computing/hardware/assembler.md)
-* [Software](elements-of-computing/software/README.md)
-  * [Virtual Machine I: Processing](elements-of-computing/software/virtual-machine-i-processing.md)
-  * [Virtual Machine II: Control](elements-of-computing/software/virtual-machine-ii-control.md)
-  * [High-Level Language](elements-of-computing/software/high-level-language.md)
-  * [Compiler I: Syntax Analysis](elements-of-computing/software/compiler-i-syntax-analysis.md)
-  * [Compiler II: Code Generation](elements-of-computing/software/compiler-ii-code-generation.md)
-  * [Operating System](elements-of-computing/software/operating-system.md)
-  * [More Fun to Go](elements-of-computing/software/more-fun-to-go.md)
-* [Appendices](elements-of-computing/appendices/README.md)
-  * [Boolean Function Synthesis](elements-of-computing/appendices/boolean-function-synthesis.md)
-  * [Hardware Description Language](elements-of-computing/appendices/hardware-description-language.md)
-  * [Test Description Language](elements-of-computing/appendices/test-description-language.md)
-  * [The Hack Chip Set](elements-of-computing/appendices/the-hack-chip-set.md)
-  * [The Jack OS API](elements-of-computing/appendices/the-jack-os-api.md)
-
-## 🥰 Nerds Researches
-
-* [How Analog Circumstances Becomes Digital Events](nerds-researches/how-analog-circumstances-becomes-digital-events.md)
-
 ## 🐲 OSCP Prep
 
 * [Modules Notes](oscp-prep/page-1.md)
   * [Information Gathering](oscp-prep/modules-notes/information-gathering.md)
   * [Vulnerability Scanning](oscp-prep/modules-notes/vulnerability-scanning.md)
-
-## IT Job Interview
-
-* [Modules](it-job-interview/modules/README.md)
-  * [Windows Internals](it-job-interview/modules/windows-internals.md)
-  * [Network Security / Managment](it-job-interview/modules/network-security-managment.md)
-  * [Penetration Testing](it-job-interview/modules/penetration-testing.md)
-  * [Active Directory Managment](it-job-interview/modules/active-directory-managment.md)
-  * [Cloud Computing](it-job-interview/modules/cloud-computing.md)
-  * [Virtualization](it-job-interview/modules/virtualization.md)
-  * [Backup and Recovery](it-job-interview/modules/backup-and-recovery.md)
-  * [Scripting & Automation](it-job-interview/modules/scripting-and-automation.md)
-  * [Hardware Troubleshooting](it-job-interview/modules/hardware-troubleshooting.md)
-  * [Linux Administration](it-job-interview/modules/linux-administration.md)
 
 ## Windows Forensics Notes
 
