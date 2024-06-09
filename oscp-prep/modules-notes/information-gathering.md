@@ -4,6 +4,10 @@
 
 ### Whois Enumeration
 
+Perform Whois Lookup
+
+* **Command-Line**: Use the `whois` command to query domain information.
+
 ### Google Hacking
 
 ### Netcraft
