@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 
-## Elements Of Computing
+## 🏛️ Elements Of Computing
 
 * [The Elements of Computing Systems](elements-of-computing/the-elements-of-computing-systems.md)
 * [Hardware](elements-of-computing/hardware/README.md)
@@ -113,6 +113,22 @@
 * [Modules Notes](oscp-prep/page-1.md)
   * [Information Gathering](oscp-prep/modules-notes/information-gathering.md)
   * [Vulnerability Scanning](oscp-prep/modules-notes/vulnerability-scanning.md)
+  * [Introduction to Web Application Attacks](oscp-prep/modules-notes/introduction-to-web-application-attacks.md)
+  * [Common Web Application Attacks](oscp-prep/modules-notes/common-web-application-attacks.md)
+  * [SQL Injection Attacks](oscp-prep/modules-notes/sql-injection-attacks.md)
+  * [Client-side Attacks](oscp-prep/modules-notes/client-side-attacks.md)
+  * [Antivirus Evasion](oscp-prep/modules-notes/antivirus-evasion.md)
+  * [Password Attacks](oscp-prep/modules-notes/password-attacks.md)
+  * [Fixing Exploits](oscp-prep/modules-notes/fixing-exploits.md)
+  * [Locating Public Exploits](oscp-prep/modules-notes/locating-public-exploits.md)
+  * [Windows Privilege Escalation](oscp-prep/modules-notes/windows-privilege-escalation.md)
+  * [Linux Privilege Escalation](oscp-prep/modules-notes/linux-privilege-escalation.md)
+  * [Port Redirection and SSH Tunneling](oscp-prep/modules-notes/port-redirection-and-ssh-tunneling.md)
+  * [Tunneling Through Deep Packet Inspection](oscp-prep/modules-notes/tunneling-through-deep-packet-inspection.md)
+  * [The Metasploit Framework](oscp-prep/modules-notes/the-metasploit-framework.md)
+  * [Active Directory Introduction and Enumeration](oscp-prep/modules-notes/active-directory-introduction-and-enumeration.md)
+  * [Attacking Active Directory Authentication](oscp-prep/modules-notes/attacking-active-directory-authentication.md)
+  * [Lateral Movement in Active Directory](oscp-prep/modules-notes/lateral-movement-in-active-directory.md)
 
 ## Windows Forensics Notes
 
