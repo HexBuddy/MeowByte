@@ -8,3 +8,4 @@ description: Course Notes
 **Lab Setup That I Used for Notes Can Be Found Here** [**here**](https://bluecapesecurity.com/build-your-forensic-workstation)
 {% endhint %}
 
+## Taking Notes In Progress....
