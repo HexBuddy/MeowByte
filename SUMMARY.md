@@ -108,6 +108,18 @@
   * [Detecting Windows Attacks with Splunk](hackthebox-academy/defensive-security-analyst-path/detecting-windows-attacks-with-splunk.md)
   * [Security Incident Reporting](hackthebox-academy/defensive-security-analyst-path/security-incident-reporting.md)
 
+## 🕸️ Web Security
+
+* [Attacking Web Applications](web-security/attacking-web-applications/README.md)
+  * [Mindset and Methodologies](web-security/attacking-web-applications/mindset-and-methodologies.md)
+  * [Toolset for Web Attacks and Exploitation](web-security/attacking-web-applications/toolset-for-web-attacks-and-exploitation.md)
+  * [Attacking the Authentication Layer – a SAML Use Case](web-security/attacking-web-applications/attacking-the-authentication-layer-a-saml-use-case.md)
+  * [Attacking Internet-Facing Web Applications](web-security/attacking-web-applications/attacking-internet-facing-web-applications.md)
+  * [Attacking IoT Devices - Command Injection and Path Traversal](web-security/attacking-web-applications/attacking-iot-devices-command-injection-and-path-traversal.md)
+  * [Attacking Electron JavaScript Applications](web-security/attacking-web-applications/attacking-electron-javascript-applications.md)
+  * [Attacking Ethereum Smart Contracts](web-security/attacking-web-applications/attacking-ethereum-smart-contracts.md)
+  * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
+
 ## 🐲 OSCP Prep
 
 * [Modules Notes](oscp-prep/page-1.md)
@@ -133,18 +145,6 @@
 ## Windows Forensics Notes
 
 * [Practical Windows Forensics - TCM Security](windows-forensics-notes/practical-windows-forensics-tcm-security.md)
-
-## 🕸️ Web Security
-
-* [Attacking Web Applications](web-security/attacking-web-applications/README.md)
-  * [Mindset and Methodologies](web-security/attacking-web-applications/mindset-and-methodologies.md)
-  * [Toolset for Web Attacks and Exploitation](web-security/attacking-web-applications/toolset-for-web-attacks-and-exploitation.md)
-  * [Attacking the Authentication Layer](web-security/attacking-web-applications/attacking-the-authentication-layer.md)
-  * [Attacking Internet-Facing Web Applications](web-security/attacking-web-applications/attacking-internet-facing-web-applications.md)
-  * [Attacking IoT Devices - Command Injection and Path Traversal](web-security/attacking-web-applications/attacking-iot-devices-command-injection-and-path-traversal.md)
-  * [Attacking Electron JavaScript Applications](web-security/attacking-web-applications/attacking-electron-javascript-applications.md)
-  * [Attacking Ethereum Smart Contracts](web-security/attacking-web-applications/attacking-ethereum-smart-contracts.md)
-  * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
 
 ## 💾 Hardware
 
