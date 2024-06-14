@@ -110,6 +110,7 @@
 
 ## 🕸️ Web Security
 
+* [Enumeration And Information Gathering](web-security/enumeration-and-information-gathering.md)
 * [Attacking Web Applications](web-security/attacking-web-applications/README.md)
   * [Mindset and Methodologies](web-security/attacking-web-applications/mindset-and-methodologies.md)
   * [Toolset for Web Attacks and Exploitation](web-security/attacking-web-applications/toolset-for-web-attacks-and-exploitation.md)
