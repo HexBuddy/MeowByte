@@ -136,15 +136,15 @@
 
 ## 🕸️ Web Security
 
-* [Attacking and Exploiting Modern Web Applications](web-security/attacking-and-exploiting-modern-web-applications/README.md)
-  * [Mindset and Methodologies](web-security/attacking-and-exploiting-modern-web-applications/mindset-and-methodologies.md)
-  * [Toolset for Web Attacks and Exploitation](web-security/attacking-and-exploiting-modern-web-applications/toolset-for-web-attacks-and-exploitation.md)
-  * [Attacking the Authentication Layer](web-security/attacking-and-exploiting-modern-web-applications/attacking-the-authentication-layer.md)
-  * [Attacking Internet-Facing Web Applications](web-security/attacking-and-exploiting-modern-web-applications/attacking-internet-facing-web-applications.md)
-  * [Attacking IoT Devices - Command Injection and Path Traversal](web-security/attacking-and-exploiting-modern-web-applications/attacking-iot-devices-command-injection-and-path-traversal.md)
-  * [Attacking Electron JavaScript Applications](web-security/attacking-and-exploiting-modern-web-applications/attacking-electron-javascript-applications.md)
-  * [Attacking Ethereum Smart Contracts](web-security/attacking-and-exploiting-modern-web-applications/attacking-ethereum-smart-contracts.md)
-  * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-and-exploiting-modern-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
+* [Attacking Web Applications](web-security/attacking-web-applications/README.md)
+  * [Mindset and Methodologies](web-security/attacking-web-applications/mindset-and-methodologies.md)
+  * [Toolset for Web Attacks and Exploitation](web-security/attacking-web-applications/toolset-for-web-attacks-and-exploitation.md)
+  * [Attacking the Authentication Layer](web-security/attacking-web-applications/attacking-the-authentication-layer.md)
+  * [Attacking Internet-Facing Web Applications](web-security/attacking-web-applications/attacking-internet-facing-web-applications.md)
+  * [Attacking IoT Devices - Command Injection and Path Traversal](web-security/attacking-web-applications/attacking-iot-devices-command-injection-and-path-traversal.md)
+  * [Attacking Electron JavaScript Applications](web-security/attacking-web-applications/attacking-electron-javascript-applications.md)
+  * [Attacking Ethereum Smart Contracts](web-security/attacking-web-applications/attacking-ethereum-smart-contracts.md)
+  * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
 
 ## 💾 Hardware
 
