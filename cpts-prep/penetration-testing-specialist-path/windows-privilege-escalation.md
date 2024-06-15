@@ -141,12 +141,7 @@ After gaining a foothold, elevating our privileges will provide more options for
 
 That being said, we may need to escalate privileges for one of the following reasons:
 
-|    |                                                                                                                                                                                                                      |
-| -- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1. | When testing a client's [gold image](https://www.techopedia.com/definition/29456/golden-image) Windows workstation and server build for flaws                                                                        |
-| 2. | To escalate privileges locally to gain access to some local resource such as a database                                                                                                                              |
-| 3. | To gain [NT AUTHORITY\System](https://docs.microsoft.com/en-us/windows/win32/services/localsystem-account) level access on a domain-joined machine to gain a foothold into the client's Active Directory environment |
-| 4. | To obtain credentials to move laterally or escalate privileges within the client's network                                                                                                                           |
+<table><thead><tr><th width="98"></th><th></th></tr></thead><tbody><tr><td>1.</td><td>When testing a client's <a href="https://www.techopedia.com/definition/29456/golden-image">gold image</a> Windows workstation and server build for flaws</td></tr><tr><td>2.</td><td>To escalate privileges locally to gain access to some local resource such as a database</td></tr><tr><td>3.</td><td>To gain <a href="https://docs.microsoft.com/en-us/windows/win32/services/localsystem-account">NT AUTHORITY\System</a> level access on a domain-joined machine to gain a foothold into the client's Active Directory environment</td></tr><tr><td>4.</td><td>To obtain credentials to move laterally or escalate privileges within the client's network</td></tr></tbody></table>
 
 There are many tools available to us as penetration testers to assist with privilege escalation. Still, it is also essential to understand how to perform privilege escalation checks and leverage flaws `manually` to the extent possible in a given scenario. We may run into situations where a client places us on a managed workstation with no internet access, heavily firewalled, and USB ports disabled, so we cannot load any tools/helper scripts. In this instance, it would be crucial to have a firm grasp of Windows privilege escalation checks using both PowerShell and Windows command-line.
 
@@ -198,8 +193,6 @@ Throughout the module, we will cover examples with accompanying command output, 
 **Connecting via FreeRDP**
 
 We can connect via command line using the command `xfreerdp /v:<target ip> /u:htb-student` and typing in the provided password when prompted. Most sections will provide credentials for the `htb-student` user, but some, depending on the material, will have you RDP with a different user, and alternate credentials will be provided.
-
-Introduction to Windows Privilege Escalation
 
 ```shell-session
 root@htb[/htb]$  xfreerdp /v:10.129.43.36 /u:htb-student
@@ -282,8 +275,6 @@ This network information may help directly or indirectly with our local privileg
 
 **Interface(s), IP Address(es), DNS Information**
 
-Situational Awareness
-
 ```cmd-session
 C:\htb> ipconfig /all
 
@@ -364,8 +355,6 @@ Tunnel adapter isatap.{02D6F04C-A625-49D1-A85D-4FB454FBB3DB}:
 
 **ARP Table**
 
-Situational Awareness
-
 ```cmd-session
 C:\htb> arp -a
 
@@ -391,8 +380,6 @@ Interface: 192.168.20.56 --- 0x9
 ```
 
 **Routing Table**
-
-Situational Awareness
 
 ```cmd-session
 C:\htb> route print
@@ -469,8 +456,6 @@ In a real-world engagement, the client will likely have protections in place tha
 
 **Check Windows Defender Status**
 
-Situational Awareness
-
 ```powershell-session
 PS C:\htb> Get-MpComputerStatus
 
@@ -510,8 +495,6 @@ PSComputerName                  :
 ```
 
 **List AppLocker Rules**
-
-Situational Awareness
 
 ```powershell-session
 PS C:\htb> Get-AppLockerPolicy -Effective | select -ExpandProperty RuleCollections
@@ -621,8 +604,6 @@ Action              : Allow
 
 **Test AppLocker Policy**
 
-Situational Awareness
-
 ```powershell-session
 PS C:\htb> Get-AppLockerPolicy -Local | Test-AppLockerPolicy -path C:\Windows\System32\cmd.exe -User Everyone
 
@@ -674,8 +655,6 @@ Let's take a more in-depth look.
 Looking at the system itself will give us a better idea of the exact operating system version, hardware in use, installed programs, and security updates. This will help us narrow down our hunt for any missing patches and associated CVEs that we may be able to leverage to escalate privileges. Using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) command to look at running processes will give us a better idea of what applications are currently running on the system.
 
 **Tasklist**
-
-Initial Enumeration
 
 ```cmd-session
 C:\htb> tasklist /svc
@@ -738,8 +717,6 @@ The environment variables explain a lot about the host configuration. To get a p
 
 In addition to the PATH, `set` can also give up other helpful information such as the HOME DRIVE. In enterprises, this will often be a file share. Navigating to the file share itself may reveal other directories that can be accessed. It is not unheard of to be able to access an "IT Directory," which contains an inventory spreadsheet that includes passwords. Additionally, shares are utilized for home directories so the user can log on to other computers and have the same experience/files/desktop/etc. ([Roaming Profiles](https://docs.microsoft.com/en-us/windows-server/storage/folder-redirection/folder-redirection-rup-overview)). This may also mean the user takes malicious items with them. If a file is placed in `USERPROFILE\AppData\Microsoft\Windows\Start Menu\Programs\Startup`, when the user logs into a different machine, this file will execute.
 
-Initial Enumeration
-
 ```cmd-session
 C:\htb> set
 
@@ -786,8 +763,6 @@ windir=C:\Windows
 The `systeminfo` command will show if the box has been patched recently and if it is a VM. If the box has not been patched recently, getting administrator-level access may be as simple as running a known exploit. Google the KBs installed under [HotFixes](https://www.catalog.update.microsoft.com/Search.aspx?q=hotfix) to get an idea of when the box has been patched. This information isn't always present, as it is possible to hide hotfixes software from non-administrators. The `System Boot Time` and `OS Version` can also be checked to get an idea of the patch level. If the box has not been restarted in over six months, chances are it is also not being patched.
 
 Additionally, many guides will say the Network Information is important as it could indicate a dual-homed machine (connected to multiple networks). Generally speaking, when it comes to enterprises, devices will just be granted access to other networks via a firewall rule and not have a physical cable run to them.
-
-Initial Enumeration
 
 ```cmd-session
 C:\htb> systeminfo
@@ -851,8 +826,6 @@ Hyper-V Requirements:      A hypervisor has been detected. Features required for
 
 If `systeminfo` doesn't display hotfixes, they may be queriable with [WMI](https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-start-page) using the WMI-Command binary with [QFE (Quick Fix Engineering)](https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-quickfixengineering) to display patches.
 
-Initial Enumeration
-
 ```cmd-session
 C:\htb> wmic qfe
 
@@ -863,8 +836,6 @@ http://support.microsoft.com/?kbid=4103723  WINLPE-SRV01  Security Update       
 ```
 
 We can do this with PowerShell as well using the [Get-Hotfix](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-hotfix?view=powershell-7.1) cmdlet.
-
-Initial Enumeration
 
 ```powershell-session
 PS C:\htb> Get-HotFix | ft -AutoSize
@@ -877,11 +848,7 @@ WINLPE-SRV01 Security Update KB5001078 NT AUTHORITY\SYSTEM        3/25/2021 12:0
 WINLPE-SRV01 Security Update KB3200970 WINLPE-SRV01\Administrator 4/13/2021 12:00:00 AM
 ```
 
-**Installed Programs**
-
 WMI can also be used to display installed software. This information can often guide us towards hard-to-find exploits. Is `FileZilla`/`Putty`/etc installed? Run `LaZagne` to check if stored credentials for those applications are installed. Also, some programs may be installed and running as a service that is vulnerable.
-
-Initial Enumeration
 
 ```cmd-session
 C:\htb> wmic product get name
@@ -899,8 +866,6 @@ Java Auto Updater
 ```
 
 We can, of course, do this with PowerShell as well using the [Get-WmiObject](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1) cmdlet.
-
-Initial Enumeration
 
 ```powershell-session
 PS C:\htb> Get-WmiObject -Class Win32_Product |  select Name, Version
@@ -936,8 +901,6 @@ The [netstat](https://docs.microsoft.com/en-us/windows-server/administration/win
 
 **Netstat**
 
-Initial Enumeration
-
 ```cmd-session
 PS C:\htb> netstat -ano
 
@@ -963,8 +926,6 @@ Users are often the weakest link in an organization, especially when systems are
 
 It is always important to determine what users are logged into a system. Are they idle or active? Can we determine what they are working on? While more challenging to pull off, we can sometimes attack users directly to escalate privileges or gain further access. During an evasive engagement, we would need to tread lightly on a host with other user(s) actively working on it to avoid detection.
 
-Initial Enumeration
-
 ```cmd-session
 C:\htb> query user
 
@@ -976,8 +937,6 @@ C:\htb> query user
 
 When we gain access to a host, we should always check what user context our account is running under first. Sometimes, we are already SYSTEM or equivalent! Suppose we gain access as a service account. In that case, we may have privileges such as `SeImpersonatePrivilege`, which can often be easily abused to escalate privileges using a tool such as [Juicy Potato](https://github.com/ohpe/juicy-potato).
 
-Initial Enumeration
-
 ```cmd-session
 C:\htb> echo %USERNAME%
 
@@ -987,8 +946,6 @@ htb-student
 **Current User Privileges**
 
 As mentioned prior, knowing what privileges our user has can greatly help in escalating privileges. We will look at individual user privileges and escalation paths later in this module.
-
-Initial Enumeration
 
 ```cmd-session
 C:\htb> whoami /priv
@@ -1005,8 +962,6 @@ SeIncreaseWorkingSetPrivilege Increase a process working set Disabled
 **Current User Group Information**
 
 Has our user inherited any rights through their group membership? Are they privileged in the Active Directory domain environment, which could be leveraged to gain access to more systems?
-
-Initial Enumeration
 
 ```cmd-session
 C:\htb> whoami /groups
@@ -1033,8 +988,6 @@ Mandatory Label\Medium Mandatory Level Label            S-1-16-8192
 
 Knowing what other users are on the system is important as well. If we gained RDP access to a host using credentials we captured for a user `bob`, and see a `bob_adm` user in the local administrators group, it is worth checking for credential re-use. Can we access the user profile directory for any important users? We may find valuable files such as scripts with passwords or SSH keys in a user's Desktop, Documents, or Downloads folder.
 
-Initial Enumeration
-
 ```cmd-session
 C:\htb> net user
 
@@ -1050,8 +1003,6 @@ The command completed successfully.
 **Get All Groups**
 
 Knowing what non-standard groups are present on the host can help us determine what the host is used for, how heavily accessed it is, or may even lead to discovering a misconfiguration such as all Domain Users in the Remote Desktop or local administrators groups.
-
-Initial Enumeration
 
 ```cmd-session
 C:\htb> net localgroup
