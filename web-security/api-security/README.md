@@ -79,7 +79,7 @@ description: Beginner's Practical Guide to APIs
 * **Purpose**: APIs often impose rate limits to prevent abuse.
 * **Compliance**: Adhere to rate limits specified in API documentation to avoid being blocked.
 
-## **Resources for Learning APIs**
+## References <a href="#references" id="references"></a>
 
 **1. Online Platforms**
 

@@ -75,6 +75,10 @@ Kiterunner excels in discovering API endpoints by mimicking common API paths and
 
     ```bash
     $ kr scan HTTP://[target IP or domain] -w ~/api/wordlists/data/kiterunner/routes-large.kite
+    $ kr scan https://domain.com/api/ -w routes-large.kite -x 20
+    $ kr scan https://domain.com/api/ -A=apiroutes-220828 -x 20
+    $ kr brute https://domain.com/api/ -A=raft-large-words -x 20 -d=0
+    $ kr brute https://domain.com/api/ -w /tmp/lang-english.txt -x 20 -d=0
     ```
 
     * **Purpose**: Discover specific API endpoints and their functionalities.

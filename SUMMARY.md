@@ -125,7 +125,6 @@
   * [API Passive Reconnaissance](web-security/api-security/api-passive-reconnaissance.md)
   * [Active Reconnaissance](web-security/api-security/active-reconnaissance.md)
   * [Reverse Engineering an API](web-security/api-security/reverse-engineering-an-api.md)
-  * [Using APIs and Excessive Data Exposure](web-security/api-security/using-apis-and-excessive-data-exposure.md)
 
 ## 🐲 OSCP Prep
 
