@@ -22,7 +22,7 @@ all you need is a basic understanding of smartphones and mobile devices. Using a
 
 Wireless carriers are faced with choosing a radio network standard for which every device on their network must be compatible. The three most popular radio networks used by carriers are Code-Division Multiple Access (CDMA), Global System for Mobile Communication (GSM), and most recently Long-Term Evolution (LTE). LTE utilizes fourth-generation technologies while CDMA and GSM utilize second and third-gen technologies.
 
-<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption><p><strong>Mobile Communication Standards</strong></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (41) (1).png" alt=""><figcaption><p><strong>Mobile Communication Standards</strong></p></figcaption></figure>
 
 Many newer phones often utilize LTE for fast networking and other networks for messaging and calls only. CDMA and GSM networks are constantly shut down as they are being replaced outright by LTE networks. Fifth-generation technologies are greatly influenced by LTE yet make use of a higher frequency radio band to provide even faster speeds.
 
@@ -66,7 +66,7 @@ These cards contain a fully functional embedded system consisting of a microproc
 
 UICC circuits will terminate to either six or eight contact pads. The layout may vary between UICC applications, however, the terminals’ locations for each required contact will remain the same across all layouts. Each pad is designated for specific input or functionality:
 
-<figure><img src="../.gitbook/assets/image (42).png" alt=""><figcaption><p><strong>SIM Card Pinout</strong></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (42) (1).png" alt=""><figcaption><p><strong>SIM Card Pinout</strong></p></figcaption></figure>
 
 VCC is a five-volt-in path to provide power to the integrated circuit. VPP is the programming voltage – this input serves as an electronic interface to program and erase memory. I/O provides input/output to the circuit. Adapters are available to externally power and interact with UICC devices.&#x20;
 
@@ -139,7 +139,7 @@ SIM cards (Subscriber Identity Modules) are integral to mobile communication, st
 
 
 
-<figure><img src="../.gitbook/assets/image (44).png" alt=""><figcaption><p>SIM Card and CC card Size Comparison </p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (44) (1).png" alt=""><figcaption><p>SIM Card and CC card Size Comparison </p></figcaption></figure>
 
 ## SIM Applications
 

@@ -11,9 +11,29 @@ In the world of cybersecurity, mastering networking fundamentals is crucial. The
 
 Join me as we uncover these essential topics to empower your understanding and skills in navigating and securing diverse network environments.
 
+
+
+## Content:
+
+1. Network Basics
+2. Sub-netting and CIDR
+3. Network Analysis
+4. Linux Firewalls
+5. Wi-Fi Networks and Hacking
+6. Bluetooth Networks
+7. Address Resolution Protocol (ARP)
+8. Domain Name Service (DNS)
+9. Server Message Block (SMB)
+10. SMTP
+11. SNMP
+12. HTTP
+13. Automobile Networks
+14. SCADA/ICS Networks
+15. Radio Frequency (RF) Networks
+
 ## References:
 
-> 'Network Basics For Hackers' - InfoSec Press 2023
+> ['Network Basics For Hackers' - InfoSec Press 2023](https://www.amazon.ae/Network-Basics-Hackers-Networks-Break/dp/B0BS3GZ1R9)
 
 > [Hacktricks](https://book.hacktricks.xyz/)
 

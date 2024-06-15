@@ -326,7 +326,7 @@ Search GitHub repositories for exposed API keys, tokens, or sensitive informatio
     * **Issues Tab**: Check for open issues that may reveal ongoing security concerns.
     * **Pull Requests Tab**: Monitor proposed changes to detect API key exposure in development.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
 The Split button (top right of the above image) allows you to separate the previous code (left) and the updated code (right). Here, you can see a commit to an application that removed the Google Maps API key from the code, revealing both the key and the API endpoint it was used for.
 
@@ -352,7 +352,7 @@ API Directories like ProgrammableWeb's API Directory provide comprehensive repos
 
     * Visit [ProgrammableWeb's API Directory](https://www.programmableweb.com/apis/directory) to explore over 23,000 APIs.
 
-    <figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption><p><em><strong>Twilio API page on programmableweb.com.</strong></em></p></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p><em><strong>Twilio API page on programmableweb.com.</strong></em></p></figcaption></figure>
 2. **Navigating API Profiles**:
    * Browse through API listings to discover details such as endpoints, versions, business logic, and more.
 3. **Examining API Profiles**:
@@ -511,7 +511,7 @@ Here are ten practical examples of advanced Shodan queries tailored for API reco
 
 
 
-    <figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
     _**Check for differences between the API documentation. Later, when you are actively testing the API, make sure to test using old endpoints,**_
 

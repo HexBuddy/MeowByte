@@ -232,7 +232,7 @@ Finally, after discovering and analyzing a vulnerability, we move on to the actu
 
 
 
-    <figure><img src="../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption><p>The SP 800-115 process</p></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption><p>The SP 800-115 process</p></figcaption></figure>
 
 
 2.  **Penetration Testing Execution Standard (PTES):**
@@ -243,7 +243,7 @@ Finally, after discovering and analyzing a vulnerability, we move on to the actu
 
 
 
-    <figure><img src="../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption><p><strong>PTES technical process</strong></p></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption><p><strong>PTES technical process</strong></p></figcaption></figure>
 
 
 3.  **OWASP's Web Security Testing Guide (WSTG):**
@@ -254,7 +254,7 @@ Finally, after discovering and analyzing a vulnerability, we move on to the actu
 
 
 
-    <figure><img src="../../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption><p><strong>OWASP WSTG sections</strong></p></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption><p><strong>OWASP WSTG sections</strong></p></figcaption></figure>
 
 
 4.  **ISECOM's Open Source Security Testing Methodology Manual (OSSTMM):**
@@ -265,7 +265,7 @@ Finally, after discovering and analyzing a vulnerability, we move on to the actu
 
 
 
-    <figure><img src="../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption><p><strong>The OSSTMM process</strong></p></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption><p><strong>The OSSTMM process</strong></p></figcaption></figure>
 
 ## **Combining Methodologies:**
 
