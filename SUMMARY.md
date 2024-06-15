@@ -122,7 +122,10 @@
   * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
 * [API Security](web-security/api-security/README.md)
   * [API Security Fundamentals](web-security/api-security/api-security-fundamentals.md)
-  * [Page 2](web-security/api-security/page-2.md)
+  * [API Passive Reconnaissance](web-security/api-security/api-passive-reconnaissance.md)
+  * [Active Reconnaissance](web-security/api-security/active-reconnaissance.md)
+  * [Reverse Engineering an API](web-security/api-security/reverse-engineering-an-api.md)
+  * [Using APIs and Excessive Data Exposure](web-security/api-security/using-apis-and-excessive-data-exposure.md)
 
 ## 🐲 OSCP Prep
 

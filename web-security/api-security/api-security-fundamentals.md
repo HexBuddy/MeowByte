@@ -4,6 +4,8 @@
 
 APIs (Application Programming Interfaces) are vital for modern applications, enabling seamless communication between different software systems. However, their widespread use also exposes them to significant security risks. Effective API security is essential to protect sensitive data and maintain system integrity.
 
+{% embed url="https://www.youtube.com/watch?v=6WZ6S-qmtqY" %}
+
 ## OWASP Top 10 Background
 
 The OWASP API Security Top 10 is a guide that helps developers and security teams tackle risks specific to APIs. It was created in 2019 because APIs were becoming more popular, needing their own set of security guidelines. While it shares similarities with the classic OWASP Top 10 for web apps, the API version focuses on unique API-related risks. Updated in 2024, it reflects current threats and best practices for securing APIs, making it crucial for anyone handling API security.
