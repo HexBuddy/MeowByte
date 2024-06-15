@@ -18,14 +18,7 @@ Before identifying ARP anomalies, we need to first comprehend how this protocol 
 
 In our network, hosts must know the physical address (MAC address) to which they must send their data. This need gave birth to ARP. Let's elucidate this with a step-by-step process.
 
-| **Step** | **Description**                                                                                                                                                                                                                                                |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `1`      | Imagine our first computer, or Host A, needs to send data to our second computer, Host B. To achieve successful transmission, Host A must ascertain the physical address of Host B.                                                                            |
-| `2`      | Host A begins by consulting its list of known addresses, the ARP cache, to check if it already possesses this physical address.                                                                                                                                |
-| `3`      | In the event the address corresponding to the desired IP isn't in the ARP cache, Host A broadcasts an ARP request to all machines in the subnet, inquiring, "Who holds the IP x.x.x.x?"                                                                        |
-| `4`      | Host B responds to this message with an ARP reply, "Hello, Host A, my IP is x.x.x.x and is mapped to MAC address aa:aa:aa:aa:aa:aa."                                                                                                                           |
-| `5`      | On receiving this response, Host A updates its ARP cache with the new IP-to-MAC mapping.                                                                                                                                                                       |
-| `6`      | Occasionally, a host might install a new interface, or the IP address previously allocated to the host might expire, necessitating an update and remapping of the ARP cache. Such instances could introduce complications when we analyze our network traffic. |
+<table data-header-hidden><thead><tr><th width="125"></th><th></th></tr></thead><tbody><tr><td><strong>Step</strong></td><td><strong>Description</strong></td></tr><tr><td><code>1</code></td><td>Imagine our first computer, or Host A, needs to send data to our second computer, Host B. To achieve successful transmission, Host A must ascertain the physical address of Host B.</td></tr><tr><td><code>2</code></td><td>Host A begins by consulting its list of known addresses, the ARP cache, to check if it already possesses this physical address.</td></tr><tr><td><code>3</code></td><td>In the event the address corresponding to the desired IP isn't in the ARP cache, Host A broadcasts an ARP request to all machines in the subnet, inquiring, "Who holds the IP x.x.x.x?"</td></tr><tr><td><code>4</code></td><td>Host B responds to this message with an ARP reply, "Hello, Host A, my IP is x.x.x.x and is mapped to MAC address aa:aa:aa:aa:aa:aa."</td></tr><tr><td><code>5</code></td><td>On receiving this response, Host A updates its ARP cache with the new IP-to-MAC mapping.</td></tr><tr><td><code>6</code></td><td>Occasionally, a host might install a new interface, or the IP address previously allocated to the host might expire, necessitating an update and remapping of the ARP cache. Such instances could introduce complications when we analyze our network traffic.</td></tr></tbody></table>
 
 ***
 
@@ -37,15 +30,7 @@ In an ideal scenario, robust controls would be in place to thwart these attacks,
 
 Detecting these attacks can be challenging, as they mimic the communication structure of standard ARP traffic. Yet, certain ARP requests and replies can reveal their nefarious nature. Let's illustrate how these attacks function, enabling us to better identify them during our traffic analysis.
 
-| **Step** | **Description**                                                                                                                                                                                                                                           |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `1`      | Consider a network with three machines: the victim's computer, the router, and the attacker's machine.                                                                                                                                                    |
-| `2`      | The attacker initiates their ARP cache poisoning scheme by dispatching counterfeit ARP messages to both the victim's computer and the router.                                                                                                             |
-| `3`      | The message to the victim's computer asserts that the gateway's (router's) IP address corresponds to the physical address of the attacker's machine.                                                                                                      |
-| `4`      | Conversely, the message to the router claims that the IP address of the victim's machine maps to the physical address of the attacker's machine.                                                                                                          |
-| `5`      | On successfully executing these requests, the attacker may manage to corrupt the ARP cache on both the victim's machine and the router, causing all data to be misdirected to the attacker's machine.                                                     |
-| `6`      | If the attacker configures traffic forwarding, they can escalate the situation from a denial-of-service to a man-in-the-middle attack.                                                                                                                    |
-| `7`      | By examining other layers of our network model, we might discover additional attacks. The attacker could conduct DNS spoofing to redirect web requests to a bogus site or perform SSL stripping to attempt the interception of sensitive data in transit. |
+<table data-header-hidden><thead><tr><th width="130"></th><th></th></tr></thead><tbody><tr><td><strong>Step</strong></td><td><strong>Description</strong></td></tr><tr><td><code>1</code></td><td>Consider a network with three machines: the victim's computer, the router, and the attacker's machine.</td></tr><tr><td><code>2</code></td><td>The attacker initiates their ARP cache poisoning scheme by dispatching counterfeit ARP messages to both the victim's computer and the router.</td></tr><tr><td><code>3</code></td><td>The message to the victim's computer asserts that the gateway's (router's) IP address corresponds to the physical address of the attacker's machine.</td></tr><tr><td><code>4</code></td><td>Conversely, the message to the router claims that the IP address of the victim's machine maps to the physical address of the attacker's machine.</td></tr><tr><td><code>5</code></td><td>On successfully executing these requests, the attacker may manage to corrupt the ARP cache on both the victim's machine and the router, causing all data to be misdirected to the attacker's machine.</td></tr><tr><td><code>6</code></td><td>If the attacker configures traffic forwarding, they can escalate the situation from a denial-of-service to a man-in-the-middle attack.</td></tr><tr><td><code>7</code></td><td>By examining other layers of our network model, we might discover additional attacks. The attacker could conduct DNS spoofing to redirect web requests to a bogus site or perform SSL stripping to attempt the interception of sensitive data in transit.</td></tr></tbody></table>
 
 Detecting these attacks is one aspect, but averting them is a whole different challenge. We could potentially fend off these attacks with controls such as:
 
@@ -62,15 +47,11 @@ We can typically find `tcpdump` located in `/usr/sbin/tcpdump`. However, if the 
 
 **TCPDump**
 
-ARP Spoofing & Abnormality Detection
-
 ```shell-session
 root@htb[/htb]$ sudo apt install tcpdump -y
 ```
 
 To initiate the traffic capture, we can employ the command-line tool `tcpdump`, specifying our network interface with the `-i` switch, and dictating the name of the output capture file using the `-w` switch.
-
-ARP Spoofing & Abnormality Detection
 
 ```shell-session
 root@htb[/htb]$ sudo tcpdump -i eth0 -w filename.pcapng
@@ -79,8 +60,6 @@ root@htb[/htb]$ sudo tcpdump -i eth0 -w filename.pcapng
 ### Finding ARP Spoofing
 
 For detecting ARP Spoofing attacks, we'll need to open the related traffic capture file (`ARP_Spoof.pcapng`) from this module's resources using Wireshark.
-
-ARP Spoofing & Abnormality Detection
 
 ```shell-session
 root@htb[/htb]$ wireshark ARP_Spoof.pcapng

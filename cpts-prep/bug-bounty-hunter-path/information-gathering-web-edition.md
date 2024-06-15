@@ -49,8 +49,6 @@ The cheat sheet is a useful command reference for this module.
 
 **Sources.txt**
 
-Code: txt
-
 ```txt
 baidu
 bufferoverun

