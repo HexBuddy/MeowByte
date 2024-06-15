@@ -120,6 +120,9 @@
   * [Attacking Electron JavaScript Applications](web-security/attacking-web-applications/attacking-electron-javascript-applications.md)
   * [Attacking Ethereum Smart Contracts](web-security/attacking-web-applications/attacking-ethereum-smart-contracts.md)
   * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
+* [API Security](web-security/api-security/README.md)
+  * [API Security Fundamentals](web-security/api-security/api-security-fundamentals.md)
+  * [Page 2](web-security/api-security/page-2.md)
 
 ## 🐲 OSCP Prep
 
