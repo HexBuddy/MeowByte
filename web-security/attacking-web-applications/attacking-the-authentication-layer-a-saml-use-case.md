@@ -102,6 +102,29 @@ cd Chapter03
 docker compose up
 ```
 
+If you faced any errors like this :&#x20;
+
+```
+Error response from daemon: driver failed programming external connectivity on endpoint chapter03-sp-1 (a57e21cb8e30eddd94a34d616086a89861d7d9f72b26bb87cd8e363aee165e27): Error starting userland proxy: listen tcp4 0.0.0.0:8000: bind: address already in use
+```
+
+You Can solve it by editing your `compose.yaml` file in the same directory
+
+```
+version: '2'
+services:
+  idp:
+    build: vulnerableidp
+    ports:
+      - "80:80"
+  sp:
+    build: vulnerablesp
+    ports:
+      - "8001:8000"
+```
+
+Just Change the `ports` at the buttom from `8000:8000` to `8001:8000`
+
 ### Configure the appliacion for each paragraph
 
 To configure the application use a different browser than the one you are using to do the tests and:
