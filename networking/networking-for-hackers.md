@@ -21,7 +21,7 @@ Join me as we uncover these essential topics to empower your understanding and s
 4. [Linux Firewalls](networking-for-hackers.md#chapter-4-linux-firewalls)
 5. [Wi-Fi Networks and Hacking](networking-for-hackers.md#chapter-5-wi-fi-networks-802.11)
 6. [Bluetooth Networks](networking-for-hackers.md#chapter-6-bluetooth-networks)
-7. Address Resolution Protocol (ARP)
+7. [Address Resolution Protocol (ARP)](networking-for-hackers.md#chapter-7-address-resolution-protocol-arp)
 8. Domain Name Service (DNS)
 9. Server Message Block (SMB)
 10. SMTP
@@ -1756,6 +1756,165 @@ Metasploit uses ARP for network discovery and exploitation:
 1. **ARP Table Analysis:** Use `arp` command to view and analyze ARP table entries.
 2. **Network Discovery:** Employ `netdiscover` to scan and identify devices on your LAN.
 3. **Packet Analysis:** Create Wireshark filters to examine ARP packets within specific IP ranges.
+
+***
+
+Certainly! Let's delve deeper into the chapter on Domain Name Service (DNS), covering how domain names work, DNS functionality, packet-level analysis, vulnerabilities, DNS security, and building a DNS server in Linux. I'll expand on the content, provide examples, commands, and tables where necessary for your exam preparation.
+
+***
+
+### Chapter 7: Domain Name Service (DNS)
+
+#### Introduction to DNS
+
+DNS (Domain Name System) is a critical protocol that translates domain names into IP addresses, making it easier for users to access websites without needing to remember IP addresses.
+
+**How Domain Names Work**
+
+Domain names are structured hierarchically, with each level providing specific information:
+
+* **Top Level Domains (TLDs)**: Include generic TLDs like .com, .net, .org, and country-code TLDs like .uk, .fr.
+* **Second Level Domains (SLDs)**: Directly under TLDs, e.g., hackers-arise.com.
+* **Subdomains**: Further divisions under SLDs, e.g., sales.hackers-arise.com.
+
+#### How DNS Works
+
+DNS operates in a distributed manner with multiple server types:
+
+1. **DNS Resolver**: Initiates DNS queries on behalf of clients.
+2. **Root Name Servers**: Direct queries to appropriate TLD servers.
+3. **TLD Servers**: Provide information about SLDs.
+4. **Authoritative DNS Servers**: Store domain records (A, AAAA, MX, etc.) for specific domains.
+
+**Packet-level Analysis of DNS Requests and Responses**
+
+DNS uses UDP for queries and responses. The structure of DNS packets includes headers and sections like Query, Answer, Authority, and Additional.
+
+**Example DNS Query Packet (Query)**
+
+```
+Query ID: 0x7f71
+Flags: 0x0100 Standard Query
+Questions: 1
+Answer RRs: 0
+Authority RRs: 0
+Additional RRs: 0
+
+Query: www.hackers-arise.com
+```
+
+**Example DNS Response Packet (Response)**
+
+```
+Response ID: 0x7f71
+Flags: 0x8180 Standard Query Response
+Questions: 1
+Answer RRs: 1
+Authority RRs: 0
+Additional RRs: 1
+
+Answer: www.hackers-arise.com IN A 23.236.62.147
+```
+
+#### Vulnerabilities and Security in DNS
+
+DNS is susceptible to various attacks:
+
+* **DNS Spoofing**: Redirecting DNS traffic to a malicious server.
+* **DNS Cache Poisoning**: Injecting false DNS records into caching resolvers.
+* **DNSSEC (DNS Security Extensions)**: Adds cryptographic authentication to DNS responses to prevent spoofing.
+
+**DNS Security Tools**
+
+* **`dnstap`**: Captures and logs DNS traffic for analysis.
+* **`dnstracer`**: Traces the route taken by a DNS query.
+* **`dnsdist`**: DNS proxy with DoS protection and load balancing capabilities.
+
+#### Building Your Own DNS Server in Linux (BIND)
+
+BIND (Berkeley Internet Name Domain) is a widely used DNS server on Linux. Here's a basic setup example:
+
+**Install BIND**
+
+```bash
+sudo apt-get update
+sudo apt-get install bind9
+```
+
+**Configure BIND**
+
+Edit `/etc/bind/named.conf.options`:
+
+```bash
+sudo nano /etc/bind/named.conf.options
+```
+
+Example Configuration:
+
+```bind
+options {
+    listen-on port 53 { 127.0.0.1; 192.168.1.0/24; };
+    allow-query { localhost; 192.168.1.0/24; };
+    forwarders { 75.75.75.75; };
+    recursion yes;
+};
+```
+
+**Create Zone Files**
+
+1. Forward Zone (`/etc/bind/forward.hackers-arise.local`):
+
+```bind
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     primary.hackers-arise.local. admin.hackers-arise.local. (
+                          2024061401     ; Serial
+                          604800         ; Refresh
+                          86400          ; Retry
+                          2419200        ; Expire
+                          604800 )       ; Negative Cache TTL
+;
+@       IN      NS      primary.hackers-arise.local.
+@       IN      A       192.168.1.27
+www     IN      A       192.168.1.30
+```
+
+2. Reverse Zone (`/etc/bind/reverse.hackers-arise.local`):
+
+```bind
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     primary.hackers-arise.local. admin.hackers-arise.local. (
+                          2024061401     ; Serial
+                          604800         ; Refresh
+                          86400          ; Retry
+                          2419200        ; Expire
+                          604800 )       ; Negative Cache TTL
+;
+@       IN      NS      primary.hackers-arise.local.
+27      IN      PTR     primary.hackers-arise.local.
+30      IN      PTR     www.hackers-arise.local.
+```
+
+**Restart BIND**
+
+```bash
+sudo systemctl restart bind9
+```
+
+#### Summary
+
+DNS is vital for translating domain names into IP addresses, facilitating internet navigation. Understanding DNS components, security measures like DNSSEC, vulnerabilities, and setting up a DNS server (e.g., BIND) are crucial for network administrators and security professionals.
+
+#### Exercises
+
+1. Modify DNS configuration to add MX records for email servers.
+2. Perform a DNSSEC setup for a domain using BIND.
+3. Investigate recent CVEs related to DNS vulnerabilities.
 
 ***
 
