@@ -1,2 +1,0 @@
-# Server Message Block (SMB)
-

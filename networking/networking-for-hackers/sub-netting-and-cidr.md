@@ -1,2 +1,0 @@
-# Sub-netting and CIDR
-

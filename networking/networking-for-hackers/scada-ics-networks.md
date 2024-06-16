@@ -1,2 +1,0 @@
-# SCADA/ICS Networks
-

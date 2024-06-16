@@ -1,14 +1,55 @@
-# Network Basics
+---
+description: Introduction
+cover: >-
+  https://images.unsplash.com/photo-1544197150-b99a580bb7a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw1fHxuZXR3b3JrfGVufDB8fHx8MTcxODQ3NTM0MXww&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
 
-## Chapter 1: Network Basics
+# Networking For Hackers
+
+In the world of cybersecurity, mastering networking fundamentals is crucial. These notes cover foundational topics like Network Basics and Sub-netting, essential skills such as Network Analysis and Linux Firewalls, and practical insights into Wi-Fi Networks and Bluetooth Networks. We'll explore protocols like ARP, DNS, SMTP, SNMP, and HTTP, as well as specialized networks such as Automobile Networks and SCADA/ICS Networks.
+
+Join me as we uncover these essential topics to empower your understanding and skills in navigating and securing diverse network environments.
+
+
+
+## Content:
+
+1. [Network Basics](networking-for-hackers.md#chapter-1-network-basics)
+2. [Sub-netting and CIDR](networking-for-hackers.md#chapter-2-subnetting-and-cidr-notation)
+3. [Network Analysis](networking-for-hackers.md#chapter-3-network-analysis)
+4. [Linux Firewalls](networking-for-hackers.md#chapter-4-linux-firewalls)
+5. [Wi-Fi Networks and Hacking](networking-for-hackers.md#chapter-5-wi-fi-networks-802.11)
+6. Bluetooth Networks
+7. Address Resolution Protocol (ARP)
+8. Domain Name Service (DNS)
+9. Server Message Block (SMB)
+10. SMTP
+11. SNMP
+12. HTTP
+13. Automobile Networks
+14. SCADA/ICS Networks
+15. Radio Frequency (RF) Networks
+
+## References:
+
+> ['Network Basics For Hackers' - InfoSec Press 2023](https://www.amazon.ae/Network-Basics-Hackers-Networks-Break/dp/B0BS3GZ1R9)
+
+> [Hacktricks](https://book.hacktricks.xyz/)
+
+> [test-your-sysadmin-skills](https://github.com/HexBuddy/test-your-sysadmin-skills)
 
 ***
+
+
+
+## Chapter 1: Network Basics
 
 ### IP Addresses
 
 Internet Protocol addresses (IP addresses) make the world go 'round. Or, at least, enable us to email, Zoom, watch YouTube videos, Tweet, and navigate the web. It's almost as important as the world going around!
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Each digital device (computer, laptop, phone, tablet, etc.) is assigned an IP address, and this is what enables us to communicate and connect with it. Imagine an IP address as being similar to your house address. Without that address, no one could find you and send you snail mail.
 
@@ -16,7 +57,7 @@ The IP address system we are presently using is known as IP version 4, or IPv4. 
 
 Take, for instance, 192.168.1.101. Each of the numbers between the dots (.) is the decimal equivalent of 8 bits. This means that we calculate the base 2 number (that computers use) represented by the 8 bits and convert them to decimal numbers that humans are more accustomed to working with (see the diagram below). Each one of the octets (8 bits) is capable of representing numbers within the range 0 through 255 (2 to the 8th power).
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Classes of IP Addresses
 
@@ -42,7 +83,7 @@ As a result, a system was developed to reuse a group of IP addresses within a LA
 
 You have probably seen the private IP addresses beginning with 192.168.xxx.xxx or 10.xxx.xxx.xxx on your Kali system when you type `ifconfig`.
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 This is your private IP that is only usable on the local area network. To communicate over the internet, your IP address must be translated to a public IP by a NAT device (see NAT below).
 
@@ -52,7 +93,7 @@ Dynamic Host Configuration Protocol (DHCP) assigns IP addresses dynamically. Thi
 
 When each device is connected to the LAN, it must request an IP address. That device sends the request to the DHCP server that assigns an IP address to that system for a fixed length of time, known as a "lease."
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 Each time you connect to the LAN, you are likely to receive a different (dynamic) IP address, but usually in the same range. For instance, 192.168.0.0 - 192.168.255.255.
 
@@ -62,7 +103,7 @@ Network Address Translation (NAT) is a protocol whereby internal private IP addr
 
 The NAT device accepts requests to traverse the internet from an internal machine. It then records that machine's IP address in a table and converts the IP address to the external IP address of the router. When the packet returns from its destination, the NAT device looks into the saved table of the original request. It forwards the packet to the internal IP address of the system that made the original request within the LAN. When working properly, the individual systems and users don't realize this translation is taking place.
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
 For instance, the diagram above shows four computers with private IP addresses behind a device that is serving as both a NAT device and a router (not uncommon). The devices use their private IP addresses within the LAN, but when they want to communicate over the internet, the NAT device translates it to one of the public IP addresses that are unique on the internet. In this way, the routers along the way know exactly where to send the packets.
 
@@ -72,7 +113,7 @@ Ports are a kind of sub-address. The IP address is the primary address, and the 
 
 There are 65,536 (2 raised to the 16th power) ports. The first 1,024 are generally referred to as the "common ports." Obviously, people don't remember all 65,536 ports (unless they are savant) or even the 1,024 most common ports. As a hacker, security engineer, and/or network engineer, though, there are a few ports that you should know by heart.
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -84,7 +125,7 @@ For instance, to see all the ports open on a Metasploitable-2 system (an intenti
 kali > sudo nmap –sT <IP address of the target system>
 ```
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 Nmap then reports back with the open ports and the default service on that port.
 
@@ -108,7 +149,7 @@ Protocols are similar. A protocol simply defines a way of communication with all
 
 There are many, many protocols in use on the internet. These include TCP, IP, UDP, FTP, HTTP, SMTP, etc., and each has its own set of rules that must be complied with to communicate effectively (similar to the rules we use in communication via written languages).
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 Arguably the two most important protocols for use over the internet are IP and TCP, so let's take a look at each of these.
 
@@ -120,7 +161,7 @@ Arguably the two most important protocols for use over the internet are IP and T
 
 Let's look at an IP packet header and see what information it contains that can be useful to the aspiring hacker and/or forensic investigator.
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Row 1:**
 
@@ -156,7 +197,7 @@ Let's look at an IP packet header and see what information it contains that can 
 
 In the TCP header, there are numerous critical fields that the aspiring hacker and/or forensic investigator should understand.
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Row 1:**
 
@@ -202,7 +243,7 @@ If you are familiar with nmap or hping3 as recon tools, you have used scans util
 
 Every TCP connection starts with a three-way handshake. The handshake begins with a client sending a packet with the SYN flag set saying, “Hello, I want to talk to you.” The server responds with a packet with the SYN and ACK flags set saying, “Hi, I’m willing and able to chat.” Finally, the client sends a packet with the ACK flag set that acknowledges the response of the server, and then the data transfer can begin.
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -228,19 +269,19 @@ The topology is the way that systems connect together, which can be either physi
 
 * **Bus Topology:** This topology has one central cable that connects all devices in a network and is most common in smaller networks. Its simplicity makes it easy to install, but its single point of failure can lead to significant downtime.
 
-<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 * **Ring Topology:** In this topology, each node connects to exactly two other nodes, forming a single continuous pathway for signals through each node. The advantage is that it is relatively easy to install and reconfigure, but a break in any one of the connections can disrupt the entire network.
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 * **Star Topology:** This topology has each node connected to a central hub or switch, which acts as a repeater for data flow. It is the most common computer network topology today. Its main advantage is that it is easy to add or remove devices, and if one link fails, the others remain unaffected. However, the central hub represents a single point of failure.
 
-<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 * **Mesh Topology:** This topology has each node connected to every other node, providing the most redundancy and reliability. The mesh network allows for continuous connections and reconfiguration around broken or blocked paths by “hopping” from node to node until the destination is reached. It is very robust and provides high redundancy but is the most costly and complex to install.
 
-<figure><img src="../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
 * **Hybrid Topology:** This topology combines multiple topologies to leverage the strengths of each.
 
@@ -252,7 +293,7 @@ The OSI and the TCP models are the most common models to understand the way that
 
 Let’s begin with the OSI model. The diagram below displays the seven layers and the basic use of that layer in network communication.
 
-<figure><img src="../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -294,7 +335,7 @@ Feel free to use either or make up your own. The key is to remember the seven la
 
 The attacks against the protocols in this model can be categorized as follows:
 
-<figure><img src="../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Application Layer:**\
 Generally includes applications such as browsers, word processors, and other applications. This layer’s most important attacks are likely to be exploits. These are attacks that can often embed the hacker’s code within the application to take control of the application and the system.
@@ -333,15 +374,13 @@ We will look more closely at each of the attacks against the network protocols a
 
 ## Chapter 2: Subnetting and CIDR Notation
 
-***
-
 ### **Why Sub-netting?**
 
 Subnetting lets network administrators use the 32 bits in IPv4 IP address space more efficiently. They can create subnets within a Class A, B, or C network, enabling the administrator to create networks with more realistic host numbers.
 
 Subnetting provides a flexible way to designate which portion of the IP address represents the host IP and which portion represents the network ID. Even if a single organization has thousands of devices, they don’t want them all running on the same network ID. The network would slow dramatically. By dividing up the network, you can have different physical networks and broadcast domains.
 
-<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -353,13 +392,13 @@ A subnet is a network within a network, namely a Class A, B, or C. Subnets are c
 * **Class B networks** have a standard 16-bit network ID.
 * **Class C networks** have a standard 24-bit network ID.
 
-<figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
 Subnetting enables us to create network IDs of any size.
 
 A network mask, or netmask, is a binary mask that is applied to an IP address to determine whether two IP addresses are in the same subnet. A network mask works by applying binary AND operations between the IP address and the mask.
 
-<figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -367,7 +406,7 @@ A network mask, or netmask, is a binary mask that is applied to an IP address to
 
 Subnet masks use the 32-bit structure of the IP address. The subnet mask tells us which bits are for the Network ID and which bits are for the host ID. When the subnet mask bit is set to one, this means it is part of the network. A bit marked as zero is part of the host ID. The diagram below is meant to demonstrate this process of bit-wise AND operation between an IP address and its mask.
 
-<figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -381,21 +420,21 @@ CIDR, or Classless Inter-Domain Routing notation, is a way of representing an IP
 
 To demonstrate this principle, let's create a scenario. Assume we have a Class C network, say `192.168.1.0`. That means we have 254 host addresses available (1-254). What if we needed five different networks with no more than 30 hosts per network?
 
-<figure><img src="../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
 We can create smaller networks by borrowing bits from the host portion of the address.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
 
 This provides us with a netmask like the one below.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
 Those 3 bits would give us (2^3 = 8) (subtracting 2 for the reserved network and broadcast IP) subnets or 6. There would be 5 bits left in the network portion of the address or (2^5 = 32) (subtracting 2) or 30 hosts per subnet.
 
 The calculation of the subnet mask after borrowing those 3 bits would be:
 
-<figure><img src="../../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -428,7 +467,7 @@ When running `ifconfig`, you will see various details:
 * **MAC Address**: Shown as `ether` followed by the address (e.g., `00:0c:29:4b:8e:9f`).
 * **Loopback IP Address**: Usually `127.0.0.1` for localhost.
 
-<figure><img src="../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
 
 **2. `ping`**
 
@@ -438,7 +477,7 @@ The `ping` command checks the connectivity to a domain or IP address. It sends I
 kali > ping hackers-arise.com
 ```
 
-<figure><img src="../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 
 * To ping by IP address:
 
@@ -446,7 +485,7 @@ kali > ping hackers-arise.com
 kali > ping 185.230.63.107
 ```
 
-<figure><img src="../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
 
 **3. `netstat`**
 
@@ -458,7 +497,7 @@ kali > ping 185.230.63.107
 kali > netstat -a
 ```
 
-<figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 
 * To display TCP connections only:
 
@@ -484,7 +523,7 @@ kali > netstat -l
 kali > netstat -a | grep http
 ```
 
-<figure><img src="../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
 
 **4. `ss`**
 
@@ -494,7 +533,7 @@ kali > netstat -a | grep http
 kali > ss
 ```
 
-<figure><img src="../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
 Apologies for the confusion earlier. Here's the excerpt you provided about network sniffers:
 
@@ -526,7 +565,7 @@ In this chapter, we use two of the most popular network sniffer/analyzers: tcpdu
 kali > tcpdump
 ```
 
-<figure><img src="../../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
 
 * Simple Example :&#x20;
 
@@ -535,7 +574,7 @@ kali > ping 192.168.0.114
 kali > tcpdump
 ```
 
-<figure><img src="../../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
 
 As you can see, tcpdump displays the protocol (ICMP) and the type (echo request and echo reply). If we want to capture the output to a file where we can analyze it at a later time, we can use the –w option followed by the file name.
 
@@ -551,7 +590,7 @@ kali > tcpdump -w myoutput.cap
 kali > tcpdump host 192.168.0.114
 ```
 
-<figure><img src="../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 
 * To filter traffic by port:
 
@@ -559,7 +598,7 @@ kali > tcpdump host 192.168.0.114
 kali > tcpdump port 80
 ```
 
-<figure><img src="../../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
 
 * To filter by TCP flags:
 
@@ -567,7 +606,7 @@ kali > tcpdump port 80
 kali > tcpdump 'tcp[tcpflags] == tcp-syn'
 ```
 
-<figure><img src="../../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
 
 * To combine filters:
 
@@ -589,7 +628,7 @@ kali > tcpdump host 192.168.0.114
 
 Now, open a browser on your Windows 7 system and navigate to the Kali system IP address. You should begin to see packets appearing in the tcpdump terminal.
 
-<figure><img src="../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 
 Note that we can see the three-way TCP handshake in the highlighted polygon. You can see first an “S” flag, then an “S.” flag (tcpdump represents the A or ACK flag with a “ .“), and then a “.” flag or written another way, S-SYN/ACK-ACK.
 
@@ -599,7 +638,7 @@ This filter displays traffic coming and going from our Windows 7 system. If we w
 kali > tcpdump src host 192.168.0.114
 ```
 
-<figure><img src="../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
 
 Now, we are only seeing the traffic coming (src) from our Windows 7 system (192.168.0.114).
 
@@ -634,7 +673,7 @@ kali > tcpdump ‘tcp[tcpflags]==tcp-urg’:
 
     * This command captures detailed traffic (very verbose) and searches for the 'User-Agent' header, which identifies the user's browser and operating system.
 
-    <figure><img src="../../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
 
 ### **Wireshark**
 
@@ -717,7 +756,7 @@ Wireshark filtering examples:
 tcp
 ```
 
-<figure><img src="../../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
 
 * Filter by IP address:
 
@@ -725,7 +764,7 @@ tcp
 ip.addr == 192.168.1.107
 ```
 
-<figure><img src="../../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
 
 * Filter by port:
 
@@ -733,7 +772,7 @@ ip.addr == 192.168.1.107
 tcp.dstport == 80
 ```
 
-<figure><img src="../../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
 
 * Filter for strings in payload:
 
@@ -741,23 +780,23 @@ tcp.dstport == 80
 tcp contains facebook
 ```
 
-<figure><img src="../../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
 
 * Create filters using the Expression window:
 
-<figure><img src="../../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
 
 * Follow a TCP stream by right-clicking a packet and selecting `Follow` > `TCP Stream`.
 
-<figure><img src="../../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
 
 * This opens a pull-down window like that above. Click "Follow" and then "TCP Stream." :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
 
 * Obtain statistics via `Statistics` > `IPv4 Statistics` > `All Addresses`.
 
-<figure><img src="../../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -787,7 +826,7 @@ Firewalls can be either software or hardware-based:
 
 Iptables is a powerful firewall utility for Linux and Unix-like operating systems. Developed by the Netfilter project, it has been part of the Linux kernel since January 2001. Iptables uses command-line tools to configure policy chains for filtering network traffic.
 
-<figure><img src="../../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
 
 **Key Concepts of Iptables**
 
@@ -825,7 +864,7 @@ Before setting rules, determine the default action for packets that don’t matc
 sudo iptables -L
 ```
 
-<figure><img src="../../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
 
 Most systems default to `ACCEPT` for ease of connectivity, though for enhanced security, `DROP` may be considered.
 
@@ -894,7 +933,7 @@ Most systems default to `ACCEPT` for ease of connectivity, though for enhanced s
 * **Order of Rules**: Rules are processed in order; ensure specific rules precede more general ones.
 * **Viewing Rules**: Use `-L` to list current rules and `-F` to flush (delete) all rules.
 
-**Exercises**
+### **Exercises**
 
 1. Create a firewall allowing access only to `hackers-arise.com` on ports `80` and `443`.
 2. Add a rule to block port `445`.
@@ -902,5 +941,288 @@ Most systems default to `ACCEPT` for ease of connectivity, though for enhanced s
 
 ***
 
-## Chapter 5: Wi-Fi Networks (802.11)
+## **Chapter 5: Wi-Fi Networks (802.11)**
+
+### **Introduction**
+
+* Understand the critical role of Wi-Fi security in modern wireless networks.
+* Explore the evolution of IEEE 802.11 standards and their impact on network security.
+
+### **Wi-Fi Basics (802.11)**
+
+* Learn about the IEEE 802.11 family of standards governing Wireless Local Area Networks (WLANs).
+* Understand the frequency bands used: 2.4 GHz and 5 GHz.
+* Differentiate between infrastructure mode (AP-based) and ad-hoc mode (peer-to-peer).
+
+### **Key Terminology**
+
+<table><thead><tr><th width="259">Term</th><th>Description</th></tr></thead><tbody><tr><td>AP (Access Point)</td><td>Central hub of a Wi-Fi network where devices connect.</td></tr><tr><td>SSID (Service Set Identifier)</td><td>Network name visible to users.</td></tr><tr><td>BSSID (Basic Service Set Identifier)</td><td>Unique MAC address of an AP.</td></tr><tr><td>Channels</td><td>Different frequencies used for Wi-Fi communication.</td></tr><tr><td>Security</td><td>Encryption protocols such as WEP, WPA2-PSK, and WPA3.</td></tr><tr><td>Modes</td><td>Infrastructure mode (AP-based) and ad-hoc mode (peer-to-peer).</td></tr></tbody></table>
+
+**802.11 Security Protocols**
+
+* **WEP (Wired Equivalent Privacy)**:
+  * Vulnerable to attacks; crack WEP keys using tools like `aircrack-ng`. Example: Use `aircrack-ng` to crack WEP keys from captured packets.
+* **WPA/WPA2 (Wi-Fi Protected Access)**:
+  * Capture handshakes with `airodump-ng` for offline cracking. Example: Capture a handshake with `airodump-ng` and crack it using `aircrack-ng`.
+* **WPA3**:
+  * Enhanced security features against brute-force attacks and key reinstallation attacks (KRACK). Example: Implement WPA3 with stronger cryptographic protocols for enhanced security.
+
+### **Wi-Fi Adapters for Hacking**
+
+* Use compatible Wi-Fi adapters like Alfa AWUS036NH capable of packet injection. Example: Use Alfa AWUS036NH to inject packets during penetration testing.
+
+### **Preparing for Wi-Fi Attacks**
+
+*   Identify wireless interfaces:
+
+    ```bash
+    ifconfig            # Linux
+    ipconfig            # Windows
+    ```
+
+    Example: Use `ifconfig` on Linux or `ipconfig` on Windows to identify wireless interfaces.
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+*   Scan for Access Points (APs):
+
+    ```bash
+    iwlist scan         # Linux
+    netsh wlan show networks mode=BSSID  # Windows
+    ```
+
+    Example: Scan for nearby APs using `iwlist scan` on Linux or `netsh wlan show networks mode=BSSID` on Windows.
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+**Monitor Mode**
+
+*   Enable monitor mode on the wireless interface:
+
+    ```bash
+    airmon-ng start wlan0   # Linux (replace wlan0 with your interface name)
+    ```
+
+    Example: Enable monitor mode on `wlan0` interface using `airmon-ng`.
+
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+**Capturing Frames**
+
+*   Capture Wi-Fi traffic:
+
+    ```bash
+    airodump-ng wlan0
+    ```
+
+    Example: Capture Wi-Fi traffic on `wlan0` using `airodump-ng`.
+
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+**Anatomy of Wi-Fi Frames**
+
+* Analyze frames in Wireshark: Filter for specific frames using expressions like `wlan.fc.type_subtype == 0x08` for beacon frames. Example: Use Wireshark to analyze Wi-Fi frames with filters for beacon frames (`wlan.fc.type_subtype == 0x08`).
+
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+### **Wi-Fi Attacks**
+
+* **Reveal Hidden SSID**:
+  * Use `airodump-ng` to passively monitor and reveal hidden SSIDs. Example: Use `airodump-ng` to reveal hidden SSIDs by passively monitoring Wi-Fi traffic.
+*   **Bypass MAC Filtering**:
+
+    * Spoof MAC addresses using `macchanger` or capture allowed MACs with `airodump-ng`. Example: Spoof MAC addresses with `macchanger` or capture allowed MACs using `airodump-ng`.
+    * Once the hacker knows the MAC address of the authenticated client, they can simply “spoof” that MAC address. This requires that we take down the interface. Then, use macchanger to spoof the MAC address making it the same as the connected client’s MAC:
+
+    <figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+*   **Crack WPA2-PSK**:
+
+    * Utilize captured handshakes with `aircrack-ng` on `.cap` files. Example: Crack WPA2-PSK passwords using captured handshakes and `aircrack-ng`.
+
+    <figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+**Attacking WPA2-PSK**
+
+WPA2-PSK (Wi-Fi Protected Access 2 - Pre-Shared Key) is a commonly used security protocol for Wi-Fi networks. It employs a four-way handshake process to establish a secure connection between a client and an access point (AP). The key for cracking WPA2-PSK lies in capturing this handshake, which includes the hash of the pre-shared key (password).
+
+**Capture the Four-Way Handshake**
+
+*   **Put Wi-Fi Adapter in Monitor Mode:**
+
+    ```
+    kali > airmon-ng start wlan0
+    ```
+*   **Start Packet Capture with airodump-ng:**
+
+    ```
+    kali > airodump-ng wlan0mon
+    ```
+
+<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+*   **Focus Capture on Specific AP and Channel:**
+
+    ```
+    kali > airodump-ng --bssid <BSSID> -c <channel> --write HackersAriseCrack wlan0mon
+    ```
+
+    Replace `<BSSID>` with the target AP's BSSID and `<channel>` with its operating channel.
+*   **Deauthenticate a Client to Capture Handshake:**
+
+    ```
+    kali > aireplay-ng --deauth 100 -a <BSSID> wlan0mon
+    ```
+
+    This command sends deauthentication frames to a connected client (`-a <BSSID>`) to force reconnection and capture the handshake.
+
+<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+<table data-header-hidden><thead><tr><th width="207"></th><th></th></tr></thead><tbody><tr><td><strong>Command/Option</strong></td><td><strong>Description</strong></td></tr><tr><td><code>aireplay-ng</code></td><td>Command for Wi-Fi packet injection and deauthentication.</td></tr><tr><td><code>--deauth 100</code></td><td>Option to send 100 deauthentication frames to the AP.</td></tr><tr><td><code>-a &#x3C;BSSID></code></td><td>Specifies the BSSID (MAC address) of the target access point.</td></tr><tr><td><code>wlan0mon</code></td><td>Represents your Wi-Fi adapter in monitor mode.</td></tr></tbody></table>
+
+### WPS (Wi-Fi Protected Setup)
+
+**Overview:** Wi-Fi Protected Setup (WPS) was designed to simplify the process of connecting devices to a secure Wi-Fi network by using an eight-digit PIN. This PIN authentication mechanism was intended to be user-friendly but introduced significant security vulnerabilities.
+
+**Vulnerability:** The WPS PIN consists of eight digits where the last digit is a checksum of the first seven digits. This structure reduces the number of possible PIN combinations to 11,000 (10^4 for the first four digits + 10^3 for the last three digits). This limited number of combinations makes it vulnerable to brute-force attacks, where attackers attempt all possible PINs until the correct one is found.
+
+**Attack Tools:**
+
+* **wash**: Used to identify APs with WPS enabled.
+* **bully**: A tool for performing brute-force attacks against WPS PINs.
+* **reaver**: Another tool specialized in brute-forcing WPS PINs.
+
+**Examples:**
+
+1.  **Identifying APs with WPS:**
+
+    ```bash
+    kali > wash -i wlan0mon
+    ```
+
+    This command scans the wireless interface `wlan0mon` to identify APs that have WPS enabled.
+
+<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+1.  **Brute-forcing WPS PIN:** Using `bully` to brute-force the WPS PIN of a target AP:
+
+    ```bash
+    kali > bully wlan0mon -b 00:11:22:33:44:55 -e MyWiFiNetwork -c 6
+    ```
+2.  **Using reaver:** Brute-forcing with `reaver`:
+
+    ```bash
+    kali > reaver -i wlan0mon -b 00:11:22:33:44:55 -vv
+    ```
+
+    Replace `00:11:22:33:44:55` with the MAC address (`BSSID`) of the target AP and `MyWiFiNetwork` with its SSID.
+
+<figure><img src="../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+
+### Evil Twin Attack (Man-in-the-Middle)
+
+**Overview:** An Evil Twin attack involves creating a rogue wireless access point (AP) with the same SSID and other settings as a legitimate AP to intercept traffic from unsuspecting clients.
+
+**Setup Steps:**
+
+1.  **Creating the Rogue AP:** Use `airbase-ng` to set up the Evil Twin AP:
+
+    ```bash
+    kali > airbase-ng -a aa:bb:cc:dd:ee:ff --essid hackers-arise -c 6 wlan0mon
+    ```
+
+    * `-a`: Sets the MAC address of the rogue AP.
+    * `--essid`: Specifies the SSID of the rogue AP.
+    * `-c`: Sets the channel to broadcast on.
+
+    <figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+2.  **Bridge Interfaces:** Create a network bridge (`ha`) to connect `at0` (AP interface) and `eth0` (Ethernet interface):
+
+    ```bash
+    kali > ip link add name ha type bridge
+    kali > ip link set ha up
+    kali > ip link set eth0 master ha
+    kali > ip link set at0 master ha
+    ```
+3.  **DHCP Server Setup:** Start a DHCP server (`dhclient`) on the bridge (`ha`) to assign IP addresses to connected clients:
+
+    ```bash
+    kali > dhclient ha &
+    ```
+4.  **Deauthentication:** Use `aireplay-ng` to send deauthentication frames to disconnect clients from the legitimate AP and force them to connect to the Evil Twin AP:
+
+    ```bash
+    kali > aireplay-ng --deauth 1000 aa:bb:cc:dd:ee:ff wlan0mon --ignore-negative-one
+    ```
+
+**Traffic Analysis:** Capture and analyze intercepted traffic using Wireshark on interface `ha`.
+
+### Denial of Service (DoS) Attack
+
+**Overview:** A DoS attack against a Wi-Fi network involves sending a high volume of deauthentication frames to disrupt connectivity for legitimate users.
+
+**DoS Attack Command:** Send deauthentication frames (`-deauth`) to the AP identified by `<BSSID>` to disconnect clients temporarily:
+
+```bash
+kali > aireplay-ng --deauth 100 -a <BSSID> wlan0mon
+```
+
+**Persistent DoS Attack Script:** Create a BASH script to automate deauthentication attacks at regular intervals:
+
+```bash
+#!/bin/bash
+for ((i=1; i<=5000; i++))
+do
+    aireplay-ng --deauth 100 -a <BSSID> wlan0mon
+    sleep 60
+done
+```
+
+Adjust the loop count (`5000`) and sleep time (`60` seconds) as needed.
+
+### PMKID Attack
+
+**Overview:** The PMKID attack targets vulnerabilities in the WPA/WPA2-PSK authentication process to capture credentials without needing to deauthenticate a client.
+
+**Attack Process:**
+
+1.  **Capture PMKID:** Use `hcxdumptool` to capture PMKID packets from nearby APs:
+
+    ```bash
+    kali > hcxdumptool -i wlan0mon -o HackersArisePMKID --enable_status=1
+    ```
+
+<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+
+1.  **Filter for Target AP:** Create a file (`targetBSSID`) containing the BSSID of the target AP and filter `hcxdumptool` to capture PMKID for that AP:
+
+    ```bash
+    kali > hcxdumptool -i wlan0mon -o HackersArisePMKID --enable_status=1 --filterlist_ap=targetBSSID --filtermode=2
+    ```
+
+<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+
+1.  **Convert and Crack:** Use `hcxcaptool` to convert captured PMKID data and `hashcat` to crack it:
+
+    ```bash
+    kali > hcxcaptool -z hashoutput.txt HackersArisePMKID
+    kali > hashcat -m 16800 hashoutput.txt top10000passwords.txt
+    ```
+
+<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+
+### Exercises:
+
+1. Use iwconfig to view all your wireless connections
+2. Use airmon-ng to place your Wi-Fi adapter into monitor mode
+3. Use airodump-ng to find all the APs and clients in your range
+4. Use Wireshark to filter out any traffic not coming from your Wi-Fi connection
+5. Use wash to find any devices using WPS in your range
+
+***
+
+## Chapter 6: Bluetooth Networks
 

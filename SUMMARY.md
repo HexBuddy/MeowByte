@@ -150,22 +150,7 @@
 
 ## 📡 Networking
 
-* [Networking For Hackers](networking/networking-for-hackers/README.md)
-  * [Network Basics](networking/networking-for-hackers/network-basics.md)
-  * [Sub-netting and CIDR](networking/networking-for-hackers/sub-netting-and-cidr.md)
-  * [Network Analysis](networking/networking-for-hackers/network-analysis.md)
-  * [Linux Firewalls](networking/networking-for-hackers/linux-firewalls.md)
-  * [Page 12](networking/networking-for-hackers/page-12.md)
-  * [Bluetooth Networks](networking/networking-for-hackers/bluetooth-networks.md)
-  * [Address Resolution Protocol (ARP)](networking/networking-for-hackers/address-resolution-protocol-arp.md)
-  * [Domain Name Service (DNS)](networking/networking-for-hackers/domain-name-service-dns.md)
-  * [Server Message Block (SMB)](networking/networking-for-hackers/server-message-block-smb.md)
-  * [SMTP](networking/networking-for-hackers/smtp.md)
-  * [SNMP](networking/networking-for-hackers/snmp.md)
-  * [HTTP](networking/networking-for-hackers/http.md)
-  * [Automobile Networks](networking/networking-for-hackers/automobile-networks.md)
-  * [SCADA/ICS Networks](networking/networking-for-hackers/scada-ics-networks.md)
-  * [Radio Frequency (RF) Networks](networking/networking-for-hackers/radio-frequency-rf-networks.md)
+* [Networking For Hackers](networking/networking-for-hackers.md)
 * [CCNA Prep](ccna-prep/introduction/README.md)
   * [Part 1 – Introduction to Networking](ccna-prep/introduction/part-1-introduction-to-networking.md)
   * [Part 2 – Implementing Ethernet LANs](ccna-prep/introduction/part-2-implementing-ethernet-lans.md)
