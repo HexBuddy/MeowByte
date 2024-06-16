@@ -516,7 +516,7 @@ In this chapter, we use two of the most popular network sniffer/analyzers: tcpdu
 
 ***
 
-### **5. tcpdump**
+### **tcpdump**
 
 `tcpdump` is a command-line packet analyzer tool. It captures and displays packet data for network traffic analysis.
 
@@ -574,8 +574,6 @@ kali > tcpdump 'tcp[tcpflags] == tcp-syn'
 ```bash
 kali > tcpdump host 192.168.0.114 and port 80
 ```
-
-***
 
 Now, let's connect to the Apache web server on our Kali machine from your Windows 7 system. First, start the Apache2 web server built into Kali.
 
@@ -638,7 +636,7 @@ kali > tcpdump ‘tcp[tcpflags]==tcp-urg’:
 
     <figure><img src="../../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
 
-### **6. Wireshark**
+### **Wireshark**
 
 Wireshark is a GUI-based network protocol analyzer that captures and interactively displays network traffic.
 
@@ -651,6 +649,66 @@ kali > wireshark
 * Select the network interface to capture traffic.
 * Use the filter bar to narrow down the packets of interest (e.g., `tcp`, `ip.addr == 192.168.1.107`).
 
+You're right; the initial summary omitted some specifics from your detailed text. Here's a revised, comprehensive version that includes all relevant parts, tables, commands, and examples:
+
+**Starting Wireshark** Upon opening, Wireshark asks you to choose a network interface:
+
+* For VMs, select `eth0`.
+* For physical machines with a wireless adapter, select `wlan0`. Identify the most active adapter for effective sniffing.
+
+**Packet Capture Format** Wireshark captures packets and stores them in `.pcap` format, used across the industry in tools like Snort and aircrack-ng.
+
+**Wireshark Interface**
+
+1. **Packet List Pane**: Displays real-time color-coded packet flow.
+2. **Packet Details Pane**: Shows headers of the selected packet.
+3. **Packet Bytes Pane**: Provides payload in hexadecimal (left) and ASCII (right).
+
+**Creating Filters** To manage traffic effectively, Wireshark supports various filters:
+
+**Protocol Filter**
+
+* **Example**: `tcp` (turns green if syntax is correct).
+* Apply by clicking the arrow next to the filter bar.
+
+**IP Address Filter**
+
+* **Example**: `ip.addr == 192.168.1.107`
+* Shows traffic involving the specified IP.
+
+**Port Filter**
+
+* **Example**: `tcp.dstport == 80`
+* Filters TCP traffic to port 80.
+
+**Payload Content Filter**
+
+* **Example**: `tcp contains facebook`
+* Filters packets with "facebook" in the payload.
+
+**Expression Window** For complex filtering:
+
+1. Click the **Expression** tab.
+2. Select a field, a relation (like ==, !=, >, <), and a value.
+
+**Examples**:
+
+* **TCP RST Flag**: `tcp.flags.rst == 1`
+
+**Following Streams** To trace a communication stream:
+
+1. Right-click a packet.
+2. Choose "Follow" > "TCP Stream."
+
+This shows the entire communication content in the stream, including ASCII and byte counts.
+
+**Statistics** Wireshark also provides statistical analysis:
+
+1. Click the **Statistics** tab.
+2.  Navigate to IPv4 Statistics > All Addresses.
+
+    This displays IP activity and basic statistics.
+
 Wireshark filtering examples:
 
 * Filter by protocol (TCP):
@@ -659,11 +717,15 @@ Wireshark filtering examples:
 tcp
 ```
 
+<figure><img src="../../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
+
 * Filter by IP address:
 
 ```plaintext
 ip.addr == 192.168.1.107
 ```
+
+<figure><img src="../../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
 
 * Filter by port:
 
@@ -671,49 +733,31 @@ ip.addr == 192.168.1.107
 tcp.dstport == 80
 ```
 
+<figure><img src="../../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
+
 * Filter for strings in payload:
 
 ```plaintext
 tcp contains facebook
 ```
 
-* Create filters using the Expression window.
+<figure><img src="../../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
+
+* Create filters using the Expression window:
+
+<figure><img src="../../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
+
 * Follow a TCP stream by right-clicking a packet and selecting `Follow` > `TCP Stream`.
+
+<figure><img src="../../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
+
+* This opens a pull-down window like that above. Click "Follow" and then "TCP Stream." :&#x20;
+
+<figure><img src="../../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
+
 * Obtain statistics via `Statistics` > `IPv4 Statistics` > `All Addresses`.
 
-#### Exercises
-
-1.  **Use `tcpdump` to filter out all traffic not coming or going to your IP address.**
-
-    ```bash
-    kali > ifconfig
-    ```
-
-    Identify your IP address (e.g., `192.168.1.100`), then:
-
-    ```bash
-    kali > tcpdump host 192.168.1.100
-    ```
-2.  **Connect to hackers-arise.com. Now use Wireshark to filter out any traffic not coming from the hackers-arise.com website.**
-
-    * Open Wireshark, start a capture, and visit `hackers-arise.com`.
-    * Apply a filter to display traffic from the domain.
-
-    ```plaintext
-    ip.src == <IP of hackers-arise.com>
-    ```
-
-    Identify the IP using a tool like `nslookup` or from the capture itself.
-3.  **Use Wireshark to filter for traffic that has the word “hacker” in it.**
-
-    ```plaintext
-    tcp contains hacker
-    ```
-4.  **Use `netstat` to find all the connections to your system.**
-
-    ```bash
-    kali > netstat -a
-    ```
+<figure><img src="../../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -725,3 +769,138 @@ tcp contains facebook
 4. Use netstat to find all the connections to your system.
 
 ***
+
+## Chapter 4: Linux Firewalls
+
+### **Introduction to Linux Firewalls**
+
+Understanding networking and network packets is essential for securing your network. A firewall is a critical security measure that helps in protecting systems and networks from unauthorized access. Linux offers several firewall solutions that are cost-effective alternatives to commercial systems, provided you have the necessary knowledge and training.
+
+**Types of Firewalls**
+
+Firewalls can be either software or hardware-based:
+
+* **Hardware-based**: Used to protect entire networks and connected devices.
+* **Software-based**: Installed on individual systems to protect the host system.
+
+### **Iptables: Overview and Basics**
+
+Iptables is a powerful firewall utility for Linux and Unix-like operating systems. Developed by the Netfilter project, it has been part of the Linux kernel since January 2001. Iptables uses command-line tools to configure policy chains for filtering network traffic.
+
+<figure><img src="../../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
+
+**Key Concepts of Iptables**
+
+1. **Tables**: Organize functionalities such as packet filtering and NAT (Network Address Translation).
+   * **FILTER**: Default table for packet filtering.
+   * **NAT**: Handles source/destination packet rewriting.
+   * **MANGLE**: Alters packet headers.
+   * **RAW**: Configures exemptions from connection tracking.
+2. **Chains**: Lists of rules within tables:
+   * **INPUT**: Processes packets destined for the local system.
+   * **OUTPUT**: Manages packets leaving the local system.
+   * **FORWARD**: Handles packets being routed through the local system.
+3. **Matches and Targets**:
+   * **Matches**: Conditions that a packet must meet to trigger a rule.
+   * **Targets**: Actions applied to packets that meet a rule’s conditions.
+     * **ACCEPT**: Allows the packet to pass.
+     * **DROP**: Silently drops the packet.
+     * **REJECT**: Drops the packet and sends an error message.
+     * **LOG**: Logs the packet.
+     * **RETURN**: Exits the current chain to the calling chain.
+
+**Installing Iptables**
+
+Iptables is typically pre-installed on Linux and Unix systems. If not, you can install it via package management tools like `apt`:
+
+```bash
+sudo apt install iptables
+```
+
+**Configuring Default Policies**
+
+Before setting rules, determine the default action for packets that don’t match any rules:
+
+```bash
+sudo iptables -L
+```
+
+<figure><img src="../../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
+
+Most systems default to `ACCEPT` for ease of connectivity, though for enhanced security, `DROP` may be considered.
+
+### **Basic Iptables Commands**
+
+*   **Appending a Rule**: Block packets from a specific IP (`192.168.1.102`):
+
+    ```bash
+    sudo iptables -A INPUT -s 192.168.1.102 -j DROP
+    ```
+*   **Blocking an Entire Subnet**: Using CIDR notation (`192.168.1.0/24`):
+
+    ```bash
+    sudo iptables -A INPUT -s 192.168.1.0/24 -j DROP
+    ```
+*   **Blocking a Specific Port**: For example, block SSH (`tcp` protocol on port `22`):
+
+    ```bash
+    sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+    ```
+*   **Allowing Outbound Connections**: Permit access to `amazon.com`:
+
+    ```bash
+    sudo iptables -A OUTPUT -p tcp -d amazon.com -j ACCEPT
+    ```
+*   **Blocking HTTP and HTTPS**: Prevent outbound access on ports `80` and `443`:
+
+    ```bash
+    sudo iptables -A OUTPUT -p tcp --dport 80 -j DROP
+    sudo iptables -A OUTPUT -p tcp --dport 443 -j DROP
+    ```
+
+### **Advanced Iptables Techniques**
+
+1.  **Stateful Firewalling**: Use `-m state` to maintain stateful packet inspection:
+
+    ```bash
+    sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+    ```
+
+    This rule allows incoming packets that are part of established connections or related to established connections.
+2.  **Logging**: Use `LOG` target to log packets matching a rule:
+
+    ```bash
+    sudo iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix "SSH Access: "
+    ```
+
+    This logs attempts to access SSH.
+3.  **Limiting Rules**: Use `--limit` to rate-limit rule matches:
+
+    ```bash
+    sudo iptables -A INPUT -p tcp --syn --dport 80 -m limit --limit 5/s -j ACCEPT
+    ```
+
+    This limits incoming HTTP SYN packets to 5 per second.
+4.  **Network Address Translation (NAT)**: Use NAT table (`-t nat`) to modify IP addresses and ports in packet headers:
+
+    ```bash
+    sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+    ```
+
+    This command performs NAT on outgoing packets on `eth0`.
+
+**Managing Rules**
+
+* **Order of Rules**: Rules are processed in order; ensure specific rules precede more general ones.
+* **Viewing Rules**: Use `-L` to list current rules and `-F` to flush (delete) all rules.
+
+**Exercises**
+
+1. Create a firewall allowing access only to `hackers-arise.com` on ports `80` and `443`.
+2. Add a rule to block port `445`.
+3. Flush all rules to reset iptables configuration.
+
+***
+
+## Chapter 5: Wi-Fi Networks (802.11)
+

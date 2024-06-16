@@ -182,9 +182,11 @@
   * [Part 13 – Network Automation](ccna-prep/introduction/part-13-network-automation.md)
 * [Network Security Checklist](ccna-prep/network-security-checklist.md)
 
-## Windows Forensics Notes
+## 🔬 Forensics
 
-* [Practical Windows Forensics - TCM Security](windows-forensics-notes/practical-windows-forensics-tcm-security.md)
+* [Windows Forensics](forensics/windows-forensics/README.md)
+  * [User Data Collection](forensics/windows-forensics/user-data-collection.md)
+  * [Windows Event Logs](forensics/windows-forensics/windows-event-logs.md)
 
 ## 💾 Hardware
 
