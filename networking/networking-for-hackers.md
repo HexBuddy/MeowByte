@@ -20,7 +20,7 @@ Join me as we uncover these essential topics to empower your understanding and s
 3. [Network Analysis](networking-for-hackers.md#chapter-3-network-analysis)
 4. [Linux Firewalls](networking-for-hackers.md#chapter-4-linux-firewalls)
 5. [Wi-Fi Networks and Hacking](networking-for-hackers.md#chapter-5-wi-fi-networks-802.11)
-6. Bluetooth Networks
+6. [Bluetooth Networks](networking-for-hackers.md#chapter-6-bluetooth-networks)
 7. Address Resolution Protocol (ARP)
 8. Domain Name Service (DNS)
 9. Server Message Block (SMB)
@@ -1632,5 +1632,130 @@ It's equally important to know how to secure Bluetooth devices against attacks. 
 
 ***
 
+## Chapter 7: Address Resolution Protocol(ARP)
 
+#### Overview of ARP
+
+ARP maps IP addresses to MAC addresses, enabling devices like routers and switches to direct traffic. When a new device joins a network, ARP assigns it an IP address within the network's range.
+
+#### How ARP Works
+
+ARP operates at OSI Layers 2 (data link) and 3 (network), using simple request-response messages:
+
+* **Scenario:** Computer 1 (IP: 192.168.1.100) wants to send a packet to Computer 2 (IP: 192.168.1.101).
+* **Process:**
+  1. **ARP Request:** Computer 1 broadcasts an ARP request: "Who has 192.168.1.101?"
+  2. **ARP Reply:** Computer 2 responds with its MAC address (e.g., 11:22:33:44:55:66).
+  3. **Communication:** Computer 1 sends the packet to Computer 2's MAC address.
+
+#### ARP Command Usage
+
+**Windows:**
+
+```cmd
+> arp -a
+```
+
+Displays ARP table entries: IP address, Physical (MAC) address, and type (static/dynamic).
+
+**Linux (e.g., Kali):**
+
+```sh
+$ sudo arp -a
+```
+
+Displays ARP table entries similarly to Windows.
+
+#### Analyzing ARP Packets in Wireshark
+
+Wireshark filters and dissects ARP packets for detailed analysis:
+
+* **Filter ARP Packets:** `arp`
+* **Packet Details:** Reveals Sender and Target IP/MAC addresses, operation codes.
+
+#### ARP Vulnerabilities and Exploitation
+
+ARP vulnerabilities allow MiTM attacks:
+
+* **Tools for ARP Spoofing:**
+  1. **Ettercap:** Tool for ARP spoofing attacks.
+  2. **arpspoof:** Redirects traffic by forging ARP replies.
+  3. **driftnet:** Views intercepted images in network traffic.
+* **Mitigating ARP Spoofing:** Use static ARP entries, network segmentation, and detection tools.
+
+#### Metasploit Meterpreter and ARP
+
+Metasploit uses ARP for network discovery and exploitation:
+
+* **Metasploit Usage:** Utilizes ARP for network reconnaissance and pivoting post-exploitation.
+* **Post-Exploitation Modules:** Includes ARP spoofing modules for MiTM attacks.
+
+#### Manipulating ARP Cache
+
+**Windows:**
+
+```cmd
+> arp -s 192.168.1.101 00-11-22-33-44-55
+```
+
+Adds a static ARP cache entry mapping IP address 192.168.1.101 to MAC address 00-11-22-33-44-55.
+
+**Linux:**
+
+```sh
+$ sudo arp -s 192.168.1.101 00:11:22:33:44:55
+```
+
+Adds a static ARP cache entry in Linux.
+
+#### Analyzing ARP Packets in Wireshark
+
+Wireshark filters and dissects ARP packets for detailed analysis:
+
+* **Filter ARP Packets:** `arp`
+* **Packet Details:** Reveals Sender and Target IP/MAC addresses, operation codes.
+
+#### ARP for Reconnaissance
+
+Attackers exploit ARP's lack of authentication for network discovery and Man-in-the-Middle (MiTM) attacks:
+
+*   **Using `netdiscover` (Kali Linux):**
+
+    ```sh
+    $ sudo netdiscover -r 192.168.100.0/24
+    ```
+
+    Enumerates IP addresses, MAC addresses, and NIC vendors on the network.
+*   **ARP Scanning with `arp-scan`:**
+
+    ```sh
+    $ sudo arp-scan --localnet
+    ```
+
+    Scans local network for live hosts and displays their IP and MAC addresses.
+
+#### ARP Cache Poisoning (ARP Spoofing)
+
+ARP vulnerabilities allow MiTM attacks:
+
+* **Tools for ARP Spoofing:**
+  1. **Ettercap:** Tool for ARP spoofing attacks.
+  2. **arpspoof:** Redirects traffic by forging ARP replies.
+  3. **driftnet:** Views intercepted images in network traffic.
+* **Mitigating ARP Spoofing:** Use static ARP entries, network segmentation, and detection tools.
+
+#### Metasploit Meterpreter and ARP
+
+Metasploit uses ARP for network discovery and exploitation:
+
+* **Metasploit Usage:** Utilizes ARP for network reconnaissance and pivoting post-exploitation.
+* **Post-Exploitation Modules:** Includes ARP spoofing modules for MiTM attacks.
+
+#### Exercises
+
+1. **ARP Table Analysis:** Use `arp` command to view and analyze ARP table entries.
+2. **Network Discovery:** Employ `netdiscover` to scan and identify devices on your LAN.
+3. **Packet Analysis:** Create Wireshark filters to examine ARP packets within specific IP ranges.
+
+***
 
