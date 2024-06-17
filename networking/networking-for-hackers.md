@@ -22,8 +22,8 @@ Join me as we uncover these essential topics to empower your understanding and s
 5. [Wi-Fi Networks and Hacking](networking-for-hackers.md#chapter-5-wi-fi-networks-802.11)
 6. [Bluetooth Networks](networking-for-hackers.md#chapter-6-bluetooth-networks)
 7. [Address Resolution Protocol (ARP)](networking-for-hackers.md#chapter-7-address-resolution-protocol-arp)
-8. Domain Name Service (DNS)
-9. Server Message Block (SMB)
+8. [Domain Name Service (DNS)](networking-for-hackers.md#chapter-8-domain-name-service-dns)
+9. [Server Message Block (SMB)](networking-for-hackers.md#chapter-9-server-message-block-smb)
 10. SMTP
 11. SNMP
 12. HTTP
