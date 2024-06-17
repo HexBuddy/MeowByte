@@ -251,7 +251,7 @@ Winlogon is the only process that intercepts login requests from the keyboard se
 
 [Local Security Authority Subsystem Service](https://en.wikipedia.org/wiki/Local\_Security\_Authority\_Subsystem\_Service) (`LSASS`) is a collection of many modules and has access to all authentication processes that can be found in `%SystemRoot%\System32\Lsass.exe`. This service is responsible for the local system security policy, user authentication, and sending security audit logs to the `Event log`. In other words, it is the vault for Windows-based operating systems, and we can find a more detailed illustration of the LSASS architecture [here](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-2000-server/cc961760\(v=technet.10\)?redirectedfrom=MSDN).
 
-<table data-header-hidden><thead><tr><th width="252"></th><th></th></tr></thead><tbody><tr><td><strong>Authentication Packages</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Lsasrv.dll</code></td><td>The LSA Server service both enforces security policies and acts as the security package manager for the LSA. The LSA contains the Negotiate function, which selects either the NTLM or Kerberos protocol after determining which protocol is to be successful.</td></tr><tr><td><code>Msv1_0.dll</code></td><td>Authentication package for local machine logons that don't require custom authentication.</td></tr><tr><td><code>Samsrv.dll</code></td><td>The Security Accounts Manager (SAM) stores local security accounts, enforces locally stored policies, and supports APIs.</td></tr><tr><td><code>Kerberos.dll</code></td><td>Security package loaded by the LSA for Kerberos-based authentication on a machine.</td></tr><tr><td><code>Netlogon.dll</code></td><td>Network-based logon service.</td></tr><tr><td><code>Ntdsa.dll</code></td><td>This library is used to create new records and folders in the Windows registry.</td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="223"></th><th></th></tr></thead><tbody><tr><td><strong>Authentication Packages</strong></td><td><strong>Description</strong></td></tr><tr><td><code>Lsasrv.dll</code></td><td>The LSA Server service both enforces security policies and acts as the security package manager for the LSA. The LSA contains the Negotiate function, which selects either the NTLM or Kerberos protocol after determining which protocol is to be successful.</td></tr><tr><td><code>Msv1_0.dll</code></td><td>Authentication package for local machine logons that don't require custom authentication.</td></tr><tr><td><code>Samsrv.dll</code></td><td>The Security Accounts Manager (SAM) stores local security accounts, enforces locally stored policies, and supports APIs.</td></tr><tr><td><code>Kerberos.dll</code></td><td>Security package loaded by the LSA for Kerberos-based authentication on a machine.</td></tr><tr><td><code>Netlogon.dll</code></td><td>Network-based logon service.</td></tr><tr><td><code>Ntdsa.dll</code></td><td>This library is used to create new records and folders in the Windows registry.</td></tr></tbody></table>
 
 Source: [Microsoft Docs](https://docs.microsoft.com/en-us/windows-server/security/windows-authentication/credentials-processes-in-windows-authentication).
 
@@ -340,8 +340,6 @@ Rainbow table attacks involve using a pre-computed table of hashes and their cor
 ### Cracking Modes
 
 `Single Crack Mode` is one of the most common John modes used when attempting to crack passwords using a single password list. It is a brute-force attack, meaning all passwords on the list are tried, one by one, until the correct one is found. This method is the most basic and straightforward way of cracking passwords and is thus a popular choice for those wishing to gain access to a secure system. It is, however, far from the most efficient method since it can take an indefinite amount of time to crack a password, depending on the length and complexity of the password in question. The basic syntax for the command is:
-
-**Single Crack Mode**
 
 ```shell-session
 root@htb[/htb]$ john --format=<hash_type> <hash or hash_file>
@@ -458,8 +456,6 @@ Using this command we will read the hashes in the specified hash file and then g
 ### Cracking Files
 
 It is also possible to crack even password-protected or encrypted files with John. We use additional tools that process the given files and produce hashes that John can work with. It automatically detects the formats and tries to crack them. The syntax for this can look like this:
-
-**Cracking Files with John**
 
 ```shell-session
 cry0l1t3@htb:~$ <tool> <file_to_crack> > file.hash

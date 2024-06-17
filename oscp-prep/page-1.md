@@ -1,3 +1,0 @@
-# Modules Notes
-
-## Taking Notes in Progress...

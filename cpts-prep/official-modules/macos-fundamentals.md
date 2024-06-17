@@ -1460,7 +1460,7 @@ An important productivity rule states that we should always `automate repetitive
 
 The most powerful feature of Alfred is its [workflows](https://www.alfredapp.com/workflows/), which perform specific actions through the search bar and is an ideal way for macOS automation. Alfred provides a free store for all open-source workflows provided by the community, in which we can find many workflows that can automate many of the tasks we need or make it easier to perform other tasks:
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 For example, we can use the [calculate anything](https://github.com/biati-digital/alfred-calculate-anything) workflow to convert units right within the search bar, like currency, time, data, and most of the metric units. Best of all, Alfred allows us to program our own workflows through its easy-to-use editor, and we can follow its [documentation](https://www.alfredapp.com/help/workflows/) for more info on how to do that and may even use scripting languages within it, like `Bash`, `Python`, or `PHP`. Alfred workflows can be one of the easiest and best ways to automate repetitive tasks, like the custom directory creation we mentioned earlier.
 
