@@ -1638,7 +1638,7 @@ It's equally important to know how to secure Bluetooth devices against attacks. 
 
 ARP maps IP addresses to MAC addresses, enabling devices like routers and switches to direct traffic. When a new device joins a network, ARP assigns it an IP address within the network's range.
 
-#### How ARP Works
+### How ARP Works
 
 ARP operates at OSI Layers 2 (data link) and 3 (network), using simple request-response messages:
 
@@ -1648,7 +1648,7 @@ ARP operates at OSI Layers 2 (data link) and 3 (network), using simple request-r
   2. **ARP Reply:** Computer 2 responds with its MAC address (e.g., 11:22:33:44:55:66).
   3. **Communication:** Computer 1 sends the packet to Computer 2's MAC address.
 
-#### ARP Command Usage
+### ARP Command Usage
 
 **Windows:**
 
@@ -1690,7 +1690,7 @@ Metasploit uses ARP for network discovery and exploitation:
 * **Metasploit Usage:** Utilizes ARP for network reconnaissance and pivoting post-exploitation.
 * **Post-Exploitation Modules:** Includes ARP spoofing modules for MiTM attacks.
 
-#### Manipulating ARP Cache
+### Manipulating ARP Cache
 
 **Windows:**
 
@@ -1715,7 +1715,7 @@ Wireshark filters and dissects ARP packets for detailed analysis:
 * **Filter ARP Packets:** `arp`
 * **Packet Details:** Reveals Sender and Target IP/MAC addresses, operation codes.
 
-#### ARP for Reconnaissance
+### ARP for Reconnaissance
 
 Attackers exploit ARP's lack of authentication for network discovery and Man-in-the-Middle (MiTM) attacks:
 
@@ -1751,7 +1751,7 @@ Metasploit uses ARP for network discovery and exploitation:
 * **Metasploit Usage:** Utilizes ARP for network reconnaissance and pivoting post-exploitation.
 * **Post-Exploitation Modules:** Includes ARP spoofing modules for MiTM attacks.
 
-#### Exercises
+### Exercises
 
 1. **ARP Table Analysis:** Use `arp` command to view and analyze ARP table entries.
 2. **Network Discovery:** Employ `netdiscover` to scan and identify devices on your LAN.
@@ -2035,7 +2035,7 @@ meterpreter > getuid
 
 ***
 
-**Building a Samba Server in Kali Linux**
+### **Building a Samba Server in Kali Linux**
 
 SMB was initially developed by IBM and later adopted by Microsoft. Samba was created to emulate a Windows server on Linux/UNIX systems, enabling resource sharing with Windows systems.
 
@@ -2101,7 +2101,7 @@ To better understand SMB, we will install, configure, and implement Samba on a L
 
 SMB is a crucial protocol for file, port, printer, and named pipe sharing on many computer systems. Despite its importance, it is often poorly understood and appreciated, even by cybersecurity professionals. However, its vulnerabilities, exemplified by MS08-067 and EternalBlue, highlight the need for a thorough understanding to protect systems from attacks.
 
-**Exercises**
+### **Exercises**
 
 1. Build a SAMBA server for your domain.
 
