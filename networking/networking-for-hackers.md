@@ -1951,7 +1951,7 @@ SMB was first developed by IBM in the 1980s and later adopted and adapted by Mic
 
 **Evolution of SMB:**
 
-<table><thead><tr><th width="171">Version</th><th width="204">Release Year</th><th>Major Features</th></tr></thead><tbody><tr><td>SMB 1.0</td><td>1980s</td><td>Basic file sharing</td></tr><tr><td>CIFS</td><td>Early 1990s</td><td>Enhanced SMB for early Windows</td></tr><tr><td>SMB 2.0</td><td>2006</td><td>Improved performance, reduced chattiness</td></tr><tr><td>SMB 3.0</td><td>2012</td><td>Enhanced security, better performance, support for larger file sizes</td></tr></tbody></table>
+<table><thead><tr><th width="192">Version</th><th width="180">Release Year</th><th>Major Features</th></tr></thead><tbody><tr><td>SMB 1.0</td><td>1980s</td><td>Basic file sharing</td></tr><tr><td>CIFS</td><td>Early 1990s</td><td>Enhanced SMB for early Windows</td></tr><tr><td>SMB 2.0</td><td>2006</td><td>Improved performance, reduced chattiness</td></tr><tr><td>SMB 3.0</td><td>2012</td><td>Enhanced security, better performance, support for larger file sizes</td></tr></tbody></table>
 
 ***
 
