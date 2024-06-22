@@ -1,27 +1,12 @@
 ---
 description: >-
-  For Bug Bounty Hunters, Penetration Testers, Private Investigators and OSINT
-  Aggressors
+  This is the list of most interesting shodan dorks that you can use on
+  Shodan.io
 ---
 
-# Enumeration And Information Gathering
+# Top Shodan Dorks
 
-## **Active Infrastructure Identification** <a href="#active-infrastructure-identification" id="active-infrastructure-identification"></a>
-
-| Resource/Command                                                        | Description                                                |
-| ----------------------------------------------------------------------- | ---------------------------------------------------------- |
-| curl -I "http://${TARGET}"                                              | Display HTTP headers of the target webserver.              |
-| whatweb -a https://www.facebook.com -v                                  | Technology identification.                                 |
-| Wappalyzer                                                              | https://www.wappalyzer.com/                                |
-| wafw00f -v https://$TARGET                                              | WAF Fingerprinting.                                        |
-| Aquatone                                                                | https://github.com/michenriksen/aquatone                   |
-| cat subdomain.list \| aquatone -out ./aquatone -screenshot-timeout 1000 | Makes screenshots of all subdomains in the subdomain.list. |
-
-
-
-## Top Shodan Dorks
-
-### Cameras and Webcams
+## Cameras and Webcams
 
 webcamXP/webcam7:\
 `("webcam 7" OR "webcamXP") http.component:"mootools" -401`
@@ -51,10 +36,12 @@ Dahua Cameras:\
 `http.title:"WEB VIEW"`
 
 Some random webcams:\
-`http.title:"Webcam"`\
+`http.title:"Webcam"`
+
+\
 
 
-### Vulnerable Services / Servers
+## Vulnerable Services / Servers
 
 EternalBlue SMB RCE:\
 `os:"Windows 10 Home 19041`
@@ -74,9 +61,10 @@ Already Logged-In as root via Telnet:\
 No password for Telnet Access:\
 `port:23 console gateway`
 
+\
 
 
-### Other Services that you can find
+## Other Services that you can find
 
 OpenSSH:\
 `openssh port:22`
@@ -94,10 +82,11 @@ MongoDB #1:\
 `mongodb port:27017`
 
 MongoDB #2:\
-`product:"MongoDB"`\
+`product:"MongoDB"`
 
 
-### Interesting Things that you can find on Shodan
+
+## Interesting Things that you can find on Shodan
 
 RDP/VNC's WITHOUT AUTH:\
 `"authentication disabled" "RFB 003.008"`\

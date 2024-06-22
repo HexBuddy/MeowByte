@@ -110,6 +110,7 @@
 
 ## 🕸️ Web Security
 
+* [Top Shodan Dorks](web-security/top-shodan-dorks.md)
 * [Enumeration And Information Gathering](web-security/enumeration-and-information-gathering.md)
 * [Attacking Web Applications](web-security/attacking-web-applications/README.md)
   * [Mindset and Methodologies](web-security/attacking-web-applications/mindset-and-methodologies.md)
