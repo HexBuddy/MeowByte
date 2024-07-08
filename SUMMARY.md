@@ -159,3 +159,4 @@
 ## 💀 ECU Tuning
 
 * [Pop and Bang](ecu-tuning/pop-and-bang.md)
+* [ECU Tuning Resources](ecu-tuning/ecu-tuning-resources.md)
