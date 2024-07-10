@@ -159,4 +159,9 @@
 ## 💀 ECU Tuning
 
 * [Pop and Bang](ecu-tuning/pop-and-bang.md)
+* [Page](ecu-tuning/page.md)
 * [ECU Tuning Resources](ecu-tuning/ecu-tuning-resources.md)
+
+***
+
+* [CSC303/EEN210: Digital Circuits Course Project](csc303-een210-digital-circuits-course-project.md)
