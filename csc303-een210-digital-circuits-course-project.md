@@ -191,9 +191,3 @@ $$
 * **Phase 4:** Submit hardware implementation and project report by 5/8/2024.
 
 ***
-
-#### **Conclusion**
-
-By following this guide, you will be able to design, test, and implement a functional Light Control System for a hospital room. This project will help you apply your knowledge of digital logic circuits and gain hands-on experience with both simulation software and hardware components.
-
-Feel free to reach out if you have any questions or need further assistance. Good luck with your project!
