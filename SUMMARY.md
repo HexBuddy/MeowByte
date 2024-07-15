@@ -108,25 +108,6 @@
   * [Detecting Windows Attacks with Splunk](htb-academy-notes/defensive-security-analyst-path/detecting-windows-attacks-with-splunk.md)
   * [Security Incident Reporting](htb-academy-notes/defensive-security-analyst-path/security-incident-reporting.md)
 
-## 🕸️ Web Security
-
-* [Top Shodan Dorks](web-security/top-shodan-dorks.md)
-* [Enumeration And Information Gathering](web-security/enumeration-and-information-gathering.md)
-* [Attacking Web Applications](web-security/attacking-web-applications/README.md)
-  * [Mindset and Methodologies](web-security/attacking-web-applications/mindset-and-methodologies.md)
-  * [Toolset for Web Attacks and Exploitation](web-security/attacking-web-applications/toolset-for-web-attacks-and-exploitation.md)
-  * [Attacking the Authentication Layer – a SAML Use Case](web-security/attacking-web-applications/attacking-the-authentication-layer-a-saml-use-case.md)
-  * [Attacking Internet-Facing Web Applications](web-security/attacking-web-applications/attacking-internet-facing-web-applications.md)
-  * [Attacking IoT Devices - Command Injection and Path Traversal](web-security/attacking-web-applications/attacking-iot-devices-command-injection-and-path-traversal.md)
-  * [Attacking Electron JavaScript Applications](web-security/attacking-web-applications/attacking-electron-javascript-applications.md)
-  * [Attacking Ethereum Smart Contracts](web-security/attacking-web-applications/attacking-ethereum-smart-contracts.md)
-  * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
-* [API Security](web-security/api-security/README.md)
-  * [API Security Fundamentals](web-security/api-security/api-security-fundamentals.md)
-  * [API Passive Reconnaissance](web-security/api-security/api-passive-reconnaissance.md)
-  * [Active Reconnaissance](web-security/api-security/active-reconnaissance.md)
-  * [Reverse Engineering an API](web-security/api-security/reverse-engineering-an-api.md)
-
 ## 📡 Networking
 
 * [Networking For Hackers](networking/networking-for-hackers.md)
@@ -145,6 +126,31 @@
   * [Part 12 – Network Architectures](ccna-prep/introduction/part-12-network-architectures.md)
   * [Part 13 – Network Automation](ccna-prep/introduction/part-13-network-automation.md)
 * [Network Security Checklist](ccna-prep/network-security-checklist.md)
+
+## 🐧 Linux
+
+* [Building Secure Linux Servers](linux/building-secure-linux-servers/README.md)
+  * [Initial Setup and Configuration](linux/building-secure-linux-servers/initial-setup-and-configuration.md)
+  * [User and Access Management](linux/building-secure-linux-servers/user-and-access-management.md)
+
+## 🕸️ Web Security
+
+* [Top Shodan Dorks](web-security/top-shodan-dorks.md)
+* [Enumeration And Information Gathering](web-security/enumeration-and-information-gathering.md)
+* [Attacking Web Applications](web-security/attacking-web-applications/README.md)
+  * [Mindset and Methodologies](web-security/attacking-web-applications/mindset-and-methodologies.md)
+  * [Toolset for Web Attacks and Exploitation](web-security/attacking-web-applications/toolset-for-web-attacks-and-exploitation.md)
+  * [Attacking the Authentication Layer – a SAML Use Case](web-security/attacking-web-applications/attacking-the-authentication-layer-a-saml-use-case.md)
+  * [Attacking Internet-Facing Web Applications](web-security/attacking-web-applications/attacking-internet-facing-web-applications.md)
+  * [Attacking IoT Devices - Command Injection and Path Traversal](web-security/attacking-web-applications/attacking-iot-devices-command-injection-and-path-traversal.md)
+  * [Attacking Electron JavaScript Applications](web-security/attacking-web-applications/attacking-electron-javascript-applications.md)
+  * [Attacking Ethereum Smart Contracts](web-security/attacking-web-applications/attacking-ethereum-smart-contracts.md)
+  * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
+* [API Security](web-security/api-security/README.md)
+  * [API Security Fundamentals](web-security/api-security/api-security-fundamentals.md)
+  * [API Passive Reconnaissance](web-security/api-security/api-passive-reconnaissance.md)
+  * [Active Reconnaissance](web-security/api-security/active-reconnaissance.md)
+  * [Reverse Engineering an API](web-security/api-security/reverse-engineering-an-api.md)
 
 ## 🔬 Forensics
 
