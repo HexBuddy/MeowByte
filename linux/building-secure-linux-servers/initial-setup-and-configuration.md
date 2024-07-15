@@ -15,37 +15,19 @@
 
 **Update and Upgrade the System**
 
-| Distribution   | Command                                      |
-| -------------- | -------------------------------------------- |
-| Debian/Ubuntu  | `sudo apt update && sudo apt upgrade -y`     |
-| Arch Linux     | `sudo pacman -Syu`                           |
-| CentOS/Red Hat | `sudo yum update -y` or `sudo dnf update -y` |
+<table><thead><tr><th width="217">Distribution</th><th>Command</th></tr></thead><tbody><tr><td>Debian/Ubuntu</td><td><code>sudo apt update &#x26;&#x26; sudo apt upgrade -y</code></td></tr><tr><td>Arch Linux</td><td><code>sudo pacman -Syu</code></td></tr><tr><td>CentOS/Red Hat</td><td><code>sudo yum update -y</code> or <code>sudo dnf update -y</code></td></tr></tbody></table>
 
 **Install Essential Packages**
 
-| Distribution   | Command                                      |
-| -------------- | -------------------------------------------- |
-| Debian/Ubuntu  | `sudo apt install vim git curl net-tools -y` |
-| Arch Linux     | `sudo pacman -S vim git curl net-tools`      |
-| CentOS/Red Hat | `sudo yum install vim git curl net-tools -y` |
-| CentOS/Red Hat | `sudo dnf install vim git curl net-tools -y` |
+<table><thead><tr><th width="240">Distribution</th><th>Command</th></tr></thead><tbody><tr><td>Debian/Ubuntu</td><td><code>sudo apt install vim git curl net-tools -y</code></td></tr><tr><td>Arch Linux</td><td><code>sudo pacman -S vim git curl net-tools</code></td></tr><tr><td>CentOS/Red Hat</td><td><code>sudo yum install vim git curl net-tools -y</code></td></tr><tr><td>CentOS/Red Hat</td><td><code>sudo dnf install vim git curl net-tools -y</code></td></tr></tbody></table>
 
 **Create a Non-Root User**
 
-| Distribution   | Command                           |
-| -------------- | --------------------------------- |
-| Debian/Ubuntu  | `sudo adduser username`           |
-|                | `sudo usermod -aG sudo username`  |
-| Arch Linux     | `sudo useradd -m username`        |
-|                | `sudo passwd username`            |
-|                | `sudo usermod -aG wheel username` |
-| CentOS/Red Hat | `sudo useradd -m username`        |
-|                | `sudo passwd username`            |
-|                | `sudo usermod -aG wheel username` |
+<table><thead><tr><th width="313">Distribution</th><th>Command</th></tr></thead><tbody><tr><td>Debian/Ubuntu</td><td><code>sudo adduser username</code></td></tr><tr><td></td><td><code>sudo usermod -aG sudo username</code></td></tr><tr><td>Arch Linux</td><td><code>sudo useradd -m username</code></td></tr><tr><td></td><td><code>sudo passwd username</code></td></tr><tr><td></td><td><code>sudo usermod -aG wheel username</code></td></tr><tr><td>CentOS/Red Hat</td><td><code>sudo useradd -m username</code></td></tr><tr><td></td><td><code>sudo passwd username</code></td></tr><tr><td></td><td><code>sudo usermod -aG wheel username</code></td></tr></tbody></table>
 
 **Secure SSH Access**
 
-<table><thead><tr><th width="310">Distribution</th><th>Command</th></tr></thead><tbody><tr><td>All</td><td><code>sudo vim /etc/ssh/sshd_config</code></td></tr><tr><td></td><td>Change <code>Port</code> and <code>PermitRootLogin</code> settings</td></tr><tr><td>All</td><td><code>sudo systemctl restart ssh</code></td></tr></tbody></table>
+<table><thead><tr><th width="256">Distribution</th><th>Command</th></tr></thead><tbody><tr><td>All</td><td><code>sudo vim /etc/ssh/sshd_config</code></td></tr><tr><td></td><td>Change <code>Port</code> and <code>PermitRootLogin</code> settings</td></tr><tr><td>All</td><td><code>sudo systemctl restart ssh</code></td></tr></tbody></table>
 
 ***
 
@@ -338,5 +320,3 @@ ansible-playbook -i inventory.ini setup.yml
 Using Ansible for configuration management helps automate and ensure consistency across your servers.
 
 ***
-
-By following the practical steps and commands provided in this chapter, you can set up and configure your Linux server securely and efficiently. Each section builds on the previous one, creating a comprehensive approach to initial server setup and configuration.

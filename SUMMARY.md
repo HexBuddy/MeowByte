@@ -131,7 +131,6 @@
 
 * [Building Secure Linux Servers](linux/building-secure-linux-servers/README.md)
   * [Initial Setup and Configuration](linux/building-secure-linux-servers/initial-setup-and-configuration.md)
-  * [User and Access Management](linux/building-secure-linux-servers/user-and-access-management.md)
 
 ## 🕸️ Web Security
 
