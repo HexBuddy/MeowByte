@@ -137,6 +137,7 @@
   * [Intrusion Detection and Prevention](linux/building-secure-linux-servers/intrusion-detection-and-prevention.md)
   * [Application and Service Hardening](linux/building-secure-linux-servers/application-and-service-hardening.md)
   * [Encryption and Secure Communication](linux/building-secure-linux-servers/encryption-and-secure-communication.md)
+* [Arch Linux on Google Drive](linux/arch-linux-on-google-drive.md)
 
 ## 🕸️ Web Security
 
@@ -169,4 +170,3 @@
 ***
 
 * [CSC303/EEN210: Digital Circuits Course Project](csc303-een210-digital-circuits-course-project.md)
-* [Arch Linux on Google Drive](arch-linux-on-google-drive.md)
