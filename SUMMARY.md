@@ -131,6 +131,12 @@
 
 * [Building Secure Linux Servers](linux/building-secure-linux-servers/README.md)
   * [Initial Setup and Configuration](linux/building-secure-linux-servers/initial-setup-and-configuration.md)
+  * [User and Access Management](linux/building-secure-linux-servers/user-and-access-management.md)
+  * [SSH and Remote Access Security](linux/building-secure-linux-servers/ssh-and-remote-access-security.md)
+  * [Firewall and Network Security](linux/building-secure-linux-servers/firewall-and-network-security.md)
+  * [Intrusion Detection and Prevention](linux/building-secure-linux-servers/intrusion-detection-and-prevention.md)
+  * [Application and Service Hardening](linux/building-secure-linux-servers/application-and-service-hardening.md)
+  * [Encryption and Secure Communication](linux/building-secure-linux-servers/encryption-and-secure-communication.md)
 
 ## 🕸️ Web Security
 
