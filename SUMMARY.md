@@ -157,12 +157,6 @@
   * [Active Reconnaissance](web-security/api-security/active-reconnaissance.md)
   * [Reverse Engineering an API](web-security/api-security/reverse-engineering-an-api.md)
 
-## 🔬 Forensics
-
-* [Windows Forensics](forensics/windows-forensics/README.md)
-  * [User Data Collection](forensics/windows-forensics/user-data-collection.md)
-  * [Windows Event Logs](forensics/windows-forensics/windows-event-logs.md)
-
 ## 💾 Hardware
 
 * [SIM Card Analysis](hardware/sim-card-analysis.md)

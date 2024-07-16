@@ -24,12 +24,11 @@ Join me as we uncover these essential topics to empower your understanding and s
 7. [Address Resolution Protocol (ARP)](networking-for-hackers.md#chapter-7-address-resolution-protocol-arp)
 8. [Domain Name Service (DNS)](networking-for-hackers.md#chapter-8-domain-name-service-dns)
 9. [Server Message Block (SMB)](networking-for-hackers.md#chapter-9-server-message-block-smb)
-10. SMTP
-11. SNMP
-12. HTTP
-13. Automobile Networks
-14. SCADA/ICS Networks
-15. Radio Frequency (RF) Networks
+10. [SMTP](networking-for-hackers.md#chapter-9-server-message-block-smb)
+11. [SNMP](networking-for-hackers.md#chapter-11-simple-network-management-protocol-snmp)
+12. [HTTP](networking-for-hackers.md#chapter-12-http-protocol)
+13. [Automobile Networks](networking-for-hackers.md#chapter-13-automobile-networks)
+14. [SCADA/ICS Networks](networking-for-hackers.md#chapter-14-scada-ics-networks)
 
 ## References:
 
@@ -2286,7 +2285,7 @@ As you can see above, the system responded by informing us that the user is uid=
 
 ***
 
-## Chapter 11: **Simple Network Management Protocol (SNMP)**
+## Chapter 10: **Simple Network Management Protocol (SNMP)**
 
 The Simple Network Management Protocol, or SNMP, is among the least understood protocols, yet it is vitally important to the successful operation of your network. If an attacker can breach SNMP, they may be able to unmask your encrypted VPN communication (see NSA's ExtraBacon exploit here) and possibly control every device connected to your network.
 

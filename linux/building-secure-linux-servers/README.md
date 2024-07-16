@@ -140,34 +140,6 @@ Welcome to the comprehensive guide on **Building Secure Linux Servers**. In toda
 * Hardening the Linux Kernel: sysctl and More
 * Configuring Secure Boot on Linux Systems
 
-### **Web Server Security**
-
-* Hardening Apache/Nginx Web Servers
-* Configuring mod\_security for Apache
-* Setting Up Postfix with TLS for Secure Email
-* Dovecot Configuration for Secure IMAP/POP3
-* Setting Up a Secure DNS Server with BIND
-* Implementing DNSSEC for Domain Security
-* Setting Up a Secure FTP Server with vsftpd
-* Securing FTP with SSL/TLS Configuration
-* SFTP Server Setup for Secure File Transfer
-* Secure File Transfer and Backup with rsync
-* Hardening MySQL/MariaDB for Secure Database Servers
-* Database Encryption Techniques
-* Database Access Control Best Practices
-* Securing MongoDB: Configuration Tips
-* Hardening Redis: Configuration and Security
-* Installing and Using Let's Encrypt for SSL Certificates
-* Configuring SSL/TLS on Apache and Nginx
-* Enabling HTTP/2 for Security and Performance
-* Setting Up Content Security Policy (CSP) for Web Apps
-* Implementing Subresource Integrity (SRI)
-* Configuring Secure Headers in Web Servers
-* Enabling HSTS for HTTPS Security
-* Configuring HTTPS Redirects Properly
-* Using Fail2ban to Protect Web Servers
-* Setting Up a Secure Reverse Proxy with Nginx
-
 ### **Development and Code Security**
 
 * Setting Up a Secure Development Environment
