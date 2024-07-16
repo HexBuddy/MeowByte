@@ -6,8 +6,8 @@ description: Our Note Taking Corner...
 
 <3
 
-> ## **Authors:**
->
+## **Authors:**
+
 > ### **HexBuddy**
 >
 > **Instagram :** [**hex\_buddy**](https://www.instagram.com/hex\_buddy/)
