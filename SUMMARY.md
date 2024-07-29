@@ -1,6 +1,10 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [Me?... maybe idk](me-...-maybe-idk/README.md)
+  * [The "My Simulation"](me-...-maybe-idk/the-my-simulation.md)
+  * [Fake Alerts](me-...-maybe-idk/fake-alerts.md)
+  * [Me Kaczynski](me-...-maybe-idk/me-kaczynski.md)
 
 ## 🏛️ Elements Of Computing
 
