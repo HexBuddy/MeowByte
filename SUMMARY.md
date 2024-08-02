@@ -1,10 +1,6 @@
 # Table of contents
 
 * [Introduction](README.md)
-* [Me?... maybe idk](me-...-maybe-idk/README.md)
-  * [The "My Simulation"](me-...-maybe-idk/the-my-simulation.md)
-  * [Fake Alerts](me-...-maybe-idk/fake-alerts.md)
-  * [Me Kaczynski](me-...-maybe-idk/me-kaczynski.md)
 
 ## 🏛️ Elements Of Computing
 
@@ -154,12 +150,19 @@
   * [Attacking Electron JavaScript Applications](web-security/attacking-web-applications/attacking-electron-javascript-applications.md)
   * [Attacking Ethereum Smart Contracts](web-security/attacking-web-applications/attacking-ethereum-smart-contracts.md)
   * [Continuing the Journey of Vulnerability Discovery](web-security/attacking-web-applications/continuing-the-journey-of-vulnerability-discovery.md)
+  * [Top Shodan Dorks](web-security/attacking-web-applications/top-shodan-dorks.md)
 * [API Security](web-security/api-security/README.md)
   * [API Security Fundamentals](web-security/api-security/api-security-fundamentals.md)
   * [API Passive Reconnaissance](web-security/api-security/api-passive-reconnaissance.md)
   * [Active Reconnaissance](web-security/api-security/active-reconnaissance.md)
   * [Reverse Engineering an API](web-security/api-security/reverse-engineering-an-api.md)
-* [Top Shodan Dorks](web-security/top-shodan-dorks.md)
+* [Javascript for Hackers](web-security/javascript-for-hackers/README.md)
+  * [Introduction](web-security/javascript-for-hackers/introduction.md)
+  * [JavaScript Without Parentheses](web-security/javascript-for-hackers/javascript-without-parentheses.md)
+  * [Fuzzing](web-security/javascript-for-hackers/fuzzing.md)
+  * [DOM for Hackers](web-security/javascript-for-hackers/dom-for-hackers.md)
+  * [Browser Exploits](web-security/javascript-for-hackers/browser-exploits.md)
+  * [Prototype Pollution](web-security/javascript-for-hackers/prototype-pollution.md)
 
 ## 💾 Hardware
 
@@ -173,3 +176,5 @@
 ***
 
 * [CSC303/EEN210: Digital Circuits Course Project](csc303-een210-digital-circuits-course-project.md)
+
+## Programming
