@@ -162,6 +162,8 @@
   * [DOM for Hackers](web-security/javascript-for-hackers/dom-for-hackers.md)
   * [Browser Exploits](web-security/javascript-for-hackers/browser-exploits.md)
   * [Prototype Pollution](web-security/javascript-for-hackers/prototype-pollution.md)
+  * [Non-Alphanumeric JavaScript](web-security/javascript-for-hackers/non-alphanumeric-javascript.md)
+  * [XSS](web-security/javascript-for-hackers/xss.md)
 
 ## 💾 Hardware
 
