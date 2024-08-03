@@ -152,8 +152,6 @@ console.log(log);
 
 This reveals many characters, showing whitespace can occur between an identifier and parentheses. To thoroughly fuzz, test various positions and contexts of characters. If you find unexpected behavior, report it. Deviations could allow JavaScript sandbox escapes by fooling parsers into misinterpreting characters.
 
-You can also fuzz strings using character pairs, keeping operations fast. Slow performance arises with nested fuzzing, which may
-
-be required for multiple character sequences. Start with fewer iterations, then increase. While slower, nested fuzzing reveals unique issues. Generally, fuzzing single characters suffices.
+You can also fuzz strings using character pairs, keeping operations fast. Slow performance arises with nested fuzzing, which may be required for multiple character sequences. Start with fewer iterations, then increase. While slower, nested fuzzing reveals unique issues. Generally, fuzzing single characters suffices.
 
 ***

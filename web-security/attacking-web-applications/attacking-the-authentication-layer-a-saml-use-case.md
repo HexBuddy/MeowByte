@@ -27,6 +27,8 @@ Here’s a simplified overview of the SAML workflow for the Web Browser SSO Prof
 7. **SAML Response Verification**: The SP parses and verifies the SAML response.
 8. **Resource Access Grant**: If the response is valid, the SP grants the user access to the requested resource.
 
+<figure><img src="../../.gitbook/assets/image (153).png" alt=""><figcaption></figcaption></figure>
+
 ## Vulnerabilities in SAML
 
 SAML implementations can be vulnerable to several issues, particularly during the transmission and verification of SAML requests and responses. Key areas of vulnerability include:
@@ -125,7 +127,7 @@ services:
 
 Just Change the `ports` at the buttom from `8000:8000` to `8001:8000`
 
-### Configure the appliacion for each paragraph
+### Configure the application for each paragraph
 
 To configure the application use a different browser than the one you are using to do the tests and:
 
