@@ -2,6 +2,8 @@
 
 ## My Arabic/English thoughts on the The Incoherence of the Philosophers
 
+> _**Book Link :**_ [https://ia802704.us.archive.org/21/items/FP134971/134971.pdf](https://ia802704.us.archive.org/21/items/FP134971/134971.pdf)
+
 المنهج النقدي عند الغزالي كان شاملاً، حيث لم يقتصر شكه على مذهب أو فرقة واحدة، بل امتد ليشمل جميع المذاهب والفرق التي حددها بأصناف الطّالبين. كما وجه نقده إلى كل هذه المذاهب والفرق، بما في ذلك المتكلمين والفلاسفة والباطنية والصوفية. لكننا سنركز هنا على نقده للفلاسفة، لأنه الأكثر صلة بالدراسة ولأهمية هذا النقد في تاريخ الفلسفة. وقد أدى نقد الغزالي للفلاسفة إلى اعتقاد بعض الباحثين بأن الفلسفة ماتت وضاعت نتيجة لنقده.
 
 Al-Ghazali's critical approach was comprehensive, as his skepticism extended to all sects and philosophical schools, which he categorized according to the types of seekers. He directed his criticism at all these groups, including the theologians (mutakallimun), philosophers, esotericists (batiniyya), and mystics (Sufis). However, we will focus here on his critique of the philosophers, as this area is most relevant to the study and holds significant importance in the history of philosophy. Al-Ghazali's critique of the philosophers led some scholars to believe that philosophy in the Islamic world declined or even died as a result.
