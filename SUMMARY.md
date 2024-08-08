@@ -177,5 +177,4 @@
 ***
 
 * [CSC303/EEN210: Digital Circuits Course Project](csc303-een210-digital-circuits-course-project.md)
-
-## Programming
+* [Al-Ghazali's Critical Methodology](al-ghazalis-critical-methodology.md)
