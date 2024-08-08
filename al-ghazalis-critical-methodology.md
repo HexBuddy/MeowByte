@@ -1,3 +1,9 @@
+---
+cover: >-
+  https://images.unsplash.com/photo-1530549784468-814ad9b838b7?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw5fHxtdXNsaW0lMjBidWlsZGluZ3xlbnwwfHx8fDE3MjMxMzQ1ODh8MA&ixlib=rb-4.0.3&q=85
+coverY: 0
+---
+
 # Al-Ghazali's Critical Methodology
 
 ## My Arabic/English thoughts on the The Incoherence of the Philosophers
